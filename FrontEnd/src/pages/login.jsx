@@ -1,17 +1,10 @@
 import React from "react";
-import spotify from "../../public/spotifyBw.svg";
-import Main from "../components/login/main";
-import ContinueWith from "../components/login/continueWith";
-
-const bgStyle = {
-  widht: "100vw",
-  height: "100vh",
-};
+import Hero from "../components/login/hero.jsx";
 
 const Login = () => {
   return (
     <>
-      <Main />
+      <Hero />
     </>
   );
 };

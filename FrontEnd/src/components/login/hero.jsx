@@ -1,6 +1,13 @@
 import React from "react";
+import spotify from "../../../public/spotifyBw.svg";
+import ContinueWith from "./continueWith";
 
-const Main = () => {
+const bgStyle = {
+  widht: "100vw",
+  height: "100vh",
+};
+
+const Hero = () => {
   return (
     <div
       className="background bg-gradient-to-b from-[#2a2a2a] to-[#0e0e0e] flex justify-center items-center"
@@ -14,4 +21,4 @@ const Main = () => {
   );
 };
 
-export default Main;
+export default Hero;
