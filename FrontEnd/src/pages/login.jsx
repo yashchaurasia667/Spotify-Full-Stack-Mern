@@ -10,7 +10,7 @@ const Login = () => {
   return (
     <>
       <div
-        className="background bg-gradient-to-b from-[#2a2a2a] to-[#0e0e0e] flex justify-center items-center"
+        className="background bg-gradient-to-b from-[#2a2a2a] to-[#0e0e0e] flex flex-col items-center"
         style={bgStyle}
       >
         <Hero />
