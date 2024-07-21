@@ -1,10 +1,20 @@
 import React from "react";
 import Hero from "../components/login/hero.jsx";
 
+const bgStyle = {
+  widht: "100vw",
+  height: "100vh",
+};
+
 const Login = () => {
   return (
     <>
-      <Hero />
+      <div
+        className="background bg-gradient-to-b from-[#2a2a2a] to-[#0e0e0e] flex justify-center items-center"
+        style={bgStyle}
+      >
+        <Hero />
+      </div>
     </>
   );
 };
