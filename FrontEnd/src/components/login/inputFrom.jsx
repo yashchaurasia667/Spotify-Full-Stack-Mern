@@ -23,19 +23,8 @@ const InputFrom = () => {
     }
   };
 
-  const sliderStyle = {
-    position: "absolute",
-    cursor: "pointer",
-    top: "0",
-    left: "0",
-    right: "0",
-    bottom: "0",
-    backgroundColor: "#fff",
-    transition: ".4s",
-  };
-
   return (
-    <form action="" className="w-[65%] mx-auto">
+    <form action="" className="w-[90%] sm:w-[65%] mx-auto">
       <label className={labelClass}>Email or username</label>
       <input
         type="text"
@@ -52,7 +41,7 @@ const InputFrom = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Password"
-          className="bg-[#121212]"
+          className="bg-[#121212] focus:outline-none"
         />
         <span className="hover:cursor-pointer hover:" onClick={handleToggle}>
           {icon}
