@@ -3,6 +3,8 @@ import { useState } from "react";
 import { FaRegEyeSlash, FaRegEye } from "react-icons/fa";
 import ToggleSwitch from "./toggleSwitch";
 
+import colors from "../../styleSheets/colors"
+
 const InputFrom = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -11,7 +13,7 @@ const InputFrom = () => {
 
   const labelClass = "text-sm font-medium";
   const inputClass =
-    "bg-[#121212] border border-[#727272] rounded-[3px] hover:border-[#fff] focus-within:outline-none focus-within:border-white focus-within:border-[3px] mb-3 py-3 px-3 w-[100%] h-[50px] box-border placeholder:text-[#a7a7a7]";
+    `bg-[${colors.bgDark}] border border-[${colors.bgLight}] rounded-[3px] hover:border-[#fff] focus-within:outline-none focus-within:border-white focus-within:border-[3px] mb-3 px-3 w-[100%] h-[50px] box-border placeholder:text-[${colors.textGray}]`;
 
   const handleToggle = () => {
     if (type === "password") {
@@ -31,17 +33,17 @@ const InputFrom = () => {
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         placeholder="Email or username"
-        className={inputClass}
+        className={inputClass+'py-3'}
       />
 
       <label className={labelClass}>Password</label>
-      <div className={`${inputClass} flex justify-between items-center`}>
+      <div className={`${inputClass} flex items-center`}>
         <input
           type={type}
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Password"
-          className="bg-[#121212] focus:outline-none"
+          className={`bg-[${colors.bgDark}] w-[100%] h-[100%] focus:outline-none`}
         />
         <span className="hover:cursor-pointer hover:" onClick={handleToggle}>
           {icon}
