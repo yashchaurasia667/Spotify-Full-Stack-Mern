@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 import ContinueWith from "../global/continueWith";
@@ -12,6 +12,7 @@ import facebook from "../../assets/facebook.svg";
 
 const Hero = () => {
   const inputClass = `bg-[#121212] border border-[#727272] rounded-[3px] hover:border-[#fff] focus-within:outline-none focus-within:border-white focus-within:border-[3px] px-3 w-[100%] h-[50px] box-border placeholder:text-[#a7a7a7]`;
+  const [email, setEmail] = useState("");
   return (
     <div className="w-[500px] mx-auto text-white">
       <img src={spotify} alt="spotify logo" className="mx-auto scale-90" />
@@ -27,6 +28,8 @@ const Hero = () => {
           type="email"
           placeholder="name@domain.com"
           className={`email-input ${inputClass}`}
+          value={email}
+          onChange={(e)=> setEmail(e.target.value)}
         />
         <Link
           to={"/signup/phone"}
