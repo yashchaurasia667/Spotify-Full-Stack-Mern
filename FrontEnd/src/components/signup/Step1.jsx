@@ -1,21 +1,20 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import { Link } from "react-router-dom";
 
 import ContinueWith from "../global/continueWith";
 import DividerWithText from "../global/DividerWithText";
 import GreenButton from "../global/GreenButton";
 
-import spotify from "/spotifyBw.svg";
 import google from "../../assets/google.svg";
 import apple from "../../assets/apple.svg";
 import facebook from "../../assets/facebook.svg";
 
-const Hero = () => {
+const Step1 = () => {
   const inputClass = `bg-[#121212] border border-[#727272] rounded-[3px] hover:border-[#fff] focus-within:outline-none focus-within:border-white focus-within:border-[3px] px-3 w-[100%] h-[50px] box-border placeholder:text-[#a7a7a7]`;
   const [email, setEmail] = useState("");
+
   return (
-    <div className="w-[500px] mx-auto text-white">
-      <img src={spotify} alt="spotify logo" className="mx-auto scale-90" />
+    <>
       <p className="text-[44px] font-bold text-center leading-[48px] w-[390px] mx-auto">
         Sign up to start listening
       </p>
@@ -29,7 +28,7 @@ const Hero = () => {
           placeholder="name@domain.com"
           className={`email-input ${inputClass}`}
           value={email}
-          onChange={(e)=> setEmail(e.target.value)}
+          onChange={(e) => setEmail(e.target.value)}
         />
         <Link
           to={"/signup/phone"}
@@ -57,10 +56,13 @@ const Hero = () => {
         <DividerWithText />
       </div>
       <div className="text-center text-[#a7a7a7]">
-        Already have an account? <Link to={'/login'} className="text-white deocation underline">Log in here.</Link>
+        Already have an account?{" "}
+        <Link to={"/login"} className="text-white deocation underline">
+          Log in here.
+        </Link>
       </div>
-    </div>
+    </>
   );
 };
 
-export default Hero;
+export default Step1;
