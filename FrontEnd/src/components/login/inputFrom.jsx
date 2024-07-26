@@ -34,6 +34,7 @@ const InputFrom = () => {
       });
 
       const data = await res.json();
+      if (data) console.log(data);
     } catch (error) {
       throw new Error(`Something went wrong... ${error}`);
     }

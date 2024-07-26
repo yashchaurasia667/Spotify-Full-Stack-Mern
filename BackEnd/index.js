@@ -1,19 +1,19 @@
 import express from "express";
-import bodyParser from "body-parser";
-import cors from "cors";
 import mongoose from "mongoose";
+import authRoutes from "./routes/auth";
 
 const app = express();
 const PORT = process.env.PORT || 8000;
 const MONGO_URI = process.env.MONGO_URI;
 
-app.use(bodyParser.json());
-app.use(cors());
+app.use(express.json());
+app.use('/api/auth', authRoutes);
 
 try {
   mongoose.connect(MONGO_URI);
+  console.log(`Connected to MongoDB`);
 } catch (error) {
-  console.error(`Something went wrong... ${error}`);
+  console.error(`Error connecting to MongoDB... ${error}`);
 }
 
 app.post("/login", (req, res) => {
