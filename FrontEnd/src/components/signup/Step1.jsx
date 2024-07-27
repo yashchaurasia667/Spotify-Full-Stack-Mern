@@ -1,10 +1,12 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 import ContinueWith from "../global/continueWith";
 import DividerWithText from "../global/DividerWithText";
 import GreenButton from "../global/GreenButton";
+import Footer from "../global/Footer";
 
+import spotify from "/spotifyBw.svg";
 import google from "../../assets/google.svg";
 import apple from "../../assets/apple.svg";
 import facebook from "../../assets/facebook.svg";
@@ -14,7 +16,10 @@ const Step1 = () => {
   const [email, setEmail] = useState("");
 
   return (
-    <>
+    <div className="text-white w-[500px]">
+      <div className="bg-[#121212] grid grid-rows-1 items-center justify-center">
+        <img src={spotify} alt="Spofity logo" />
+      </div>
       <p className="text-[44px] font-bold text-center leading-[48px] w-[390px] mx-auto">
         Sign up to start listening
       </p>
@@ -61,7 +66,10 @@ const Step1 = () => {
           Log in here.
         </Link>
       </div>
-    </>
+      <div className="w-[300px] mx-auto">
+        <Footer />
+      </div>
+    </div>
   );
 };
 
