@@ -1,7 +1,7 @@
 import React from "react";
 
 import Step1 from "../components/signup/Step1";
-import Step2 from "../components/signup/Step2";
+import Step2 from "../components/signup/step2/Step2";
 
 const SignUp = () => {
   document.title = "Sign up - Spotify";
