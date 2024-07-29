@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { FaRegEyeSlash, FaRegEye } from "react-icons/fa";
 import PassRequirements from "./PassRequirements";
+import "./Password.css";
 
 const Password = () => {
   const [password, setPassword] = useState("");
@@ -9,6 +10,7 @@ const Password = () => {
   const [letter, setLetter] = useState("neutral");
   const [number, setNumber] = useState("neutral");
   const [len, setLen] = useState("neutral");
+  const passDiv = useRef();
 
   const handleToggle = () => {
     if (type === "password") {
@@ -22,15 +24,32 @@ const Password = () => {
 
   const checkPass = (pass) => {
     setPassword(pass);
-    pass.match(/[a-zA-Z]/) ? setLetter(true) : setLetter(false)
-    pass.match(/[\d\W]/) ? setNumber(true) : setNumber(false)
-    pass.length > 9 ? setLen(true) : setLen(false)
+    const letterCheck = pass.match(/[a-zA-Z]/);
+    const numberCheck = pass.match(/[\d\W]/);
+    const lenCheck = pass.length > 9;
+
+    letterCheck ? setLetter(true) : setLetter(false);
+    numberCheck ? setNumber(true) : setNumber(false);
+    lenCheck ? setLen(true) : setLen(false);
+
+    const passElement = passDiv.current.classList;
+    if (!(letterCheck && numberCheck && lenCheck)) {
+      if (passElement.contains("neutral")) {
+        passElement.remove("neutral");
+        passElement.add("error");
+      }
+    } else {
+      if (passElement.contains("error")) {
+        passElement.remove("error");
+        passElement.add("neutral");
+      }
+    }
   };
 
   return (
     <>
       <div className="text-sm font-semibold pb-1">Password</div>
-      <div className="border hover:border-[#fff] rounded-[4px] grid grid-cols-[9fr_1fr] h-[50px] items-center focus-within:outline-none focus-within:border-white focus-within:border-[3px]">
+      <div ref={passDiv} className="password-div neutral">
         <input
           type={type}
           value={password}
