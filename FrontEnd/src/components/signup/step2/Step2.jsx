@@ -1,6 +1,6 @@
-import React, { useState, useRef } from "react";
+import React from "react";
 
-import StepCounter from "./StepCounter";
+import StepCounter from "../StepCounter";
 import Password from "./Password";
 import GreenButton from "../../global/GreenButton";
 import Footer from "../../global/Footer";
