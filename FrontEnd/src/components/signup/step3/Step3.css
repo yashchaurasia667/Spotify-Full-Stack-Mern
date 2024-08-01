@@ -38,3 +38,23 @@
 .custom-radio-input:checked + .custom-radio-indicator::after {
   opacity: 1;
 }
+
+.name {
+  background-color: #121212;
+  border: 1px solid #727272;
+  border-radius: 4px;
+  padding: 0.80rem 1rem;
+}
+
+.name:hover {
+  border-color: #fff;
+}
+
+.name:focus-within {
+  border: 2px solid white;
+  outline: none;
+}
+
+.error, .error:hover, .error:focus-within {
+  border-color: #e91429;
+}

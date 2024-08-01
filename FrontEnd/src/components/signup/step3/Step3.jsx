@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
 import StepCounter from "../StepCounter";
 import GreenButton from "../../global/GreenButton";
+import Error from "./error";
 import "./Step3.css";
 
 import spotify from "/spotifyBw.svg";
@@ -10,13 +11,28 @@ import Footer from "../../global/Footer";
 
 const Step3 = () => {
   const [name, setName] = useState("");
-  const [year, setYear] = useState("yyyy");
+  const [year, setYear] = useState("");
   const [month, setMonth] = useState("Month");
   const [gender, setGender] = useState("");
+
+  const nameRef = useRef();
 
   const inputClass =
     "bg-[#121212] border border-[#727272] hover:border-[#fff] rounded-[4px] items-center focus-within:outline-none focus-within:border-white focus-within:border-[2px] px-4 py-3";
   const labelClass = "custom-radio-button flex gap-x-3 items-center my-1";
+
+  const checkName = (e) => {
+    setName(e);
+    const elm = nameRef.current;
+    if (!e) {
+      elm.classList.add("error");
+      elm.nextSibling.style.display = "flex";
+      return;
+    }
+    elm.classList.remove("error");
+    elm.nextSibling.style.display = "none";
+  };
+
   return (
     <>
       <div className="bg-[#121212] w-[500px] text-white">
@@ -24,7 +40,7 @@ const Step3 = () => {
           <img src={spotify} alt="Spofity logo" />
         </div>
         <StepCounter stepNo={2} stepName="Tell us about yourself" />
-        <div className="px-[95px]">
+        <div className="px-[90px]">
           <form className="flex flex-col">
             {/* Name Field */}
             <div className="text-sm font-semibold mt-3 w-[325px]">
@@ -35,9 +51,11 @@ const Step3 = () => {
               <input
                 type="text"
                 value={name}
-                onChange={(e) => setName(e.target.value)}
-                className={inputClass + " w-[100%]"}
+                ref={nameRef}
+                onChange={(e) => checkName(e.target.value)}
+                className={"name w-[100%]"}
               />
+              <Error content={"Enter a name for your profile."} />
             </div>
 
             {/* Date of birth field */}
@@ -55,6 +73,8 @@ const Step3 = () => {
                   type="number"
                   value={year}
                   placeholder="YYYY"
+                  min={1900}
+                  max={new Date().getFullYear()}
                   onChange={(e) => setYear(e.target.value)}
                   className={inputClass + " w-[95px] number"}
                 />

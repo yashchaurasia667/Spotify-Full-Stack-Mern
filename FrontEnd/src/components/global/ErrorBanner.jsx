@@ -5,8 +5,10 @@ const ErrorBanner = ({
   logo = <HiOutlineExclamationCircle className="scale-150" />,
   content = "",
   color = "#e91429",
+  textColor = "#121212",
 }) => {
   const styles = {
+    color: textColor,
     backgroundColor: color,
     fontWeight: "500",
     display: "grid",
