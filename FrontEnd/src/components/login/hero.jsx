@@ -38,7 +38,7 @@ const Hero = () => {
 
         <InputFrom />
         <div className="mt-[40px]" onClick={handleClick}>
-          <GreenButton content={"Log In"} />
+          <GreenButton content={"Log In"} className={'mx-auto sm:w-[65%]'} />
         </div>
 
         <div className="w-[100%] flex">

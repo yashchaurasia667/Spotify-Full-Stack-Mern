@@ -1,0 +1,40 @@
+.custom-radio-input {
+  display: none;
+}
+
+.custom-radio-indicator {
+  width: 15px;
+  height: 15px;
+  border: 1px solid #727272;
+  border-radius: 50%;
+  position: relative;
+  display: inline-block;
+  transition: background 0.2s ease;
+}
+
+.custom-radio-indicator:hover {
+  border-color: #1ed760;
+}
+
+.custom-radio-input:checked + .custom-radio-indicator {
+  background-color: #1ed760;
+  border-color: #1ed760;
+}
+
+.custom-radio-indicator::after {
+  content: "";
+  width: 7px;
+  height: 7px;
+  background: #121212;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0; 
+  transition: opacity 0.2s ease;
+}
+
+.custom-radio-input:checked + .custom-radio-indicator::after {
+  opacity: 1;
+}
