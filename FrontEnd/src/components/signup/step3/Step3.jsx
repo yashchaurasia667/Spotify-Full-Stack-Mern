@@ -13,9 +13,12 @@ const Step3 = () => {
   const [name, setName] = useState("");
   const [year, setYear] = useState("");
   const [month, setMonth] = useState("Month");
+  const [day, setDay] = useState("");
   const [gender, setGender] = useState("");
 
   const nameRef = useRef();
+  const yearRef = useRef();
+  const dayRef = useRef();
 
   const inputClass =
     "bg-[#121212] border border-[#727272] hover:border-[#fff] rounded-[4px] items-center focus-within:outline-none focus-within:border-white focus-within:border-[2px] px-4 py-3";
@@ -31,6 +34,24 @@ const Step3 = () => {
     }
     elm.classList.remove("error");
     elm.nextSibling.style.display = "none";
+  };
+
+  const checkYear = (e) => {
+    const elm = yearRef.current;
+    if (e <= 9999) {
+      setYear(e);
+      elm.classList.remove("error");
+    }
+    if (!e) elm.classList.add("error");
+  };
+
+  const checkDay = (e) => {
+    const elm = dayRef.current;
+    if (e <= 99) {
+      setDay(e);
+      elm.classList.remove("error");
+    }
+    if (!e) elm.classList.add("error");
   };
 
   return (
@@ -53,7 +74,7 @@ const Step3 = () => {
                 value={name}
                 ref={nameRef}
                 onChange={(e) => checkName(e.target.value)}
-                className={"name w-[100%]"}
+                className={"default w-[100%]"}
               />
               <Error content={"Enter a name for your profile."} />
             </div>
@@ -73,15 +94,16 @@ const Step3 = () => {
                   type="number"
                   value={year}
                   placeholder="YYYY"
-                  min={1900}
-                  max={new Date().getFullYear()}
-                  onChange={(e) => setYear(e.target.value)}
-                  className={inputClass + " w-[95px] number"}
+                  onChange={(e) => checkYear(e.target.value)}
+                  ref={yearRef}
+                  className={" w-[95px] default number"}
+                  required
                 />
                 <select
                   className={inputClass + " w-[150px]"}
                   value={month}
                   onChange={(e) => setMonth(e.target.value)}
+                  required
                 >
                   <option value="January">January</option>
                   <option value="Feburary">Feburary</option>
@@ -100,7 +122,11 @@ const Step3 = () => {
                 <input
                   type="number"
                   placeholder="dd"
-                  className={inputClass + " number w-[65px]"}
+                  value={day}
+                  ref={dayRef}
+                  onChange={(e) => checkDay(e.target.value)}
+                  className={"default number w-[65px]"}
+                  required
                 />
               </div>
             </div>

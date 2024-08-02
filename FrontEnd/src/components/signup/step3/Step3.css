@@ -39,18 +39,18 @@
   opacity: 1;
 }
 
-.name {
+.default {
   background-color: #121212;
   border: 1px solid #727272;
   border-radius: 4px;
   padding: 0.80rem 1rem;
 }
 
-.name:hover {
+.default:hover {
   border-color: #fff;
 }
 
-.name:focus-within {
+.default:focus-within {
   border: 2px solid white;
   outline: none;
 }
