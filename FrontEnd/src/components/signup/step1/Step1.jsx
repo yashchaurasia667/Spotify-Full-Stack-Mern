@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-import ContinueWith from "../global/continueWith";
-import DividerWithText from "../global/DividerWithText";
-import GreenButton from "../global/GreenButton";
-import Footer from "../global/Footer";
+import ContinueWith from "../../global/continueWith"
+import DividerWithText from "../../global/DividerWithText";
+import GreenButton from "../../global/GreenButton";
+import Footer from "../../global/Footer";
 
 import spotify from "/spotifyBw.svg";
-import google from "../../assets/google.svg";
-import apple from "../../assets/apple.svg";
-import facebook from "../../assets/facebook.svg";
+import google from "../../../assets/google.svg";
+import apple from  "../../../assets/apple.svg";
+import facebook from "../../../assets/facebook.svg";
 
 const Step1 = () => {
   const inputClass = `bg-[#121212] border border-[#727272] rounded-[3px] hover:border-[#fff] focus-within:outline-none focus-within:border-white focus-within:border-[3px] px-3 w-[100%] h-[50px] box-border placeholder:text-[#a7a7a7]`;

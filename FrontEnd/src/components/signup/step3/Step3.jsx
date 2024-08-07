@@ -105,7 +105,7 @@ const Step3 = () => {
                   onChange={(e) => setMonth(e.target.value)}
                   required
                 >
-                  <option value="January">January</option>
+                <option value="January">January</option>
                   <option value="Feburary">Feburary</option>
                   <option value="March">March</option>
                   <option value="April">April</option>
