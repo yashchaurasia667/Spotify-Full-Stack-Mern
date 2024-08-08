@@ -6,6 +6,7 @@ import spotify from "/spotifyBw.svg";
 import StepCounter from "../StepCounter";
 import GreenButton from "../../global/GreenButton";
 import Footer from "../../global/Footer";
+import "./step4.css";
 
 const Step4 = () => {
   return (
@@ -16,19 +17,17 @@ const Step4 = () => {
       <StepCounter stepNo={3} stepName="Terms & Conditions" />
       <div className="px-[90px] mt-5">
         <form className="flex flex-col gap-y-2">
-          <div className="bg-[#232323] py-5 px-4 rounded-[4px] flex gap-x-3 text-[14px] items-start">
-            <input type="checkbox" name="marketing" />
-            <label className="leading-5">
-              I would prefer not to receive marketing messages from Spotify
-            </label>
-          </div>
-          <div className="bg-[#232323] p-5 rounded-[4px] flex gap-x-3 text-[14px] items-start">
-            <input type="checkbox" name="marketing" />
-            <label className="leading-5">
-              Share my registration data with Spotify's content providers for
-              marketing purposes.
-            </label>
-          </div>
+          <label className="container">
+            I would prefer not to receive marketing messages from Spotify
+            <input type="checkbox" className="checkbox" name="marketing" />
+            <span className="checkmark"></span>
+          </label>
+          <label className="container">
+            Share my registration data with Spotify's content providers for
+            marketing purposes.
+            <input type="checkbox" className="checkbox" name="data" />
+            <span className="checkmark"></span>
+          </label>
         </form>
         <div className="text-sm mt-3">
           By clicking on 'Sign up', you agree to Spotify's{"  "}
@@ -46,7 +45,7 @@ const Step4 = () => {
           .
         </div>
       </div>
-      <GreenButton className="w-[65%] mt-8" content="Sign up" />
+      <GreenButton className="w-[62%] mt-8" content="Sign up" />
       <div className="w-[300px] mx-auto sm:absolute sm:bottom-0 sm:left-1/2 sm:-translate-x-1/2">
         <Footer />
       </div>

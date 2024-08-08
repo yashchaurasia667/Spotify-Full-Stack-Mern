@@ -44,7 +44,7 @@ const Step1 = () => {
       </div>
 
       <div className="mt-5">
-        <GreenButton content={"Next"} />
+        <GreenButton content={"Next"} className="w-[65%]" />
       </div>
 
       <div className="my-9">
