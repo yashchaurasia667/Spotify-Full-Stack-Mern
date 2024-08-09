@@ -45,7 +45,7 @@ const Step4 = () => {
           .
         </div>
       </div>
-      <GreenButton className="w-[62%] mt-8" content="Sign up" />
+      <GreenButton className="sm:w-[65%] mt-8" content="Sign up" />
       <div className="w-[300px] mx-auto sm:absolute sm:bottom-0 sm:left-1/2 sm:-translate-x-1/2">
         <Footer />
       </div>

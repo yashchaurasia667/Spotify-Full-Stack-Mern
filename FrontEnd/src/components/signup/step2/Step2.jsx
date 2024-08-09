@@ -20,7 +20,7 @@ const Step2 = () => {
       </div>
 
       <div className="mt-8 flex justify-center">
-        <GreenButton content={"Next"} />
+        <GreenButton content={"Next"} className="sm:w-[65%]" />
       </div>
 
       <div className="w-[300px] mx-auto absolute bottom-0 left-1/2 transform -translate-x-1/2">

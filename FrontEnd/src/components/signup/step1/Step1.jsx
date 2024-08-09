@@ -1,19 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 
-import ContinueWith from "../../global/continueWith"
+import ContinueWith from "../../global/continueWith";
 import DividerWithText from "../../global/DividerWithText";
 import GreenButton from "../../global/GreenButton";
 import Footer from "../../global/Footer";
 
+import SignupContext from "../../../context/signupContext/SignupContext";
+
 import spotify from "/spotifyBw.svg";
 import google from "../../../assets/google.svg";
-import apple from  "../../../assets/apple.svg";
+import apple from "../../../assets/apple.svg";
 import facebook from "../../../assets/facebook.svg";
 
 const Step1 = () => {
   const inputClass = `bg-[#121212] border border-[#727272] rounded-[3px] hover:border-[#fff] focus-within:outline-none focus-within:border-white focus-within:border-[3px] px-3 w-[100%] h-[50px] box-border placeholder:text-[#a7a7a7]`;
   const [email, setEmail] = useState("");
+  const { setStep } = useContext(SignupContext);
 
   return (
     <div className="text-white w-[500px]">
@@ -44,7 +47,7 @@ const Step1 = () => {
       </div>
 
       <div className="mt-5">
-        <GreenButton content={"Next"} className="w-[65%]" />
+        <GreenButton content={"Next"} className="sm:w-[65%]" />
       </div>
 
       <div className="my-9">

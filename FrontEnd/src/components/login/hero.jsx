@@ -15,10 +15,10 @@ const Hero = () => {
   const linkStyling = `mx-auto mt-8 hover:text-[#1fdf64] cursor-pointer text-center underline decoration-2`;
   const [display, setDispaly] = useState("hidden");
 
-  const handleClick= () => {
-    const button = document.querySelector(".submit")
-    button.click();
-  };
+  // const handleClick= () => {
+  //   const button = document.querySelector(".submit")
+  //   button.click();
+  // };
   return (
     <div
       className={`min-w-[100%] md:h-screen lg:min-w-[710px] h-[100%] lg:h-auto text-white bg-[#121212] rounded-[10px] flex flex-col items-center lg:mt-9 lg:mb-28`}
@@ -35,11 +35,7 @@ const Hero = () => {
         <ContinueWith logoPath={""} platformName={"Phone Number"} />
 
         <hr className="my-8 h-0.5 border-t-0 bg-neutral-100 dark:bg-white/10" />
-
         <InputFrom />
-        <div className="mt-[40px]" onClick={handleClick}>
-          <GreenButton content={"Log In"} className={'mx-auto sm:w-[65%]'} />
-        </div>
 
         <div className="w-[100%] flex">
           <Link to={"/forgot-password"} className={linkStyling}>
