@@ -1,10 +1,12 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useContext } from "react";
 import { FaRegEyeSlash, FaRegEye } from "react-icons/fa";
 import PassRequirements from "./PassRequirements";
+
 import "./Password.css";
+import SignupContext from "../../../context/signupContext/SignupContext";
 
 const Password = () => {
-  const [password, setPassword] = useState("");
+  const {password, setPassword} = useContext(SignupContext)
   const [type, setType] = useState("password");
   const [icon, setIcon] = useState(<FaRegEyeSlash />);
   const [letter, setLetter] = useState("neutral");

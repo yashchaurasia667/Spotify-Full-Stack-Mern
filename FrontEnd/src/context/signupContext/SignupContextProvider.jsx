@@ -4,7 +4,21 @@ import SignupContext from "./SignupContext";
 
 const SignupContextProvider = ({ children }) => {
   const [step, setStep] = useState(0);
-  return <SignupContext.Provider value={{step, setStep}}>{children}</SignupContext.Provider>;
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const value = {
+    step,
+    setStep,
+    email,
+    setEmail,
+    password,
+    setPassword,
+  };
+
+  return (
+    <SignupContext.Provider value={value}>{children}</SignupContext.Provider>
+  );
 };
 
 export default SignupContextProvider;
