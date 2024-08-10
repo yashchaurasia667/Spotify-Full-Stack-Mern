@@ -3,7 +3,9 @@ import { Link } from "react-router-dom";
 
 import StepCounter from "../StepCounter";
 import GreenButton from "../../global/GreenButton";
-import Error from "./error";
+import Error from "../../global/error";
+
+import "../../global/error.css";
 import "./Step3.css";
 
 import spotify from "/spotifyBw.svg";
@@ -74,7 +76,7 @@ const Step3 = () => {
                 value={name}
                 ref={nameRef}
                 onChange={(e) => checkName(e.target.value)}
-                className={"default w-[100%]"}
+                className={"neutral w-[100%]"}
               />
               <Error content={"Enter a name for your profile."} />
             </div>
@@ -96,7 +98,7 @@ const Step3 = () => {
                   placeholder="YYYY"
                   onChange={(e) => checkYear(e.target.value)}
                   ref={yearRef}
-                  className={" w-[95px] default number"}
+                  className={" w-[95px] neutral number"}
                   required
                 />
                 <select
@@ -105,7 +107,7 @@ const Step3 = () => {
                   onChange={(e) => setMonth(e.target.value)}
                   required
                 >
-                <option value="January">January</option>
+                  <option value="January">January</option>
                   <option value="Feburary">Feburary</option>
                   <option value="March">March</option>
                   <option value="April">April</option>
@@ -125,7 +127,7 @@ const Step3 = () => {
                   value={day}
                   ref={dayRef}
                   onChange={(e) => checkDay(e.target.value)}
-                  className={"default number w-[65px]"}
+                  className={"neutral number w-[65px]"}
                   required
                 />
               </div>

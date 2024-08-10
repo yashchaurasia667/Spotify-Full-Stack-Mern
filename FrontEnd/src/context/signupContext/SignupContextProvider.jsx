@@ -7,6 +7,10 @@ const SignupContextProvider = ({ children }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const validateEmail = (e) => {
+    return /^[\w\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,}$/.test(e);
+  };
+
   const value = {
     step,
     setStep,
@@ -14,6 +18,7 @@ const SignupContextProvider = ({ children }) => {
     setEmail,
     password,
     setPassword,
+    validateEmail,
   };
 
   return (

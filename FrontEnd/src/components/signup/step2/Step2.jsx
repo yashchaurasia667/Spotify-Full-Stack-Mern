@@ -1,13 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import StepCounter from "../StepCounter";
 import Password from "./Password";
 import GreenButton from "../../global/GreenButton";
 import Footer from "../../global/Footer";
 
+import SignupContext from "../../../context/signupContext/SignupContext";
+
 import spotify from "/spotifyBw.svg";
 
 const Step2 = () => {
+  const { setStep } = useContext(SignupContext);
+
   return (
     <div className="bg-[#121212] w-[500px] text-white min-h-screen relative">
       <div className="bg-[#121212] grid grid-rows-1 items-center justify-center">

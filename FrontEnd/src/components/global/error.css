@@ -22,4 +22,5 @@
 
 .error:focus-within {
   border-width: 3px;
+  border-color: #e91429;
 }

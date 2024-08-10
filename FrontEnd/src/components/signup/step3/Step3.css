@@ -39,22 +39,22 @@
   opacity: 1;
 }
 
-.default {
+.neutral {
   background-color: #121212;
   border: 1px solid #727272;
   border-radius: 4px;
   padding: 0.80rem 1rem;
 }
 
-.default:hover {
+.neutral:hover {
   border-color: #fff;
 }
 
-.default:focus-within {
+.neutral:focus-within {
   border: 2px solid white;
   outline: none;
 }
 
-.error, .error:hover, .error:focus-within {
+.error,.error:focus-within, .error:hover{
   border-color: #e91429;
 }

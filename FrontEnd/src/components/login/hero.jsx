@@ -15,10 +15,6 @@ const Hero = () => {
   const linkStyling = `mx-auto mt-8 hover:text-[#1fdf64] cursor-pointer text-center underline decoration-2`;
   const [display, setDispaly] = useState("hidden");
 
-  // const handleClick= () => {
-  //   const button = document.querySelector(".submit")
-  //   button.click();
-  // };
   return (
     <div
       className={`min-w-[100%] md:h-screen lg:min-w-[710px] h-[100%] lg:h-auto text-white bg-[#121212] rounded-[10px] flex flex-col items-center lg:mt-9 lg:mb-28`}
