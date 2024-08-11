@@ -1,26 +1,36 @@
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
 import StepCounter from "../StepCounter";
 import GreenButton from "../../global/GreenButton";
 import Error from "../../global/error";
+import Footer from "../../global/Footer";
+import SignupContext from "../../../context/signupContext/SignupContext";
 
 import "../../global/error.css";
 import "./Step3.css";
 
 import spotify from "/spotifyBw.svg";
-import Footer from "../../global/Footer";
 
 const Step3 = () => {
-  const [name, setName] = useState("");
-  const [year, setYear] = useState("");
-  const [month, setMonth] = useState("Month");
-  const [day, setDay] = useState("");
-  const [gender, setGender] = useState("");
+  const {
+    name,
+    setName,
+    year,
+    setYear,
+    month,
+    setMonth,
+    day,
+    setDay,
+    gender,
+    setGender,
+    setStep,
+  } = useContext(SignupContext);
 
   const nameRef = useRef();
   const yearRef = useRef();
   const dayRef = useRef();
+  const genderRef = useRef();
 
   const inputClass =
     "bg-[#121212] border border-[#727272] hover:border-[#fff] rounded-[4px] items-center focus-within:outline-none focus-within:border-white focus-within:border-[2px] px-4 py-3";
@@ -54,6 +64,16 @@ const Step3 = () => {
       elm.classList.remove("error");
     }
     if (!e) elm.classList.add("error");
+  };
+
+  const handleNext = () => {
+    if (name && year && day && gender) {
+      setStep(3);
+      return;
+    }
+    checkName(name);
+    checkYear(year);
+    checkDay(day);
   };
 
   return (
@@ -196,11 +216,18 @@ const Step3 = () => {
                   <span className="custom-radio-indicator"></span>
                   <span>Prefer not to say</span>
                 </label>
+                <div>
+                  <Error content="Please select a gender" />
+                </div>
               </div>
             </div>
           </form>
         </div>
-        <GreenButton content={"Next"} className={"mt-10 sm:w-[65%]"} />
+        <GreenButton
+          content={"Next"}
+          className={"mt-10 sm:w-[65%]"}
+          onClick={handleNext}
+        />
         <div className="w-[300px] mx-auto">
           <Footer />
         </div>

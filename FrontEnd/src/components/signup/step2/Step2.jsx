@@ -10,7 +10,16 @@ import SignupContext from "../../../context/signupContext/SignupContext";
 import spotify from "/spotifyBw.svg";
 
 const Step2 = () => {
-  const { setStep } = useContext(SignupContext);
+  const { setStep, password, checkPass } = useContext(SignupContext);
+
+  const handleNext = () => {
+    if (
+      password.match(/[a-zA-Z]/) &&
+      password.match(/[\d\W]/) &&
+      password.length > 9
+    )
+      return setStep(2);
+  };
 
   return (
     <div className="bg-[#121212] w-[500px] text-white min-h-screen relative">
@@ -24,7 +33,11 @@ const Step2 = () => {
       </div>
 
       <div className="mt-8 flex justify-center">
-        <GreenButton content={"Next"} className="sm:w-[65%]" />
+        <GreenButton
+          content={"Next"}
+          className="sm:w-[65%]"
+          onClick={handleNext}
+        />
       </div>
 
       <div className="w-[300px] mx-auto absolute bottom-0 left-1/2 transform -translate-x-1/2">

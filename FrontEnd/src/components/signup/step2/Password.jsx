@@ -52,12 +52,12 @@ const Password = () => {
   return (
     <>
       <div className="text-sm font-semibold pb-1">Password</div>
-      <div ref={passDiv} className="password-div neutral">
+      <div ref={passDiv} className="password-div neutral px-4">
         <input
           type={type}
           value={password}
           onChange={(e) => checkPass(e.target.value)}
-          className="bg-[#121212] w-[100%] h-[100%] px-4 focus:outline-none"
+          className="bg-[#121212] w-[100%] h-[100%] focus:outline-none"
           required
         />
         <span className="hover:cursor-pointer hover:" onClick={handleToggle}>

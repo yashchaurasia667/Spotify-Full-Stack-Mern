@@ -4,7 +4,15 @@ import SignupContext from "./SignupContext";
 
 const SignupContextProvider = ({ children }) => {
   const [step, setStep] = useState(0);
+
   const [email, setEmail] = useState("");
+
+  const [name, setName] = useState("");
+  const [year, setYear] = useState("");
+  const [month, setMonth] = useState("");
+  const [day, setDay] = useState("");
+  const [gender, setGender] = useState("");
+
   const [password, setPassword] = useState("");
 
   const validateEmail = (e) => {
@@ -19,6 +27,16 @@ const SignupContextProvider = ({ children }) => {
     password,
     setPassword,
     validateEmail,
+    name,
+    setName,
+    year,
+    setYear,
+    month,
+    setMonth,
+    day,
+    setDay,
+    gender,
+    setGender,
   };
 
   return (

@@ -36,9 +36,8 @@ const Step1 = () => {
   };
 
   const handleNext = () => {
-    if(validateEmail(email))
-      setStep(1)
-    checkEmail(email)
+    if (validateEmail(email)) setStep(1);
+    checkEmail(email);
   };
 
   return (
@@ -66,12 +65,15 @@ const Step1 = () => {
         />
         <div
           className={
-            "bg-[#121212] text-[#f15e6c] flex gap-x-2 items-center mt-2 mb-2 " +
-            error
+            "bg-[#121212] text-[#f15e6c] flex gap-x-2 mt-2 mb-2 " + error
           }
         >
-          <HiOutlineExclamationCircle className="scale-150" />
-          <p className="text-sm">{"Incorrect username or password."}</p>
+          <HiOutlineExclamationCircle className="scale-[175%]" />
+          <p className="text-sm font-medium">
+            {
+              "This email is invalid. Make sure it's written like example@email.com"
+            }
+          </p>
         </div>
         <Link
           to={"/signup/phone"}
@@ -81,12 +83,7 @@ const Step1 = () => {
         </Link>
       </div>
 
-      <div
-        className="mt-5"
-        onClick={() => {
-          handleNext();
-        }}
-      >
+      <div className="mt-5" onClick={() => handleNext()}>
         <GreenButton content={"Next"} className="sm:w-[65%]" />
       </div>
 
