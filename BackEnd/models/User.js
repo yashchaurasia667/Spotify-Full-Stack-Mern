@@ -1,31 +1,42 @@
 import mongoose from "mongoose";
-import bcrypt from "bcryptjs";
 
-const userSchema = new mongoose.Schema({
+const UserSchema = new mongoose.Schema({
   email: {
     type: String,
     required: true,
-    unique: true,
-    match: [/.+\@.+\..+/, "Please fill a valid email address"],
   },
   password: {
     type: String,
-    requried: true,
+    required: true,
+  },
+  name: {
+    type: String,
+    required: true,
+  },
+  year: {
+    type: Number,
+    required: true,
+    min: [1900, "Year must be atleast 1900"],
+    max: [
+      new Date().getFullYear(),
+      "You are too young to create a Spotify account.",
+    ],
+  },
+  month: {
+    type: Number,
+    required: true,
+    min: [1, "Select a month"],
+  },
+  day: {
+    type: Number,
+    required: true,
+    min: [1, "Year must be atleast 1900"],
+    max: [
+      31,
+      "Please enter the day of your birth date by entering a number between 1 and 31.",
+    ],
   },
 });
 
-userSchema.pre("save", async (next) => {
-  if (!this.isModified("password")) return next();
-
-  try {
-    const salt = await bcrypt.genSalt(10);
-    this.password = await bcrypt.hash(this.password, salt);
-    next();
-  } catch (err) {
-    next(err);
-  }
-});
-
-const User = mongoose.model('User', userSchema);
-
-export default User;
+const userModel = mongoose.model("Users", UserSchema);
+export default userModel;

@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 
 import ContinueWith from "../global/continueWith";
 import InputFrom from "./inputFrom";
-import GreenButton from "../global/GreenButton";
 import ErrorBanner from "../global/ErrorBanner";
 
 import spotify from "/spotifyBw.svg";
