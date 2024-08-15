@@ -51,7 +51,7 @@ const InputFrom = () => {
 
   return (
     <>
-      <form className="login w-[90%] sm:w-[65%] mx-auto">
+      <form className="login w-[90%] md:w-[45%] mx-auto">
         <label className={labelClass}>Email or username</label>
         <input
           type="text"
@@ -87,14 +87,11 @@ const InputFrom = () => {
           ref={submit}
         ></button>
       </form>
-      <div
-        className="mt-[40px]"
-        onClick={() => {
-          submit.current.click();
-        }}
-      >
-        <GreenButton content={"Log In"} className={"mx-auto sm:w-[65%]"} />
-      </div>
+      <GreenButton
+        content={"Log In"}
+        className={"w-[90%] md:w-[45%] mx-auto mt-10"}
+        onClick={() => submit.current.click()}
+      />
     </>
   );
 };

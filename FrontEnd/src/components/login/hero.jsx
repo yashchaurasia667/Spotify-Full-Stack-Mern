@@ -15,33 +15,34 @@ const Hero = () => {
   const [display, setDispaly] = useState("hidden");
 
   return (
-    <div className="md:w-[735px] w-[100%] h-screen text-white bg-[#121212] rounded-[10px] flex flex-col items-center mt-8">
+    <div className="md:w-[735px] w-[100%] md:mt-8 text-white bg-[#121212] rounded-[10px] flex flex-col items-center">
       <img src={spotify} className="scale-75" alt="Spotify Logo" />
-      <p className="text-[32px] font-semibold mb-10">Log in to Spotify</p>
+      <p className="text-[2rem] font-semibold mb-10">Log in to Spotify</p>
 
       <div className={`w-[88%] mb-5 ${display}`}>
         <ErrorBanner content="Incorrect username or password." />
       </div>
 
-      <div className="button-container w[100%]">
+      <div className="w-[100%] md:w-[350px]">
         <ContinueWith logoPath={google} platformName={"Google"} />
         <ContinueWith logoPath={facebook} platformName={"Facebook"} />
         <ContinueWith logoPath={apple} platformName={"Apple"} />
         <ContinueWith logoPath={""} platformName={"Phone Number"} />
-
-        <hr className="my-8 h-0.5 border-t-0 bg-neutral-100 dark:bg-white/10" />
-        <InputFrom />
-
-        <div className="w-[100%] flex">
-          <Link to={"/forgot-password"} className={linkStyling}>
-            Forgot you password?
-          </Link>
-        </div>
-
-        <hr className="my-8 h-0.5 border-t-0 bg-neutral-100 dark:bg-white/10" />
       </div>
 
-      <div className={`pb-16 text-[#a7a7a7] font-medium`}>
+      <hr className="my-8 h-0.5 border-t-0 bg-neutral-100 dark:bg-white/10" />
+
+      <InputFrom />
+
+      <div className="w-[100%] flex">
+        <Link to={"/forgot-password"} className={linkStyling}>
+          Forgot you password?
+        </Link>
+      </div>
+
+      <hr className="my-8 h-0.5 border-t-0 bg-neutral-100 dark:bg-white/10" />
+
+      <div className="pb-16 text-[#a7a7a7] font-medium">
         Don't have an account?
         <Link
           to={"/signup"}
