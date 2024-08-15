@@ -27,10 +27,11 @@ const Step3 = () => {
     setStep,
   } = useContext(SignupContext);
 
+  const [ageError, setAgeError] = useState("hidden");
+
   const nameRef = useRef();
   const yearRef = useRef();
   const dayRef = useRef();
-  const genderRef = useRef();
 
   const inputClass =
     "bg-[#121212] border border-[#727272] hover:border-[#fff] rounded-[4px] items-center focus-within:outline-none focus-within:border-white focus-within:border-[2px] px-4 py-3";
@@ -41,11 +42,11 @@ const Step3 = () => {
     const elm = nameRef.current;
     if (!e) {
       elm.classList.add("error");
-      elm.nextSibling.style.display = "flex";
+      elm.nextSibling.classList.remove("hidden");
       return;
     }
     elm.classList.remove("error");
-    elm.nextSibling.style.display = "none";
+    elm.nextSibling.classList.add("hidden");
   };
 
   const checkYear = (e) => {
@@ -66,7 +67,23 @@ const Step3 = () => {
     if (!e) elm.classList.add("error");
   };
 
+  const checkAge = (day, month, year) => {
+    const today = new Date();
+    let age = today.getFullYear() - year;
+
+    const bdayThisYear = new Date(today.getFullYear(), month - 1, day);
+
+    if (today < bdayThisYear) age--;
+
+    return age >= 13;
+  };
+
   const handleNext = () => {
+    if (!checkAge(day, month, year)) {
+      setAgeError("");
+      return;
+    }
+    setAgeError("hidden");
     if (name && year && day && gender) {
       setStep(3);
       return;
@@ -115,10 +132,10 @@ const Step3 = () => {
                 <input
                   type="number"
                   value={year}
-                  placeholder="YYYY"
+                  placeholder="yyyy"
                   onChange={(e) => checkYear(e.target.value)}
                   ref={yearRef}
-                  className={" w-[95px] neutral number"}
+                  className={"w-[95px] neutral number"}
                   required
                 />
                 <select
@@ -127,18 +144,18 @@ const Step3 = () => {
                   onChange={(e) => setMonth(e.target.value)}
                   required
                 >
-                  <option value="1">January</option>
-                  <option value="2">Feburary</option>
-                  <option value="3">March</option>
-                  <option value="4">April</option>
-                  <option value="5">May</option>
-                  <option value="6">June</option>
-                  <option value="7">July</option>
-                  <option value="8">August</option>
-                  <option value="9">September</option>
-                  <option value="10">October</option>
-                  <option value="11">November</option>
-                  <option value="12">December</option>
+                  <option value={1}>january</option>
+                  <option value={2}>feburary</option>
+                  <option value={3}>march</option>
+                  <option value={4}>april</option>
+                  <option value={5}>may</option>
+                  <option value={6}>june</option>
+                  <option value={7}>july</option>
+                  <option value={8}>august</option>
+                  <option value={9}>september</option>
+                  <option value={10}>october</option>
+                  <option value={11}>november</option>
+                  <option value={12}>December</option>
                 </select>
 
                 <input
@@ -151,6 +168,10 @@ const Step3 = () => {
                   required
                 />
               </div>
+              <Error
+                content={"You are too young to be using Spotify"}
+                className={ageError}
+              />
             </div>
 
             {/* Gender field */}
@@ -216,9 +237,6 @@ const Step3 = () => {
                   <span className="custom-radio-indicator"></span>
                   <span>Prefer not to say</span>
                 </label>
-                <div>
-                  <Error content="Please select a gender" />
-                </div>
               </div>
             </div>
           </form>

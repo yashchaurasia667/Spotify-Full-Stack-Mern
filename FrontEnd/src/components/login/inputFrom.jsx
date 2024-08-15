@@ -25,7 +25,6 @@ const InputFrom = () => {
   };
 
   const handleSubmit = async (e) => {
-    console.log('here')
     e.preventDefault();
     try {
       const res = await fetch("/api/login", {

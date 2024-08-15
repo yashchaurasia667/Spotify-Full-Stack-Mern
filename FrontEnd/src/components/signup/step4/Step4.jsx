@@ -1,14 +1,44 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 import spotify from "/spotifyBw.svg";
 
 import StepCounter from "../StepCounter";
 import GreenButton from "../../global/GreenButton";
 import Footer from "../../global/Footer";
+import SignupContext from "../../../context/signupContext/SignupContext";
 import "./step4.css";
 
 const Step4 = () => {
+  const navigate = useNavigate();
+
+  const handleSubmit = async () => {
+    const { email, password, name, year, month, day } =
+      useContext(SignupContext);
+    try {
+      const res = await fetch("/api/auth/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          password,
+          name,
+          year,
+          month,
+          day,
+        }),
+      });
+
+      const data = await res.json();
+      if(data.success) {
+        navigate('/')
+      }
+    } catch (error) {
+      console.error(`Failed to fetch from the Server ${error}`);
+    }
+  };
   return (
     <div className="bg-[#121212] w-[500px] text-white sm:h-screen relative">
       <div className="bg-[#121212] flex justify-center">
@@ -45,7 +75,7 @@ const Step4 = () => {
           .
         </div>
       </div>
-      <GreenButton className="sm:w-[65%] mt-8" content="Sign up" />
+      <GreenButton className="sm:w-[65%] mt-8" content="Sign up" onClick={handleSubmit} />
       <div className="w-[300px] mx-auto sm:absolute sm:bottom-0 sm:left-1/2 sm:-translate-x-1/2">
         <Footer />
       </div>
