@@ -1,5 +1,7 @@
 import React, { useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { FaRegEyeSlash, FaRegEye } from "react-icons/fa";
+
 import ToggleSwitch from "./toggleSwitch";
 import GreenButton from "../global/GreenButton";
 
@@ -14,6 +16,8 @@ const InputFrom = () => {
   const labelClass = "text-sm font-medium";
   const inputClass = `bg-[#121212] border border-[#727272] rounded-[3px] hover:border-[#fff] focus-within:outline-none focus-within:border-white focus-within:border-[3px] mb-3 px-3 w-[100%] h-[50px] box-border placeholder:text-[#a7a7a7]`;
 
+  const navigate = useNavigate();
+
   const handleToggle = () => {
     if (type === "password") {
       setIcon(<FaRegEye />);
@@ -27,7 +31,7 @@ const InputFrom = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch("/api/login", {
+      const res = await fetch("/api/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -36,7 +40,10 @@ const InputFrom = () => {
       });
 
       const data = await res.json();
-      if (data) console.log(data);
+      if (data.success) {
+        navigate("/");
+      }
+      console.log(data.message);
     } catch (error) {
       throw new Error(`Something went wrong... ${error}`);
     }
@@ -83,7 +90,6 @@ const InputFrom = () => {
       <div
         className="mt-[40px]"
         onClick={() => {
-          console.log(submit.current)
           submit.current.click();
         }}
       >

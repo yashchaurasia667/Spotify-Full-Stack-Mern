@@ -23,10 +23,7 @@ const signupValidation = (req, res, next) => {
 const loginValidation = (req, res, next) => {
   const schema = Joi.object({
     email: Joi.string().email().required(),
-    password: Joi.string()
-      .min(10)
-      .pattern(/[a-zA-Z][\d\W]/)
-      .required(),
+    password: Joi.string().required(),
   });
 
   const { error } = schema.validate(req.body);

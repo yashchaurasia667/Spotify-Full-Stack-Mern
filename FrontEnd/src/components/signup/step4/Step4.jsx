@@ -3,20 +3,20 @@ import { Link, useNavigate } from "react-router-dom";
 
 import spotify from "/spotifyBw.svg";
 
+import SignupContext from "../../../context/signupContext/SignupContext";
 import StepCounter from "../StepCounter";
 import GreenButton from "../../global/GreenButton";
 import Footer from "../../global/Footer";
-import SignupContext from "../../../context/signupContext/SignupContext";
+
 import "./step4.css";
 
 const Step4 = () => {
   const navigate = useNavigate();
+  const { email, password, name, year, month, day } = useContext(SignupContext);
 
   const handleSubmit = async () => {
-    const { email, password, name, year, month, day } =
-      useContext(SignupContext);
     try {
-      const res = await fetch("/api/auth/signup", {
+      const res = await fetch("http://localhost:8000/auth/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -32,7 +32,7 @@ const Step4 = () => {
       });
 
       const data = await res.json();
-      if(data.success) {
+      if (data.success) {
         navigate('/')
       }
     } catch (error) {
@@ -75,7 +75,11 @@ const Step4 = () => {
           .
         </div>
       </div>
-      <GreenButton className="sm:w-[65%] mt-8" content="Sign up" onClick={handleSubmit} />
+      <GreenButton
+        className="sm:w-[65%] mt-8"
+        content="Sign up"
+        onClick={handleSubmit}
+      />
       <div className="w-[300px] mx-auto sm:absolute sm:bottom-0 sm:left-1/2 sm:-translate-x-1/2">
         <Footer />
       </div>

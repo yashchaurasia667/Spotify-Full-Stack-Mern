@@ -43,7 +43,6 @@ const login = async (req, res) => {
   try {
     const { email, password } = req.body;
     const user = await UserModel.findOne({ email });
-    const errorMsg = "Incorrect username or password";
 
     if (!user) {
       return res.status(403).json({
@@ -55,7 +54,7 @@ const login = async (req, res) => {
     const isPassEqual = await bcrypt.compare(password, user.password);
     if (!isPassEqual) {
       return res.status(403).json({
-        message: errorMsg,
+        message:  "Incorrect username or password",
         success: false,
       });
     }
@@ -75,7 +74,6 @@ const login = async (req, res) => {
       message: "Internal server error",
       success: false,
     });
-    console.log(error);
   }
 };
 
