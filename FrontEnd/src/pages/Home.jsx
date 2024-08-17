@@ -1,18 +1,11 @@
 import React from "react";
 
-import {Link} from 'react-router-dom'
-import spotify from "/spotifyBw.svg";
+import Pages from "../components/home/Pages";
 
 const Home = () => {
   return (
-    <div className="bg-[#121212] text-white h-screen">
-      {/* Menu */}
-      <div>
-        <Link to="/" className="flex items-center">
-          <img src={spotify} className="scale-50" />
-          Spotify
-        </Link>
-      </div>
+    <div className="bg-[#000000] text-white p-[10px]">
+      <Pages />
     </div>
   );
 };
