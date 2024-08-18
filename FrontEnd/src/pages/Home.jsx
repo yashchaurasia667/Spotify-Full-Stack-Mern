@@ -1,11 +1,11 @@
 import React from "react";
 
-import Pages from "../components/home/Pages";
+import SideBar from "../components/home/sideBar/SideBar";
 
 const Home = () => {
   return (
     <div className="bg-[#000000] text-white p-[10px]">
-      <Pages />
+      <SideBar/>
     </div>
   );
 };
