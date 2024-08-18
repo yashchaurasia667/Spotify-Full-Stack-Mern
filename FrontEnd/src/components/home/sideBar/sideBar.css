@@ -31,15 +31,40 @@
 
 .library {
   margin-top: 10px;
-  padding: 20px;
+  padding: 20px 10px;
 }
 
-.library>div {
+.library .lib-bar {
   display: flex;
   justify-content: space-between;
+
+  padding: 0 10px;
+   margin-bottom: 30px;
 }
 
-.lib-bar {
+.bar-element {
   display: flex;
   column-gap: 1rem;
+  cursor: pointer;
+}
+
+.create-playlist-button {
+  color: black;
+  font-weight: 600;
+  font-size: 14px;
+
+  background-color: #fff;
+  border-radius: 99px;
+
+  padding: 0.25rem 1rem;
+  margin-top: 0.75rem
+}
+
+.create-playlist-button:hover {
+  padding: 0.30rem 1.15rem;
+  background-color: #f0f0f0;
+}
+
+.sidebar-footer {
+  padding: 0 10px;
 }
