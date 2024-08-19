@@ -6,7 +6,7 @@ import { GoGlobe } from "react-icons/go";
 import Card from "./Card";
 
 function Library() {
-  const linkStyle = "text-[12px] mx-3 text-[#a7a7a7]"
+  const linkStyle = "text-[12px] text-[#a7a7a7]"
   return (
     <div className="outer library">
       <div className="lib-bar">
@@ -50,6 +50,7 @@ function Library() {
           </div>
           <button>
             <GoGlobe />
+            English
           </button>
         </div>
       </div>

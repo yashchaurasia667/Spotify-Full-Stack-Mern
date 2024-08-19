@@ -3,10 +3,10 @@ import Pages from "./Pages";
 
 function SideBar() {
   return (
-    <>
+    <div>
       <Pages />
       <Library />
-    </>
+    </div>
   );
 }
 
