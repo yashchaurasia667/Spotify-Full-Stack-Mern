@@ -1,11 +1,15 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaRegEyeSlash, FaRegEye } from "react-icons/fa";
 
 import ToggleSwitch from "./toggleSwitch";
 import GreenButton from "../global/GreenButton";
 
+import SignupContext from "../../context/signupContext/SignupContext";
+
 const InputFrom = () => {
+  const { setLoggedIn } = useContext(SignupContext);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [type, setType] = useState("password");
@@ -41,6 +45,7 @@ const InputFrom = () => {
 
       const data = await res.json();
       if (data.success) {
+        setLoggedIn(true);
         navigate("/");
       }
       console.log(data.message);

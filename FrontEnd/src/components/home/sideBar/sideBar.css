@@ -1,3 +1,11 @@
+.sidebar {
+  display: grid;
+  grid-template-rows: auto auto;
+  row-gap: 10px;
+  margin: 0px 10px;
+  height: fit-content;
+}
+
 .outer {
   background-color: #121212;
   border-radius: 5px;
@@ -8,7 +16,6 @@
   display: grid;
   grid-template-rows: 3;
   row-gap: 18px;
-  margin: 10px;
   margin-top: 0;
 }
 
@@ -32,7 +39,7 @@
 }
 
 .library {
-  margin: 10px;
+  min-height: 450px;
   padding: 20px 10px;
 }
 
@@ -41,7 +48,7 @@
   justify-content: space-between;
 
   padding: 0 10px;
-   margin-bottom: 30px;
+  margin-bottom: 15px;
 }
 
 .bar-element {
@@ -50,7 +57,7 @@
   cursor: pointer;
 }
 
-.create-playlist-button {
+.white-card-button {
   color: black;
   font-weight: 600;
   font-size: 14px;
@@ -59,16 +66,17 @@
   border-radius: 99px;
 
   padding: 0.25rem 1rem;
-  margin-top: 0.75rem
+  margin-top: 0.75rem;
 }
 
-.create-playlist-button:hover {
-  padding: 0.30rem 1.15rem;
+.white-card-button:hover {
+  padding: 0.3rem 1.15rem;
   background-color: #f0f0f0;
 }
 
 .sidebar-footer {
-  padding: 2rem 10px;
+  padding: 1.4rem 10px;
+  grid-row: 2;
 }
 
 .sidebar-footer .policies {
@@ -76,7 +84,7 @@
   flex-wrap: wrap;
   column-gap: 20px;
   row-gap: 10px;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 
 .sidebar-footer button {
@@ -93,4 +101,15 @@
 .sidebar-footer button:hover {
   border-color: white;
   padding: 0.35rem 0.85rem;
+}
+
+.cards {
+  height: 150px;
+  overflow-y: auto;
+}
+
+.playlist-container {
+  display: grid;
+  grid-template-rows: 2;
+  align-items: end;
 }

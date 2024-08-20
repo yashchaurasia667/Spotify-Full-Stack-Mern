@@ -12,7 +12,7 @@ import "./step4.css";
 
 const Step4 = () => {
   const navigate = useNavigate();
-  const { email, password, name, year, month, day } = useContext(SignupContext);
+  const { email, password, name, year, month, day, setLoggedIn } = useContext(SignupContext);
 
   const handleSubmit = async () => {
     try {
@@ -33,6 +33,7 @@ const Step4 = () => {
 
       const data = await res.json();
       if (data.success) {
+        setLoggedIn(true);
         navigate('/')
       }
     } catch (error) {

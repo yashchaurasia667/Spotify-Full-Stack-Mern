@@ -6,8 +6,6 @@ import { IoSearch } from "react-icons/io5";
 
 import spotify from "/spotifywText.svg";
 
-import "./sideBar.css";
-
 function Pages() {
   return (
     <div className="outer pages py-5">

@@ -3,10 +3,11 @@ import { Link } from "react-router-dom";
 
 import { FaPlus } from "react-icons/fa6";
 import { GoGlobe } from "react-icons/go";
-import Card from "./Card";
+
+import Playlists from "./Playlists";
 
 function Library() {
-  const linkStyle = "text-[12px] text-[#a7a7a7]"
+  const linkStyle = "text-[12px] text-[#a7a7a7]";
   return (
     <div className="outer library">
       <div className="lib-bar">
@@ -26,27 +27,28 @@ function Library() {
         </div>
         <FaPlus className="bar-element inactive" />
       </div>
-      <div className="playlists">
-        <div className="cards">
-          <Card
-            heading={"Create your first playlist"}
-            content={"It's easy, we'll help you"}
-            buttonContent={"Create playlist"}
-          />
-          <Card
-            heading={"Let's find some podcasts to follow"}
-            content={"We'll keep you updated on episodes"}
-            buttonContent={"Browse podcasts"}
-          />
-        </div>
+      <div className="playlist-container">
+        <Playlists />
         <div className="sidebar-footer">
           <div className="policies">
-            <Link to="#" className={linkStyle}>Legal</Link>
-            <Link to="#" className={linkStyle}>Safety&Privacy Center</Link>
-            <Link to="#" className={linkStyle}>Privacy Policy</Link>
-            <Link to="#" className={linkStyle}>Cookies</Link>
-            <Link to="#" className={linkStyle}>About Ads</Link>
-            <Link to="#" className={linkStyle}>Accessibility</Link>
+            <Link to="#" className={linkStyle}>
+              Legal
+            </Link>
+            <Link to="#" className={linkStyle}>
+              Safety&Privacy Center
+            </Link>
+            <Link to="#" className={linkStyle}>
+              Privacy Policy
+            </Link>
+            <Link to="#" className={linkStyle}>
+              Cookies
+            </Link>
+            <Link to="#" className={linkStyle}>
+              About Ads
+            </Link>
+            <Link to="#" className={linkStyle}>
+              Accessibility
+            </Link>
           </div>
           <button>
             <GoGlobe />

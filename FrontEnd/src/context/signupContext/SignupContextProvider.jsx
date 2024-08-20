@@ -15,6 +15,8 @@ const SignupContextProvider = ({ children }) => {
 
   const [password, setPassword] = useState("");
 
+  const [loggedIn, setLoggedIn] = useState(false);
+
   const validateEmail = (e) => {
     return /^[\w\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,}$/.test(e);
   };
@@ -37,6 +39,8 @@ const SignupContextProvider = ({ children }) => {
     setDay,
     gender,
     setGender,
+    loggedIn,
+    setLoggedIn,
   };
 
   return (
