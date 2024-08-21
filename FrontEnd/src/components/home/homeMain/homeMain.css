@@ -1,5 +1,14 @@
 .home-main {
   background-color: #121212;
+  overflow: hidden;
   border-radius: 8px;
-  padding: 10px;
+}
+
+.navbar {
+  width: calc(100vw - 380px);
+  background-color: #101010;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 10px;
 }
