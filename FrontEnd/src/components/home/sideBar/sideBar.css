@@ -1,5 +1,5 @@
 .sidebar {
-  display: grid;
+  Display: grid;
   grid-template-rows: auto auto;
   row-gap: 10px;
   margin: 0px 10px;
@@ -8,7 +8,7 @@
 
 .outer {
   background-color: #121212;
-  border-radius: 5px;
+  border-radius: 8px;
   width: 350px;
 }
 
@@ -108,8 +108,28 @@
 
 .cards {
   min-height: 150px;
-  height: min-content;
   overflow-y: auto;
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #80808000;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: #80808077;
+  visibility: hidden;
+}
+
+.cards::-webkit-scrollbar-thumb:hover {
+  background: #808080aa;
+}
+
+.playlist-container:hover>.cards::-webkit-scrollbar-thumb {
+  visibility: visible;
 }
 
 .playlist-container {

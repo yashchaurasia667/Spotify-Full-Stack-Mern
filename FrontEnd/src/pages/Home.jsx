@@ -1,6 +1,7 @@
 import React from "react";
 
 import SideBar from "../components/home/sideBar/SideBar";
+import HomeMain from "../components/home/homeMain/HomeMain";
 import PurpleBar from "../components/home/PurpleBar";
 
 const Home = () => {
@@ -9,17 +10,18 @@ const Home = () => {
     color: "white",
     padding: "10px 0px",
     height: "100vh",
-    display: "grid",
-    alignItems: "end",
-    gridTemplateRows: `10fr 1fr`,
-    gridTemplateColumns: "2fr 10fr",
-    overflow: "hidden"
+    display: "flex",
+    flexDirection: "column",
+    // overflow: "hidden",
   };
 
   return (
     // <div className="bg-[#000000] text-white py-[10px]">
     <div style={style}>
-      <SideBar />
+      <div className="flex">
+        <SideBar />
+        <HomeMain />
+      </div>
       <PurpleBar />
     </div>
   );
