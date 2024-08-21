@@ -18,7 +18,7 @@ const Playlists = ({ loggenIn = false }) => {
           />
         </div>
       );
-    return <div>logged in</div>;
+    return <div className="playlists">logged in</div>;
   };
   return renderPlaylist();
 };

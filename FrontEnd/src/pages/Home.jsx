@@ -13,6 +13,7 @@ const Home = () => {
     alignItems: "end",
     gridTemplateRows: `10fr 1fr`,
     gridTemplateColumns: "2fr 10fr",
+    overflow: "hidden"
   };
 
   return (
