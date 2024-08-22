@@ -1,15 +1,22 @@
+.react-resizable-handle {
+  position: relative;
+  width: 2px;
+  height: 100%;
+  cursor: ew-resize;
+  background-color: #fff;
+}
+
 .sidebar {
   Display: grid;
   grid-template-rows: auto auto;
   row-gap: 10px;
-  margin: 0px 10px;
-  height: fit-content;
+  /* margin: 0px 10px; */
 }
 
 .outer {
   background-color: #121212;
   border-radius: 8px;
-  width: 350px;
+  /* width: 350px; */
 }
 
 .pages {
@@ -39,7 +46,7 @@
 }
 
 .library {
-  min-height: 450px;
+  /* min-height: 450px; */
   height: calc(100vh - 166px - 120px);
   padding: 20px 10px;
   overflow: hidden;
@@ -77,7 +84,7 @@
 }
 
 .sidebar-footer {
-  padding: 2.2rem 10px;
+  padding: 2.8rem 10px;
   grid-row: 2;
   margin-top: auto;
 }

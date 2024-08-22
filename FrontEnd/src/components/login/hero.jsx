@@ -10,6 +10,8 @@ import google from "../../assets/google.svg";
 import facebook from "../../assets/facebook.svg";
 import apple from "../../assets/apple.svg";
 
+import SignupContextProvider from "../../context/signupContext/SignupContextProvider";
+
 const Hero = () => {
   const linkStyling = `mx-auto mt-8 hover:text-[#1fdf64] cursor-pointer text-center underline decoration-2`;
   const [display, setDispaly] = useState("hidden");
@@ -32,7 +34,9 @@ const Hero = () => {
 
       <hr className="my-8 h-0.5 border-t-0 bg-neutral-100 dark:bg-white/10" />
 
-      <InputFrom />
+      <SignupContextProvider>
+        <InputFrom />
+      </SignupContextProvider>
 
       <div className="w-[100%] flex">
         <Link to={"/forgot-password"} className={linkStyling}>

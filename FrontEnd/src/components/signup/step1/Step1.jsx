@@ -50,7 +50,7 @@ const Step1 = () => {
       </p>
 
       <div className="relative w-[90%] sm:w-[63%] grid grid-rows-2 items-end mx-auto mt-5">
-        <label htmlFor="email-input" className="font-normal text-[14px] pb-2">
+        <label className="font-normal text-[14px] pb-2">
           Email address
         </label>
         <input
@@ -91,7 +91,7 @@ const Step1 = () => {
         <DividerWithText content="or" colorText="white" />
       </div>
 
-      <div className="continue-with-buttons">
+      <div className="continue-with-buttons sm:w-[72%] w-[100%] mx-auto">
         <ContinueWith platformName={"Google"} logoPath={google} />
         <ContinueWith platformName={"Facebook"} logoPath={facebook} />
         <ContinueWith platformName={"Apple"} logoPath={apple} />
