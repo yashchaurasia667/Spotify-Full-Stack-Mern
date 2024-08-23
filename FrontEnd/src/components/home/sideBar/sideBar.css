@@ -1,29 +1,19 @@
-.react-resizable-handle {
-  position: relative;
-  width: 2px;
-  height: 100%;
-  cursor: ew-resize;
-  background-color: #fff;
-}
-
 .sidebar {
-  Display: grid;
+  display: grid;
   grid-template-rows: auto auto;
+  color: white;
   row-gap: 10px;
-  /* margin: 0px 10px; */
 }
 
 .outer {
   background-color: #121212;
   border-radius: 8px;
-  /* width: 350px; */
 }
 
 .pages {
   display: grid;
-  grid-template-rows: 3;
+  grid-template-rows: repeat(3, 1fr);
   row-gap: 18px;
-  margin-top: 0;
 }
 
 .inactive-page {
@@ -145,3 +135,19 @@
   height: calc(100% - 24px);
   overflow: hidden;
 }
+
+.react-resizable-handle {
+  position: absolute;
+  width: 1px;
+  height: 90%;
+  top: 50%;
+  right: -2.5%;
+  transform: translate(-50%, -50%);
+  cursor: ew-resize;
+  background-color: #c0c0c044; 
+  /* visibility: hidden; */
+}
+
+/* .parent:hover .react-resizable-handle {
+  visibility: visible;
+} */

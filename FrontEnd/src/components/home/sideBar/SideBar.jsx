@@ -1,14 +1,16 @@
 import Library from "./Library";
 import Pages from "./Pages";
 
-import "./sideBar.css"
+import "./sideBar.css";
 
 function SideBar() {
   return (
-    <div className="sidebar">
+    <>
+      {/* <div className="sidebar"> */}
       <Pages />
       <Library />
-    </div>
+      {/* </div> */}
+    </>
   );
 }
 
