@@ -6,6 +6,7 @@ import HomeMain from "../components/home/homeMain/HomeMain";
 import PurpleBar from "../components/home/PurpleBar";
 
 import "react-resizable/css/styles.css";
+import "../styleSheets/Home.css"
 
 const Home = () => {
   const [sidebarWidth, setSidebarWidth] = useState(350);
@@ -27,7 +28,7 @@ const Home = () => {
       <Resizable
         width={sidebarWidth}
         height={0}
-        minConstraints={[300, 0]}
+        minConstraints={[250, 0]}
         maxConstraints={[500, 0]}
         onResize={onResizeSidebar}
         draggableOpts={{ axis: "x" }}

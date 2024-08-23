@@ -6,10 +6,8 @@ import "./sideBar.css";
 function SideBar() {
   return (
     <>
-      {/* <div className="sidebar"> */}
       <Pages />
       <Library />
-      {/* </div> */}
     </>
   );
 }

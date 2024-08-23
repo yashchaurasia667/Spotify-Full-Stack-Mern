@@ -1,7 +1,10 @@
+* {
+  color: white;
+}
+
 .sidebar {
   display: grid;
   grid-template-rows: auto auto;
-  color: white;
   row-gap: 10px;
 }
 

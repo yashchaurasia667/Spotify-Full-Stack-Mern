@@ -1,14 +1,22 @@
-  .home-main {
+.home-main {
   background-color: #121212;
   overflow: hidden;
   border-radius: 8px;
+  position: relative;
 }
 
 .navbar {
-  width: calc(100vw - 380px);
+  position: absolute;
+  top: 0;
+  width: 100%;
   background-color: #101010;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 8px 10px;
+}
+
+.home-hero {
+  /* background-image: linear-gradient(#535353, #121212); */
+  background: transparent;
 }

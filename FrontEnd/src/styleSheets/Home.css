@@ -1,0 +1,16 @@
+
+.react-resizable-handle {
+  position: absolute;
+  width: 1px;
+  height: 90%;
+  top: 50%;
+  right: -2.5%;
+  transform: translate(-50%, -50%);
+  cursor: ew-resize;
+  background-color: #c0c0c044; 
+  visibility: hidden;
+}
+
+.parent:hover .react-resizable-handle {
+  visibility: visible;
+}
