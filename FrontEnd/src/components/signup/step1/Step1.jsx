@@ -9,7 +9,7 @@ import Footer from "../../global/Footer";
 
 import SignupContext from "../../../context/signupContext/SignupContext";
 
-import "../../global/error.css";
+import styles from "../../global/error.module.css";
 
 import spotify from "/spotifyBw.svg";
 import google from "../../../assets/google.svg";
@@ -28,11 +28,11 @@ const Step1 = () => {
     setEmail(e);
     if (validateEmail(e)) {
       setError("hidden");
-      elm.remove("error");
+      // elm.remove(styles.error);
       return;
     }
     setError("");
-    elm.add("error");
+    // elm.add(styles.error);
   };
 
   const handleNext = () => {
@@ -45,18 +45,18 @@ const Step1 = () => {
       <div className="bg-[#121212] grid grid-rows-1 items-center justify-center">
         <img src={spotify} alt="Spofity logo" />
       </div>
-      <p className="text-5xl font-bold text-center leading-[48px] w-[390px] mx-auto">
+      <p className="text-5xl font-bold text-center leading-[60px] w-[60%] mx-auto">
         Sign up to start listening
       </p>
 
       <div className="relative w-[90%] sm:w-[63%] grid grid-rows-2 items-end mx-auto mt-5">
-        <label className="font-normal text-[14px] pb-2">
+        <label className="font-semebold text-[14px] pb-2">
           Email address
         </label>
         <input
           type="email"
           placeholder="name@domain.com"
-          className={"neutral emial-input " + inputClass}
+          className={`${styles.neutral} ` + inputClass}
           ref={emailRef}
           value={email}
           onChange={(e) => {

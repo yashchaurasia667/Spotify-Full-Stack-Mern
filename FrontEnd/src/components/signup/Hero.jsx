@@ -17,7 +17,7 @@ function Hero() {
   };
 
   return (
-    <div className="bg-[#121212] flex justify-center">{renderStep(step)}</div>
+    <div className="bg-[#121212] flex justify-center">{renderStep(0)}</div>
   );
 }
 

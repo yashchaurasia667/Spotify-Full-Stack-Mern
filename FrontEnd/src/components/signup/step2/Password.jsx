@@ -2,7 +2,7 @@ import React, { useRef, useState, useContext } from "react";
 import { FaRegEyeSlash, FaRegEye } from "react-icons/fa";
 import PassRequirements from "./PassRequirements";
 
-import "../../global/error.css";
+import "../../global/error.module.css";
 
 import SignupContext from "../../../context/signupContext/SignupContext";
 

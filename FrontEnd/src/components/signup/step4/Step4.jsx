@@ -8,7 +8,7 @@ import StepCounter from "../StepCounter";
 import GreenButton from "../../global/GreenButton";
 import Footer from "../../global/Footer";
 
-import "./step4.css";
+import styles from "./step4.module.css";
 
 const Step4 = () => {
   const navigate = useNavigate();
@@ -48,16 +48,16 @@ const Step4 = () => {
       <StepCounter stepNo={3} stepName="Terms & Conditions" />
       <div className="px-[90px] mt-5">
         <form className="flex flex-col gap-y-2">
-          <label className="container">
+          <label className={styles.container}>
             I would prefer not to receive marketing messages from Spotify
-            <input type="checkbox" className="checkbox" name="marketing" />
-            <span className="checkmark"></span>
+            <input type="checkbox" className={styles.checkbox} name="marketing" />
+            <span className={styles.checkmark}></span>
           </label>
-          <label className="container">
+          <label className={styles.container}>
             Share my registration data with Spotify's content providers for
             marketing purposes.
-            <input type="checkbox" className="checkbox" name="data" />
-            <span className="checkmark"></span>
+            <input type="checkbox" className={styles.checkbox} name="data" />
+            <span className={styles.checkmark}></span>
           </label>
         </form>
         <div className="text-sm mt-3">

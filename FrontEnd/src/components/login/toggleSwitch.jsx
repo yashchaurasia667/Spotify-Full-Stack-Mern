@@ -1,15 +1,17 @@
 import React from "react";
 import { useState } from "react";
-import "./toggleSwitch.css";
+
+import styles from "./toggleSwitch.module.css"
 
 const ToggleSwitch = () => {
   const [toggled, setToggled] = useState(false);
+  console.log(styles)
   return (
     <div
-      className={`toggle-btn ${toggled ? "toggled" : ""}`}
+      className={`${styles.toggleBtn} ${toggled ? styles.toggled : ""}`}
       onClick={() => setToggled(!toggled)}
     >
-      <div className="thumb"></div>
+      <div className={styles.thumb}></div>
     </div>
   );
 };

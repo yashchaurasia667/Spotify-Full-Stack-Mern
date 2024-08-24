@@ -7,8 +7,8 @@ import Error from "../../global/error";
 import Footer from "../../global/Footer";
 import SignupContext from "../../../context/signupContext/SignupContext";
 
-import "../../global/error.css";
-import "./Step3.css";
+import "../../global/error.module.css";
+import styles from "./Step3.module.css";
 
 import spotify from "/spotifyBw.svg";
 
@@ -35,7 +35,7 @@ const Step3 = () => {
 
   const inputClass =
     "bg-[#121212] border border-[#727272] hover:border-[#fff] rounded-[4px] items-center focus-within:outline-none focus-within:border-white focus-within:border-[2px] px-4 py-3";
-  const labelClass = "custom-radio-button flex gap-x-3 items-center my-1";
+  const labelClass = `custom-radio-button flex gap-x-3 items-center my-1`;
 
   const checkName = (e) => {
     setName(e);
@@ -113,7 +113,7 @@ const Step3 = () => {
                 value={name}
                 ref={nameRef}
                 onChange={(e) => checkName(e.target.value)}
-                className={"neutral w-[100%]"}
+                className={styles.neutral + " w-[100%]"}
               />
               <Error content={"Enter a name for your profile."} />
             </div>
@@ -135,7 +135,7 @@ const Step3 = () => {
                   placeholder="yyyy"
                   onChange={(e) => checkYear(e.target.value)}
                   ref={yearRef}
-                  className={"w-[95px] neutral number"}
+                  className={`w-[95px] ${styles.neutral} number`}
                   required
                 />
                 <select
@@ -164,7 +164,7 @@ const Step3 = () => {
                   value={day}
                   ref={dayRef}
                   onChange={(e) => checkDay(e.target.value)}
-                  className={"neutral number w-[65px]"}
+                  className={`${styles.neutral} number w-[65px]`}
                   required
                 />
               </div>
@@ -188,9 +188,9 @@ const Step3 = () => {
                     value={"Man"}
                     checked={gender === "Man"}
                     onChange={(e) => setGender(e.target.value)}
-                    className="custom-radio-input"
+                    className={styles.customRadioInput}
                   />
-                  <span className="custom-radio-indicator"></span>
+                  <span className={styles.customRadioIndicator}></span>
                   <span>Man</span>
                 </label>
                 <label className={labelClass}>
@@ -199,9 +199,9 @@ const Step3 = () => {
                     value={"Woman"}
                     checked={gender === "Woman"}
                     onChange={(e) => setGender(e.target.value)}
-                    className="custom-radio-input"
+                    className={styles.customRadioInput}
                   />
-                  <span className="custom-radio-indicator"></span>
+                  <span className={styles.customRadioIndicator}></span>
                   <span>Woman</span>
                 </label>
                 <label className={labelClass}>
@@ -210,9 +210,9 @@ const Step3 = () => {
                     value={"Non-binary"}
                     checked={gender === "Non-binary"}
                     onChange={(e) => setGender(e.target.value)}
-                    className="custom-radio-input"
+                    className={styles.customRadioInput}
                   />
-                  <span className="custom-radio-indicator"></span>
+                  <span className={styles.customRadioIndicator}></span>
                   <span>Non-binary</span>
                 </label>
                 <label className={labelClass}>
@@ -221,9 +221,9 @@ const Step3 = () => {
                     value={"Something else"}
                     checked={gender === "Something else"}
                     onChange={(e) => setGender(e.target.value)}
-                    className="custom-radio-input"
+                    className={styles.customRadioInput}
                   />
-                  <span className="custom-radio-indicator"></span>
+                  <span className={styles.customRadioIndicator}></span>
                   <span>Something else</span>
                 </label>
                 <label className={labelClass}>
@@ -232,9 +232,9 @@ const Step3 = () => {
                     value={"Prefer not to say"}
                     checked={gender === "Prefer not to say"}
                     onChange={(e) => setGender(e.target.value)}
-                    className="custom-radio-input"
+                    className={styles.customRadioInput}
                   />
-                  <span className="custom-radio-indicator"></span>
+                  <span className={styles.customRadioIndicator}></span>
                   <span>Prefer not to say</span>
                 </label>
               </div>

@@ -1,4 +1,4 @@
-.toggle-btn {
+.toggleBtn {
     background-color: #727272;
     border-radius: 99px;
     width: 30px;
@@ -7,7 +7,7 @@
     position: relative;
 }
 
-.toggle-btn .thumb {
+.toggleBtn .thumb {
     height: 12px;
     width: 12px;
     background-color: #121212;
@@ -20,14 +20,14 @@
     transform: translateY(-47%);
 }
 
-.toggle-btn.toggled {
+.toggleBtn.toggled {
     background-color: #1fdf64;
 }
 
-.toggle-btn:hover {
+.toggleBtn:hover {
     border-color: #6f6f6f;
 }
 
-.toggle-btn.toggled .thumb {
+.toggleBtn.toggled .thumb {
     left: calc(32px - 15px)
 }
