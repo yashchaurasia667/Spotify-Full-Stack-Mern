@@ -1,5 +1,6 @@
-.password-div {
+.inputDiv {
   display: grid;
+  background-color: #121212;
   grid-template-columns: 10fr 1fr;
   align-items: center;
   border: 1px solid #727272;

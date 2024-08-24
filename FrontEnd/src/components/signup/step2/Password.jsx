@@ -2,7 +2,7 @@ import React, { useRef, useState, useContext } from "react";
 import { FaRegEyeSlash, FaRegEye } from "react-icons/fa";
 import PassRequirements from "./PassRequirements";
 
-import "../../global/error.module.css";
+import styles from "../../global/error.module.css";
 
 import SignupContext from "../../../context/signupContext/SignupContext";
 
@@ -37,14 +37,14 @@ const Password = () => {
 
     const passElement = passDiv.current.classList;
     if (!(letterCheck && numberCheck && lenCheck)) {
-      if (passElement.contains("neutral")) {
-        passElement.remove("neutral");
-        passElement.add("error");
+      if (passElement.contains(styles.neutral)) {
+        passElement.remove(styles.neutral);
+        passElement.add(styles.error);
       }
     } else {
-      if (passElement.contains("error")) {
-        passElement.remove("error");
-        passElement.add("neutral");
+      if (passElement.contains(styles.error)) {
+        passElement.remove(styles.error);
+        passElement.add(styles.neutral);
       }
     }
   };
@@ -52,7 +52,7 @@ const Password = () => {
   return (
     <>
       <div className="text-sm font-semibold pb-1">Password</div>
-      <div ref={passDiv} className="password-div neutral px-4">
+      <div ref={passDiv} className={`${styles.inputDiv} ${styles.neutral} px-4`}>
         <input
           type={type}
           value={password}

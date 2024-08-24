@@ -17,8 +17,6 @@ import apple from "../../../assets/apple.svg";
 import facebook from "../../../assets/facebook.svg";
 
 const Step1 = () => {
-  const inputClass = `placeholder:text-[#a7a7a7]`;
-
   const [error, setError] = useState("hidden");
   const { setStep, email, setEmail, validateEmail } = useContext(SignupContext);
   const emailRef = useRef();
@@ -28,11 +26,11 @@ const Step1 = () => {
     setEmail(e);
     if (validateEmail(e)) {
       setError("hidden");
-      // elm.remove(styles.error);
+      elm.remove(styles.error);
       return;
     }
     setError("");
-    // elm.add(styles.error);
+    elm.add(styles.error);
   };
 
   const handleNext = () => {
@@ -42,6 +40,7 @@ const Step1 = () => {
 
   return (
     <div className="text-white w-[500px]">
+      {/* logo and heading stuff */}
       <div className="bg-[#121212] grid grid-rows-1 items-center justify-center">
         <img src={spotify} alt="Spofity logo" />
       </div>
@@ -50,29 +49,21 @@ const Step1 = () => {
       </p>
 
       <div className="relative w-[90%] sm:w-[63%] grid grid-rows-2 items-end mx-auto mt-5">
-        <label className="font-semebold text-[14px] pb-2">
-          Email address
-        </label>
+        <label className="font-semibold text-[14px] pb-2">Email address</label>
         <input
           type="email"
           placeholder="name@domain.com"
-          className={`${styles.neutral} ` + inputClass}
+          className={`${styles.neutral} ${styles.inputDiv} px-3 outline-none placeholder:text-[#a7a7a7]`}
           ref={emailRef}
           value={email}
           onChange={(e) => {
             checkEmail(e.target.value);
           }}
         />
-        <div
-          className={
-            "bg-[#121212] text-[#f15e6c] flex gap-x-2 mt-2 mb-2 " + error
-          }
-        >
-          <HiOutlineExclamationCircle className="scale-[175%]" />
-          <p className="text-sm font-medium">
-            {
-              "This email is invalid. Make sure it's written like example@email.com"
-            }
+        <div className={"flex gap-x-2 mt-2 mb-2 " + error}>
+          <HiOutlineExclamationCircle className="stroke-[#f15e6c] scale-[175%]" />
+          <p className="text-[#f15e6c] text-sm font-medium">
+            This email is invalid. Make sure it's written like example@email.com
           </p>
         </div>
         <Link

@@ -9,7 +9,7 @@ const Error = ({ content = "", className = "hidden" }) => {
         className
       }
     >
-      <HiOutlineExclamationCircle className="scale-150" />
+      <HiOutlineExclamationCircle className="stroke-[#f15e6c] scale-150" />
       {content}
     </div>
   );

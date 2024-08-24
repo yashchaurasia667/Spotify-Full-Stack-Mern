@@ -7,7 +7,7 @@ import Error from "../../global/error";
 import Footer from "../../global/Footer";
 import SignupContext from "../../../context/signupContext/SignupContext";
 
-import "../../global/error.module.css";
+// import styles from "../../global/error.module.css";
 import styles from "./Step3.module.css";
 
 import spotify from "/spotifyBw.svg";
@@ -41,11 +41,11 @@ const Step3 = () => {
     setName(e);
     const elm = nameRef.current;
     if (!e) {
-      elm.classList.add("error");
+      elm.classList.add(styles.error);
       elm.nextSibling.classList.remove("hidden");
       return;
     }
-    elm.classList.remove("error");
+    elm.classList.remove(styles.error);
     elm.nextSibling.classList.add("hidden");
   };
 
@@ -53,18 +53,18 @@ const Step3 = () => {
     const elm = yearRef.current;
     if (e <= 9999) {
       setYear(e);
-      elm.classList.remove("error");
+      elm.classList.remove(styles.error);
     }
-    if (!e) elm.classList.add("error");
+    if (!e) elm.classList.add(styles.error);
   };
 
   const checkDay = (e) => {
     const elm = dayRef.current;
     if (e <= 99) {
       setDay(e);
-      elm.classList.remove("error");
+      elm.classList.remove(styles.error);
     }
-    if (!e) elm.classList.add("error");
+    if (!e) elm.classList.add(styles.error);
   };
 
   const checkAge = (day, month, year) => {
@@ -92,6 +92,8 @@ const Step3 = () => {
     checkYear(year);
     checkDay(day);
   };
+
+  // console.log(styles)
 
   return (
     <>
