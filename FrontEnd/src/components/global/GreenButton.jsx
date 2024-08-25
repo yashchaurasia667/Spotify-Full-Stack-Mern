@@ -4,7 +4,7 @@ const GreenButton = ({ content = "", className = "", onClick = (e) => {} }) => {
       <button
         onClick={(e) => onClick(e)}
         className={
-          `bg-[#1ed760] text-[#121212] text-base font-semibold rounded-full p-3 hover:font-black hover:bg-[#1fdf64] ` +
+          `bg-essential-positive text-background-base text-base font-semibold rounded-full p-3 hover:font-black ` +
           className
         }
       >

@@ -17,7 +17,7 @@ const Hero = () => {
   const [display, setDispaly] = useState("hidden");
 
   return (
-    <div className="md:w-[735px] w-[100%] md:mt-8 text-white bg-[#121212] rounded-[10px] flex flex-col items-center">
+    <div className="md:w-[735px] w-[100%] md:mt-8 text-white bg-background-base rounded-[10px] flex flex-col items-center">
       <img src={spotify} className="scale-75" alt="Spotify Logo" />
       <p className="text-[2rem] font-semibold mb-10">Log in to Spotify</p>
 

@@ -5,11 +5,11 @@ const Error = ({ content = "", className = "hidden" }) => {
   return (
     <div
       className={
-        "flex font-normal text-[#f15e6c] gap-x-2 items-center mt-2 text-sm " +
+        "flex font-normal text-text-negative gap-x-2 items-center mt-2 text-sm " +
         className
       }
     >
-      <HiOutlineExclamationCircle className="stroke-[#f15e6c] scale-150" />
+      <HiOutlineExclamationCircle className="stroke-text-negative scale-150" />
       {content}
     </div>
   );

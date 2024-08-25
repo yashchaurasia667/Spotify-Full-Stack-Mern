@@ -7,11 +7,11 @@ import { GoGlobe } from "react-icons/go";
 import Playlists from "./Playlists";
 
 function Library() {
-  const linkStyle = "text-[12px] text-[#a7a7a7]";
+  const linkStyle = "text-[12px] text-text-subdued";
   return (
-    <div className="outer library">
-      <div className="lib-bar">
-        <div className="bar-element inactive">
+    <div className={`outer library`}>
+      <div className={"lib_bar"}>
+        <div className={`bar_element inactive`}>
           <svg
             role="img"
             height="24"
@@ -25,12 +25,12 @@ function Library() {
           </svg>
           Your Library
         </div>
-        <FaPlus className="bar-element inactive" />
+        <FaPlus className={`bar_element inactive`} />
       </div>
-      <div className="playlist-container">
+      <div className={"playlist_container"}>
         <Playlists />
-        <div className="sidebar-footer">
-          <div className="policies">
+        <div className={"sidebar_footer"}>
+          <div className={"policies"}>
             <Link to="#" className={linkStyle}>
               Legal
             </Link>

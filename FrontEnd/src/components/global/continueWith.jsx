@@ -9,7 +9,7 @@ const ContinueWith = ({ platformName, logoPath, className = "" }) => {
     <>
       <button
         className={
-          "border border-[#727272] rounded-[30px] flex items-center pl-7 py-2.5 mb-2 w-[90%] hover:border-[#fff] mx-auto " +
+          "border border-essential-subdued rounded-[30px] flex items-center pl-7 py-2.5 mb-2 w-[90%] hover:border-white mx-auto " +
           className
         }
       >
