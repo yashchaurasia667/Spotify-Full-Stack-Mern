@@ -1,15 +1,18 @@
 import React from "react";
 
-import "./homeMain.css"
 import Navbar from "./Navbar";
 import HomeHero from "./homeHero/HomeHero";
 
+import { home_main, home_gradient } from "./homeMain.module.css";
+
 const HomeMain = () => {
-  return (<div className="home-main">
-    <div className="home-gradient"></div>
-    <Navbar />
-    <HomeHero />
-  </div>);
+  return (
+    <div className={home_main}>
+      <div className={home_gradient}></div>
+      <Navbar />
+      <HomeHero />
+    </div>
+  );
 };
 
 export default HomeMain;

@@ -19,7 +19,7 @@
   row-gap: 18px;
 }
 
-.inactive_page{
+.inactive_page {
   display: flex;
   align-items: center;
   column-gap: 1rem;
@@ -34,6 +34,7 @@
 }
 
 .active,
+.inactive:hover>*,
 .inactive:hover {
   fill: white;
   color: white;
@@ -129,7 +130,7 @@
   background: #808080aa;
 }
 
-.playlist_container:hover>.cards::-webkit-scrollbar-thumb {
+.playlist_container:hover > .cards::-webkit-scrollbar-thumb {
   visibility: visible;
 }
 
@@ -148,7 +149,7 @@
   right: -2.5%;
   transform: translate(-50%, -50%);
   cursor: ew-resize;
-  background-color: #c0c0c044; 
+  background-color: #c0c0c044;
   /* visibility: hidden; */
 }
 

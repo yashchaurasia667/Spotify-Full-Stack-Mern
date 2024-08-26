@@ -7,8 +7,7 @@ import { IoSearch } from "react-icons/io5";
 import spotify from "/spotifywText.svg";
 
 function Pages() {
-  const linkStyle = `inactive inactive_page`;
-  const iconStyle = `inactive scale-[175%]`;
+  const linkStyle = `inactive_page inactive`;
 
   return (
     <div className={`outer pages py-5`}>
@@ -16,11 +15,11 @@ function Pages() {
         <img src={spotify} />
       </Link>
       <Link to="/" className={linkStyle}>
-        <GoHomeFill className={iconStyle} />
+        <GoHomeFill className="inactive scale-[175%]" />
         Home
       </Link>
       <Link to="/search" className={linkStyle}>
-        <IoSearch className={iconStyle} />
+        <IoSearch className="inactive scale-[175%]" />
         Search
       </Link>
     </div>

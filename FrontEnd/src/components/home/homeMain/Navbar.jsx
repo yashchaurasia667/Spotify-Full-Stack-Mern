@@ -2,13 +2,15 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { GoChevronLeft, GoChevronRight } from "react-icons/go";
 
+import { navbar } from "./homeMain.module.css";
+
 const Navbar = () => {
   const linkDefault = "font-semibold text-[16px] py-3 px-8 ";
   const iconDefault =
     "scale-[175%] mx-3 bg-[#00000055] text-[#acacac] rounded-full";
 
   return (
-    <div className="navbar">
+    <div className={navbar}>
       <div className="flex">
         <GoChevronLeft className={iconDefault} />
         <GoChevronRight className={iconDefault} />
@@ -26,8 +28,7 @@ const Navbar = () => {
         <Link
           to={"/login"}
           className={
-            linkDefault +
-            "bg-white text-black rounded-full hover:bg-[#f0f0f0]"
+            linkDefault + "bg-white text-black rounded-full hover:bg-[#f0f0f0]"
           }
         >
           Log in
