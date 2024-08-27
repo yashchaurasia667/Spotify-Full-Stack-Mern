@@ -1,9 +1,13 @@
 import React from "react";
 import { FaPlay } from "react-icons/fa";
 
+import GreenButton from "../../../global/GreenButton";
+
+import { play, main } from "./artistCard.module.css";
+
 const ArtistCard = ({ name = "", type = "album", img = "" }) => {
   return (
-    <button className="bg-transparent hover:bg-background-highlight w-[160px] px-2 py-3 rounded-md text-left">
+    <button className={`${main} relative bg-transparent hover:bg-background-highlight w-[160px] px-2 py-3 rounded-md text-left`}>
       <div>
         {img != "" ? (
           <img
@@ -16,8 +20,12 @@ const ArtistCard = ({ name = "", type = "album", img = "" }) => {
         ) : (
           ""
         )}
+        <GreenButton
+          content={<FaPlay className="fill-background-base" />}
+          className={`p-4 ${play}`}
+        />
       </div>
-      <div className="text-md text-white">{name}</div>
+      <div className="text-md text-white mt-2">{name}</div>
       <div className="text-sm text-text-subdued mb-6">{type}</div>
     </button>
   );

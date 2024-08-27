@@ -1,0 +1,12 @@
+.play {
+  position: absolute;
+  opacity: 0;
+  /* visibility: hidden; */
+  right: 2rem;
+  top: 47%;
+}
+
+.main:hover .play {
+  opacity: 1;
+  /* visibility: visible; */
+}
