@@ -33,3 +33,12 @@
   position: absolute;
   z-index: 0;
  }
+
+.home_hero .heading {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.home_hero .heading:hover {
+  text-decoration: underline;
+}

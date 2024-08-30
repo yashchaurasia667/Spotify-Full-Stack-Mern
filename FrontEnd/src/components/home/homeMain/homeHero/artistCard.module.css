@@ -1,12 +1,16 @@
 .play {
   position: absolute;
   opacity: 0;
-  /* visibility: hidden; */
   right: 2rem;
-  top: 47%;
+  bottom: 30%;
+  transition: transform 0.2s ease-out, opacity 0.2s ease, scale 0.1s ease-out;
+}
+
+.play:hover {
+  scale: 1.1;
 }
 
 .main:hover .play {
   opacity: 1;
-  /* visibility: visible; */
+  transform: translateY(-20%);
 }
