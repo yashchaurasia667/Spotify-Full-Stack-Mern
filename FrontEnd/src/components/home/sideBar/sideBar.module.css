@@ -3,9 +3,7 @@
 }
 
 .sidebar {
-  display: grid;
-  grid-template-rows: auto auto;
-  row-gap: 10px;
+  height: 100%;
 }
 
 .outer {
@@ -41,8 +39,8 @@
 }
 
 .library {
-  /* min-height: 450px; */
-  height: calc(100vh - 166px - 120px);
+  /* height: calc(100vh - 110px); */
+  height: 100%;
   padding: 20px 10px;
   overflow: hidden;
 }
@@ -112,6 +110,8 @@
   min-height: 150px;
   overflow-y: auto;
 }
+
+.playlists {}
 
 ::-webkit-scrollbar {
   width: 12px;

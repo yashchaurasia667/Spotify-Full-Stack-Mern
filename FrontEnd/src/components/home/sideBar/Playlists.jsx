@@ -1,11 +1,13 @@
 import React from "react";
 import Card from "./Card";
 
+import {cards, playlists} from './sideBar.module.css'
+
 const Playlists = ({ loggenIn = false }) => {
   const renderPlaylist = () => {
     if (!loggenIn)
       return (
-        <div className={"cards"}>
+        <div className={`${cards}`}>
           <Card
             heading={"Create your first playlist"}
             content={"It's easy, we'll help you"}
@@ -18,7 +20,7 @@ const Playlists = ({ loggenIn = false }) => {
           />
         </div>
       );
-    return <div className={"playlists"}>logged in</div>;
+    return <div className={`${playlists}`}>logged in</div>;
   };
   return renderPlaylist();
 };

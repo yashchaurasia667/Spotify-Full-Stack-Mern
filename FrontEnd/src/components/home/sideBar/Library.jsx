@@ -5,13 +5,14 @@ import { FaPlus } from "react-icons/fa6";
 import { GoGlobe } from "react-icons/go";
 
 import Playlists from "./Playlists";
+import {outer, library, lib_bar, bar_element, inactive, playlist_container, sidebar_footer, policies} from "./sideBar.module.css";
 
 function Library() {
   const linkStyle = "text-[12px] text-text-subdued";
   return (
-    <div className={`outer library`}>
-      <div className={"lib_bar"}>
-        <div className={`bar_element inactive`}>
+    <div className={`${outer} ${library}`}>
+      <div className={`${lib_bar}`}>
+        <div className={`${bar_element} ${inactive}`}>
           <svg
             role="img"
             height="24"
@@ -25,12 +26,12 @@ function Library() {
           </svg>
           Your Library
         </div>
-        <FaPlus className={`bar_element inactive`} />
+        <FaPlus className={`${bar_element} ${inactive}`} />
       </div>
-      <div className={"playlist_container"}>
+      <div className={`${playlist_container}`}>
         <Playlists />
-        <div className={"sidebar_footer"}>
-          <div className={"policies"}>
+        <div className={`${sidebar_footer}`}>
+          <div className={`${policies}`}>
             <Link to="#" className={linkStyle}>
               Legal
             </Link>

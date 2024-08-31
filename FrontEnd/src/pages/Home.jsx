@@ -33,7 +33,7 @@ const Home = () => {
         onResize={onResizeSidebar}
         draggableOpts={{ axis: "x" }}
       >
-        <div className="sidebar">
+        <div>
           <SideBar />
         </div>
       </Resizable>
