@@ -7,7 +7,7 @@ import { play, main } from "./artistCard.module.css";
 
 const ArtistCard = ({ name = "", type = "album", img = "" }) => {
   return (
-    <button className={`${main} relative bg-transparent hover:bg-background-highlight w-[160px] px-2 py-3 rounded-md text-left`}>
+    <button className={`${main} relative bg-transparent hover:bg-background-highlight w-[155px] px-2 py-3 rounded-md text-left`}>
       <div>
         {img != "" ? (
           <img
