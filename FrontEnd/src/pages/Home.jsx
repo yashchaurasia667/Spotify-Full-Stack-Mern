@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { Resizable } from "react-resizable";
 
-import SideBar from "../components/home/sideBar/SideBar"
+import SideBar from "../components/home/sideBar/SideBar";
 import HomeMain from "../components/home/homeMain/HomeMain";
 import PurpleBar from "../components/home/PurpleBar";
+import Navbar from "../components/navbar/Navbar";
 
 import "react-resizable/css/styles.css";
-import "../styleSheets/Home.css"
+import "../styleSheets/Home.css";
 
 const Home = () => {
   const [sidebarWidth, setSidebarWidth] = useState(350);
@@ -19,28 +20,31 @@ const Home = () => {
     height: "100vh",
     display: "grid",
     gridTemplateColumns: `${sidebarWidth}px 1fr`,
-    gridTemplateRows: "auto auto",
+    gridTemplateRows: "repeat(3, auto)",
     columnGap: "10px",
   };
 
   return (
-    <div className="parent" style={style}>
-      <Resizable
-        width={sidebarWidth}
-        height={0}
-        minConstraints={[250, 0]}
-        maxConstraints={[500, 0]}
-        onResize={onResizeSidebar}
-        draggableOpts={{ axis: "x" }}
-      >
-        <div>
-          <SideBar />
-        </div>
-      </Resizable>
+    <>
+      <div className="parent" style={style}>
+        <Navbar />
+        <Resizable
+          width={sidebarWidth}
+          height={0}
+          minConstraints={[250, 0]}
+          maxConstraints={[500, 0]}
+          onResize={onResizeSidebar}
+          draggableOpts={{ axis: "x" }}
+        >
+          <div>
+            <SideBar />
+          </div>
+        </Resizable>
 
-      <HomeMain />
-      <PurpleBar />
-    </div>
+        <HomeMain />
+        <PurpleBar />
+      </div>
+    </>
   );
 };
 

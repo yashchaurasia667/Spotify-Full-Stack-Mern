@@ -79,7 +79,7 @@ const Step1 = () => {
       </div>
 
       <div className="my-9">
-        <DividerWithText content="or" colorText="white" />
+        <DividerWithText content="or" colorText="#fff" />
       </div>
 
       <div className="continue-with-buttons sm:w-[72%] w-[100%] mx-auto">

@@ -4,7 +4,8 @@
   padding-right: 1rem;
   font-size: 0.9rem;
   line-height: 1.2rem;
-  background: #232323;
+  /* background: #232323; */
+  background: var(--decorative-subdued);
   border-radius: 5px;
 }
 
@@ -21,18 +22,18 @@
   left: 5%;
   height: 17px;
   width: 17px;
-  border: 1px solid #727272;
+  border: 1px solid var(--essential-subdued);
   border-radius: 3px;
-  background-color: #121212;
+  background-color: var(--background-base);
 }
 
 .container:hover input ~ .checkmark {
-  border-color: #1fdf64;
+  border-color: var(--essential-bright-accent);
 }
 
 .container input:checked ~ .checkmark {
-  background-color: #1fdf64;
-  border-color: #1fdf64;
+  background-color: var(--essential-bright-accent);
+  border-color: var(--essential-bright-accent);
 }
 
 .checkmark:after {
@@ -50,7 +51,7 @@
   top: 2px;
   width: 5px;
   height: 8px;
-  border: solid #121212;
+  border: solid var(--background-base);
   border-width: 0 2px 2px 0;
   transform: rotate(45deg);
 }

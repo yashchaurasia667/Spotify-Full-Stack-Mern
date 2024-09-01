@@ -2,7 +2,7 @@ import React from "react";
 
 const PurpleBar = () => {
   return (
-    <div className="h-[70px] my-[10px] mb-0 p-3 bg-gradient-to-r from-[#af2896] to-[#509bf5] text-white flex justify-between row-start-2 col-span-2">
+    <div className="h-[70px] my-[10px] mb-0 p-3 bg-gradient-to-r from-[#af2896] to-[#509bf5] text-white flex justify-between row-start-3 col-span-2">
       <div>
         <p className="font-semibold text-sm">Preview of Spotify</p>
         <p className="text-sm">

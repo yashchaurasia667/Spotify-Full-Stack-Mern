@@ -14,7 +14,7 @@ const ArtistCard = ({ name = "", type = "album", img = "" }) => {
             src={img}
             alt={name}
             className={`${
-              type === "album" ? "rounded-[5px]" : "rounded-[50%]"
+              type.toLocaleLowerCase() === "artist" ? "rounded-[50%]" : "rounded-[5px]"
             } w-full`}
           />
         ) : (

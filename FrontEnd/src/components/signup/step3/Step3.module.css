@@ -5,7 +5,7 @@
 .customRadioIndicator {
   width: 15px;
   height: 15px;
-  border: 1px solid #727272;
+  border: 1px solid var(--essential-subdued);
   border-radius: 50%;
   position: relative;
   display: inline-block;
@@ -13,19 +13,19 @@
 }
 
 .customRadioIndicator:hover {
-  border-color: #1ed760;
+  border-color: var(--essential-bright-accent);
 }
 
 .customRadioInput:checked + .customRadioIndicator {
-  background-color: #1ed760;
-  border-color: #1ed760;
+  background-color: var(--essential-bright-accent);
+  border-color: var(--essential-bright-accent);
 }
 
 .customRadioIndicator::after {
   content: "";
   width: 7px;
   height: 7px;
-  background: #121212;
+  background: var(--background-base);
   border-radius: 50%;
   position: absolute;
   top: 50%;
@@ -40,8 +40,8 @@
 }
 
 .neutral {
-  background-color: #121212;
-  border: 1px solid #727272;
+  background-color: var(--background-base);
+  border: 1px solid var(--essential-subdued);
   border-radius: 4px;
   padding: 0.80rem 1rem;
 }
@@ -56,5 +56,5 @@
 }
 
 .error,.error:focus-within, .error:hover{
-  border-color: #e91429;
+  border-color: var(--essential-negative);
 }

@@ -60,7 +60,7 @@ const Step3 = () => {
 
   const checkDay = (e) => {
     const elm = dayRef.current;
-    if (e <= 99) {
+    if (e <= 31) {
       setDay(e);
       elm.classList.remove(styles.error);
     }

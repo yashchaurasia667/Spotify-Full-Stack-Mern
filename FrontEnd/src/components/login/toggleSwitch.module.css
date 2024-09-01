@@ -1,5 +1,5 @@
 .toggleBtn {
-    background-color: #727272;
+    background-color: var(--essential-subdued);
     border-radius: 99px;
     width: 30px;
     height: 15px;
@@ -10,7 +10,7 @@
 .toggleBtn .thumb {
     height: 12px;
     width: 12px;
-    background-color: #121212;
+    background-color: var(--background-base);
     border-radius: 99px;
     transform: translateX(0);
     transition: left 0.15s ease;
@@ -21,11 +21,11 @@
 }
 
 .toggleBtn.toggled {
-    background-color: #1fdf64;
+    background-color: var(--essential-bright-accent);
 }
 
 .toggleBtn:hover {
-    border-color: #6f6f6f;
+    border-color: var(--essential-subdued);
 }
 
 .toggleBtn.toggled .thumb {

@@ -1,9 +1,9 @@
 .inputDiv {
   display: grid;
-  background-color: #121212;
+  background-color: var(--background-base);
   grid-template-columns: 10fr 1fr;
   align-items: center;
-  border: 1px solid #727272;
+  border: 1px solid var(--essential-subdued);
   border-radius: 3px;
   height: 50px;
 }
@@ -18,10 +18,10 @@
 }
 
 .error {
-  border-color: #e91429;
+  border-color: var(--essential-negative);
 }
 
 .error:focus-within {
   border-width: 3px;
-  border-color: #e91429;
+  border-color: var(--essential-negative);
 }
