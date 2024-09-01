@@ -39,8 +39,7 @@
 }
 
 .library {
-  /* height: calc(100vh - 110px); */
-  height: 100%;
+  height: calc(100vh - 160px);
   padding: 20px 10px;
   overflow: hidden;
 }

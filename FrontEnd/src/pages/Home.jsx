@@ -31,8 +31,8 @@ const Home = () => {
         <Resizable
           width={sidebarWidth}
           height={0}
-          minConstraints={[250, 0]}
-          maxConstraints={[500, 0]}
+          minConstraints={[280, 0]}
+          maxConstraints={[450, 0]}
           onResize={onResizeSidebar}
           draggableOpts={{ axis: "x" }}
         >

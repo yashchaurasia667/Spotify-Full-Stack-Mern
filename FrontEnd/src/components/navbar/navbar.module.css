@@ -1,4 +1,77 @@
 .navbar {
   height: 60px;
-  background-color: red;
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 10px;
+}
+
+.navbar img {
+  height: 60px;
+}
+
+.nav_mid {
+  display: flex;
+  align-items: center;
+}
+
+.nav_mid a {
+  scale: 1.8;
+  padding: 5px;
+  background-color: var(--background-highlight);
+  border-radius: 50%;
+}
+
+.nav_mid a:hover {
+  scale: 1.9;
+}
+
+.searchbox {
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
+  padding: 0 10px;
+  height: 60px;
+  fill: var(--text-subdued);
+  background-color: var(--background-highlight);
+}
+
+.searchbox input {
+  background-color: var(--background-highlight);
+}
+
+.searchbox input::placeholder {
+  color: var(--text-subdued);
+}
+
+.nav_right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: 10px;
+}
+
+.nav_right a {
+  font-weight: 600;
+  border-radius: 99px;
+  padding: 10px 30px;
+}
+
+.nav_right a:nth-child(1) {
+  background: #000;
+  color: var(--text-subdued);
+}
+
+.nav_right a:nth-child(2) {
+  background-color: #fff;
+  color: #000;
+}
+
+.nav_right a:nth-child(1):hover {
+  color: #f0f0f0;
+  scale: 1.05;
+}
+
+.nav_right a:nth-child(2):hover {
+  background-color: #f0f0f0;
+  scale: 1.05;
 }
