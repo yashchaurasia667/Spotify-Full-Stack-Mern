@@ -12,6 +12,7 @@
 
 :root {
   font-family: "Roboto", sans-serif;
+  background-color: var(--background-press);
   --background-base: #121212;
   --background-highlight: #1f1f1f;
   --background-press: #000;

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { FaPlay } from "react-icons/fa";
 
 import GreenButton from "../../../global/GreenButton";
@@ -7,14 +8,18 @@ import { play, main } from "./artistCard.module.css";
 
 const ArtistCard = ({ name = "", type = "album", img = "" }) => {
   return (
-    <button className={`${main} relative bg-transparent hover:bg-background-highlight w-[155px] px-2 py-3 rounded-md text-left`}>
+    <Link
+      className={`${main} relative bg-transparent hover:bg-background-highlight w-[155px] px-2 py-3 rounded-md text-left`}
+    >
       <div>
         {img != "" ? (
           <img
             src={img}
             alt={name}
             className={`${
-              type.toLocaleLowerCase() === "artist" ? "rounded-[50%]" : "rounded-[5px]"
+              type.toLocaleLowerCase() === "artist"
+                ? "rounded-[50%]"
+                : "rounded-[5px]"
             } w-full`}
           />
         ) : (
@@ -27,7 +32,7 @@ const ArtistCard = ({ name = "", type = "album", img = "" }) => {
       </div>
       <div className="text-md text-white mt-2">{name}</div>
       <div className="text-sm text-text-subdued mb-6">{type}</div>
-    </button>
+    </Link>
   );
 };
 

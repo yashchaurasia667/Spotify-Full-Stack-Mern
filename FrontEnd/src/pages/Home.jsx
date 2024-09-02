@@ -20,8 +20,9 @@ const Home = () => {
     height: "100vh",
     display: "grid",
     gridTemplateColumns: `${sidebarWidth}px 1fr`,
-    gridTemplateRows: "repeat(3, auto)",
+    gridTemplateRows: "50px repeat(2, auto)",
     columnGap: "10px",
+    rowGap: "10px",
   };
 
   return (
