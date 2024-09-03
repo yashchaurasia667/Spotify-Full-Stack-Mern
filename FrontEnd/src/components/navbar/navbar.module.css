@@ -2,6 +2,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
   /* overflow: hidden; */
 }
 
@@ -10,6 +11,10 @@
 }
 
 .nav_mid {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
   align-items: center;
   column-gap: 10px;
@@ -33,40 +38,38 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding: 0 10px;
+  padding: 0 15px;
   border-radius: 999px;
   background: var(--background-highlight);
-}
-
-.searchbar input::placeholder {
-  color: var(--text-subdued);
-}
-
-.searchbar:hover, .searchbar:hover * {
-  background: var(--background-elevated-highlight);
-  cursor: pointer;
-}
-
-.searchbar:hover {
-  border: 1px solid var(--background-tinted-highlight);
-}
-
-.searchbar svg {
-  height: 25px;
-  width: 25px;
-  fill: var(--text-subdued);
 }
 
 .searchbar input {
   outline: none;
   background: var(--background-highlight);
   width: 100%;
-  padding: 15px 10px;
+  padding: 15px;
+  border-radius: 999px;
 }
 
-/* .searchbar input:focus-within {
-  border: 2px solid var(--text-base);
-} */
+.searchbar svg {
+  height: 30px;
+  width: 30px;
+  fill: var(--text-subdued);
+}
+
+.searchbar input::placeholder {
+  color: var(--text-subdued);
+}
+
+.searchbar:hover,
+.searchbar:hover * {
+  background: var(--background-elevated-highlight);
+  cursor: pointer;
+}
+
+.searchbar:hover input {
+  border: 1px solid var(--background-tinted-highlight);
+}
 
 .nav_right {
   display: flex;

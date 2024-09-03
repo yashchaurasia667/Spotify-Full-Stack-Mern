@@ -5,7 +5,6 @@ import styles from "./toggleSwitch.module.css"
 
 const ToggleSwitch = () => {
   const [toggled, setToggled] = useState(false);
-  console.log(styles)
   return (
     <div
       className={`${styles.toggleBtn} ${toggled ? styles.toggled : ""}`}
