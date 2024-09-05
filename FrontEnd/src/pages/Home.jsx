@@ -10,6 +10,7 @@ import "react-resizable/css/styles.css";
 import "../styleSheets/Home.css";
 
 const Home = () => {
+  document.querySelector("#favicon").href = "spotifyGreen.svg";
   const [sidebarWidth, setSidebarWidth] = useState(350);
   const onResizeSidebar = (event, { size }) => setSidebarWidth(size.width);
 

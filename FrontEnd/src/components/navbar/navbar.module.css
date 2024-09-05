@@ -41,6 +41,7 @@
   padding: 0 15px;
   border-radius: 999px;
   background: var(--background-highlight);
+  transition: border-width 0.1s ease-out;
 }
 
 .searchbar input {
@@ -72,37 +73,9 @@
   border: 1px solid var(--background-tinted-highlight);
 }
 
-.searchbar input::before {
-  content: url("./search.svg");
-  display: inline-block;
-}
-
-/* .searchbar {
-  width: 100%;
-}
-
-.searchbar input {
-  width: 100%;
-  padding: 12px 20px;
-  border-radius: 999px;
-  background: var(--background-highlight);
-  border: none;
-  outline: none;
-  transition: border-width 0.1s ease-in;
-}
-
-.searchbar input:hover {
-  border: 1px solid var(--background-tinted-highlight);
-  background: var(--background-elevated-highlight);
-}
-
-.searchbar input:focus-within {
+.searchbar:focus-within {
   border: 3px solid var(--text-base);
 }
-
-.searchbar input::placeholder {
-  color: var(--text-subdued);
-} */
 
 .nav_right {
   display: flex;

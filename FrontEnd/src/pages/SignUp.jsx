@@ -5,10 +5,7 @@ import Hero from "../components/signup/Hero";
 
 const SignUp = () => {
   document.title = "Sign up - Spotify";
-
-  useEffect(() => {
-    document.querySelector("#favicon").href = "spotifyBlack.svg";
-  }, []);
+  document.querySelector("#favicon").href = "spotifyBlack.svg";
 
   return (
     <SignupContextProvider>
