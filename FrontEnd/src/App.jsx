@@ -1,6 +1,8 @@
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
-import Home from "./pages/Home";
+import HomeMain from "./components/home/homeMain/HomeMain";
+import Search from "./pages/Search";
+import NotFound from "./pages/NotFound";
 
 import {
   createBrowserRouter,
@@ -8,7 +10,8 @@ import {
   Route,
   RouterProvider,
 } from "react-router-dom";
-import NotFound from "./pages/NotFound";
+
+import HomeLayout from "./layouts/HomeLayout";
 
 const App = () => {
   const router = createBrowserRouter(
@@ -16,9 +19,12 @@ const App = () => {
       <Route path="/">
         <Route path="*" element={<NotFound />} />
 
-        <Route index element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<SignUp />} />
+        <Route path="/" element={<HomeLayout />}>
+          <Route index element={<HomeMain />} />
+          <Route path="search" element={<Search />} />
+        </Route>
+        <Route path="login" element={<Login />} />
+        <Route path="signup" element={<SignUp />} />
       </Route>
     )
   );

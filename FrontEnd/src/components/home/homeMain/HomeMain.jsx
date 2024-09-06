@@ -1,6 +1,5 @@
 import React from "react";
 
-// import Navbar from "./Navbar";
 import HomeHero from "./homeHero/HomeHero";
 
 import { home_main, home_gradient } from "./homeMain.module.css";
