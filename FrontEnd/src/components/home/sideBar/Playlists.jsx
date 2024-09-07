@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import Card from "./Card";
 
-import {cards, playlists} from './sideBar.module.css'
+import { cards, playlists } from "./sideBar.module.css";
 
-const Playlists = ({ loggenIn = false }) => {
+import SignupContext from "../../../context/signupContext/SignupContext";
+
+const Playlists = () => {
+  const { loggedIn } = useContext(SignupContext);
+  console.log(loggedIn);
   const renderPlaylist = () => {
-    if (!loggenIn)
+    if (!loggedIn)
       return (
         <div className={`${cards}`}>
           <Card

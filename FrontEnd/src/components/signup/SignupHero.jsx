@@ -6,8 +6,8 @@ import Step2 from "./step2/Step2";
 import Step3 from "./step3/Step3";
 import Step4 from "./step4/Step4";
 
-function Hero() {
-  const { step } = useContext(SignupContext);
+function SignupHero({ step }) {
+  // const { step } = useContext(SignupContext);
 
   const renderStep = (step) => {
     if (step == 0) return <Step1 />;
@@ -21,4 +21,4 @@ function Hero() {
   );
 }
 
-export default Hero;
+export default SignupHero;

@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 import SignupContextProvider from "../context/signupContext/SignupContextProvider";
-import Hero from "../components/signup/Hero";
+import Hero from "../components/signup/SignupHero";
 
 const SignUp = () => {
   document.title = "Sign up - Spotify";

@@ -3,14 +3,15 @@ import { Outlet } from "react-router-dom";
 import { Resizable } from "react-resizable";
 
 import SideBar from "../components/home/sideBar/SideBar";
-import HomeMain from "../components/home/homeMain/HomeMain";
-import PurpleBar from "../components/home/PurpleBar";
 import Navbar from "../components/navbar/Navbar";
 
 import "react-resizable/css/styles.css";
 import "../styleSheets/Home.css";
 
-const HomeLayout = () => {
+import SignupContextProvider from "../context/signupContext/SignupContextProvider";
+import BottomPlayBar from "../components/home/bottomPlayBar/BottomPlayBar";
+
+const MainLayout = () => {
   document.querySelector("#favicon").href = "spotifyGreen.svg";
   const [sidebarWidth, setSidebarWidth] = useState(350);
   const onResizeSidebar = (event, { size }) => setSidebarWidth(size.width);
@@ -28,8 +29,8 @@ const HomeLayout = () => {
   };
 
   return (
-    <>
-      <div className="parent" style={style}>
+    <div className="parent" style={style}>
+      <SignupContextProvider>
         <Navbar />
         <Resizable
           width={sidebarWidth}
@@ -45,10 +46,10 @@ const HomeLayout = () => {
         </Resizable>
 
         <Outlet />
-        <PurpleBar />
-      </div>
-    </>
+        <BottomPlayBar />
+      </SignupContextProvider>
+    </div>
   );
 };
 
-export default HomeLayout;
+export default MainLayout;

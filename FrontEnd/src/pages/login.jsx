@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Hero from "../components/login/hero.jsx";
 import Footer from "../components/global/Footer.jsx";
 

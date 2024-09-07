@@ -1,0 +1,11 @@
+.step1 {
+  color: var(--text-base);
+  width: 500px;
+  height: 100%;
+}
+
+@media screen and (min-width: 768px) {
+  .step1 {
+    height: calc(100vh - 82px);
+  }
+}

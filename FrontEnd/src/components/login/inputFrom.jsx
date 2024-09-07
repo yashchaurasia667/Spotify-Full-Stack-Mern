@@ -45,10 +45,11 @@ const InputFrom = () => {
 
       const data = await res.json();
       if (data.success) {
-        setLoggedIn(true);
+        console.log("logged in");
+        // setLoggedIn(true);
+        setLoggedIn("gugugaga");
         navigate("/");
       }
-      console.log(data.message);
     } catch (error) {
       throw new Error(`Something went wrong... ${error}`);
     }
@@ -94,7 +95,9 @@ const InputFrom = () => {
       </form>
       <GreenButton
         content={"Log In"}
-        className={"w-[90%] md:w-[45%] mx-auto mt-10"}
+        className={
+          "w-[90%] md:w-[45%] mx-auto mt-10 hover:scale-[1.02] hover:bg-[#3be477]"
+        }
         onClick={() => submit.current.click()}
       />
     </>

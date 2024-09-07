@@ -41,6 +41,7 @@
   padding: 0 15px;
   border-radius: 999px;
   background: var(--background-highlight);
+  border: 0px solid var(--background-tinted-highlight);
   transition: border-width 0.1s ease-out;
 }
 
@@ -70,7 +71,7 @@
 }
 
 .searchbar:hover {
-  border: 1px solid var(--background-tinted-highlight);
+  border: 2px solid var(--background-tinted-highlight);
 }
 
 .searchbar:focus-within {

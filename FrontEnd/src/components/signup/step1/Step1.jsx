@@ -5,16 +5,16 @@ import { HiOutlineExclamationCircle } from "react-icons/hi";
 import ContinueWith from "../../global/continueWith";
 import DividerWithText from "../../global/DividerWithText";
 import GreenButton from "../../global/GreenButton";
-import Footer from "../../global/Footer";
 
 import SignupContext from "../../../context/signupContext/SignupContext";
 
 import styles from "../../global/error.module.css";
 
-import spotify from "/spotifyBw.svg";
 import google from "../../../assets/google.svg";
 import apple from "../../../assets/apple.svg";
 import facebook from "../../../assets/facebook.svg";
+
+import {step1} from "./Step1.module.css";
 
 const Step1 = () => {
   const [error, setError] = useState("hidden");
@@ -39,11 +39,8 @@ const Step1 = () => {
   };
 
   return (
-    <div className="text-white w-[500px]">
+    <div className={step1}>
       {/* logo and heading stuff */}
-      <div className="bg-[#121212] grid grid-rows-1 items-center justify-center">
-        <img src={spotify} alt="Spofity logo" />
-      </div>
       <p className="text-5xl font-bold text-center leading-[60px] w-[60%] mx-auto">
         Sign up to start listening
       </p>
@@ -75,7 +72,7 @@ const Step1 = () => {
       </div>
 
       <div className="mt-5" onClick={() => handleNext()}>
-        <GreenButton content={"Next"} className="sm:w-[65%]" />
+        <GreenButton content={"Next"} className="sm:w-[65%] w-[90%]" />
       </div>
 
       <div className="my-9">
@@ -96,9 +93,6 @@ const Step1 = () => {
         <Link to={"/login"} className="text-white deocation underline">
           Log in here.
         </Link>
-      </div>
-      <div className="w-[300px] mx-auto xl:relative md:absolute md:bottom-0">
-        <Footer />
       </div>
     </div>
   );
