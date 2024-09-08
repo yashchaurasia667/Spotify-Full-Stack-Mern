@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import SignupContext from "../../../context/signupContext/SignupContext";
@@ -9,8 +9,12 @@ import styles from "./step4.module.css";
 
 const Step4 = () => {
   const navigate = useNavigate();
-  const { email, password, name, year, month, day, setLoggedIn } =
+  const { step, email, password, name, year, month, day, setLoggedIn } =
     useContext(SignupContext);
+
+  useEffect(() => {
+    if (step != 4) navigate("/signup/");
+  }, []);
 
   const handleSubmit = async () => {
     try {

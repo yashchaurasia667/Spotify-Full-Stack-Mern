@@ -1,4 +1,5 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { FaChevronLeft } from "react-icons/fa6";
 import SignupContext from "../../context/signupContext/SignupContext";
 
@@ -6,7 +7,13 @@ const StepCounter = ({ stepNo = 0, stepName = "" }) => {
   const gridStyle = {
     gridTemplateColumns: `${stepNo}fr ${3 - stepNo}fr`,
   };
-  const { setStep } = useContext(SignupContext);
+  const { step, setStep } = useContext(SignupContext);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    navigate(`/signup/${step}`);
+  }, [step]);
+
   return (
     <>
       <div className={`w-[85%] grid mx-auto`} style={gridStyle}>
@@ -14,7 +21,11 @@ const StepCounter = ({ stepNo = 0, stepName = "" }) => {
         <div className="border-2 border-[#727272]"></div>
       </div>
       <div className="grid grid-cols-[1fr_10fr] text-[#a7a7a7] py-4 px-12">
-        <button onClick={()=> setStep(stepNo-1)}>
+        <button
+          onClick={() => {
+            setStep(step - 1);
+          }}
+        >
           <FaChevronLeft className="scale-150 hover:text-white" />
         </button>
         <div className="grid grid-rows-2 ">

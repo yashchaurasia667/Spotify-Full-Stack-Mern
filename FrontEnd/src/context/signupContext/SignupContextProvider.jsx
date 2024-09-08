@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import SignupContext from "./SignupContext";
 
 const SignupContextProvider = ({ children }) => {
-  const [step, setStep] = useState(0);
+  const [step, setStep] = useState(1);
 
   const [email, setEmail] = useState("");
 

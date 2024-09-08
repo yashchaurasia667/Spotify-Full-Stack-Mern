@@ -1,4 +1,4 @@
-import React, { useState, useContext, useRef } from "react";
+import React, { useState, useContext, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
 
@@ -18,7 +18,8 @@ import { step1 } from "./Step1.module.css";
 
 const Step1 = () => {
   const [error, setError] = useState("hidden");
-  const { setStep, email, setEmail, validateEmail } = useContext(SignupContext);
+  const { step, setStep, email, setEmail, validateEmail } =
+    useContext(SignupContext);
 
   const emailRef = useRef();
   const navigate = useNavigate();
@@ -37,7 +38,7 @@ const Step1 = () => {
 
   const handleNext = () => {
     if (validateEmail(email)) {
-      setStep(1);
+      setStep(2);
       navigate("/signup/2");
     }
     checkEmail(email);

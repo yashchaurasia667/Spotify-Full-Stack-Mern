@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useRef, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import StepCounter from "../StepCounter";
@@ -20,6 +20,7 @@ const Step3 = () => {
     setDay,
     gender,
     setGender,
+    step,
     setStep,
   } = useContext(SignupContext);
 
@@ -34,6 +35,10 @@ const Step3 = () => {
   const inputClass =
     "bg-[#121212] border border-[#727272] hover:border-[#fff] rounded-[4px] items-center focus-within:outline-none focus-within:border-white focus-within:border-[2px] px-4 py-3";
   const labelClass = `custom-radio-button flex gap-x-3 items-center my-1`;
+
+  useEffect(() => {
+    if (step != 3) navigate("/signup/");
+  }, []);
 
   const checkName = (e) => {
     setName(e);
@@ -83,7 +88,7 @@ const Step3 = () => {
     }
     setAgeError("hidden");
     if (name && year && day && gender) {
-      setStep(3);
+      setStep(4);
       navigate("/signup/4");
       return;
     }

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 
 import StepCounter from "../StepCounter";
 import Password from "./Password";
@@ -10,8 +10,12 @@ import { step2 } from "./Step2.module.css";
 import { useNavigate } from "react-router-dom";
 
 const Step2 = () => {
-  const { setStep, password, checkPass } = useContext(SignupContext);
+  const { step, setStep, password } = useContext(SignupContext);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (step != 2) navigate("/signup/");
+  }, []);
 
   const handleNext = () => {
     if (
@@ -19,7 +23,7 @@ const Step2 = () => {
       password.match(/[\d\W]/) &&
       password.length > 9
     ) {
-      setStep(2);
+      setStep(3);
       navigate("/signup/3");
     }
   };
