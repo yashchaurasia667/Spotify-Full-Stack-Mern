@@ -1,0 +1,21 @@
+/* .scroll::-webkit-scrollbar {
+  width: 12px;
+}
+
+.scroll::-webkit-scrollbar-track {
+  background: #80808000;
+  visibility: visible;
+}
+
+.scroll::-webkit-scrollbar-thumb {
+  background: #80808077;
+  visibility: visible;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #808080aa;
+} */
+
+.scroll {
+  background-color: red;
+}

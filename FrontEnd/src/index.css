@@ -40,23 +40,6 @@
   --decorative-subdued: #292929;
 }
 
-::-webkit-scrollbar {
-  width: 12px;
-}
-
-*::-webkit-scrollbar-track {
-  background: #80808000;
-}
-
-*::-webkit-scrollbar-thumb {
-  background: #80808077;
-  visibility: hidden;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #808080aa;
-}
-
 .number {
   @apply appearance-none;
   -moz-appearence: textfield;

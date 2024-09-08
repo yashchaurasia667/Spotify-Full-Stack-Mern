@@ -7,7 +7,7 @@ const Footer = ({ className }) => {
   return (
     <div
       className={
-        "mt-8 bottom-0 bg-background-base w-[100%] text-text-subdued text-center py-8 text-[12px] " +
+        "bottom-0 bg-background-base w-[100%] text-text-subdued text-center py-8 text-[12px] " +
         className
       }
     >

@@ -1,3 +1,7 @@
+.step4 {
+  height: calc(100vh - 207px);
+}
+
 .container {
   position: relative;
   padding: 1rem 2.7rem;

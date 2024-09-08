@@ -1,11 +1,25 @@
 .step1 {
   color: var(--text-base);
   width: 500px;
-  height: 100%;
+  /* height: 100%; */
 }
 
-@media screen and (min-width: 768px) {
+/* for devices 768px and higher */
+@media (min-width: 768px) {
   .step1 {
-    height: calc(100vh - 82px);
+    height: calc(100vh - 206px);
+  }
+}
+
+/* for devices upto 640px and lower */
+@media (max-width: 640px) {
+  .step1 {
+    height: 100%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .step1 {
+    height: 100%;
   }
 }

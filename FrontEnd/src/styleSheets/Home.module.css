@@ -13,3 +13,21 @@
 .parent:hover .react-resizable-handle {
   visibility: visible;
 }
+
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #80808000;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: #80808077;
+  visibility: hidden;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #808080aa;
+}
+

@@ -5,15 +5,23 @@ import Footer from "../components/global/Footer";
 
 import spotify from "/spotifyBw.svg";
 
+import SignupContextProvider from "../context/signupContext/SignupContextProvider";
+
+import { scroll } from "../styleSheets/scrollbarVisible.module.css";
+
 const SignupLayout = () => {
   document.querySelector("#favicon").href = "spotifyBlack.svg";
+  document.title = "Sign up - Spotify";
+
   return (
-    <div className="bg-background-base">
-      <div className="flex items-center justify-center">
+    <div className={"bg-background-base " + scroll}>
+      <div className="top-logo flex items-center justify-center">
         <img src={spotify} alt="Spofity logo" />
       </div>
-      <Outlet />
-      <Footer className="w-[300px] sm:w-full mx-auto relative sm:absolute lg:relative bottom-0" />
+      <SignupContextProvider>
+        <Outlet />
+      </SignupContextProvider>
+      <Footer className="w-[300px] sm:w-full mx-auto relative" />
     </div>
   );
 };

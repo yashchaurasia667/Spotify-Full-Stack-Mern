@@ -1,17 +1,12 @@
-import React from "react";
-
-import SignupContextProvider from "../context/signupContext/SignupContextProvider";
-import Hero from "../components/signup/SignupHero";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
   document.title = "Sign up - Spotify";
-  document.querySelector("#favicon").href = "spotifyBlack.svg";
+  document.querySelector("#favicon").href = "/spotifyBlack.svg";
 
-  return (
-    <SignupContextProvider>
-      <Hero />
-    </SignupContextProvider>
-  );
+  const navigate = useNavigate();
+  useEffect(() => navigate("/signup/1"), []);
 };
 
 export default SignUp;

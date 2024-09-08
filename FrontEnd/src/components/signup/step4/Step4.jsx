@@ -1,18 +1,16 @@
 import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-import spotify from "/spotifyBw.svg";
-
 import SignupContext from "../../../context/signupContext/SignupContext";
 import StepCounter from "../StepCounter";
 import GreenButton from "../../global/GreenButton";
-import Footer from "../../global/Footer";
 
 import styles from "./step4.module.css";
 
 const Step4 = () => {
   const navigate = useNavigate();
-  const { email, password, name, year, month, day, setLoggedIn } = useContext(SignupContext);
+  const { email, password, name, year, month, day, setLoggedIn } =
+    useContext(SignupContext);
 
   const handleSubmit = async () => {
     try {
@@ -34,23 +32,27 @@ const Step4 = () => {
       const data = await res.json();
       if (data.success) {
         setLoggedIn(true);
-        navigate('/')
+        navigate("/");
       }
     } catch (error) {
       console.error(`Failed to fetch from the Server ${error}`);
     }
   };
+
   return (
-    <div className="bg-[#121212] w-[500px] text-white sm:h-screen relative">
-      <div className="bg-[#121212] flex justify-center">
-        <img src={spotify} alt="Spofity logo" />
-      </div>
+    <div
+      className={"w-[100%] sm:w-[500px] text-white relative " + styles.step4}
+    >
       <StepCounter stepNo={3} stepName="Terms & Conditions" />
-      <div className="px-[90px] mt-5">
+      <div className="px-[30px] sm:px-[90px] mt-5">
         <form className="flex flex-col gap-y-2">
           <label className={styles.container}>
             I would prefer not to receive marketing messages from Spotify
-            <input type="checkbox" className={styles.checkbox} name="marketing" />
+            <input
+              type="checkbox"
+              className={styles.checkbox}
+              name="marketing"
+            />
             <span className={styles.checkmark}></span>
           </label>
           <label className={styles.container}>
@@ -77,13 +79,10 @@ const Step4 = () => {
         </div>
       </div>
       <GreenButton
-        className="sm:w-[65%] mt-8"
+        className="w-[85%] sm:w-[65%] mt-8 hover:bg-[#3be477]"
         content="Sign up"
         onClick={handleSubmit}
       />
-      <div className="w-[300px] mx-auto sm:absolute sm:bottom-0 sm:left-1/2 sm:-translate-x-1/2">
-        <Footer />
-      </div>
     </div>
   );
 };

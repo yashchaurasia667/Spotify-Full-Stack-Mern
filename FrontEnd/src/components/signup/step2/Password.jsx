@@ -2,9 +2,9 @@ import React, { useRef, useState, useContext } from "react";
 import { FaRegEyeSlash, FaRegEye } from "react-icons/fa";
 import PassRequirements from "./PassRequirements";
 
-import styles from "../../global/error.module.css";
-
 import SignupContext from "../../../context/signupContext/SignupContext";
+
+import styles from "../../global/error.module.css";
 
 const Password = () => {
   const { password, setPassword } = useContext(SignupContext);

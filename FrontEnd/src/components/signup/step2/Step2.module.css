@@ -1,0 +1,9 @@
+.step2 {
+  height: calc(100vh - 195px);
+}
+
+@media (min-width:1024px) {
+  .step2 {
+    height: calc(100vh - 175px);
+  }
+}

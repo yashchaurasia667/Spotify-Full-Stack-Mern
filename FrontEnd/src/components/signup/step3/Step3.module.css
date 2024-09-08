@@ -1,3 +1,31 @@
+.step3 {
+  height: 100%;
+}
+
+@media (max-width: 375px) {
+  .step3 {
+    height: 100%;
+  }
+}
+
+@media (min-width: 390px) {
+  .step3 {
+    height: calc(100vh - 195px);
+  }
+}
+
+@media (min-width: 768px) {
+  .step3 {
+    height: calc(100vh - 175px);
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1270px) {
+  .step3 {
+    height: 100%;
+  }
+}
+
 .customRadioInput {
   display: none;
 }
@@ -31,7 +59,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  opacity: 0; 
+  opacity: 0;
   transition: opacity 0.2s ease;
 }
 
@@ -43,7 +71,7 @@
   background-color: var(--background-base);
   border: 1px solid var(--essential-subdued);
   border-radius: 4px;
-  padding: 0.80rem 1rem;
+  padding: 0.8rem 1rem;
 }
 
 .neutral:hover {
@@ -55,6 +83,8 @@
   outline: none;
 }
 
-.error,.error:focus-within, .error:hover{
+.error,
+.error:focus-within,
+.error:hover {
   border-color: var(--essential-negative);
 }

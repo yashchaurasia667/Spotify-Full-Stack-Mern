@@ -6,7 +6,7 @@ import SideBar from "../components/home/sideBar/SideBar";
 import Navbar from "../components/navbar/Navbar";
 
 import "react-resizable/css/styles.css";
-import "../styleSheets/Home.css";
+import {parent} from "../styleSheets/Home.module.css";
 
 import SignupContextProvider from "../context/signupContext/SignupContextProvider";
 import BottomPlayBar from "../components/home/bottomPlayBar/BottomPlayBar";
@@ -29,7 +29,7 @@ const MainLayout = () => {
   };
 
   return (
-    <div className="parent" style={style}>
+    <div className={parent} style={style}>
       <SignupContextProvider>
         <Navbar />
         <Resizable
