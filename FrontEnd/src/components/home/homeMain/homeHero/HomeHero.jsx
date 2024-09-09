@@ -3,6 +3,7 @@ import ArtistCard from "./ArtistCard";
 
 import { home_hero } from "../homeMain.module.css";
 import ArtistBar from "./ArtistBar";
+import Footer from "./Footer";
 
 const HomeHero = () => {
   return (
@@ -33,6 +34,7 @@ const HomeHero = () => {
           />
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

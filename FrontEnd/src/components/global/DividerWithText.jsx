@@ -4,11 +4,15 @@ const DividerWithText = ({
   content = "",
   colorText = "#7c7c7c",
   colorDivider = "#7c7c7c",
+  width = "100%",
 }) => {
   return (
-    <div className="relative flex justify-center items-center my-3">
+    <div
+      className="relative flex justify-center items-center my-3"
+      style={{ width }}
+    >
       <div
-        className={`border w-[70%]`}
+        className={`border ${width}`}
         style={{ border: `1px solid ${colorDivider}` }}
       ></div>
       <div

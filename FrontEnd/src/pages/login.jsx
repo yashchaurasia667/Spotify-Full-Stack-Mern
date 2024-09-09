@@ -10,7 +10,7 @@ const Login = () => {
     <>
       <div className="relative w-[100%] background bg-gradient-to-b from-[#2a2a2a] to-[#000000] flex flex-col items-center">
         <Hero />
-        <Footer />
+        <Footer className={'sm:mt-6'} />
       </div>
     </>
   );
