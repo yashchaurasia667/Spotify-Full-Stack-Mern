@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import Card from "./Card";
 
 import { cards, playlists } from "./sideBar.module.css";
@@ -7,7 +7,8 @@ import SignupContext from "../../../context/signupContext/SignupContext";
 
 const Playlists = () => {
   const { loggedIn } = useContext(SignupContext);
-  console.log(loggedIn);
+  useEffect(() => console.log(loggedIn), [loggedIn]);
+
   const renderPlaylist = () => {
     if (!loggedIn)
       return (

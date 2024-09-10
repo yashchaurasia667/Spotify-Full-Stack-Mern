@@ -119,8 +119,22 @@ const Footer = () => {
           </button>
         </div>
       </div>
-      <DividerWithText />
-      <div></div>
+      <DividerWithText className="my-8" />
+      <div className="flex justify-between pb-14">
+        <div className="flex gap-x-4">
+          <div className={linkStyle + " hover:no-underline cursor-pointer"}>Legal</div>
+          <div className={linkStyle + " hover:no-underline cursor-pointer"}>
+            Safety & Privacy Center
+          </div>
+          <div className={linkStyle + " hover:no-underline cursor-pointer"}>
+            Privacy Policy
+          </div>
+          <div className={linkStyle + " hover:no-underline cursor-pointer"}>Cookies</div>
+          <div className={linkStyle + " hover:no-underline cursor-pointer"}>About Ads</div>
+          <div className={linkStyle + " hover:no-underline cursor-pointer"}>Accessibility</div>
+        </div>
+        <div className="text-text-subdued text-sm">&#169; 2024 Spotify AB</div>
+      </div>
     </footer>
   );
 };

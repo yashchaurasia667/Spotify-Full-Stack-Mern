@@ -8,7 +8,7 @@ import GreenButton from "../global/GreenButton";
 import SignupContext from "../../context/signupContext/SignupContext";
 
 const InputFrom = () => {
-  const { setLoggedIn } = useContext(SignupContext);
+  const { loggedIn, setLoggedIn } = useContext(SignupContext);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -48,7 +48,8 @@ const InputFrom = () => {
         console.log("logged in");
         // setLoggedIn(true);
         setLoggedIn("gugugaga");
-        navigate("/");
+        console.log(loggedIn);
+        // navigate("/");
       }
     } catch (error) {
       throw new Error(`Something went wrong... ${error}`);
