@@ -18,8 +18,8 @@ import { step1 } from "./Step1.module.css";
 
 const Step1 = () => {
   const [error, setError] = useState("hidden");
-  const { step, setStep, email, setEmail, validateEmail } =
-    useContext(SignupContext);
+  const [userExists, setUserExists] = useState("opacity-0");
+  const { setStep, email, setEmail, validateEmail } = useContext(SignupContext);
 
   const emailRef = useRef();
   const navigate = useNavigate();
@@ -36,10 +36,30 @@ const Step1 = () => {
     elm.add(styles.error);
   };
 
-  const handleNext = () => {
+  const handleNext = async () => {
     if (validateEmail(email)) {
-      setStep(2);
-      navigate("/signup/2");
+      try {
+        const res = await fetch("http://localhost:8000/auth/checkuser", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email,
+          }),
+        });
+
+        const data = await res.json();
+        if (data.success) {
+          setStep(2);
+          navigate("/signup/2");
+        } else {
+          setUserExists("opacity-1");
+          console.log("user already exits");
+        }
+      } catch (error) {
+        console.log(`Something went wrong checking email: ${error}`);
+      }
     }
     checkEmail(email);
   };
@@ -51,7 +71,18 @@ const Step1 = () => {
         Sign up to start listening
       </p>
 
-      <div className="relative w-[90%] sm:w-[63%] grid grid-rows-2 items-end mx-auto mt-5">
+      <div
+        className={
+          "flex gap-x-2 bg-essential-negative p-2 px-3 mt-2 " + userExists
+        }
+      >
+        <HiOutlineExclamationCircle className="stroke-text-base scale-[175%]" />
+        <p className="text-text-base text-sm font-medium">
+          A user with this email already exits. Please Log in
+        </p>
+      </div>
+
+      <div className="relative w-[90%] sm:w-[63%] grid grid-rows-2 items-end mx-auto ">
         <label className="font-semibold text-[14px] pb-2">Email address</label>
         <input
           type="email"

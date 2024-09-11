@@ -54,7 +54,7 @@ const login = async (req, res) => {
     const isPassEqual = await bcrypt.compare(password, user.password);
     if (!isPassEqual) {
       return res.status(403).json({
-        message:  "Incorrect username or password",
+        message: "Incorrect username or password",
         success: false,
       });
     }
@@ -77,4 +77,26 @@ const login = async (req, res) => {
   }
 };
 
-export { signup, login };
+const checkUser = async (req, res) => {
+  try {
+    const { email } = req.body;
+    const user = await UserModel.findOne({ email })
+
+    if (!user) {
+      return res.status(200).json({
+        success: true,
+        message: "user does not exist with this email"
+      });
+    }
+    else
+      return res.status(409).json({
+        success: false,
+        message: "user already exists"
+      })
+  }
+  catch (error) {
+    console.log(`Something went wrong finding user ${error}`);
+  }
+}
+
+export { signup, login, checkUser };
