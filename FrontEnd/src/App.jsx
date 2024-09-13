@@ -14,6 +14,7 @@ import {
 
 import MainLayout from "./layouts/MainLayout";
 import SignupLayout from "./layouts/SignupLayout";
+import MainContextProvider from "./context/mainContext/MainContextProvider";
 
 const App = () => {
   const router = createBrowserRouter(
@@ -21,7 +22,14 @@ const App = () => {
       <Route path="/">
         <Route path="*" element={<NotFound />} />
 
-        <Route path="/" element={<MainLayout />}>
+        <Route
+          path="/"
+          element={
+            <MainContextProvider>
+              <MainLayout />
+            </MainContextProvider>
+          }
+        >
           <Route index element={<HomeMain />} />
           <Route path="search" element={<Search />} />
         </Route>

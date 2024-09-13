@@ -1,8 +1,10 @@
-import React, { useState } from "react";
-
+import React, { useContext, useState } from "react";
 import { FaPlus } from "react-icons/fa6";
 
 import Playlists from "./Playlists";
+
+import MainContext from "../../../context/mainContext/MainContext";
+
 import {
   outer,
   library,
@@ -13,16 +15,7 @@ import {
 } from "./sideBar.module.css";
 
 function Library({ sidebarWidth, setSidebarWidth }) {
-  const [libIcon, setLibIcon] = useState("Your Library");
-
-  const collapse = () => {
-    if (sidebarWidth > 70) {
-      setLibIcon("");
-      return setSidebarWidth(70);
-    }
-    setLibIcon("Your Library");
-    return setSidebarWidth(350);
-  };
+  const { collapse, libIcon, setLibIcon } = useContext(MainContext);
 
   return (
     <div className={`${outer} ${library}`}>

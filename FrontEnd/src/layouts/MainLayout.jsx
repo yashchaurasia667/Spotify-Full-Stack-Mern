@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Outlet } from "react-router-dom";
 import { Resizable } from "react-resizable";
 
@@ -9,15 +9,16 @@ import BottomPlayBar from "../components/home/bottomPlayBar/BottomPlayBar";
 import "react-resizable/css/styles.css";
 import { parent } from "../styleSheets/Home.module.css";
 
+import MainContext from "../context/mainContext/MainContext";
 import SignupContextProvider from "../context/signupContext/SignupContextProvider";
 
 const MainLayout = () => {
   document.querySelector("#favicon").href = "spotifyGreen.svg";
-  const [sidebarWidth, setSidebarWidth] = useState(350);
+  const { sidebarWidth, setSidebarWidth, collapse } = useContext(MainContext);
+
   const onResizeSidebar = (event, { size }) => {
-    if (size.width < 280) return setSidebarWidth(70);
-    // if (size.width > 250) return setSidebarWidth("250");
-    if (size.width > 270) setSidebarWidth(size.width);
+    if (size.width < 280) return collapse();
+    if (size.width > 280) setSidebarWidth(size.width);
   };
 
   const style = {
