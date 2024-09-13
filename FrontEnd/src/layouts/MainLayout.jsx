@@ -2,19 +2,23 @@ import React, { useState } from "react";
 import { Outlet } from "react-router-dom";
 import { Resizable } from "react-resizable";
 
-import SideBar from "../components/home/sideBar/SideBar";
 import Navbar from "../components/navbar/Navbar";
+import Library from "../components/home/sideBar/Library";
+import BottomPlayBar from "../components/home/bottomPlayBar/BottomPlayBar";
 
 import "react-resizable/css/styles.css";
-import {parent} from "../styleSheets/Home.module.css";
+import { parent } from "../styleSheets/Home.module.css";
 
 import SignupContextProvider from "../context/signupContext/SignupContextProvider";
-import BottomPlayBar from "../components/home/bottomPlayBar/BottomPlayBar";
 
 const MainLayout = () => {
   document.querySelector("#favicon").href = "spotifyGreen.svg";
   const [sidebarWidth, setSidebarWidth] = useState(350);
-  const onResizeSidebar = (event, { size }) => setSidebarWidth(size.width);
+  const onResizeSidebar = (event, { size }) => {
+    if (size.width < 280) return setSidebarWidth(70);
+    // if (size.width > 250) return setSidebarWidth("250");
+    if (size.width > 270) setSidebarWidth(size.width);
+  };
 
   const style = {
     backgroundColor: "#000",
@@ -35,13 +39,16 @@ const MainLayout = () => {
         <Resizable
           width={sidebarWidth}
           height={0}
-          minConstraints={[280, 0]}
+          minConstraints={[270, 0]}
           maxConstraints={[450, 0]}
           onResize={onResizeSidebar}
           draggableOpts={{ axis: "x" }}
         >
           <div>
-            <SideBar />
+            <Library
+              sidebarWidth={sidebarWidth}
+              setSidebarWidth={setSidebarWidth}
+            />
           </div>
         </Resizable>
 

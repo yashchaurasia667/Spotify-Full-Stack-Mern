@@ -1,18 +1,33 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
 
 import { FaPlus } from "react-icons/fa6";
-import { GoGlobe } from "react-icons/go";
 
 import Playlists from "./Playlists";
-import {outer, library, lib_bar, bar_element, inactive, playlist_container, sidebar_footer, policies} from "./sideBar.module.css";
+import {
+  outer,
+  library,
+  lib_bar,
+  bar_element,
+  inactive,
+  playlist_container,
+} from "./sideBar.module.css";
 
-function Library() {
-  const linkStyle = "text-[12px] text-text-subdued";
+function Library({ sidebarWidth, setSidebarWidth }) {
+  const [libIcon, setLibIcon] = useState("Your Library");
+
+  const collapse = () => {
+    if (sidebarWidth > 70) {
+      setLibIcon("");
+      return setSidebarWidth(70);
+    }
+    setLibIcon("Your Library");
+    return setSidebarWidth(350);
+  };
+
   return (
     <div className={`${outer} ${library}`}>
       <div className={`${lib_bar}`}>
-        <div className={`${bar_element} ${inactive}`}>
+        <button className={`${bar_element} ${inactive}`} onClick={collapse}>
           <svg
             role="img"
             height="24"
@@ -24,38 +39,16 @@ function Library() {
           >
             <path d="M3 22a1 1 0 0 1-1-1V3a1 1 0 0 1 2 0v18a1 1 0 0 1-1 1zM15.5 2.134A1 1 0 0 0 14 3v18a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V6.464a1 1 0 0 0-.5-.866l-6-3.464zM9 2a1 1 0 0 0-1 1v18a1 1 0 1 0 2 0V3a1 1 0 0 0-1-1z"></path>
           </svg>
-          Your Library
-        </div>
-        <FaPlus className={`${bar_element} ${inactive}`} />
+          {libIcon}
+        </button>
+        <FaPlus
+          className={`${bar_element} ${inactive} ${
+            sidebarWidth > 70 ? "visible" : "hidden"
+          }`}
+        />
       </div>
       <div className={`${playlist_container}`}>
         <Playlists />
-        <div className={`${sidebar_footer}`}>
-          <div className={`${policies}`}>
-            <Link to="#" className={linkStyle}>
-              Legal
-            </Link>
-            <Link to="#" className={linkStyle}>
-              Safety&Privacy Center
-            </Link>
-            <Link to="#" className={linkStyle}>
-              Privacy Policy
-            </Link>
-            <Link to="#" className={linkStyle}>
-              Cookies
-            </Link>
-            <Link to="#" className={linkStyle}>
-              About Ads
-            </Link>
-            <Link to="#" className={linkStyle}>
-              Accessibility
-            </Link>
-          </div>
-          <button>
-            <GoGlobe />
-            English
-          </button>
-        </div>
       </div>
     </div>
   );

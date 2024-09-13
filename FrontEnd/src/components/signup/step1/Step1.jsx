@@ -5,6 +5,7 @@ import { HiOutlineExclamationCircle } from "react-icons/hi";
 import ContinueWith from "../../global/continueWith";
 import DividerWithText from "../../global/DividerWithText";
 import GreenButton from "../../global/GreenButton";
+import Error from "../../global/Error";
 
 import SignupContext from "../../../context/signupContext/SignupContext";
 
@@ -18,7 +19,7 @@ import { step1 } from "./Step1.module.css";
 
 const Step1 = () => {
   const [error, setError] = useState("hidden");
-  const [userExists, setUserExists] = useState("opacity-0");
+  const [userExists, setUserExists] = useState(false);
   const { setStep, email, setEmail, validateEmail } = useContext(SignupContext);
 
   const emailRef = useRef();
@@ -39,7 +40,7 @@ const Step1 = () => {
   const handleNext = async () => {
     if (validateEmail(email)) {
       try {
-        const res = await fetch("http://localhost:8000/auth/checkuser", {
+        const res = await fetch("/api/auth/checkuser", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -50,12 +51,13 @@ const Step1 = () => {
         });
 
         const data = await res.json();
+        console.log(data.message);
         if (data.success) {
+          setUserExists(false);
           setStep(2);
           navigate("/signup/2");
         } else {
-          setUserExists("opacity-1");
-          console.log("user already exits");
+          setUserExists(true);
         }
       } catch (error) {
         console.log(`Something went wrong checking email: ${error}`);
@@ -64,6 +66,8 @@ const Step1 = () => {
     checkEmail(email);
   };
 
+  // useEffect(() => console.log(userExists), [userExists]);
+
   return (
     <div className={step1}>
       {/* logo and heading stuff */}
@@ -71,16 +75,12 @@ const Step1 = () => {
         Sign up to start listening
       </p>
 
-      <div
-        className={
-          "flex gap-x-2 bg-essential-negative p-2 px-3 mt-2 " + userExists
-        }
-      >
-        <HiOutlineExclamationCircle className="stroke-text-base scale-[175%]" />
-        <p className="text-text-base text-sm font-medium">
-          A user with this email already exits. Please Log in
-        </p>
-      </div>
+      <Error
+        content="A user with this email already exists. Please log in"
+        className={`font-semibold text-sm bg-essential-negative w-[80%] py-2 px-4 mx-auto ${
+          userExists ? "opacity-1" : "opacity-0"
+        }`}
+      />
 
       <div className="relative w-[90%] sm:w-[63%] grid grid-rows-2 items-end mx-auto ">
         <label className="font-semibold text-[14px] pb-2">Email address</label>
@@ -94,12 +94,13 @@ const Step1 = () => {
             checkEmail(e.target.value);
           }}
         />
-        <div className={"flex gap-x-2 mt-2 mb-2 " + error}>
-          <HiOutlineExclamationCircle className="stroke-[#f15e6c] scale-[175%]" />
-          <p className="text-[#f15e6c] text-sm font-medium">
-            This email is invalid. Make sure it's written like example@email.com
-          </p>
-        </div>
+
+        <Error
+          content="This email is invalid. Make sure it's written like example@email.com"
+          className={`font-medium text-sm text-text-negative ${error}`}
+          logoClass="stroke-text-negative scale-[200%]"
+        />
+
         <Link
           to={"/signup/phone"}
           className="font-medium decoration underline text-sm mt-3 text-[#1ed760]"

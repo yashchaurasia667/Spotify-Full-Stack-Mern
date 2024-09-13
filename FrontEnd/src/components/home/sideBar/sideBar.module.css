@@ -32,7 +32,7 @@
 }
 
 .active,
-.inactive:hover>*,
+.inactive:hover > *,
 .inactive:hover {
   fill: white;
   color: white;
@@ -110,7 +110,8 @@
   overflow-y: auto;
 }
 
-.playlists {}
+.playlists {
+}
 
 .cards::-webkit-scrollbar-thumb:hover {
   background: #808080aa;
@@ -126,19 +127,3 @@
   height: calc(100% - 24px);
   overflow: hidden;
 }
-
-.react-resizable-handle {
-  position: absolute;
-  width: 1px;
-  height: 90%;
-  top: 50%;
-  right: -2.5%;
-  transform: translate(-50%, -50%);
-  cursor: ew-resize;
-  background-color: #c0c0c044;
-  /* visibility: hidden; */
-}
-
-/* .parent:hover .react-resizable-handle {
-  visibility: visible;
-} */

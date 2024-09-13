@@ -89,7 +89,7 @@ const checkUser = async (req, res) => {
       });
     }
     else
-      return res.status(409).json({
+      return res.status(200).json({
         success: false,
         message: "user already exists"
       })

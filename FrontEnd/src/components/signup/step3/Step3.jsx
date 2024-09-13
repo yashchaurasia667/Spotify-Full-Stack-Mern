@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 import StepCounter from "../StepCounter";
 import GreenButton from "../../global/GreenButton";
-import Error from "../../global/error";
+import Error from "../../global/Error";
 import SignupContext from "../../../context/signupContext/SignupContext";
 
 import styles from "./Step3.module.css";
