@@ -17,6 +17,8 @@ import {
   login,
   premium,
   install_app,
+  content_feed,
+  profile_icon,
 } from "./navbar.module.css";
 
 const Navbar = () => {
@@ -115,10 +117,10 @@ const Navbar = () => {
               <FaRegArrowAltCircleDown className="inline mr-1.5 scale-110" />
               Install App
             </Link>
-            <Link to="/content-feed">
+            <Link to="/content-feed" className={content_feed}>
               <LuBell />
             </Link>
-            <div>
+            <div className={profile_icon}>
               <img src="/artists/kk.jpg" alt="" />
             </div>
           </>
