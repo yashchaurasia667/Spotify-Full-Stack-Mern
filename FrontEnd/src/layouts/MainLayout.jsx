@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { Outlet } from "react-router-dom";
 import { Resizable } from "react-resizable";
 
@@ -14,12 +14,13 @@ import SignupContextProvider from "../context/signupContext/SignupContextProvide
 
 const MainLayout = () => {
   document.querySelector("#favicon").href = "spotifyGreen.svg";
-  const { sidebarWidth, setSidebarWidth, collapse } = useContext(MainContext);
-
-  const onResizeSidebar = (event, { size }) => {
-    if (size.width < 280) return collapse();
-    if (size.width > 280) setSidebarWidth(size.width);
-  };
+  const {
+    sidebarWidth,
+    setSidebarWidth,
+    minSidebarWidth,
+    maxSidebarWidth,
+    collapse,
+  } = useContext(MainContext);
 
   const style = {
     backgroundColor: "#000",
@@ -33,6 +34,21 @@ const MainLayout = () => {
     rowGap: "10px",
   };
 
+  const onResizeSidebar = (event, { size }) => {
+    if (size.width > minSidebarWidth) return setSidebarWidth(size.width);
+  };
+
+  const onResizeStop = (event, { size }) => {
+    if (size.width == minSidebarWidth) return collapse();
+  };
+
+  const onResizeStart = (event, { size }) => {
+    if (sidebarWidth == 70) {
+      setSidebarWidth(minSidebarWidth + 1);
+      onResizeSidebar(event, { size: { width: sidebarWidth } });
+    }
+  };
+
   return (
     <div className={parent} style={style}>
       <SignupContextProvider>
@@ -40,9 +56,11 @@ const MainLayout = () => {
         <Resizable
           width={sidebarWidth}
           height={0}
-          minConstraints={[270, 0]}
-          maxConstraints={[450, 0]}
+          minConstraints={[minSidebarWidth, 0]}
+          maxConstraints={[maxSidebarWidth, 0]}
           onResize={onResizeSidebar}
+          onResizeStart={onResizeStart}
+          onResizeStop={onResizeStop}
           draggableOpts={{ axis: "x" }}
         >
           <div>

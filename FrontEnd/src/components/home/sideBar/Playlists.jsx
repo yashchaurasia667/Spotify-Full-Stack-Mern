@@ -12,12 +12,15 @@ import {
 } from "./sideBar.module.css";
 
 import SignupContext from "../../../context/signupContext/SignupContext";
+import MainContext from "../../../context/mainContext/MainContext";
 
 const Playlists = () => {
   const linkStyle = "text-[12px] text-text-subdued";
 
   const { loggedIn } = useContext(SignupContext);
-  useEffect(() => console.log(loggedIn), [loggedIn]);
+  const { sidebarWidth } = useContext(MainContext);
+
+  // useEffect(() => console.log(loggedIn), [loggedIn]);
 
   const renderPlaylist = () => {
     if (!loggedIn)
@@ -35,7 +38,9 @@ const Playlists = () => {
               buttonContent={"Browse podcasts"}
             />
           </div>
-          <div className={`${sidebar_footer}`}>
+          <div
+            className={`${sidebar_footer} ${sidebarWidth > 70 ? "" : "hidden"}`}
+          >
             <div className={`${policies}`}>
               <Link to="#" className={linkStyle}>
                 Legal
