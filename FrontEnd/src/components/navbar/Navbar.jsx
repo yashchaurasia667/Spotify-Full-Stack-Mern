@@ -3,6 +3,8 @@ import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 
 import { GoHomeFill, GoHome } from "react-icons/go";
 import { IoSearch } from "react-icons/io5";
+import { FaRegArrowAltCircleDown } from "react-icons/fa";
+import { LuBell } from "react-icons/lu";
 
 import spotify from "/spotifyBw.svg";
 import {
@@ -11,6 +13,10 @@ import {
   nav_left,
   nav_mid,
   nav_right,
+  signup,
+  login,
+  premium,
+  install_app,
 } from "./navbar.module.css";
 
 const Navbar = () => {
@@ -88,8 +94,35 @@ const Navbar = () => {
         </div>
       </div>
       <div className={`${nav_right}`}>
-        <Link to={"/signup"}>Sign up</Link>
-        <Link to={"/login"}>Log in</Link>
+        {!localStorage.getItem("token") ? (
+          <>
+            <Link to={"/signup"} className={signup}>
+              Sign up
+            </Link>
+            <Link to={"/login"} className={login}>
+              Log in
+            </Link>
+          </>
+        ) : (
+          <>
+            <Link to={"https://open.spotify.com/premium"} className={premium}>
+              Explore Premium
+            </Link>
+            <Link
+              to={"https://open.spotify.com/download"}
+              className={install_app}
+            >
+              <FaRegArrowAltCircleDown className="inline mr-1.5 scale-110" />
+              Install App
+            </Link>
+            <Link to="/content-feed">
+              <LuBell />
+            </Link>
+            <div>
+              <img src="/artists/kk.jpg" alt="" />
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

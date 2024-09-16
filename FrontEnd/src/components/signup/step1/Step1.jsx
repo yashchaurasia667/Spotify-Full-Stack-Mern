@@ -1,6 +1,5 @@
 import React, { useState, useContext, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { HiOutlineExclamationCircle } from "react-icons/hi";
 
 import ContinueWith from "../../global/continueWith";
 import DividerWithText from "../../global/DividerWithText";
@@ -76,7 +75,7 @@ const Step1 = () => {
       </p>
 
       <Error
-        content="A user with this email already exists. Please log in"
+        content={`A user with this email already exists. Please log in`}
         className={`font-semibold text-sm bg-essential-negative w-[80%] py-2 px-4 mx-auto ${
           userExists ? "opacity-1" : "opacity-0"
         }`}
@@ -112,7 +111,7 @@ const Step1 = () => {
       <div className="mt-5" onClick={() => handleNext()}>
         <GreenButton
           content={"Next"}
-          className="sm:w-[65%] w-[90%] mx-auto mt-10 hover:scale-[1.02] hover:bg-[#3be477]"
+          className="sm:w-[65%] w-[90%] mx-auto mt-4 hover:scale-[1.02] hover:bg-[#3be477]"
         />
       </div>
 

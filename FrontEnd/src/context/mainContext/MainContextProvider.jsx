@@ -3,6 +3,7 @@ import MainContext from "./MainContext";
 
 const MainContextProvider = ({ children }) => {
   const [sidebarWidth, setSidebarWidth] = useState(350);
+  const [token, setToken] = useState("");
   const [libIcon, setLibIcon] = useState(
     <>
       <svg
@@ -61,6 +62,8 @@ const MainContextProvider = ({ children }) => {
   };
 
   const value = {
+    token,
+    setToken,
     sidebarWidth,
     setSidebarWidth,
     minSidebarWidth,

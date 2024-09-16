@@ -10,10 +10,10 @@ function SignupHero() {
   const { id } = useParams();
 
   const renderStep = (step) => {
-    if (step == 1) return <Step1 />;
     if (step == 2) return <Step2 />;
-    if (step == 3) return <Step3 />;
-    if (step == 4) return <Step4 />;
+    else if (step == 3) return <Step3 />;
+    else if (step == 4) return <Step4 />;
+    else return <Step1 />;
   };
 
   return (

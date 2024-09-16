@@ -1,19 +1,16 @@
-import React, { useState, useRef, useContext } from "react";
+import React, { useState, useRef, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaRegEyeSlash, FaRegEye } from "react-icons/fa";
 
 import ToggleSwitch from "./toggleSwitch";
 import GreenButton from "../global/GreenButton";
 
-import SignupContext from "../../context/signupContext/SignupContext";
-
 const InputFrom = () => {
-  const { loggedIn, setLoggedIn } = useContext(SignupContext);
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [type, setType] = useState("password");
   const [icon, setIcon] = useState(<FaRegEyeSlash />);
+  const [persistent, setPersistent] = useState(false);
 
   const submit = useRef();
 
@@ -45,16 +42,15 @@ const InputFrom = () => {
 
       const data = await res.json();
       if (data.success) {
-        console.log("logged in");
-        // setLoggedIn(true);
-        setLoggedIn("gugugaga");
-        console.log(loggedIn);
-        // navigate("/");
+        localStorage.setItem("token", data.jwtToken);
+        navigate("/");
       }
     } catch (error) {
       throw new Error(`Something went wrong... ${error}`);
     }
   };
+
+  useEffect(() => console.log(persistent), [persistent]);
 
   return (
     <>
@@ -84,7 +80,7 @@ const InputFrom = () => {
           </span>
         </div>
         <div className="flex items-center mt-7">
-          <ToggleSwitch />
+          <ToggleSwitch onClick={() => setPersistent(!persistent)} />
           <label className="ml-4 text-xs">Remember me</label>
         </div>
         <button
