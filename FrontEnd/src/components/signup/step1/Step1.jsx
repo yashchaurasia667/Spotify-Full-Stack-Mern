@@ -1,4 +1,4 @@
-import React, { useState, useContext, useRef, useEffect } from "react";
+import { useState, useContext, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import ContinueWith from "../../global/continueWith";
