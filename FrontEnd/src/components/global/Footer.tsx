@@ -1,7 +1,6 @@
-import React from "react";
 import { Link } from "react-router-dom";
 
-const Footer = ({ className }) => {
+const Footer = ({ className }: { className?: string }) => {
   const linkStyling = "mx-auto mt-8 cursor-pointer text-center underline ";
 
   return (
@@ -12,8 +11,14 @@ const Footer = ({ className }) => {
       }
     >
       This site is protected by reCAPTCHA and the Google{" "}
-      <Link className={linkStyling}>Privacy Policy</Link> and{" "}
-      <Link className={linkStyling}>Terms of Service</Link> apply.
+      <Link to={"#"} className={linkStyling}>
+        Privacy Policy
+      </Link>{" "}
+      and{" "}
+      <Link to={"#"} className={linkStyling}>
+        Terms of Service
+      </Link>{" "}
+      apply.
     </div>
   );
 };

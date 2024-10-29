@@ -1,4 +1,3 @@
-import React from "react";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
 
 const ErrorBanner = ({

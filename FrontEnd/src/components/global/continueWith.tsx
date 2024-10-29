@@ -1,7 +1,7 @@
 interface props {
   platformName: string;
   logoPath: string;
-  className: string;
+  className?: string;
 }
 
 const ContinueWith = ({ platformName, logoPath, className = "" }: props) => {

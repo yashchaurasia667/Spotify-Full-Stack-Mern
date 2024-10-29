@@ -1,10 +1,11 @@
-import React, { useContext, useEffect } from "react";
+import { useEffect } from "react";
 import ArtistCard from "./ArtistCard";
 
-import { home_hero } from "../homeMain.module.css";
+import styles from "../homeMain.module.css";
 import ArtistBar from "./ArtistBar";
 import Footer from "./Footer";
-import MainContext from "../../../../context/mainContext/MainContext";
+
+// import MainContext from "../../../../context/mainContext/MainContext";
 
 const HomeHero = () => {
   // const { setToken } = useContext(MainContext);
@@ -15,7 +16,7 @@ const HomeHero = () => {
   }, []);
 
   return (
-    <div className={`${home_hero}`}>
+    <div className={`${styles.home_hero}`}>
       <div>
         <ArtistBar main={"Popular artists"} side={"show all"} />
         <div className="flex gap-x-2">

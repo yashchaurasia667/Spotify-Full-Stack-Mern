@@ -1,14 +1,15 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import { FaPlay } from "react-icons/fa";
 
 import GreenButton from "../../../global/GreenButton";
 
-import { play, main } from "./artistCard.module.css";
+import styles from "./artistCard.module.css";
 
 const ArtistCard = ({ name = "", type = "album", img = "" }) => {
+  const { play, main } = styles;
   return (
     <Link
+      to={"#"}
       className={`${main} relative bg-transparent hover:bg-background-highlight w-[155px] px-2 py-3 rounded-md text-left`}
     >
       <div>
