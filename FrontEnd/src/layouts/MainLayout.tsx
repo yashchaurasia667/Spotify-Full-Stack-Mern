@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { Outlet } from "react-router-dom";
 import { Resizable } from "react-resizable";
 
@@ -42,7 +42,7 @@ const MainLayout = () => {
     if (size.width == minSidebarWidth) return collapse();
   };
 
-  const onResizeStart = (event, { size }) => {
+  const onResizeStart = (event) => {
     if (sidebarWidth == 70) {
       setSidebarWidth(minSidebarWidth + 1);
       onResizeSidebar(event, { size: { width: sidebarWidth } });

@@ -31,7 +31,7 @@ const MainContextProvider = ({ children }) => {
             data-encore-id="icon"
             role="img"
             height="24px"
-            widht="24px"
+            width="24px"
             aria-hidden="true"
             viewBox="0 0 24 24"
             className="Svg-sc-ytk21e-0 bneLcE"

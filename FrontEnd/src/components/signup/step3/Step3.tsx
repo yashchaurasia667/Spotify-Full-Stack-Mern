@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState, useEffect } from "react";
+import { useContext, useRef, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import StepCounter from "../StepCounter";
@@ -55,7 +55,7 @@ const Step3 = () => {
   const checkYear = (e) => {
     const elm = yearRef.current;
     if (e <= 9999) {
-      setYear(e);
+      setYear(parseInt(e));
       elm.classList.remove(styles.error);
     }
     if (!e) elm.classList.add(styles.error);
@@ -64,7 +64,7 @@ const Step3 = () => {
   const checkDay = (e) => {
     const elm = dayRef.current;
     if (e <= 31) {
-      setDay(e);
+      setDay(parseInt(e));
       elm.classList.remove(styles.error);
     }
     if (!e) elm.classList.add(styles.error);

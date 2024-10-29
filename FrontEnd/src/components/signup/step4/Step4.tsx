@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import SignupContext from "../../../context/signupContext/SignupContext";
@@ -60,14 +60,14 @@ const Step4 = () => {
             <span className={styles.checkmark}></span>
           </label>
           <label className={styles.container}>
-            Share my registration data with Spotify's content providers for
+            Share my registration data with Spotify&apos;s content providers for
             marketing purposes.
             <input type="checkbox" className={styles.checkbox} name="data" />
             <span className={styles.checkmark}></span>
           </label>
         </form>
         <div className="text-sm mt-3">
-          By clicking on 'Sign up', you agree to Spotify's{"  "}
+          By clicking on &apos;Sign up&apos;, you agree to Spotify&apos;s{"  "}
           <Link className="text-[#1fdf64] decoration underline">
             Terms and Conditions of Use
           </Link>
@@ -77,7 +77,7 @@ const Step4 = () => {
           To learn more about how Spotify collects, uses, shares and protects
           your personal data, please see{" "}
           <Link className="text-[#1fdf64] decoration underline">
-            Spotify's Privacy Policy
+            Spotify&apos;s Privacy Policy
           </Link>
           .
         </div>

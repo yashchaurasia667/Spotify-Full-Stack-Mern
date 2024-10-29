@@ -1,4 +1,4 @@
-import React, { useState, useRef, useContext, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaRegEyeSlash, FaRegEye } from "react-icons/fa";
 
@@ -12,7 +12,7 @@ const InputFrom = () => {
   const [icon, setIcon] = useState(<FaRegEyeSlash />);
   const [persistent, setPersistent] = useState(false);
 
-  const submit = useRef();
+  const submit = useRef<HTMLButtonElement>(null);
 
   const labelClass = "text-sm font-medium";
   const inputClass = `bg-[#121212] border border-[#727272] rounded-[3px] hover:border-[#fff] focus-within:outline-none focus-within:border-white focus-within:border-[3px] mb-3 px-3 w-[100%] h-[50px] box-border placeholder:text-[#a7a7a7]`;
@@ -29,7 +29,7 @@ const InputFrom = () => {
     }
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       const res = await fetch("/api/auth/login", {
@@ -80,7 +80,9 @@ const InputFrom = () => {
           </span>
         </div>
         <div className="flex items-center mt-7">
-          <ToggleSwitch onClick={() => setPersistent(!persistent)} />
+          <div onClick={() => setPersistent(!persistent)}>
+            <ToggleSwitch />
+          </div>
           <label className="ml-4 text-xs">Remember me</label>
         </div>
         <button
@@ -95,7 +97,9 @@ const InputFrom = () => {
         className={
           "w-[90%] md:w-[45%] mx-auto mt-10 hover:scale-[1.02] hover:bg-[#3be477]"
         }
-        onClick={() => submit.current.click()}
+        onClick={() => {
+          if (submit.current) submit.current.click();
+        }}
       />
     </>
   );

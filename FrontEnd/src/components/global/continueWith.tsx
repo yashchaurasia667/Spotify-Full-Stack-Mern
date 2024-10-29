@@ -1,4 +1,10 @@
-const ContinueWith = ({ platformName, logoPath, className = "" }) => {
+interface props {
+  platformName: string;
+  logoPath: string;
+  className: string;
+}
+
+const ContinueWith = ({ platformName, logoPath, className = "" }: props) => {
   const buttonContent =
     logoPath === "" ? (
       ""

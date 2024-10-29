@@ -1,7 +1,6 @@
-import React from "react";
 import { useState } from "react";
 
-import styles from "./toggleSwitch.module.css"
+import styles from "./toggleSwitch.module.css";
 
 const ToggleSwitch = () => {
   const [toggled, setToggled] = useState(false);
