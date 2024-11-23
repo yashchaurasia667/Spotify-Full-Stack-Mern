@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import React, { useContext } from "react";
 import { Outlet } from "react-router-dom";
 import { Resizable } from "react-resizable";
 
@@ -7,20 +7,26 @@ import Library from "../components/home/sideBar/Library";
 import BottomPlayBar from "../components/home/bottomPlayBar/BottomPlayBar";
 
 import "react-resizable/css/styles.css";
-import { parent } from "../styleSheets/Home.module.css";
+import styles from "../styleSheets/Home.module.css";
 
 import MainContext from "../context/mainContext/MainContext";
 import SignupContextProvider from "../context/signupContext/SignupContextProvider";
 
 const MainLayout = () => {
-  document.querySelector("#favicon").href = "spotifyGreen.svg";
+  // document.querySelector("#favicon")!.href = "spotifyGreen.svg";
+  const favicon = document.querySelector("#favicon") as HTMLLinkElement;
+  if (favicon) favicon.href = "spotifyGreen.svg";
+
+  const context = useContext(MainContext);
+  if (!context) throw new Error("No Main context");
+
   const {
     sidebarWidth,
     setSidebarWidth,
     minSidebarWidth,
     maxSidebarWidth,
     collapse,
-  } = useContext(MainContext);
+  } = context;
 
   const style = {
     backgroundColor: "#000",
@@ -34,15 +40,21 @@ const MainLayout = () => {
     rowGap: "10px",
   };
 
-  const onResizeSidebar = (event, { size }) => {
+  const onResizeSidebar = (
+    event: React.SyntheticEvent,
+    { size }: { size: { width: number } }
+  ) => {
     if (size.width > minSidebarWidth) return setSidebarWidth(size.width);
   };
 
-  const onResizeStop = (event, { size }) => {
+  const onResizeStop = (
+    event: React.SyntheticEvent,
+    { size }: { size: { width: number } }
+  ) => {
     if (size.width == minSidebarWidth) return collapse();
   };
 
-  const onResizeStart = (event) => {
+  const onResizeStart = (event: React.SyntheticEvent) => {
     if (sidebarWidth == 70) {
       setSidebarWidth(minSidebarWidth + 1);
       onResizeSidebar(event, { size: { width: sidebarWidth } });
@@ -50,7 +62,7 @@ const MainLayout = () => {
   };
 
   return (
-    <div className={parent} style={style}>
+    <div className={styles.parent} style={style}>
       <SignupContextProvider>
         <Navbar />
         <Resizable

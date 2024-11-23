@@ -1,7 +1,11 @@
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 import MainContext from "./MainContext";
 
-const MainContextProvider = ({ children }) => {
+type contextProps = {
+  children: ReactNode;
+};
+
+const MainContextProvider = ({ children }: contextProps) => {
   const [sidebarWidth, setSidebarWidth] = useState(350);
   const [token, setToken] = useState("");
   const [libIcon, setLibIcon] = useState(
