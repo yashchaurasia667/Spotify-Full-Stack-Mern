@@ -5,7 +5,11 @@ import { FaRegEyeSlash, FaRegEye } from "react-icons/fa";
 import ToggleSwitch from "./toggleSwitch";
 import GreenButton from "../global/GreenButton";
 
+import styles from "./login.module.css";
+
 const InputFrom = () => {
+  const { formInput } = styles;
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [type, setType] = useState("password");
@@ -15,7 +19,6 @@ const InputFrom = () => {
   const submit = useRef<HTMLButtonElement>(null);
 
   const labelClass = "text-sm font-medium";
-  const inputClass = `bg-[#121212] border border-[#727272] rounded-[3px] hover:border-[#fff] focus-within:outline-none focus-within:border-white focus-within:border-[3px] mb-3 px-3 w-[100%] h-[50px] box-border placeholder:text-[#a7a7a7]`;
 
   const navigate = useNavigate();
 
@@ -50,23 +53,27 @@ const InputFrom = () => {
     }
   };
 
-  useEffect(() => console.log(persistent), [persistent]);
+  // useEffect(() => console.log(persistent), [persistent]);
 
   return (
     <>
-      <form className="login w-[90%] md:w-[45%] mx-auto">
+      <form
+        className="login w-[90%] md:w-[45%] mx-auto"
+        onSubmit={handleSubmit}
+      >
         <label className={labelClass}>Email or username</label>
         <input
-          type="text"
+          type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Email or username"
-          className={inputClass + "py-3"}
+          // className={inputClass + "py-3"}
+          className={`${formInput}`}
           required
         />
 
         <label className={labelClass}>Password</label>
-        <div className={`${inputClass} flex items-center`}>
+        <div className={`${formInput} flex items-center`}>
           <input
             type={type}
             value={password}
@@ -85,22 +92,17 @@ const InputFrom = () => {
           </div>
           <label className="ml-4 text-xs">Remember me</label>
         </div>
-        <button
-          type="submit"
-          onClick={handleSubmit}
-          className="hidden"
-          ref={submit}
-        ></button>
+
+        <GreenButton
+          content={"Log In"}
+          className={
+            "w-full mx-auto mt-10 hover:scale-[1.02] hover:bg-[#3be477]"
+          }
+          onClick={() => {
+            if (submit.current) submit.current.click();
+          }}
+        />
       </form>
-      <GreenButton
-        content={"Log In"}
-        className={
-          "w-[90%] md:w-[45%] mx-auto mt-10 hover:scale-[1.02] hover:bg-[#3be477]"
-        }
-        onClick={() => {
-          if (submit.current) submit.current.click();
-        }}
-      />
     </>
   );
 };

@@ -6,17 +6,18 @@ import spotify from "/spotifyBw.svg";
 
 import SignupContextProvider from "../context/signupContext/SignupContextProvider";
 
-import { scroll } from "../styleSheets/scrollbarVisible.module.css";
+import styles from "../styleSheets/scrollbarVisible.module.css";
 import NotFound from "../pages/NotFound";
 
 const SignupLayout = () => {
-  document.querySelector("#favicon").href = "spotifyBlack.svg";
+  const favicon = document.querySelector("#favicon") as HTMLLinkElement | null;
+  if (favicon) favicon.href = "spotifyBlack.svg";
   document.title = "Sign up - Spotify";
 
   const { id } = useParams();
 
   return id || !id ? (
-    <div className={"bg-background-base " + scroll}>
+    <div className={"bg-background-base min-h-[100vh] " + styles.scroll}>
       <div className="top-logo flex items-center justify-center">
         <img src={spotify} alt="Spofity logo" />
       </div>

@@ -9,7 +9,7 @@ import Step4 from "./step4/Step4";
 function SignupHero() {
   const { id } = useParams();
 
-  const renderStep = (step) => {
+  const renderStep = (step: number) => {
     if (step == 2) return <Step2 />;
     else if (step == 3) return <Step3 />;
     else if (step == 4) return <Step4 />;

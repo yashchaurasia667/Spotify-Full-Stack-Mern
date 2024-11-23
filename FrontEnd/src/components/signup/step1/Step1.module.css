@@ -1,25 +1,19 @@
-.step1 {
-  color: var(--text-base);
-  width: 500px;
-  /* height: 100%; */
+.inputBox {
+  background: var(--background-base);
+  border: 1px solid var(--essential-subdued);
+  border-radius: 3px;
+  padding: 0.75rem;
+  outline: none;
 }
 
-/* for devices 768px and higher */
-@media (min-width: 768px) {
-  .step1 {
-    height: calc(100vh - 206px);
-  }
+.inputBox:hover {
+  border-color: #fff;
 }
 
-/* for devices upto 640px and lower */
-@media (max-width: 640px) {
-  .step1 {
-    height: 100%;
-  }
+.inputBox:focus-within {
+  border-width: 3px;
 }
 
-@media (min-width: 1024px) {
-  .step1 {
-    height: 100%;
-  }
+.inputBox:user-invalid {
+  border-color: var(--essential-negative);
 }
