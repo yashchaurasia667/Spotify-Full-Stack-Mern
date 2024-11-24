@@ -1,10 +1,10 @@
 import React, { useState, useContext } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Link, useNavigate, useNavigation } from "react-router-dom";
 
 import ContinueWith from "../../global/continueWith";
 import DividerWithText from "../../global/DividerWithText";
 import GreenButton from "../../global/GreenButton";
-// import Error from "../../global/Error";
+import ErrorComponent from "../../global/Error";
 
 import SignupContext from "../../../context/signupContext/SignupContext";
 
@@ -15,54 +15,46 @@ import facebook from "../../../assets/facebook.svg";
 import step1Styles from "./Step1.module.css";
 
 const Step1 = () => {
+  const navigate = useNavigate();
   const [error, setError] = useState("hidden");
   const [userExists, setUserExists] = useState(false);
-  // const [email, setEmail] = useState("");
 
   const context = useContext(SignupContext);
   if (!context) throw new Error("no signup context");
   const { setStep, email, setEmail, validateEmail } = context;
 
-  const checkEmail = (e: string) => {
-    setEmail(e);
-    if (validateEmail(e)) {
-      setError("hidden");
-      return;
-    }
-    setError("");
+  const handleNext = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setStep(2);
+    navigate("/signup/2");
+    // if (validateEmail(email)) {
+    //   try {
+    //     const res = await fetch("/api/auth/checkuser", {
+    //       method: "POST",
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //       },
+    //       body: JSON.stringify({
+    //         email,
+    //       }),
+    //     });
+
+    //     const data = await res.json();
+    //     console.log(data.message);
+    //     if (data.success) {
+    //       setUserExists(false);
+    //       setStep(2);
+    //       // navigate("/signup/2");
+    //       <Navigate to={"/signup/2"} />;
+    //     } else {
+    //       setUserExists(true);
+    //     }
+    //   } catch (error) {
+    //     console.log(`Something went wrong checking email: ${error}`);
+    //   }
+    // }
+    // checkEmail(email);
   };
-
-  const handleNext = async () => {
-    if (validateEmail(email)) {
-      try {
-        const res = await fetch("/api/auth/checkuser", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email,
-          }),
-        });
-
-        const data = await res.json();
-        console.log(data.message);
-        if (data.success) {
-          setUserExists(false);
-          setStep(2);
-          // navigate("/signup/2");
-          <Navigate to={"/signup/2"} />;
-        } else {
-          setUserExists(true);
-        }
-      } catch (error) {
-        console.log(`Something went wrong checking email: ${error}`);
-      }
-    }
-    checkEmail(email);
-  };
-
-  // useEffect(() => console.log(userExists), [userExists]);
 
   return (
     <div className={step1Styles.step1}>
@@ -78,38 +70,48 @@ const Step1 = () => {
         }`}
       /> */}
 
-      <div className="relative w-[90%] sm:w-[63%] grid grid-rows-2 items-end mx-auto ">
-        <label className="font-semibold text-[14px] pb-2">Email address</label>
-        <input
-          type="email"
-          placeholder="name@domain.com"
-          className={`${step1Styles.inputBox}`}
-          value={email}
-          onChange={(e) => {
-            setEmail(e.target.value);
-          }}
-        />
+      <form onSubmit={handleNext}>
+        <div className="relative w-[90%] sm:w-[63%] grid grid-rows-2 items-end mx-auto ">
+          <label className="font-semibold text-[14px] pb-2">
+            Email address
+          </label>
+          <input
+            type="email"
+            placeholder="name@domain.com"
+            required
+            className={`${step1Styles.inputBox}`}
+            value={email}
+            onChange={(e) => {
+              setEmail(e.target.value);
+            }}
+            onInvalid={(e) => {
+              e.preventDefault();
+              setError("visible");
+            }}
+            onInput={(e) => {
+              if (e.currentTarget.validity.valid) setError("hidden");
+            }}
+          />
 
-        {/* <Error
-          content="This email is invalid. Make sure it's written like example@email.com"
-          className={`font-medium text-sm text-text-negative ${error}`}
-          logoClass="stroke-text-negative scale-[200%]"
-        /> */}
+          <ErrorComponent
+            content="This email is invalid. Make sure it's written like example@email.com"
+            className={`font-medium text-sm text-text-negative ${error}`}
+            logoClass="stroke-text-negative scale-[200%]"
+          />
 
-        <Link
-          to={"/signup/phone"}
-          className="font-medium decoration underline text-sm mt-3 text-[#1ed760]"
-        >
-          Use phone number instead.
-        </Link>
-      </div>
+          <Link
+            to={"/signup/phone"}
+            className="font-medium decoration underline text-sm mt-3 text-[#1ed760]"
+          >
+            Use phone number instead.
+          </Link>
+        </div>
 
-      <div className="mt-5" onClick={() => handleNext()}>
         <GreenButton
           content={"Next"}
-          className="sm:w-[65%] w-[90%] mx-auto mt-4 hover:scale-[1.02] hover:bg-[#3be477]"
+          className="sm:w-[65%] w-[90%] mx-auto mt-9 hover:scale-[1.02] hover:bg-[#3be477]"
         />
-      </div>
+      </form>
 
       <div className="my-9">
         <DividerWithText content="or" colorText="#fff" />

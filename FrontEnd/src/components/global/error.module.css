@@ -7,21 +7,3 @@
   border-radius: 3px;
   height: 50px;
 }
-
-.neutral:hover {
-  border-color: #fff;
-}
-
-.neutral:focus-within {
-  border-width: 3px;
-  border-color: #fff;
-}
-
-.error {
-  border-color: var(--essential-negative);
-}
-
-.error:focus-within {
-  border-width: 3px;
-  border-color: var(--essential-negative);
-}

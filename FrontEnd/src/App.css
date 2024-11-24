@@ -1,0 +1,11 @@
+.error:hover {
+  border-color: #fff;
+}
+
+.error:focus-within {
+  border: 3px solid #fff;
+}
+
+.error:user-invalid {
+  border-color: var(--essential-negative);
+}

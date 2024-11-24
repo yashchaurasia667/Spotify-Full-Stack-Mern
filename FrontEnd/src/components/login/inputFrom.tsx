@@ -67,7 +67,6 @@ const InputFrom = () => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Email or username"
-          // className={inputClass + "py-3"}
           className={`${formInput}`}
           required
         />

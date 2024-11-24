@@ -1,4 +1,4 @@
-.step2 {
+/* .step2 {
   height: calc(100vh - 195px);
 }
 
@@ -6,4 +6,14 @@
   .step2 {
     height: calc(100vh - 175px);
   }
+} */
+
+.passwordDiv {
+  display: grid;
+  background-color: var(--background-base);
+  grid-template-columns: 10fr 1fr;
+  align-items: center;
+  border: 1px solid var(--essential-subdued);
+  border-radius: 3px;
+  height: 50px;
 }

@@ -16,6 +16,8 @@ import MainLayout from "./layouts/MainLayout";
 import SignupLayout from "./layouts/SignupLayout";
 import MainContextProvider from "./context/mainContext/MainContextProvider";
 
+import "./App.css";
+
 const App = () => {
   const router = createBrowserRouter(
     createRoutesFromElements(

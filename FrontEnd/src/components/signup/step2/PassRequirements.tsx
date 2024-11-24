@@ -1,4 +1,3 @@
-import React from "react";
 import Requirement from "./Requirement";
 
 const PassRequirements = ({letter=false, number=false, len=false}) => {
