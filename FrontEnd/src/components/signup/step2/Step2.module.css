@@ -8,6 +8,10 @@
   }
 } */
 
+.step2 {
+  min-height: calc(100vh - 175px);
+}
+
 .passwordDiv {
   display: grid;
   background-color: var(--background-base);
@@ -16,4 +20,9 @@
   border: 1px solid var(--essential-subdued);
   border-radius: 3px;
   height: 50px;
+}
+
+.passwordDiv:focus-within {
+  border: 3px solid white;
+  transition: border 0.1s ease-in;
 }

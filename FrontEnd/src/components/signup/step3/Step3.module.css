@@ -1,7 +1,7 @@
 .step3 {
-  height: 100%;
+  min-height: calc(100vh - 175px);
 }
-
+/* 
 @media (max-width: 375px) {
   .step3 {
     height: 100%;
@@ -24,7 +24,7 @@
   .step3 {
     height: 100%;
   }
-}
+} */
 
 .customRadioInput {
   display: none;

@@ -1,34 +1,24 @@
-import { useContext, useRef, useState, useEffect } from "react";
+import React, { useContext, useRef, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import StepCounter from "../StepCounter";
 import GreenButton from "../../global/GreenButton";
-import Error from "../../global/Error";
+import ErrorComponent from "../../global/Error";
 import SignupContext from "../../../context/signupContext/SignupContext";
 
 import styles from "./Step3.module.css";
 
 const Step3 = () => {
-  const {
-    name,
-    setName,
-    year,
-    setYear,
-    month,
-    setMonth,
-    day,
-    setDay,
-    gender,
-    setGender,
-    step,
-    setStep,
-  } = useContext(SignupContext);
+  const context = useContext(SignupContext);
+  if (!context) throw new Error("No signup context");
+  const { step, setStep } = context;
 
   const [ageError, setAgeError] = useState("hidden");
-
-  const nameRef = useRef();
-  const yearRef = useRef();
-  const dayRef = useRef();
+  const [name, setName] = useState("");
+  const [year, setYear] = useState<number>(0);
+  const [month, setMonth] = useState<number>(0);
+  const [day, setDay] = useState<number>(0);
+  const [gender, setGender] = useState("");
 
   const navigate = useNavigate();
 
@@ -40,37 +30,32 @@ const Step3 = () => {
     if (step != 3) navigate("/signup/");
   }, []);
 
-  const checkName = (e) => {
-    setName(e);
-    const elm = nameRef.current;
-    if (!e) {
-      elm.classList.add(styles.error);
-      elm.nextSibling.classList.remove("hidden");
-      return;
-    }
-    elm.classList.remove(styles.error);
-    elm.nextSibling.classList.add("hidden");
+  const checkName = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setName(e.target.value);
+    if (!e.target.value) e.currentTarget.style.borderColor = "#e91429";
+    else e.currentTarget.style.borderColor = "#fff";
   };
 
-  const checkYear = (e) => {
-    const elm = yearRef.current;
-    if (e <= 9999) {
-      setYear(parseInt(e));
-      elm.classList.remove(styles.error);
+  const checkYear = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const yr = parseInt(e.target.value);
+    if (yr <= 9999) {
+      setYear(yr);
+      e.currentTarget.style.border = "#fff";
     }
-    if (!e) elm.classList.add(styles.error);
+    if (!yr) e.currentTarget.style.borderColor = "#e91429";
   };
 
-  const checkDay = (e) => {
-    const elm = dayRef.current;
-    if (e <= 31) {
-      setDay(parseInt(e));
-      elm.classList.remove(styles.error);
+  const checkDay = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const dy = parseInt(e.target.value);
+    // const elm = dayRef.current;
+    if (dy <= 31) {
+      setDay(dy);
+      e.currentTarget.style.borderColor = "#fff";
     }
-    if (!e) elm.classList.add(styles.error);
+    if (!dy) e.currentTarget.style.borderColor = "#f15e6c";
   };
 
-  const checkAge = (day, month, year) => {
+  const checkAge = (day: number, month: number, year: number) => {
     const today = new Date();
     let age = today.getFullYear() - year;
 
@@ -81,7 +66,9 @@ const Step3 = () => {
     return age >= 13;
   };
 
-  const handleNext = () => {
+  const handleNext = (e: React.FormEvent) => {
+    e.preventDefault();
+
     if (!checkAge(day, month, year)) {
       setAgeError("");
       return;
@@ -100,10 +87,11 @@ const Step3 = () => {
   return (
     <div className={"w-[100%] sm:w-[500px] text-white " + styles.step3}>
       <StepCounter stepNo={2} stepName="Tell us about yourself" />
+
       <div className="mx-auto sm:px-[90px]">
-        <form className="flex flex-col items-center">
+        <form className="flex flex-col items-center" onSubmit={handleNext}>
           {/* Name Field */}
-          <div className="text-sm font-semibold mt-3 w-[324px]">
+          <div className="text-sm font-semibold mt-2 w-[324px]">
             <p>Name</p>
             <p className="font-medium text-[13px] text-[#a7a7a7] mb-2">
               This name will appear on your profile
@@ -111,15 +99,20 @@ const Step3 = () => {
             <input
               type="text"
               value={name}
-              ref={nameRef}
-              onChange={(e) => checkName(e.target.value)}
+              onChange={(e) => checkName(e)}
               className={styles.neutral + " w-[100%]"}
+              onInvalid={(e) => (e.currentTarget.style.borderColor = "#e91429")}
             />
-            <Error content={"Enter a name for your profile."} />
+
+            <ErrorComponent
+              content={"Enter a name for your profile."}
+              className={"text-[#f15e6c]"}
+              logoClass={"stroke-[#f15e6c]"}
+            />
           </div>
 
           {/* Date of birth field */}
-          <div className="text-sm font-semibold mt-6">
+          <div className="text-sm font-semibold mt-4">
             <p>Date of birth</p>
             <p className="font-medium text-[13px] text-[#a7a7a7] mb-2">
               Why do we need your date of birth?{" "}
@@ -133,15 +126,14 @@ const Step3 = () => {
                 type="number"
                 value={year}
                 placeholder="yyyy"
-                onChange={(e) => checkYear(e.target.value)}
-                ref={yearRef}
+                onChange={(e) => checkYear(e)}
                 className={`w-[95px] ${styles.neutral} number`}
                 required
               />
               <select
                 className={inputClass + " w-[150px]"}
                 value={month}
-                onChange={(e) => setMonth(e.target.value)}
+                onChange={(e) => setMonth(parseInt(e.target.value))}
                 required
               >
                 <option value={1}>january</option>
@@ -162,20 +154,19 @@ const Step3 = () => {
                 type="number"
                 placeholder="dd"
                 value={day}
-                ref={dayRef}
-                onChange={(e) => checkDay(e.target.value)}
+                onChange={(e) => checkDay(parseInt(e.target.value))}
                 className={`${styles.neutral} number w-[65px]`}
                 required
               />
             </div>
-            <Error
+            <ErrorComponent
               content={"You are too young to be using Spotify"}
               className={ageError}
             />
           </div>
 
           {/* Gender field */}
-          <div className="text-sm font-semibold mt-[18px] w-[324px]">
+          <div className="text-sm font-semibold mt-4 w-[324px]">
             <p>Gender</p>
             <p className="font-medium text-[13px] text-[#a7a7a7] mb-2">
               We use your gender to help personalise our content recommendations
@@ -239,13 +230,12 @@ const Step3 = () => {
               </label>
             </div>
           </div>
+          <GreenButton
+            content={"Next"}
+            className={"mt-10 w-[85%] sm:w-[65%] hover:bg-[#3be477]"}
+          />
         </form>
       </div>
-      <GreenButton
-        content={"Next"}
-        className={"mt-10 w-[85%] sm:w-[65%] hover:bg-[#3be477]"}
-        onClick={handleNext}
-      />
     </div>
   );
 };

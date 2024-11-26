@@ -7,7 +7,11 @@ const StepCounter = ({ stepNo = 0, stepName = "" }) => {
   const gridStyle = {
     gridTemplateColumns: `${stepNo}fr ${3 - stepNo}fr`,
   };
-  const { step, setStep } = useContext(SignupContext);
+
+  const context = useContext(SignupContext);
+  if (!context) throw new Error("No signup context");
+  const { step, setStep } = context;
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -29,7 +33,7 @@ const StepCounter = ({ stepNo = 0, stepName = "" }) => {
           <FaChevronLeft className="scale-150 hover:text-white" />
         </button>
         <div className="grid grid-rows-2 ">
-          <div>Step {stepNo} of 3</div>
+          <div className="text-[#a7a7a7]">Step {stepNo} of 3</div>
           <div className="text-white font-medium text-[16px]">{stepName}</div>
         </div>
       </div>

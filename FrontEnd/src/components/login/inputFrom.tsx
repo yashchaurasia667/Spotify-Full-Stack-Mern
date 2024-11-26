@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaRegEyeSlash, FaRegEye } from "react-icons/fa";
 
@@ -8,7 +8,14 @@ import ErrorBanner from "../global/ErrorBanner";
 
 import styles from "./login.module.css";
 
+import SignupContext from "../../context/signupContext/SignupContext";
+
 const InputFrom = () => {
+  const context = useContext(SignupContext);
+  if (!context) throw new Error("No signup context");
+
+  const { checkUser } = context;
+
   const { formInput } = styles;
 
   const [email, setEmail] = useState("");
@@ -35,28 +42,9 @@ const InputFrom = () => {
     }
   };
 
-  const checkUser = async () => {
-    try {
-      const res = await fetch("/api/auth/checkuser", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email }),
-      });
-      if (!res.ok) {
-        setErrorVisibility("visible");
-        setError("User does not exist");
-      }
-      return res.ok;
-    } catch (error) {
-      throw new Error(`Something went wrong ${error}`);
-    }
-  };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (await checkUser()) {
+    if (await checkUser(email)) {
       try {
         const res = await fetch("/api/auth/login", {
           method: "POST",
@@ -75,6 +63,9 @@ const InputFrom = () => {
       } catch (error) {
         throw new Error(`Something went wrong ${error}`);
       }
+    } else {
+      setErrorVisibility("visible");
+      setError("User does not exist");
     }
   };
 
@@ -96,6 +87,7 @@ const InputFrom = () => {
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Email or username"
           className={`${formInput}`}
+          onInvalid={(e) => e.preventDefault()}
           required
         />
 
@@ -107,6 +99,7 @@ const InputFrom = () => {
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Password"
             className={`bg-[#121212] w-[100%] h-[100%] focus:outline-none`}
+            onInvalid={(e) => e.preventDefault()}
             required
           />
           <span className="hover:cursor-pointer hover:" onClick={handleToggle}>

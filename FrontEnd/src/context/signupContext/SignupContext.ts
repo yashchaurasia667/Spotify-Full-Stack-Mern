@@ -17,7 +17,8 @@ type signupContext = {
   setDay: (e: number) => void;
   gender: string;
   setGender: (e: string) => void;
-  validateEmail: (email: string) => boolean;
+  validateEmail: (e: string) => boolean;
+  checkUser: (e: string) => Promise<boolean>;
 };
 
 const SignupContext = React.createContext<signupContext | undefined>(undefined);

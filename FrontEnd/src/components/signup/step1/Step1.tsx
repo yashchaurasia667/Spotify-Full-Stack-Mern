@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { Link, useNavigate, useNavigation } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import ContinueWith from "../../global/continueWith";
 import DividerWithText from "../../global/DividerWithText";
@@ -16,44 +16,25 @@ import step1Styles from "./Step1.module.css";
 
 const Step1 = () => {
   const navigate = useNavigate();
-  const [error, setError] = useState("hidden");
-  const [userExists, setUserExists] = useState(false);
+
+  const [email, setEmail] = useState("");
+  const [error, setError] = useState("");
+  const [errorVisibility, setErrorVisibility] = useState("hidden");
 
   const context = useContext(SignupContext);
   if (!context) throw new Error("no signup context");
-  const { setStep, email, setEmail, validateEmail } = context;
+  const { setStep, checkUser } = context;
 
   const handleNext = async (e: React.FormEvent) => {
     e.preventDefault();
-    setStep(2);
-    navigate("/signup/2");
-    // if (validateEmail(email)) {
-    //   try {
-    //     const res = await fetch("/api/auth/checkuser", {
-    //       method: "POST",
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //       },
-    //       body: JSON.stringify({
-    //         email,
-    //       }),
-    //     });
-
-    //     const data = await res.json();
-    //     console.log(data.message);
-    //     if (data.success) {
-    //       setUserExists(false);
-    //       setStep(2);
-    //       // navigate("/signup/2");
-    //       <Navigate to={"/signup/2"} />;
-    //     } else {
-    //       setUserExists(true);
-    //     }
-    //   } catch (error) {
-    //     console.log(`Something went wrong checking email: ${error}`);
-    //   }
-    // }
-    // checkEmail(email);
+    if (await checkUser(email)) {
+      setErrorVisibility("visible");
+      setError("A user with this email already exists. Please log in");
+    } else {
+      localStorage.setItem("email", email);
+      setStep(2);
+      navigate("/signup/2");
+    }
   };
 
   return (
@@ -62,13 +43,6 @@ const Step1 = () => {
       <p className="text-5xl font-bold text-center leading-[60px] w-[60%] mx-auto">
         Sign up to start listening
       </p>
-
-      {/* <Error
-        content={`A user with this email already exists. Please log in`}
-        className={`font-semibold text-sm bg-essential-negative w-[80%] py-2 px-4 mx-auto ${
-          userExists ? "opacity-1" : "opacity-0"
-        }`}
-      /> */}
 
       <form onSubmit={handleNext}>
         <div className="relative w-[90%] sm:w-[63%] grid grid-rows-2 items-end mx-auto ">
@@ -86,16 +60,19 @@ const Step1 = () => {
             }}
             onInvalid={(e) => {
               e.preventDefault();
-              setError("visible");
+              setError(
+                "This email is invalid. Make sure it's written like example@email.com"
+              );
+              setErrorVisibility("visible");
             }}
             onInput={(e) => {
-              if (e.currentTarget.validity.valid) setError("hidden");
+              if (e.currentTarget.validity.valid) setErrorVisibility("hidden");
             }}
           />
 
           <ErrorComponent
-            content="This email is invalid. Make sure it's written like example@email.com"
-            className={`font-medium text-sm text-text-negative ${error}`}
+            content={error}
+            className={`font-medium text-sm text-text-negative ${errorVisibility}`}
             logoClass="stroke-text-negative scale-[200%]"
           />
 

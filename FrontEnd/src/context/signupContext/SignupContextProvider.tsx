@@ -7,7 +7,7 @@ interface props {
 }
 
 const SignupContextProvider = ({ children }: props) => {
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(3);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -22,25 +22,20 @@ const SignupContextProvider = ({ children }: props) => {
     return /^[\w\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,}$/.test(email);
   };
 
-  // const value = {
-  //   step,
-  //   setStep,
-  //   email,
-  //   setEmail,
-  //   password,
-  //   setPassword,
-  //   validateEmail,
-  //   name,
-  //   setName,
-  //   year,
-  //   setYear,
-  //   month,
-  //   setMonth,
-  //   day,
-  //   setDay,
-  //   gender,
-  //   setGender,
-  // };
+  const checkUser = async (email: string) => {
+    try {
+      const res = await fetch("/api/auth/checkuser", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      });
+      return await res.json();
+    } catch (error) {
+      throw new Error(`Something went wrong ${error}`);
+    }
+  };
 
   const value = {
     step,
@@ -60,6 +55,7 @@ const SignupContextProvider = ({ children }: props) => {
     gender,
     setGender,
     validateEmail,
+    checkUser,
   };
 
   return (
