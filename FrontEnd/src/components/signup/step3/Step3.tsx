@@ -16,14 +16,14 @@ const Step3 = () => {
   const [ageError, setAgeError] = useState("hidden");
   const [name, setName] = useState("");
   const [year, setYear] = useState<number>(0);
-  const [month, setMonth] = useState<number>(0);
+  const [month, setMonth] = useState<number>(1);
   const [day, setDay] = useState<number>(0);
   const [gender, setGender] = useState("");
 
   const navigate = useNavigate();
 
   const inputClass =
-    "bg-[#121212] border border-[#727272] hover:border-[#fff] rounded-[4px] items-center focus-within:outline-none focus-within:border-white focus-within:border-[2px] px-4 py-3";
+    "bg-[#121212] border border-[#727272] hover:border-[#fff] rounded-[4px] items-center focus-within:outline-none focus-within:border-white focus-within:border-[3px] px-4 py-3";
   const labelClass = `custom-radio-button flex gap-x-3 items-center my-1`;
 
   useEffect(() => {
@@ -75,13 +75,15 @@ const Step3 = () => {
     }
     setAgeError("hidden");
     if (name && year && day && gender) {
+      localStorage.setItem("name", name);
+      localStorage.setItem("year", year.toString());
+      localStorage.setItem("day", day.toString());
+      localStorage.setItem("gender", gender);
+      localStorage.setItem("month", month.toString());
       setStep(4);
       navigate("/signup/4");
       return;
     }
-    checkName(name);
-    checkYear(year);
-    checkDay(day);
   };
 
   return (
@@ -100,15 +102,15 @@ const Step3 = () => {
               type="text"
               value={name}
               onChange={(e) => checkName(e)}
-              className={styles.neutral + " w-[100%]"}
+              className={inputClass + " w-[100%]"}
               onInvalid={(e) => (e.currentTarget.style.borderColor = "#e91429")}
             />
 
-            <ErrorComponent
+            {/* <ErrorComponent
               content={"Enter a name for your profile."}
               className={"text-[#f15e6c]"}
               logoClass={"stroke-[#f15e6c]"}
-            />
+            /> */}
           </div>
 
           {/* Date of birth field */}
@@ -124,10 +126,14 @@ const Step3 = () => {
             <div className="flex gap-x-2">
               <input
                 type="number"
-                value={year}
+                value={year || ""}
                 placeholder="yyyy"
                 onChange={(e) => checkYear(e)}
-                className={`w-[95px] ${styles.neutral} number`}
+                className={`w-[95px] number ${inputClass}`}
+                onInvalid={(e) => {
+                  e.preventDefault();
+                  e.currentTarget.style.borderColor = "#e91429";
+                }}
                 required
               />
               <select
@@ -153,9 +159,13 @@ const Step3 = () => {
               <input
                 type="number"
                 placeholder="dd"
-                value={day}
-                onChange={(e) => checkDay(parseInt(e.target.value))}
-                className={`${styles.neutral} number w-[65px]`}
+                value={day || ""}
+                onChange={(e) => checkDay(e)}
+                className={`${inputClass} number w-[65px]`}
+                onInvalid={(e) => {
+                  e.preventDefault();
+                  e.currentTarget.style.borderColor = "#e91429";
+                }}
                 required
               />
             </div>

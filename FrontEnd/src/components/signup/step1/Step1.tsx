@@ -25,15 +25,37 @@ const Step1 = () => {
   if (!context) throw new Error("no signup context");
   const { setStep, checkUser } = context;
 
+  const checkEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
+    if (/^[\w\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,}$/.test(e.target.value)) {
+      setErrorVisibility("hidden");
+      e.currentTarget.style.borderColor = "#fff";
+      return true;
+    }
+    e.currentTarget.style.borderColor = "#e91429";
+    setError(
+      "This email is invalid. Make sure it's written like example@email.com"
+    );
+    setErrorVisibility("visible");
+    return false;
+  };
+
   const handleNext = async (e: React.FormEvent) => {
     e.preventDefault();
     if (await checkUser(email)) {
       setErrorVisibility("visible");
       setError("A user with this email already exists. Please log in");
     } else {
-      localStorage.setItem("email", email);
-      setStep(2);
-      navigate("/signup/2");
+      if (/^[\w\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,}$/.test(email)) {
+        localStorage.setItem("email", email);
+        setStep(2);
+        navigate("/signup/2");
+      } else {
+        setError(
+          "This email is invalid. Make sure it's written like example@email.com"
+        );
+        setErrorVisibility("visible");
+      }
     }
   };
 
@@ -56,7 +78,7 @@ const Step1 = () => {
             className={`${step1Styles.inputBox}`}
             value={email}
             onChange={(e) => {
-              setEmail(e.target.value);
+              checkEmail(e);
             }}
             onInvalid={(e) => {
               e.preventDefault();

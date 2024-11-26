@@ -1,5 +1,5 @@
 import { useContext, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import SignupContext from "../../../context/signupContext/SignupContext";
 import StepCounter from "../StepCounter";
@@ -9,14 +9,25 @@ import styles from "./step4.module.css";
 
 const Step4 = () => {
   const navigate = useNavigate();
-  const { step, email, password, name, year, month, day, setLoggedIn } =
-    useContext(SignupContext);
+
+  const context = useContext(SignupContext);
+  if (!context) throw new Error("No signup context");
+  const { step } = context;
 
   useEffect(() => {
     if (step != 4) navigate("/signup/");
   }, []);
 
   const handleSubmit = async () => {
+    // const email = localStorage.getItem("email");
+    // const password = localStorage.getItem("password");
+
+    const { email, password, name, gender } = localStorage;
+    let { year, month, day } = localStorage;
+    year = parseInt(year);
+    month = parseInt(month);
+    day = parseInt(day);
+
     try {
       const res = await fetch("/api/auth/signup", {
         method: "POST",
@@ -30,12 +41,19 @@ const Step4 = () => {
           year,
           month,
           day,
+          gender,
         }),
       });
 
-      const data = await res.json();
-      if (data.success) {
-        setLoggedIn(true);
+      console.log(email, password, name, year, month, day, gender);
+      if (res.ok) {
+        localStorage.removeItem("email");
+        localStorage.removeItem("password");
+        localStorage.removeItem("name");
+        localStorage.removeItem("year");
+        localStorage.removeItem("month");
+        localStorage.removeItem("day");
+        localStorage.removeItem("gender");
         navigate("/");
       }
     } catch (error) {
@@ -68,17 +86,17 @@ const Step4 = () => {
         </form>
         <div className="text-sm mt-3">
           By clicking on &apos;Sign up&apos;, you agree to Spotify&apos;s{"  "}
-          <Link className="text-[#1fdf64] decoration underline">
+          <a className="text-[#1fdf64] decoration underline">
             Terms and Conditions of Use
-          </Link>
+          </a>
           .
         </div>
         <div className="text-sm mt-3">
           To learn more about how Spotify collects, uses, shares and protects
           your personal data, please see{" "}
-          <Link className="text-[#1fdf64] decoration underline">
+          <a className="text-[#1fdf64] decoration underline">
             Spotify&apos;s Privacy Policy
-          </Link>
+          </a>
           .
         </div>
       </div>

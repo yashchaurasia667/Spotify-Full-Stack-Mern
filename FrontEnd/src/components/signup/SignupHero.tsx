@@ -27,8 +27,8 @@ function SignupHero() {
 
   return (
     <div className="bg-[#121212] flex justify-center">
-      {/* {renderStep(parseInt(id!))} */}
-      {renderStep(3)}
+      {renderStep(parseInt(id!))}
+      {/* {renderStep(3)} */}
     </div>
   );
 }

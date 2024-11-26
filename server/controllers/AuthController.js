@@ -16,7 +16,7 @@ export const signup = async (req, res) => {
     res.json(userDoc);
   }
   catch (error) {
-    res.status(400).json(error)
+    res.status(409).json(error)
   }
 }
 
