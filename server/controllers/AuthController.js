@@ -44,9 +44,9 @@ export const checkUser = async (req, res) => {
   try {
     const userDoc = await User.findOne({ email });
     if (!userDoc)
-      res.status(200).json("User not found");
+      res.status(200).json(false);
     else
-      res.status(409).json("User already exists");
+      res.status(200).json(true);
   } catch (error) {
     res.status(500).json(`Something went wrong ${error}`);
   }
