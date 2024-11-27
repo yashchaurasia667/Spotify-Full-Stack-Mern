@@ -10,9 +10,17 @@ import Footer from "./Footer";
 const HomeHero = () => {
   // const { setToken } = useContext(MainContext);
 
+  const checkLoggedIn = async () => {
+    const res = await fetch("/api/auth/checkauth", {
+      credentials: "include",
+    });
+    const data = await res.json();
+    if (data) console.log("logged in");
+    else console.log("logged out");
+  };
+
   useEffect(() => {
-    // setToken(localStorage.getItem("token"));
-    console.log(localStorage.getItem("token"));
+    checkLoggedIn();
   }, []);
 
   return (

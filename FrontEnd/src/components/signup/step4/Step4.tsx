@@ -45,7 +45,6 @@ const Step4 = () => {
         }),
       });
 
-      console.log(email, password, name, year, month, day, gender);
       if (res.ok) {
         localStorage.removeItem("email");
         localStorage.removeItem("password");

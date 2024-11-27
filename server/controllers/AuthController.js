@@ -51,3 +51,18 @@ export const checkUser = async (req, res) => {
     res.status(500).json(`Something went wrong ${error}`);
   }
 }
+
+export const ensureAuth = async (req, res) => {
+  const { token } = req.cookies;
+  if (token) {
+    jwt.verify(token, process.env.JWT_SECRET, {}, (error, info) => {
+      if (error) throw error;
+      res.json(info)
+    })
+  }
+  else res.json(false)
+}
+
+export const logout = async (req, res) => {
+  res.cookie("token", "").json("logged out")
+}
