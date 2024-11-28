@@ -5,17 +5,20 @@ import Playlists from "./Playlists";
 
 import MainContext from "../../../context/mainContext/MainContext";
 
-import {
-  outer,
-  library,
-  lib_bar,
-  bar_element,
-  inactive,
-  playlist_container,
-} from "./sideBar.module.css";
+import styles from "./sideBar.module.css";
 
-function Library({ sidebarWidth, setSidebarWidth }) {
-  const { collapse, libIcon, setLibIcon } = useContext(MainContext);
+interface libProps {
+  sidebarWidth: number;
+  setSidebarWidth: (e: number) => void;
+}
+
+function Library({ sidebarWidth, setSidebarWidth }: libProps) {
+  const context = useContext(MainContext);
+  if (!context) throw new Error("no main context");
+  const { collapse, libIcon, setLibIcon } = context;
+
+  const { outer, library, lib_bar, bar_element, inactive, playlist_container } =
+    styles;
 
   return (
     <div className={`${outer} ${library}`}>

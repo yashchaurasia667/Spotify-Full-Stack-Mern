@@ -1,10 +1,10 @@
 import Library from "./Library";
 
-import {sidebar} from './sideBar.module.css'
+import styles from './sideBar.module.css'
 
 function SideBar() {
   return (
-    <div className={`${sidebar}`}>
+    <div className={`${styles.sidebar}`}>
       <Library />
     </div>
   );

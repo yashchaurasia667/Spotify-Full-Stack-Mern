@@ -1,4 +1,5 @@
-import { useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Navigate, useParams } from "react-router-dom";
 
 import Step1 from "./step1/Step1";
 import Step2 from "./step2/Step2";
@@ -19,16 +20,25 @@ function SignupHero() {
       default:
         return <Step1 />;
     }
-    // if (step == 2) return <Step2 />;
-    // else if (step == 3) return <Step3 />;
-    // else if (step == 4) return <Step4 />;
-    // else return <Step1 />;
   };
 
-  return (
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  useEffect(() => {
+    fetch("/api/auth/checkauth", {
+      credentials: "include",
+    }).then((res) => {
+      res.json().then((info) => {
+        if (info) setLoggedIn(true);
+      });
+    });
+  }, []);
+
+  return loggedIn ? (
+    <Navigate to={"/"} />
+  ) : (
     <div className="bg-[#121212] flex justify-center">
       {renderStep(parseInt(id!))}
-      {/* {renderStep(3)} */}
     </div>
   );
 }

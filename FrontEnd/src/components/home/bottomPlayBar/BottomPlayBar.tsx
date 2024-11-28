@@ -1,4 +1,8 @@
 import { useEffect, useState } from "react";
+
+import { MdSkipNext, MdSkipPrevious } from "react-icons/md";
+import { IoPlayCircle, IoPauseCircle } from "react-icons/io5";
+
 import PurpleBar from "./PurpleBar";
 
 const BottomPlayBar = () => {
@@ -33,7 +37,11 @@ const BottomPlayBar = () => {
           </div>
 
           <div>
-            
+            <div>
+              <MdSkipPrevious />
+              <IoPlayCircle />
+              <MdSkipNext />
+            </div>
           </div>
         </div>
       ) : (
