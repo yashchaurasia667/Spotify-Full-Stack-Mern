@@ -40,6 +40,21 @@ const App = () => {
           <Route index element={<SignUp />} />
           <Route path=":id" element={<SignupHero />} />
         </Route>
+        <Route
+          path="/logout"
+          element={
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                fetch("/api/auth/logout", {
+                  credentials: "include",
+                });
+              }}
+            >
+              logout{" "}
+            </button>
+          }
+        />
       </Route>
     )
   );

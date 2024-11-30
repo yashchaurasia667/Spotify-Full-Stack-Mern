@@ -38,6 +38,10 @@ const userSchema = new mongoose.Schema({
       "Please enter the day of your birth date by entering a number between 1 and 31.",
     ],
   },
+  profile: {
+    type: String,
+    required: true,
+  }
 });
 
 const userModel = mongoose.model("Users", userSchema)

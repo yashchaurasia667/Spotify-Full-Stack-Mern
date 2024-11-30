@@ -1,7 +1,7 @@
 import { Link, NavLink, useNavigate } from "react-router-dom";
 
 import { GoHomeFill, GoHome } from "react-icons/go";
-import { IoSearch } from "react-icons/io5";
+import { IoFastFood, IoSearch } from "react-icons/io5";
 import { FaRegArrowAltCircleDown } from "react-icons/fa";
 import { LuBell } from "react-icons/lu";
 
@@ -27,17 +27,37 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   const [loggedIn, setLoggedIn] = useState(false);
+  const [email, setEmail] = useState("");
+  const [profile, setProfile] = useState("");
 
   useEffect(() => {
-    fetch("/api/auth/checkauth", {
-      credentials: "include",
-    }).then((res) =>
-      res.json().then((info) => {
-        if (info) setLoggedIn(true);
-        else setLoggedIn(false);
-      })
-    );
-  }, []);
+    if (email) {
+      console.log("getuser");
+      fetch("/api/auth/getuser", {
+        method: "post",
+        credentials: "include",
+      }).then((res) =>
+        res.json().then((user) => {
+          if (user) {
+            console.log(user.profile);
+            setProfile(user.profile);
+          } else setLoggedIn(false);
+        })
+      );
+    } else {
+      console.log("checkauth");
+      fetch("/api/auth/checkauth", {
+        credentials: "include",
+      }).then((res) =>
+        res.json().then((info) => {
+          if (info) {
+            setEmail(info.email);
+            setLoggedIn(true);
+          } else setLoggedIn(false);
+        })
+      );
+    }
+  }, [email]);
 
   return (
     <div className={`${navbar} row-start-1 col-span-2`}>
@@ -100,7 +120,7 @@ const Navbar = () => {
               <LuBell />
             </Link>
             <div className={profile_icon}>
-              <img src="/artists/kk.jpg" alt="" />
+              <img src={`http://localhost:4000/uploads/${profile}`} alt="" />
             </div>
           </>
         ) : (
