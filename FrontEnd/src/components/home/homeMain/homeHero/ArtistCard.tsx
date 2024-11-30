@@ -21,7 +21,7 @@ const ArtistCard = ({ name = "", type = "album", img = "" }) => {
               type.toLocaleLowerCase() === "artist"
                 ? "rounded-[50%]"
                 : "rounded-[5px]"
-            } w-full`}
+            } w-[139px] h-[139px] object-cover`}
           />
         ) : (
           ""

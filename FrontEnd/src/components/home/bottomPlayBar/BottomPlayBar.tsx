@@ -54,15 +54,26 @@ const BottomPlayBar = () => {
           </div>
 
           <div className="w-[100%]">
-            <div className="flex justify-center items-center">
+            <div className="flex justify-center items-center gap-x-3">
               <button className={styles.controls}>
-                <MdSkipPrevious size={35} />
+                <MdSkipPrevious
+                  className={styles.prev_next}
+                  size={35}
+                  fill="#a7a7a7"
+                  onMouseOver={(e) => (e.currentTarget.style.fill = "white")}
+                  onMouseOut={(e) => (e.currentTarget.style.fill = "#a7a7a7")}
+                />
               </button>
               <button className={styles.controls}>
                 <IoPlayCircle size={40} />
               </button>
               <button className={styles.controls}>
-                <MdSkipNext size={35} />
+                <MdSkipNext
+                  size={35}
+                  fill="#a7a7a7"
+                  onMouseOver={(e) => (e.currentTarget.style.fill = "white")}
+                  onMouseOut={(e) => (e.currentTarget.style.fill = "#a7a7a7")}
+                />
               </button>
             </div>
             <div className="flex w-[100%] gap-x-3 justify-center items-center overflow-hidden">
