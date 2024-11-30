@@ -1,29 +1,23 @@
-import React, { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import { GoGlobe } from "react-icons/go";
 import Card from "./Card";
 
-import {
-  cards,
-  playlists,
-  sidebar_footer,
-  policies,
-} from "./sideBar.module.css";
+import styles from "./sideBar.module.css";
 
-import SignupContext from "../../../context/signupContext/SignupContext";
 import MainContext from "../../../context/mainContext/MainContext";
 
 const Playlists = () => {
+  const { cards, playlists, sidebar_footer, policies } = styles;
   const linkStyle = "text-[12px] text-text-subdued";
 
-  const { loggedIn } = useContext(SignupContext);
-  const { sidebarWidth } = useContext(MainContext);
-
-  // useEffect(() => console.log(loggedIn), [loggedIn]);
+  const context = useContext(MainContext);
+  if (!context) throw new Error("No main context");
+  const { user, sidebarWidth } = context;
 
   const renderPlaylist = () => {
-    if (!loggedIn)
+    if (!user.email)
       return (
         <>
           <div className={`${cards}`}>

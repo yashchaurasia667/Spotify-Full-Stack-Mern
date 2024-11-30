@@ -1,3 +1,4 @@
+import { useEffect, useState, useContext } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 
 import { GoHomeFill, GoHome } from "react-icons/go";
@@ -5,9 +6,10 @@ import { IoFastFood, IoSearch } from "react-icons/io5";
 import { FaRegArrowAltCircleDown } from "react-icons/fa";
 import { LuBell } from "react-icons/lu";
 
+import MainContext from "../../context/mainContext/MainContext";
+
 import spotify from "/spotifyBw.svg";
 import styles from "./navbar.module.css";
-import { useEffect, useState } from "react";
 
 const Navbar = () => {
   const {
@@ -22,26 +24,33 @@ const Navbar = () => {
     install_app,
     content_feed,
     profile_icon,
+    modal,
+    modal_link,
   } = styles;
 
   const navigate = useNavigate();
 
-  const [loggedIn, setLoggedIn] = useState(false);
-  const [email, setEmail] = useState("");
+  const context = useContext(MainContext);
+  if (!context) throw new Error("No main context");
+  const { user, setUser } = context;
+
   const [profile, setProfile] = useState("");
+  const [dialogOpen, setDialogOpen] = useState(false);
+
+  const logout = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    await fetch("/api/auth/logout");
+    window.location.reload();
+  };
 
   useEffect(() => {
-    if (email) {
+    if (user.email) {
       console.log("getuser");
       fetch("/api/auth/getuser", {
         method: "post",
         credentials: "include",
       }).then((res) =>
         res.json().then((user) => {
-          if (user) {
-            console.log(user.profile);
-            setProfile(user.profile);
-          } else setLoggedIn(false);
+          if (user.email) setProfile(user.profile);
         })
       );
     } else {
@@ -50,14 +59,11 @@ const Navbar = () => {
         credentials: "include",
       }).then((res) =>
         res.json().then((info) => {
-          if (info) {
-            setEmail(info.email);
-            setLoggedIn(true);
-          } else setLoggedIn(false);
+          if (info) setUser(info);
         })
       );
     }
-  }, [email]);
+  }, [user]);
 
   return (
     <div className={`${navbar} row-start-1 col-span-2`}>
@@ -104,7 +110,7 @@ const Navbar = () => {
         </div>
       </div>
       <div className={`${nav_right}`}>
-        {loggedIn ? (
+        {user.email ? (
           <>
             <Link to={"https://open.spotify.com/premium"} className={premium}>
               Explore Premium
@@ -119,8 +125,42 @@ const Navbar = () => {
             <Link to="/content-feed" className={content_feed}>
               <LuBell />
             </Link>
-            <div className={profile_icon}>
-              <img src={`http://localhost:4000/uploads/${profile}`} alt="" />
+            <div className="relative">
+              <button
+                onClick={() => setDialogOpen(!dialogOpen)}
+                className={profile_icon}
+              >
+                <img src={`http://localhost:4000/uploads/${profile}`} alt="" />
+              </button>
+
+              <dialog
+                open={dialogOpen}
+                // className="z-10 top-14 rounded-[5px] bg-[#282828]"
+                className={modal}
+              >
+                <ul className="w-full">
+                  <li>
+                    <Link to={"#"} className={modal_link}>
+                      Account
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to={"#"} className={modal_link}>
+                      Profile
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to={"#"} className={modal_link}>
+                      Settings
+                    </Link>
+                  </li>
+                  <li>
+                    <button onClick={logout} className={modal_link}>
+                      Logout
+                    </button>
+                  </li>
+                </ul>
+              </dialog>
             </div>
           </>
         ) : (

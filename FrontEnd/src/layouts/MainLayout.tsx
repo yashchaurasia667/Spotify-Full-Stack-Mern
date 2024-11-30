@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import { Resizable } from "react-resizable";
 
@@ -10,7 +10,6 @@ import "react-resizable/css/styles.css";
 import styles from "../styleSheets/Home.module.css";
 
 import MainContext from "../context/mainContext/MainContext";
-import SignupContextProvider from "../context/signupContext/SignupContextProvider";
 
 const MainLayout = () => {
   // document.querySelector("#favicon")!.href = "spotifyGreen.svg";
@@ -19,10 +18,11 @@ const MainLayout = () => {
 
   const context = useContext(MainContext);
   if (!context) throw new Error("No Main context");
-
   const {
     sidebarWidth,
     setSidebarWidth,
+    user,
+    setUser,
     minSidebarWidth,
     maxSidebarWidth,
     collapse,
@@ -61,31 +61,40 @@ const MainLayout = () => {
     }
   };
 
+  useEffect(() => {
+    fetch("/api/auth/checkauth", {
+      credentials: "include",
+    }).then((res) =>
+      res.json().then((info) => {
+        if (info) setUser(info);
+        else setUser({ email: "", id: "", iat: 0 });
+      })
+    );
+  }, []);
+
   return (
     <div className={styles.parent} style={style}>
-      <SignupContextProvider>
-        <Navbar />
-        <Resizable
-          width={sidebarWidth}
-          height={0}
-          minConstraints={[minSidebarWidth, 0]}
-          maxConstraints={[maxSidebarWidth, 0]}
-          onResize={onResizeSidebar}
-          onResizeStart={onResizeStart}
-          onResizeStop={onResizeStop}
-          draggableOpts={{ axis: "x" }}
-        >
-          <div>
-            <Library
-              sidebarWidth={sidebarWidth}
-              setSidebarWidth={setSidebarWidth}
-            />
-          </div>
-        </Resizable>
+      <Navbar />
+      <Resizable
+        width={sidebarWidth}
+        height={0}
+        minConstraints={[minSidebarWidth, 0]}
+        maxConstraints={[maxSidebarWidth, 0]}
+        onResize={onResizeSidebar}
+        onResizeStart={onResizeStart}
+        onResizeStop={onResizeStop}
+        draggableOpts={{ axis: "x" }}
+      >
+        <div>
+          <Library
+            sidebarWidth={sidebarWidth}
+            setSidebarWidth={setSidebarWidth}
+          />
+        </div>
+      </Resizable>
 
-        <Outlet />
-        <BottomPlayBar />
-      </SignupContextProvider>
+      <Outlet />
+      <BottomPlayBar />
     </div>
   );
 };

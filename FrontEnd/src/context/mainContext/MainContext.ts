@@ -1,10 +1,15 @@
-import React, { ReactNode, Dispatch, SetStateAction } from "react";
+import React from "react";
+import { user } from "../../types/index";
 
 type MainContextType = {
   token: string;
   setToken: (token: string) => void;
   sidebarWidth: number;
   setSidebarWidth: (width: number) => void;
+  // loggedIn: boolean;
+  // setLoggedIn: (e: boolean) => void;
+  user: user;
+  setUser: (e: user) => void;
   minSidebarWidth: number;
   maxSidebarWidth: number;
   libIcon: JSX.Element;
