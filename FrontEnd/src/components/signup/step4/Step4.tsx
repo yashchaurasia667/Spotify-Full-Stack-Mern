@@ -22,8 +22,8 @@ const Step4 = () => {
     // const email = localStorage.getItem("email");
     // const password = localStorage.getItem("password");
 
-    const { email, password, name, gender } = localStorage;
-    let { year, month, day } = localStorage;
+    const { email, password, name, gender } = sessionStorage;
+    let { year, month, day } = sessionStorage;
     year = parseInt(year);
     month = parseInt(month);
     day = parseInt(day);
@@ -46,13 +46,21 @@ const Step4 = () => {
       });
 
       if (res.ok) {
-        localStorage.removeItem("email");
-        localStorage.removeItem("password");
-        localStorage.removeItem("name");
-        localStorage.removeItem("year");
-        localStorage.removeItem("month");
-        localStorage.removeItem("day");
-        localStorage.removeItem("gender");
+        fetch("/api/auth/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          body: JSON.stringify({ email, password }),
+        });
+        sessionStorage.removeItem("email");
+        sessionStorage.removeItem("password");
+        sessionStorage.removeItem("name");
+        sessionStorage.removeItem("year");
+        sessionStorage.removeItem("month");
+        sessionStorage.removeItem("day");
+        sessionStorage.removeItem("gender");
         navigate("/");
       }
     } catch (error) {

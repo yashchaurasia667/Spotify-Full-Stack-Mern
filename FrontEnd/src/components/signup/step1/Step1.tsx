@@ -47,7 +47,7 @@ const Step1 = () => {
       setError("A user with this email already exists. Please log in");
     } else {
       if (/^[\w\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,}$/.test(email)) {
-        localStorage.setItem("email", email);
+        sessionStorage.setItem("email", email);
         setStep(2);
         navigate("/signup/2");
       } else {

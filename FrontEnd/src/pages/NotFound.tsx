@@ -1,11 +1,13 @@
-import React from "react";
 import { Link } from "react-router-dom";
 
 import spotify from "/spotifyGreen.svg";
 
 const NotFound = () => {
-  document.querySelector("#favicon").href = "spotifyGreen.svg";
   document.title = "Page not found";
+
+  const favicon = document.querySelector("#favicon") as HTMLLinkElement | null;
+  if (favicon) favicon.href = "/spotifyGreen.svg";
+
   return (
     <div className="bg-background-base flex flex-col justify-center items-center h-screen">
       <img src={spotify} alt="spotify logo" className="w-[60px]" />

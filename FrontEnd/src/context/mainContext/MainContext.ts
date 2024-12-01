@@ -6,8 +6,6 @@ type MainContextType = {
   setToken: (token: string) => void;
   sidebarWidth: number;
   setSidebarWidth: (width: number) => void;
-  // loggedIn: boolean;
-  // setLoggedIn: (e: boolean) => void;
   user: user;
   setUser: (e: user) => void;
   minSidebarWidth: number;

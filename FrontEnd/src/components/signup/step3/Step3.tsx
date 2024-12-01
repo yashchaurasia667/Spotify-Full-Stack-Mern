@@ -75,11 +75,11 @@ const Step3 = () => {
     }
     setAgeError("hidden");
     if (name && year && day && gender) {
-      localStorage.setItem("name", name);
-      localStorage.setItem("year", year.toString());
-      localStorage.setItem("day", day.toString());
-      localStorage.setItem("gender", gender);
-      localStorage.setItem("month", month.toString());
+      sessionStorage.setItem("name", name);
+      sessionStorage.setItem("year", year.toString());
+      sessionStorage.setItem("day", day.toString());
+      sessionStorage.setItem("gender", gender);
+      sessionStorage.setItem("month", month.toString());
       setStep(4);
       navigate("/signup/4");
       return;

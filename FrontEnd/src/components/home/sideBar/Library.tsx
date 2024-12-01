@@ -9,10 +9,10 @@ import styles from "./sideBar.module.css";
 
 interface libProps {
   sidebarWidth: number;
-  setSidebarWidth: (e: number) => void;
+  // setSidebarWidth: (e: number) => void;
 }
 
-function Library({ sidebarWidth, setSidebarWidth }: libProps) {
+function Library({ sidebarWidth }: libProps) {
   const context = useContext(MainContext);
   if (!context) throw new Error("no main context");
   const { collapse, libIcon, setLibIcon } = context;

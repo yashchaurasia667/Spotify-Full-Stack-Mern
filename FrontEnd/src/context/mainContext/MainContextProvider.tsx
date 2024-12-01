@@ -26,7 +26,6 @@ const MainContextProvider = ({ children }: contextProps) => {
       Your Library
     </>
   );
-  const [loggedIn, setLoggedIn] = useState(false);
   const [user, setUser] = useState<user>({ email: "", id: "", iat: 0 });
   const minSidebarWidth = 280;
   const maxSidebarWidth = 450;
@@ -74,8 +73,6 @@ const MainContextProvider = ({ children }: contextProps) => {
     setToken,
     sidebarWidth,
     setSidebarWidth,
-    // loggedIn,
-    // setLoggedIn,
     user,
     setUser,
     minSidebarWidth,

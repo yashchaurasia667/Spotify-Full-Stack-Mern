@@ -57,7 +57,7 @@ const Step2 = () => {
     e.preventDefault();
     if (checkPass(password)) {
       setStep(3);
-      localStorage.setItem("password", password);
+      sessionStorage.setItem("password", password);
       navigate("/signup/3");
     }
   };

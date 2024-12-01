@@ -53,15 +53,6 @@ const Navbar = () => {
           if (user.email) setProfile(user.profile);
         })
       );
-    } else {
-      console.log("checkauth");
-      fetch("/api/auth/checkauth", {
-        credentials: "include",
-      }).then((res) =>
-        res.json().then((info) => {
-          if (info) setUser(info);
-        })
-      );
     }
   }, [user]);
 
@@ -141,17 +132,7 @@ const Navbar = () => {
                 <ul className="w-full">
                   <li>
                     <Link to={"#"} className={modal_link}>
-                      Account
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to={"#"} className={modal_link}>
                       Profile
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to={"#"} className={modal_link}>
-                      Settings
                     </Link>
                   </li>
                   <li>

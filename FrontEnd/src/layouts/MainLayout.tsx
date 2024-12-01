@@ -88,7 +88,7 @@ const MainLayout = () => {
         <div>
           <Library
             sidebarWidth={sidebarWidth}
-            setSidebarWidth={setSidebarWidth}
+            // setSidebarWidth={setSidebarWidth}
           />
         </div>
       </Resizable>

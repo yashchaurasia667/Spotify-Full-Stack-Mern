@@ -172,17 +172,18 @@
 .modal {
   position: absolute;
   top: 100%;
-  left: calc(100% - 150px);
+  left: calc(100% - 180px);
   background: #282828;
   border-radius: 5px;
   padding: 5px;
-  width: 150px;
+  width: 180px;
   z-index: 100;
 }
 
 .modal_link {
   padding: 10px 10px;
   width: 100%;
+  text-align: left;
   display: block;
 }
 
