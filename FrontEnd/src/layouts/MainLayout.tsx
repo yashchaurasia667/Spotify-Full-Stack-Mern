@@ -21,7 +21,6 @@ const MainLayout = () => {
   const {
     sidebarWidth,
     setSidebarWidth,
-    user,
     setUser,
     minSidebarWidth,
     maxSidebarWidth,
@@ -66,8 +65,8 @@ const MainLayout = () => {
       credentials: "include",
     }).then((res) =>
       res.json().then((info) => {
-        if (info) setUser(info);
-        else setUser({ email: "", id: "", iat: 0 });
+        if (info) setUser({ ...info });
+        else setUser({ email: "", id: "", iat: 0, profile: "" });
       })
     );
   }, []);

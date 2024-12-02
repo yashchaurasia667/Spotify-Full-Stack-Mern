@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext, useRef } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 
 import { GoHomeFill, GoHome } from "react-icons/go";
@@ -34,27 +34,39 @@ const Navbar = () => {
   if (!context) throw new Error("No main context");
   const { user, setUser } = context;
 
-  const [profile, setProfile] = useState("");
+  // const [profile, setProfile] = useState("");
   const [dialogOpen, setDialogOpen] = useState(false);
+
+  const dialogRef = useRef<HTMLDialogElement>(null);
 
   const logout = async (e: React.MouseEvent<HTMLButtonElement>) => {
     await fetch("/api/auth/logout");
     window.location.reload();
   };
 
+  const clickOutside = (e: MouseEvent) => {
+    if (dialogRef.current && !dialogRef.current.contains(e.target as Node))
+      setDialogOpen(false);
+  };
+
   useEffect(() => {
-    if (user.email) {
+    if (user.email && !user.profile) {
       console.log("getuser");
       fetch("/api/auth/getuser", {
         method: "post",
         credentials: "include",
       }).then((res) =>
-        res.json().then((user) => {
-          if (user.email) setProfile(user.profile);
+        res.json().then((newUser) => {
+          if (newUser.email) setUser({ ...user, profile: newUser.profile });
         })
       );
     }
   }, [user]);
+
+  useEffect(() => {
+    if (dialogOpen) document.addEventListener("mousedown", clickOutside);
+    return () => document.removeEventListener("mousedown", clickOutside);
+  }, [dialogOpen]);
 
   return (
     <div className={`${navbar} row-start-1 col-span-2`}>
@@ -121,17 +133,16 @@ const Navbar = () => {
                 onClick={() => setDialogOpen(!dialogOpen)}
                 className={profile_icon}
               >
-                <img src={`http://localhost:4000/uploads/${profile}`} alt="" />
+                <img
+                  src={`http://localhost:4000/uploads/${user.profile}`}
+                  alt=""
+                />
               </button>
 
-              <dialog
-                open={dialogOpen}
-                // className="z-10 top-14 rounded-[5px] bg-[#282828]"
-                className={modal}
-              >
+              <dialog ref={dialogRef} open={dialogOpen} className={modal}>
                 <ul className="w-full">
                   <li>
-                    <Link to={"#"} className={modal_link}>
+                    <Link to={"/profile"} className={modal_link}>
                       Profile
                     </Link>
                   </li>

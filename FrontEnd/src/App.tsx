@@ -4,6 +4,7 @@ import HomeMain from "./components/home/homeMain/HomeMain";
 import Search from "./pages/Search";
 import NotFound from "./pages/NotFound";
 import SignupHero from "./components/signup/SignupHero";
+import Profile from "./pages/Profile";
 
 import {
   createBrowserRouter,
@@ -34,27 +35,14 @@ const App = () => {
         >
           <Route index element={<HomeMain />} />
           <Route path="search" element={<Search />} />
+          <Route path="/profile" element={<Profile />} />
         </Route>
+
         <Route path="login" element={<Login />} />
         <Route path="signup" element={<SignupLayout />}>
           <Route index element={<SignUp />} />
           <Route path=":id" element={<SignupHero />} />
         </Route>
-        <Route
-          path="/logout"
-          element={
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-                fetch("/api/auth/logout", {
-                  credentials: "include",
-                });
-              }}
-            >
-              logout{" "}
-            </button>
-          }
-        />
       </Route>
     )
   );
