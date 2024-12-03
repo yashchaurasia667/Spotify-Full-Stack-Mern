@@ -1,0 +1,37 @@
+.hero_bg {
+  background-color: #a9b1c7;
+  background-image: linear-gradient(to top, #000000aa, #00000000);
+  padding: 1.25rem;
+  padding-top: 4rem;
+
+  display: flex;
+  align-items: center;
+  column-gap: 1.5rem;
+}
+
+.hero {
+  position: relative;
+}
+
+.hero img {
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.hero:hover img {
+  filter: brightness(25%);
+}
+
+.hero button {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  visibility: hidden;
+}
+
+.hero:hover button {
+  visibility: visible;
+}

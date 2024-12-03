@@ -1,4 +1,6 @@
 import { useContext } from "react";
+import ProfileMain from "../components/profile/ProfileMain";
+
 import MainContext from "../context/mainContext/MainContext";
 
 const Profile = () => {
@@ -7,13 +9,14 @@ const Profile = () => {
   const { user } = context;
 
   return (
-    <div>
-      <div className="main bg-[#a9b1c7]">
-        <img src={`http://localhost:4000/uploads/${user.profile}`} alt="" />
-        <p>Profile</p>
-        <h1>Name</h1>
-        <p>3 Public Playlists • 2 Followers • 4 Following</p>
-      </div>
+    <div className="rounded-[8px] overflow-hidden">
+      <ProfileMain
+        name="Yash"
+        public_playlists={2}
+        followers={2}
+        following={4}
+        profile={user.profile}
+      />
     </div>
   );
 };
