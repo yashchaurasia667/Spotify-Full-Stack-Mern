@@ -17,6 +17,7 @@ const Profile = () => {
         following={4}
         profile={user.profile}
       />
+      <div className="content"></div>
     </div>
   );
 };
