@@ -5,12 +5,17 @@ import GreenButton from "../../../global/GreenButton";
 
 import styles from "./artistCard.module.css";
 
-const ArtistCard = ({ name = "", type = "album", img = "" }) => {
+const ArtistCard = ({
+  name = "",
+  type = "album",
+  img = "",
+  className = "",
+}) => {
   const { play, main } = styles;
   return (
     <Link
       to={"#"}
-      className={`${main} relative bg-transparent hover:bg-background-highlight w-[155px] px-2 py-3 rounded-md text-left`}
+      className={`${main} relative bg-transparent hover:bg-background-highlight px-2 py-3 rounded-md text-left ${className}`}
     >
       <div>
         {img != "" ? (
@@ -21,7 +26,7 @@ const ArtistCard = ({ name = "", type = "album", img = "" }) => {
               type.toLocaleLowerCase() === "artist"
                 ? "rounded-[50%]"
                 : "rounded-[5px]"
-            } w-[139px] h-[139px] object-cover`}
+            } aspect-square object-cover`}
           />
         ) : (
           ""

@@ -10,7 +10,7 @@ interface profileProps {
   profile: string;
 }
 
-const ProfileMain = ({
+const ProfileHeader = ({
   name,
   public_playlists,
   followers,
@@ -32,7 +32,9 @@ const ProfileMain = ({
       </div>
       <div className="info">
         <p className="font-medium">Profile</p>
-        <h1 className="text-8xl font-bold mt-3">{name}</h1>
+        <button className="text-8xl -tracking-[0.4rem] font-bold mt-3 block">
+          {name}
+        </button>
         <p className="mt-5 text-sm text-text-subdued inline-block">
           {public_playlists} Public Playlists •
         </p>{" "}
@@ -44,4 +46,4 @@ const ProfileMain = ({
   );
 };
 
-export default ProfileMain;
+export default ProfileHeader;

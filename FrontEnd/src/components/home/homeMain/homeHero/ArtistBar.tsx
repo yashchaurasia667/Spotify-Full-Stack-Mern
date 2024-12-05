@@ -1,8 +1,15 @@
+import { ReactNode } from "react";
 import { Link } from "react-router-dom";
 
 import styles from "../homeMain.module.css";
 
-const ArtistBar = ({ main = "", side = "" }) => {
+interface BarProps {
+  main: ReactNode;
+  side: ReactNode;
+  className?: string;
+}
+
+const ArtistBar = ({ main, side, className = "" }: BarProps) => {
   const { heading, side_heading } = styles;
 
   // const renderGroups = (mainNames, sideNames, imageNames) => {
@@ -11,7 +18,7 @@ const ArtistBar = ({ main = "", side = "" }) => {
 
   return (
     <>
-      <div className="flex justify-between px-3 mt-5 mb-3">
+      <div className={`flex justify-between ${className}`}>
         <Link to={"#"} className={`${heading}`}>
           {main}
         </Link>
