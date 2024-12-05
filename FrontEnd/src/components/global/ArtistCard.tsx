@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { FaPlay } from "react-icons/fa";
 
-import GreenButton from "../../../global/GreenButton";
+import GreenButton from "./GreenButton";
 
 import styles from "./artistCard.module.css";
 
@@ -11,11 +11,11 @@ const ArtistCard = ({
   img = "",
   className = "",
 }) => {
-  const { play, main } = styles;
+  const { play } = styles;
   return (
     <Link
       to={"#"}
-      className={`${main} relative bg-transparent hover:bg-background-highlight px-2 py-3 rounded-md text-left ${className}`}
+      className={`hover:opacity-100 relative bg-transparent hover:bg-background-highlight px-2 py-3 rounded-md text-left ${className}`}
     >
       <div>
         {img != "" ? (

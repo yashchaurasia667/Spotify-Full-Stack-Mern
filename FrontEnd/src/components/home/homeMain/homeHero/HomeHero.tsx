@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 
-import ArtistCard from "./ArtistCard";
-import ArtistBar from "./ArtistBar";
+import ArtistCard from "../../../global/ArtistCard";
+import ArtistBar from "../../../global/ArtistBar";
 import Footer from "./Footer";
 
 import styles from "../homeMain.module.css";

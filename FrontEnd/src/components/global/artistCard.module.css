@@ -10,7 +10,7 @@
   scale: 1.1;
 }
 
-.main:hover .play {
+a:hover .play {
   opacity: 1;
   transform: translateY(-20%);
 }

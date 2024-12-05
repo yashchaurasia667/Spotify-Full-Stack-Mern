@@ -22,8 +22,8 @@ const ProfileHeader = ({
       <div className={styles.hero}>
         <img
           src={`http://localhost:4000/uploads/${profile}`}
-          height={250}
-          width={250}
+          height={220}
+          width={220}
         />
         <button>
           <HiOutlinePencil size={60} className="" />

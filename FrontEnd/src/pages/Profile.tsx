@@ -1,8 +1,8 @@
 import { useContext } from "react";
 import ProfileHeader from "../components/profile/ProfileHeader";
 
-import ArtistCard from "../components/home/homeMain/homeHero/ArtistCard";
-import ArtistBar from "../components/home/homeMain/homeHero/ArtistBar";
+import ArtistCard from "../components/global/ArtistCard";
+import ArtistBar from "../components/global/ArtistBar";
 
 import MainContext from "../context/mainContext/MainContext";
 
@@ -21,7 +21,7 @@ const Profile = () => {
         profile={user.profile}
       />
       <div className="main_content bg-background-base h-full p-5 relative">
-        <div className="absolute top-0 left-0 h-[35vh] w-[100vw] bg-gradient-to-b from-[#a9b1c755] to-[#00000000]"></div>
+        <div className="absolute top-0 left-0 h-[35vh] w-[100vw] pointer-events-none bg-gradient-to-b from-[#a9b1c755] to-[#00000000]"></div>
         <div className="h-[60px]">
           <button className="text-text-subdued h-full">• • •</button>
         </div>
@@ -29,8 +29,12 @@ const Profile = () => {
           <ArtistBar
             main={
               <>
-                <p className="text-2xl font-bold">Top artists this month</p>
-                <p className="text-sm text-text-subdued">Only visible to you</p>
+                <p className="text-2xl font-bold hover:underline">
+                  Top artists this month
+                </p>
+                <p className="text-sm text-text-subdued font-medium hover:no-underline">
+                  Only visible to you
+                </p>
               </>
             }
             side={"Show all"}
