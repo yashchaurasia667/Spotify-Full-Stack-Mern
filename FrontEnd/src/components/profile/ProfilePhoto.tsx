@@ -6,20 +6,26 @@ interface profileProps {
   profile: string;
   width: number;
   height: number;
+  onClick?: () => void;
 }
 
-const ProfilePhoto = ({ profile, width, height }: profileProps) => {
+const ProfilePhoto = ({
+  profile,
+  width,
+  height,
+  onClick = () => {},
+}: profileProps) => {
   return (
-    <div className={styles.hero}>
+    <div onClick={() => onClick()} className={styles.hero}>
       <img
         src={`http://localhost:4000/uploads/${profile}`}
         height={height}
         width={width}
       />
-      <button>
+      <div>
         <HiOutlinePencil size={60} className="" />
         <p className="font-medium">Choose photo</p>
-      </button>
+      </div>
     </div>
   );
 };

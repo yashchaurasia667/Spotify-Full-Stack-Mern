@@ -49,19 +49,19 @@ const Navbar = () => {
       setDialogOpen(false);
   };
 
-  useEffect(() => {
-    if (user.email && !user.profile) {
-      console.log("getuser");
-      fetch("/api/auth/getuser", {
-        method: "post",
-        credentials: "include",
-      }).then((res) =>
-        res.json().then((newUser) => {
-          if (newUser.email) setUser({ ...user, profile: newUser.profile });
-        })
-      );
-    }
-  }, [user]);
+  // useEffect(() => {
+  //   if (user.email && !user.profile) {
+  //     console.log("getuser");
+  //     fetch("/api/auth/getuser", {
+  //       method: "post",
+  //       credentials: "include",
+  //     }).then((res) =>
+  //       res.json().then((newUser) => {
+  //         if (newUser.email) setUser({ ...user, profile: newUser.profile });
+  //       })
+  //     );
+  //   }
+  // }, [user]);
 
   useEffect(() => {
     if (dialogOpen) document.addEventListener("mousedown", clickOutside);

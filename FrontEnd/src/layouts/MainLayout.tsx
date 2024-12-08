@@ -21,6 +21,7 @@ const MainLayout = () => {
   const {
     sidebarWidth,
     setSidebarWidth,
+    user,
     setUser,
     minSidebarWidth,
     maxSidebarWidth,
@@ -61,15 +62,29 @@ const MainLayout = () => {
   };
 
   useEffect(() => {
-    fetch("/api/auth/checkauth", {
-      credentials: "include",
-    }).then((res) =>
-      res.json().then((info) => {
-        if (info) setUser({ ...info });
-        else setUser({ email: "", id: "", iat: 0, profile: "" });
-      })
-    );
-  }, []);
+    if (!user.email) {
+      console.log("checkauth");
+      fetch("/api/auth/checkauth", {
+        credentials: "include",
+      }).then((res) =>
+        res.json().then((info) => {
+          if (info) setUser({ ...info });
+          else setUser({ email: "", id: "", iat: 0, name: "", profile: "" });
+        })
+      );
+    } else if (user.email && !user.profile) {
+      console.log("getuser");
+      fetch("/api/auth/getuser", {
+        method: "post",
+        credentials: "include",
+      }).then((res) =>
+        res.json().then((newUser) => {
+          if (newUser.email)
+            setUser({ ...user, profile: newUser.profile, name: newUser.name });
+        })
+      );
+    }
+  }, [user]);
 
   return (
     <div className={styles.parent} style={style}>

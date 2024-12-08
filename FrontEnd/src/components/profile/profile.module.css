@@ -10,6 +10,7 @@
 }
 
 .hero {
+  cursor: pointer;
   position: relative;
 }
 
@@ -23,7 +24,7 @@
   filter: brightness(25%);
 }
 
-.hero button {
+.hero div {
   position: absolute;
   inset: 0;
   display: flex;
@@ -33,6 +34,6 @@
   visibility: hidden;
 }
 
-.hero:hover button {
+.hero:hover div {
   visibility: visible;
 }
