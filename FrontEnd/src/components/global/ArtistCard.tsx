@@ -5,12 +5,19 @@ import GreenButton from "./GreenButton";
 
 import styles from "./artistCard.module.css";
 
+interface cardProps {
+  name: string;
+  type?: string;
+  img: string;
+  className?: string;
+}
+
 const ArtistCard = ({
-  name = "",
+  name,
   type = "album",
-  img = "",
+  img,
   className = "",
-}) => {
+}: cardProps) => {
   const { play } = styles;
   return (
     <Link
