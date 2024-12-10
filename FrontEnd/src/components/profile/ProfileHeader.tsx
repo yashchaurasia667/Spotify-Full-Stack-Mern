@@ -24,8 +24,10 @@ const ProfileHeader = ({
 }: profileProps) => {
   const [editOpen, setEditOpen] = useState(false);
   const [editName, setEditName] = useState("");
+  const [inputProf, setInputProf] = useState<FileList | null>(null);
 
   const editRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const context = useContext(MainContext);
   if (!context) throw new Error("No main context");
@@ -34,6 +36,19 @@ const ProfileHeader = ({
   const clickOutside = (e: MouseEvent) => {
     if (editRef.current && !editRef.current.contains(e.target as Node))
       setEditOpen(false);
+  };
+
+  // const inputProfile = () => {
+  //   const prof = inputRef.current;
+  //   prof?.click();
+  // };
+
+  const editProfile = async (e: React.FormEvent) => {
+    const data = new FormData();
+    data.set("name", editName);
+    // data.set("profile");
+
+    e.preventDefault();
   };
 
   useEffect(() => {
@@ -84,7 +99,19 @@ const ProfileHeader = ({
           </div>
           <form>
             <div className="grid grid-cols-[1fr_1.5fr] gap-x-4">
-              <ProfilePhoto profile={profile} width={180} height={180} />
+              <ProfilePhoto
+                profile={profile}
+                width={180}
+                height={180}
+                onClick={() => inputRef.current?.click()}
+              />
+              <input
+                ref={inputRef}
+                type="file"
+                accept="image/*"
+                className="hidden"
+                onChange={(e) => setInputProf(e.target.files)}
+              />
               <div className="flex flex-col gap-y-3 items-end justify-center relative">
                 <input
                   value={editName}
