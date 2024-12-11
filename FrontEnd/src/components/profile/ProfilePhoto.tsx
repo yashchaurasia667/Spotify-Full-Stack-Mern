@@ -17,11 +17,7 @@ const ProfilePhoto = ({
 }: profileProps) => {
   return (
     <div onClick={() => onClick()} className={styles.hero}>
-      <img
-        src={`http://localhost:4000/uploads/${profile}`}
-        height={height}
-        width={width}
-      />
+      <img src={profile} height={height} width={width} />
       <div>
         <HiOutlinePencil size={60} className="" />
         <p className="font-medium">Choose photo</p>

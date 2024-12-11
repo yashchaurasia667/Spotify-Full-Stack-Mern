@@ -61,7 +61,7 @@ const ProfileHeader = ({
     <div className={styles.hero_bg}>
       <ProfilePhoto
         onClick={() => setEditOpen(true)}
-        profile={profile}
+        profile={`http://localhost:4000/uploads/${profile}`}
         width={220}
         height={220}
       />
@@ -100,7 +100,11 @@ const ProfileHeader = ({
           <form>
             <div className="grid grid-cols-[1fr_1.5fr] gap-x-4">
               <ProfilePhoto
-                profile={profile}
+                profile={
+                  inputProf
+                    ? URL.createObjectURL(inputProf[0])
+                    : `http://localhost:4000/uploads/${profile}`
+                }
                 width={180}
                 height={180}
                 onClick={() => inputRef.current?.click()}
