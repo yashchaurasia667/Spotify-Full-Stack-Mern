@@ -78,3 +78,6 @@ export const getUser = async (req, res) => {
 export const logout = async (req, res) => {
   res.cookie("token", "").json("logged out")
 }
+
+// export const editProfile= async (req, res) => {
+// }

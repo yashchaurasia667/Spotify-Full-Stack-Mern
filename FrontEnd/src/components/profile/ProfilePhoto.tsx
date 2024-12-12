@@ -16,8 +16,15 @@ const ProfilePhoto = ({
   onClick = () => {},
 }: profileProps) => {
   return (
-    <div onClick={() => onClick()} className={styles.hero}>
-      <img src={profile} height={height} width={width} />
+    <div
+      onClick={() => onClick()}
+      style={{
+        width,
+        height,
+      }}
+      className={styles.hero}
+    >
+      <img src={profile} />
       <div>
         <HiOutlinePencil size={60} className="" />
         <p className="font-medium">Choose photo</p>

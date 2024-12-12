@@ -38,17 +38,17 @@ const ProfileHeader = ({
       setEditOpen(false);
   };
 
-  // const inputProfile = () => {
-  //   const prof = inputRef.current;
-  //   prof?.click();
-  // };
-
   const editProfile = async (e: React.FormEvent) => {
     const data = new FormData();
     data.set("name", editName);
-    // data.set("profile");
+    if (inputProf) data.set("profile", inputProf[0]);
 
     e.preventDefault();
+    const res = await fetch("http://localhost:4000/editprofile", {
+      method: "POST",
+      body: data,
+      credentials: "include",
+    });
   };
 
   useEffect(() => {
