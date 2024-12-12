@@ -114,7 +114,9 @@ const ProfileHeader = ({
                 type="file"
                 accept="image/*"
                 className="hidden"
-                onChange={(e) => setInputProf(e.target.files)}
+                onChange={(e) =>
+                  e.target.files?.length ? setInputProf(e.target.files) : ""
+                }
               />
               <div className="flex flex-col gap-y-3 items-end justify-center relative">
                 <input
