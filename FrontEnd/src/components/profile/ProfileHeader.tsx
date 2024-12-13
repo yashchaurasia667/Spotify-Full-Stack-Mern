@@ -41,6 +41,7 @@ const ProfileHeader = ({
   const editProfile = async (e: React.FormEvent) => {
     const data = new FormData();
     data.set("name", editName);
+    data.set("id", user.id);
     if (inputProf) data.set("profile", inputProf[0]);
 
     e.preventDefault();

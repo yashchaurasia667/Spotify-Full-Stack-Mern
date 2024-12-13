@@ -1,5 +1,6 @@
 import bcrypt from "bcryptjs"
 import jwt from 'jsonwebtoken'
+import fs from 'fs'
 
 import User from "../models/User.js"
 import mongoose from "mongoose";
@@ -79,5 +80,14 @@ export const logout = async (req, res) => {
   res.cookie("token", "").json("logged out")
 }
 
-// export const editProfile= async (req, res) => {
-// }
+export const editProfile = async (req, res) => {
+  if (req.file) {
+    const { originalName, path } = req.file;
+    const parts = originalName.split(".");
+    const ext = parts[parts.length - 1];
+    const newPath = path + "." + ext;
+    fs.renameSync(path, newPath);
+  }
+  const { name, id } = req.body;
+  return res.status(200).json('ok')
+}
