@@ -62,28 +62,16 @@ const MainLayout = () => {
   };
 
   useEffect(() => {
-    if (!user.email) {
-      console.log("checkauth");
-      fetch("/api/auth/checkauth", {
-        credentials: "include",
-      }).then((res) =>
-        res.json().then((info) => {
-          if (info) setUser({ ...info });
-          else setUser({ email: "", id: "", iat: 0, name: "", profile: "" });
-        })
-      );
-    } else if (user.email && !user.profile) {
-      console.log("getuser");
+    if (!user.email && !user.profile)
       fetch("/api/auth/getuser", {
-        method: "post",
+        method: "POST",
         credentials: "include",
       }).then((res) =>
         res.json().then((newUser) => {
-          if (newUser.email)
-            setUser({ ...user, profile: newUser.profile, name: newUser.name });
+          if (newUser.email) setUser({ ...newUser });
+          else setUser({ email: "", id: "", iat: 0, name: "", profile: "" });
         })
       );
-    }
   }, [user]);
 
   return (

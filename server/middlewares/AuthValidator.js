@@ -1,4 +1,5 @@
 import Joi from "joi";
+import jwt from 'jsonwebtoken'
 
 export const signupValidation = (req, res, next) => {
   const schema = Joi.object({
@@ -28,4 +29,14 @@ export const loginValidation = (req, res, next) => {
     return res.status(400).json(error);
 
   next();
+}
+
+export const isLoggedIn = async (req, res, next) => {
+  const { token } = req.cookies
+  if (token)
+    jwt.verify(token, process.env.JWT_SECRET, {}, (error, info) => {
+      if (error) res.status(500).json('Internal server error');
+      else next();
+    })
+  else res.status(200).json(false)
 }
