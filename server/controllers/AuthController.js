@@ -81,16 +81,21 @@ export const logout = async (req, res) => {
 }
 
 export const editProfile = async (req, res) => {
+  const { name, id } = req.body;
   if (req.file) {
-    const { originalname, path } = req.file;
+    const { originalname, path, fieldname } = req.file;
     const parts = originalname.split(".");
     const ext = parts[parts.length - 1];
-    // const newPath = path + "." + ext;
-    // const parts = orignalname.split(".");
-    // const ext = parts[parts.length - 1];
-    const newPath = fieldname + "." + ext;
+    const fileName = fieldname + "." + ext;
+    const newPath = "uploads/" + fileName;
     fs.renameSync(path, newPath);
+    try {
+      const userDoc = await User.findByIdAndUpdate(id, { name, profile: fileName })
+      res.status(200).json(fieldname)
+    } catch (error) {
+      res.status(500).json("Internal Server Error")
+    }
   }
-  const { name, id } = req.body;
-  return res.status(200).json('ok')
+  // const userdoc = User.findByIdAndUpdate(id, { name, profile },)
+  else res.status(200).json('ok')
 }

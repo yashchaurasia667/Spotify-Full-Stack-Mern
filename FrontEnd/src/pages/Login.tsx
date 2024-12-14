@@ -14,11 +14,12 @@ const Login = () => {
   const [loggedIn, setLoggedIn] = useState(false);
 
   useEffect(() => {
-    fetch("/api/auth/checkauth", {
+    fetch("/api/auth/getuser", {
+      method: 'Post',
       credentials: "include",
     }).then((res) => {
-      res.json().then((info) => {
-        if (info) setLoggedIn(true);
+      res.json().then((user) => {
+        if (user.email) setLoggedIn(true);
       });
     });
   }, []);

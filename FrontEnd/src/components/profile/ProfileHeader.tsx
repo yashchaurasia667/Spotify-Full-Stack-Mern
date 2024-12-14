@@ -39,7 +39,6 @@ const ProfileHeader = ({
   };
 
   const editProfile = async (e: React.FormEvent) => {
-    console.log("edit profile");
     const data = new FormData();
     data.set("name", editName);
     data.set("id", user.id);
@@ -47,11 +46,11 @@ const ProfileHeader = ({
     else data.set("profile", "");
 
     e.preventDefault();
-    const res = await fetch("http://localhost:4000/auth/editprofile", {
+    fetch("http://localhost:4000/auth/editprofile", {
       method: "POST",
       body: data,
       credentials: "include",
-    });
+    }).then((res) => res.json().then((data) => console.log(data)));
   };
 
   useEffect(() => {
