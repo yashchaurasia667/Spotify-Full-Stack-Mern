@@ -11,7 +11,7 @@ router.post("/signup", signupValidation, signup);
 router.post("/login", loginValidation, login);
 router.post('/checkuser', checkUser);
 router.post('/getuser', isLoggedIn, getUser);
+router.post('/editprofile', isLoggedIn, multer({ dest: "uploads/" }).single("profile"), editProfile);
 router.get('/logout', isLoggedIn, logout);
-router.get('/editprofile', isLoggedIn, multer({ dest: "uploads/" }).single("file"), editProfile);
 
 export default router;

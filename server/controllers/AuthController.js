@@ -82,10 +82,13 @@ export const logout = async (req, res) => {
 
 export const editProfile = async (req, res) => {
   if (req.file) {
-    const { originalName, path } = req.file;
-    const parts = originalName.split(".");
+    const { originalname, path } = req.file;
+    const parts = originalname.split(".");
     const ext = parts[parts.length - 1];
-    const newPath = path + "." + ext;
+    // const newPath = path + "." + ext;
+    // const parts = orignalname.split(".");
+    // const ext = parts[parts.length - 1];
+    const newPath = fieldname + "." + ext;
     fs.renameSync(path, newPath);
   }
   const { name, id } = req.body;

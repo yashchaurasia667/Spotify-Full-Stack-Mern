@@ -39,13 +39,15 @@ const ProfileHeader = ({
   };
 
   const editProfile = async (e: React.FormEvent) => {
+    console.log("edit profile");
     const data = new FormData();
     data.set("name", editName);
     data.set("id", user.id);
     if (inputProf) data.set("profile", inputProf[0]);
+    else data.set("profile", "");
 
     e.preventDefault();
-    const res = await fetch("http://localhost:4000/editprofile", {
+    const res = await fetch("http://localhost:4000/auth/editprofile", {
       method: "POST",
       body: data,
       credentials: "include",
@@ -98,7 +100,7 @@ const ProfileHeader = ({
               <IoIosClose size={35} fill="#acacac" />
             </button>
           </div>
-          <form>
+          <form onSubmit={editProfile}>
             <div className="grid grid-cols-[1fr_1.5fr] gap-x-4">
               <ProfilePhoto
                 profile={
@@ -128,7 +130,6 @@ const ProfileHeader = ({
                 />
                 <button
                   type="submit"
-                  onClick={(e) => e.preventDefault()}
                   className="px-8 py-3 bg-white text-background-base font-bold text-md rounded-full hover:scale-105"
                 >
                   Save
