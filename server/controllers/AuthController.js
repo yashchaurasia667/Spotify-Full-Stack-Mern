@@ -90,12 +90,20 @@ export const editProfile = async (req, res) => {
     const newPath = "uploads/" + fileName;
     fs.renameSync(path, newPath);
     try {
-      const userDoc = await User.findByIdAndUpdate(id, { name, profile: fileName })
+      await User.findByIdAndUpdate(id, { name, profile: fileName })
       res.status(200).json(fieldname)
     } catch (error) {
       res.status(500).json("Internal Server Error")
     }
   }
-  // const userdoc = User.findByIdAndUpdate(id, { name, profile },)
-  else res.status(200).json('ok')
+  else {
+    console.log('in else')
+    try {
+      await User.findByIdAndUpdate(id, { name })
+      res.status(200).json(true)
+    }
+    catch (error) {
+      res.status(500).json("Internal server error")
+    }
+  }
 }

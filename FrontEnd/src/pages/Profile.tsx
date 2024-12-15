@@ -13,7 +13,7 @@ const Profile = () => {
   return (
     <div className="rounded-[8px] overflow-y-auto h-full">
       <ProfileHeader
-        name="Yash"
+        name={user.name}
         public_playlists={2}
         followers={2}
         following={4}
