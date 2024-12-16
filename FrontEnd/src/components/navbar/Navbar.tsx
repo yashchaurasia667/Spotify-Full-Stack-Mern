@@ -6,6 +6,8 @@ import { IoFastFood, IoSearch } from "react-icons/io5";
 import { FaRegArrowAltCircleDown } from "react-icons/fa";
 import { LuBell } from "react-icons/lu";
 
+import OptionsDialog from "../../components/global/OptionsDialog";
+
 import MainContext from "../../context/mainContext/MainContext";
 
 import spotify from "/spotifyBw.svg";
@@ -37,36 +39,10 @@ const Navbar = () => {
   // const [profile, setProfile] = useState("");
   const [dialogOpen, setDialogOpen] = useState(false);
 
-  const dialogRef = useRef<HTMLDialogElement>(null);
-
   const logout = async (e: React.MouseEvent<HTMLButtonElement>) => {
     await fetch("/api/auth/logout");
     window.location.reload();
   };
-
-  const clickOutside = (e: MouseEvent) => {
-    if (dialogRef.current && !dialogRef.current.contains(e.target as Node))
-      setDialogOpen(false);
-  };
-
-  // useEffect(() => {
-  //   if (user.email && !user.profile) {
-  //     console.log("getuser");
-  //     fetch("/api/auth/getuser", {
-  //       method: "post",
-  //       credentials: "include",
-  //     }).then((res) =>
-  //       res.json().then((newUser) => {
-  //         if (newUser.email) setUser({ ...user, profile: newUser.profile });
-  //       })
-  //     );
-  //   }
-  // }, [user]);
-
-  useEffect(() => {
-    if (dialogOpen) document.addEventListener("mousedown", clickOutside);
-    return () => document.removeEventListener("mousedown", clickOutside);
-  }, [dialogOpen]);
 
   return (
     <div className={`${navbar} row-start-1 col-span-2`}>
@@ -130,7 +106,10 @@ const Navbar = () => {
             </Link>
             <div className="relative">
               <button
-                onClick={() => setDialogOpen(!dialogOpen)}
+                onClick={() => {
+                  // console.log(dialogOpen);
+                  setDialogOpen(!dialogOpen);
+                }}
                 className={profile_icon}
               >
                 <img
@@ -138,21 +117,24 @@ const Navbar = () => {
                   alt=""
                 />
               </button>
-
-              <dialog ref={dialogRef} open={dialogOpen} className={modal}>
-                <ul className="w-full">
-                  <li>
-                    <Link to={"/profile"} className={modal_link}>
-                      Profile
-                    </Link>
-                  </li>
-                  <li>
-                    <button onClick={logout} className={modal_link}>
-                      Logout
-                    </button>
-                  </li>
-                </ul>
-              </dialog>
+              <OptionsDialog
+                dialogClass={modal}
+                dialogOpen={dialogOpen}
+                dialogContent={
+                  <ul className="w-full">
+                    <li>
+                      <Link to={"/profile"} className={modal_link}>
+                        Profile
+                      </Link>
+                    </li>
+                    <li>
+                      <button onClick={logout} className={modal_link}>
+                        Logout
+                      </button>
+                    </li>
+                  </ul>
+                }
+              />
             </div>
           </>
         ) : (
