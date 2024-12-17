@@ -25,6 +25,9 @@ const ProfileHeader = ({
   const [editOpen, setEditOpen] = useState(false);
   const [editName, setEditName] = useState("");
   const [inputProf, setInputProf] = useState<FileList | null>(null);
+  // const [displayProfile, setDisplayProfile] = useState(
+  //   `http://localhost:4000/uploads/${profile}`
+  // );
 
   const editRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -44,13 +47,19 @@ const ProfileHeader = ({
     data.set("id", user.id);
     if (inputProf) data.set("profile", inputProf[0]);
     else data.set("profile", "");
-
     e.preventDefault();
+
     fetch("http://localhost:4000/auth/editprofile", {
       method: "POST",
       body: data,
       credentials: "include",
-    }).then((res) => res.json().then((data) => console.log(data)));
+    }).then((res) =>
+      res.json().then((data) => {
+        setEditOpen(false);
+        // setDisplayProfile(URL.createObjectURL(inputProf![0]));
+        // console.log(data);
+      })
+    );
   };
 
   useEffect(() => {
@@ -63,7 +72,12 @@ const ProfileHeader = ({
     <div className={styles.hero_bg}>
       <ProfilePhoto
         onClick={() => setEditOpen(true)}
-        profile={`http://localhost:4000/uploads/${profile}`}
+        // profile={`${displayProfile}`}
+        profile={
+          inputProf
+            ? URL.createObjectURL(inputProf[0])
+            : `http://localhost:4000/uploads/${profile}`
+        }
         width={220}
         height={220}
       />
