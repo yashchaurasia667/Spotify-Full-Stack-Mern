@@ -6,8 +6,6 @@ import { IoFastFood, IoSearch } from "react-icons/io5";
 import { FaRegArrowAltCircleDown } from "react-icons/fa";
 import { LuBell } from "react-icons/lu";
 
-import OptionsDialog from "../../components/global/OptionsDialog";
-
 import MainContext from "../../context/mainContext/MainContext";
 
 import spotify from "/spotifyBw.svg";
@@ -30,19 +28,34 @@ const Navbar = () => {
     modal_link,
   } = styles;
 
+  const dialogRef = useRef<HTMLDialogElement | null>(null);
+
   const navigate = useNavigate();
 
   const context = useContext(MainContext);
   if (!context) throw new Error("No main context");
-  const { user, setUser } = context;
+  const { user } = context;
 
   // const [profile, setProfile] = useState("");
   const [dialogOpen, setDialogOpen] = useState(false);
+
+  const clickOutside = (e: MouseEvent) => {
+    if (dialogRef.current && !dialogRef.current.contains(e.target as Node)) {
+      console.log("edge");
+      // setOpen(false);
+      setDialogOpen(false);
+    }
+  };
 
   const logout = async (e: React.MouseEvent<HTMLButtonElement>) => {
     await fetch("/api/auth/logout");
     window.location.reload();
   };
+
+  useEffect(() => {
+    if (dialogOpen) document.addEventListener("mousedown", clickOutside);
+    return () => document.removeEventListener("mousedown", clickOutside);
+  }, [dialogOpen]);
 
   return (
     <div className={`${navbar} row-start-1 col-span-2`}>
@@ -117,24 +130,20 @@ const Navbar = () => {
                   alt=""
                 />
               </button>
-              <OptionsDialog
-                dialogClass={modal}
-                dialogOpen={dialogOpen}
-                dialogContent={
-                  <ul className="w-full">
-                    <li>
-                      <Link to={"/profile"} className={modal_link}>
-                        Profile
-                      </Link>
-                    </li>
-                    <li>
-                      <button onClick={logout} className={modal_link}>
-                        Logout
-                      </button>
-                    </li>
-                  </ul>
-                }
-              />
+              <dialog ref={dialogRef} open={dialogOpen} className={modal}>
+                <ul className="w-full">
+                  <li>
+                    <Link to={"/profile"} className={modal_link}>
+                      Profile
+                    </Link>
+                  </li>
+                  <li>
+                    <button onClick={logout} className={modal_link}>
+                      Logout
+                    </button>
+                  </li>
+                </ul>
+              </dialog>
             </div>
           </>
         ) : (

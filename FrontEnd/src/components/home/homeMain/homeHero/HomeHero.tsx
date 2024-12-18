@@ -1,31 +1,16 @@
-import { useEffect } from "react";
-
+import RecentlyPlayed from "../RecentlyPlayed";
 import ArtistCard from "../../../global/ArtistCard";
 import ArtistBar from "../../../global/ArtistBar";
 import Footer from "./Footer";
 
 import styles from "../homeMain.module.css";
 
-// import MainContext from "../../../../context/mainContext/MainContext";
-
 const HomeHero = () => {
-  // const { setToken } = useContext(MainContext);
-
-  // const checkLoggedIn = async () => {
-  //   const res = await fetch("/api/auth/checkauth", {
-  //     credentials: "include",
-  //   });
-  //   const data = await res.json();
-  //   if (data) console.log("logged in");
-  //   else console.log("logged out");
-  // };
-
-  useEffect(() => {
-    // checkLoggedIn();
-  }, []);
-
   return (
     <div className={`${styles.home_hero}`}>
+      <div className="grid grid-cols-4 grid-rows-2 gap-y-4 gap-x-4 mt-5 overflow-hidden">
+        <RecentlyPlayed cover="playlists/likedSongs.jpg" title="Liked Songs" />
+      </div>
       <div>
         <ArtistBar
           main={"Popular artists"}

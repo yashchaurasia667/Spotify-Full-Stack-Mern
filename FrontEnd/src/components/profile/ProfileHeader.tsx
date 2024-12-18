@@ -55,6 +55,7 @@ const ProfileHeader = ({
       credentials: "include",
     }).then((res) =>
       res.json().then((data) => {
+        window.location.reload();
         setEditOpen(false);
         // setDisplayProfile(URL.createObjectURL(inputProf![0]));
         // console.log(data);
@@ -74,9 +75,9 @@ const ProfileHeader = ({
         onClick={() => setEditOpen(true)}
         // profile={`${displayProfile}`}
         profile={
-          inputProf
-            ? URL.createObjectURL(inputProf[0])
-            : `http://localhost:4000/uploads/${profile}`
+          // inputProf
+          //   ? URL.createObjectURL(inputProf[0])
+             `http://localhost:4000/uploads/${profile}`
         }
         width={220}
         height={220}
