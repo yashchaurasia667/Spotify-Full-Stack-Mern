@@ -1,18 +1,22 @@
-import RecentlyPlayed from "../RecentlyPlayed";
+import { useContext } from "react";
+
+import Recent from "./Recents";
 import ArtistCard from "../../../global/ArtistCard";
 import ArtistBar from "../../../global/ArtistBar";
 import Footer from "./Footer";
 
+import MainContext from "../../../../context/mainContext/MainContext";
+
 import styles from "../homeMain.module.css";
 
 const HomeHero = () => {
+  const context = useContext(MainContext);
+  if (!context) throw new Error("No main context");
+  const { user } = context;
+
   return (
     <div className={`${styles.home_hero}`}>
-      <div className="grid grid-cols-4 grid-rows-2 gap-y-4 gap-x-4 mt-5 overflow-hidden">
-        <RecentlyPlayed cover="playlists/likedSongs.jpg" title="Liked Songs" />
-        <RecentlyPlayed cover="playlists/likedSongs.jpg" title="Liked Songs" />
-        <RecentlyPlayed cover="playlists/likedSongs.jpg" title="Liked Songs" />
-      </div>
+      {user.email ? <Recent /> : ""}
       <div>
         <ArtistBar
           main={"Popular artists"}

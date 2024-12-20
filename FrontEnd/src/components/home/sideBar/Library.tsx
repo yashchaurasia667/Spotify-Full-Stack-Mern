@@ -1,7 +1,7 @@
-import React, { useContext, useState } from "react";
+import { useContext } from "react";
 import { FaPlus } from "react-icons/fa6";
 
-import Playlists from "./Playlists";
+import Sidebar_playlists from "./Sidebar_playlists";
 
 import MainContext from "../../../context/mainContext/MainContext";
 
@@ -33,7 +33,7 @@ function Library({ sidebarWidth }: libProps) {
         />
       </div>
       <div className={`${playlist_container}`}>
-        <Playlists />
+        <Sidebar_playlists />
       </div>
     </div>
   );

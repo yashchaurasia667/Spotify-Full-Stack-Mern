@@ -8,7 +8,7 @@ import styles from "./sideBar.module.css";
 
 import MainContext from "../../../context/mainContext/MainContext";
 
-const Playlists = () => {
+const Sidebar_playlists = () => {
   const { cards, playlists, sidebar_footer, policies } = styles;
   const linkStyle = "text-[12px] text-text-subdued";
 
@@ -67,4 +67,4 @@ const Playlists = () => {
   return renderPlaylist();
 };
 
-export default Playlists;
+export default Sidebar_playlists;
