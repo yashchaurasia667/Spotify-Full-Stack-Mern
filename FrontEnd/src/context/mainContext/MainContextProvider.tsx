@@ -26,7 +26,13 @@ const MainContextProvider = ({ children }: contextProps) => {
       Your Library
     </>
   );
-  const [user, setUser] = useState<user>({ email: "", id: "", iat: 0, profile: "", name: "" });
+  const [user, setUser] = useState<user>({
+    email: "",
+    id: "",
+    iat: 0,
+    profile: "",
+    name: "",
+  });
   const minSidebarWidth = 280;
   const maxSidebarWidth = 450;
 
@@ -67,6 +73,17 @@ const MainContextProvider = ({ children }: contextProps) => {
     );
     return setSidebarWidth(350);
   };
+
+  // const averageImageColor = (imgElement: HTMLImageElement) => {
+  //   const canvas = document.createElement("canvas");
+  //   const context = canvas.getContext && canvas.getContext("2d");
+  //   let imgData,
+  //     width,
+  //     height,
+  //     length,
+  //     rbg = { r: 0, b: 0, g: 0 },
+  //     count = 0;
+  // };
 
   const value = {
     token,
