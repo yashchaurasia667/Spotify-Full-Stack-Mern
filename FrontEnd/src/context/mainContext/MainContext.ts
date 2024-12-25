@@ -1,5 +1,5 @@
 import React from "react";
-import { user } from "../../types/index";
+import { user, RGB } from "../../types/index";
 
 type MainContextType = {
   token: string;
@@ -13,6 +13,7 @@ type MainContextType = {
   libIcon: JSX.Element;
   setLibIcon: (icon: JSX.Element) => void;
   collapse: () => void;
+  averageImageColor: (imageElement: string) => RGB;
 };
 
 const MainContext = React.createContext<MainContextType | undefined>(undefined);

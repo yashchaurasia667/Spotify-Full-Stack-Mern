@@ -1,4 +1,7 @@
+import { RGB } from "types";
+
 interface props {
+  bg: RGB;
   cover: string;
   name: string;
   type: string;
@@ -7,9 +10,21 @@ interface props {
   time?: string;
 }
 
-const PlaylistHeader = ({ cover, name, type, author, length, time }: props) => {
+const PlaylistHeader = ({
+  bg,
+  cover,
+  name,
+  type,
+  author,
+  length,
+  time,
+}: props) => {
   return (
-    <div className="relative bg-[#4b3692] h-fit bg-gradient-to-t from-[#00000066] to-[#00000000]">
+    // <div className="relative bg-[#4b3692] h-fit bg-gradient-to-t from-[#00000066] to-[#00000000]">
+    <div
+      className="relative h-fit bg-gradient-to-t from-[#00000066] to-[#00000000]"
+      style={{ backgroundColor: `rgb(${bg.r}, ${bg.g}, ${bg.b})` }}
+    >
       <div className="flex gap-x-5 items-center px-4 py-5 h-full">
         <img
           src={cover}

@@ -1,7 +1,6 @@
 import { ReactNode, useState } from "react";
 import MainContext from "./MainContext";
-
-import { user } from "../../types/index";
+import { user, RGB } from "../../types/index";
 
 type contextProps = {
   children: ReactNode;
@@ -74,16 +73,48 @@ const MainContextProvider = ({ children }: contextProps) => {
     return setSidebarWidth(350);
   };
 
-  // const averageImageColor = (imgElement: HTMLImageElement) => {
-  //   const canvas = document.createElement("canvas");
-  //   const context = canvas.getContext && canvas.getContext("2d");
-  //   let imgData,
-  //     width,
-  //     height,
-  //     length,
-  //     rbg = { r: 0, b: 0, g: 0 },
-  //     count = 0;
-  // };
+  const averageImageColor = (imageElement: string): RGB => {
+    const img = document.createElement("img");
+    img.src = imageElement;
+    const canvas = document.createElement("canvas");
+    const context = canvas.getContext && canvas.getContext("2d");
+    let imgData,
+      width,
+      height,
+      length,
+      rgb = { r: 0, b: 0, g: 0 },
+      count = 0;
+
+    if (!context) {
+      throw new Error("No Canvas context");
+    }
+
+    width = canvas.width = img.width;
+    height = canvas.height = img.height;
+
+    context.drawImage(img, 0, 0);
+
+    try {
+      imgData = context.getImageData(0, 0, width, height);
+    } catch (e) {
+      throw new Error("Something went wrong while fetching the image data");
+    }
+
+    length = imgData.data.length;
+
+    for (let i = 0; i < length; i += 4) {
+      rgb.r += imgData.data[i];
+      rgb.g += imgData.data[i + 1];
+      rgb.b += imgData.data[i + 2];
+      count++;
+    }
+
+    rgb.r = Math.floor(rgb.r / count);
+    rgb.g = Math.floor(rgb.g / count);
+    rgb.b = Math.floor(rgb.b / count);
+
+    return rgb;
+  };
 
   const value = {
     token,
@@ -97,6 +128,7 @@ const MainContextProvider = ({ children }: contextProps) => {
     libIcon,
     setLibIcon,
     collapse,
+    averageImageColor,
   };
   return <MainContext.Provider value={value}>{children}</MainContext.Provider>;
 };
