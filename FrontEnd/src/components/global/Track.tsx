@@ -16,7 +16,7 @@ const Track = ({ rank, name, artist, cover, album, duration }: trackProps) => {
     <div
       onMouseOver={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
-      className="group grid grid-cols-[0.5fr_10fr_6fr_1fr] items-center px-4 py-2 rounded-md hover:bg-background-elevated-base"
+      className="group grid grid-cols-[0.5fr_10fr_6fr_1fr] items-center px-4 py-2 rounded-md hover:bg-[#acacac20]"
     >
       <p className="text-text-subdued">
         {hover ? <FaPlay fill="#acacac" /> : rank}
