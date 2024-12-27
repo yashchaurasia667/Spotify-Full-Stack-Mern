@@ -108,7 +108,7 @@ const Step1 = () => {
 
         <GreenButton
           content={"Next"}
-          className="sm:w-[65%] w-[90%] mx-auto mt-9 hover:scale-[1.02] hover:bg-[#3be477]"
+          className="sm:w-[65%] w-[90%] mt-9 hover:scale-[1.02] hover:bg-[#3be477] ml-[50%] -translate-x-1/2"
         />
       </form>
 

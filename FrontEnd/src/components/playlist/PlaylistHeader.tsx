@@ -37,12 +37,16 @@ const PlaylistHeader = ({
           <h2 className="text-8xl font-extrabold -tracking-[0.2rem]">{name}</h2>
           <div className="flex gap-x-3 items-center">
             <div
+              className="flex"
               style={{
                 width: 25,
                 height: 25,
               }}
             >
-              <img src="/public/radio.png" className="rounded-[50%]" />
+              <img
+                src="http://localhost:4000/uploads/profile.png"
+                className="rounded-[50%] object-cover"
+              />
             </div>
             {author ? <p>{author}</p> : ""}
             <p className="text-text-subdued -tracking-wider font-medium">

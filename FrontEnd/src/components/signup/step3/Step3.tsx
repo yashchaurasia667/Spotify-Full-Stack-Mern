@@ -91,7 +91,10 @@ const Step3 = () => {
       <StepCounter stepNo={2} stepName="Tell us about yourself" />
 
       <div className="mx-auto sm:px-[90px]">
-        <form className="flex flex-col items-center" onSubmit={handleNext}>
+        <form
+          className="flex flex-col items-center px-4 sm:px-0"
+          onSubmit={handleNext}
+        >
           {/* Name Field */}
           <div className="text-sm font-semibold mt-2 w-[324px]">
             <p>Name</p>
@@ -242,7 +245,7 @@ const Step3 = () => {
           </div>
           <GreenButton
             content={"Next"}
-            className={"mt-10 w-[85%] sm:w-[65%] hover:bg-[#3be477]"}
+            className={"mt-10 w-full hover:bg-[#3be477]"}
           />
         </form>
       </div>

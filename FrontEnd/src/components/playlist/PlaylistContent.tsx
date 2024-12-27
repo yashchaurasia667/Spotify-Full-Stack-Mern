@@ -10,10 +10,16 @@ interface PlaylistContentProps {
 const PlaylistContent = ({ bg }: PlaylistContentProps) => {
   return (
     <div
-      className="w-full"
-      style={{ backgroundColor: `rgb(${bg.r}, ${bg.g}, ${bg.b})` }}
+      className="w-full min-h-[100%] relative"
+      // style={{ backgroundColor: `rgb(${bg.r}, ${bg.g}, ${bg.b})` }}
     >
-      <div>
+      <div
+        className="h-1/2 w-full absolute bg-transparent bg-gradient-to-b"
+        style={{
+          backgroundImage: `linear-gradient(to bottom, rgba(${bg.r}, ${bg.g}, ${bg.b}, 0.3), #00000000)`,
+        }}
+      ></div>
+      <div className="w-full px-5 py-5">
         <GreenButton
           content={<FaPlay fill="#121212" size={20} />}
           className="p-5"

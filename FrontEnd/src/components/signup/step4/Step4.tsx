@@ -108,7 +108,7 @@ const Step4 = () => {
         </div>
       </div>
       <GreenButton
-        className="w-[85%] sm:w-[65%] mt-8 hover:bg-[#3be477]"
+        className="w-[85%] sm:w-[65%] ml-[50%] -translate-x-1/2 mt-8 hover:bg-[#3be477]"
         content="Sign up"
         onClick={handleSubmit}
       />
