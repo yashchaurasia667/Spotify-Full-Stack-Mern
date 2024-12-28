@@ -10,13 +10,10 @@ import MainContext from "../../../../context/mainContext/MainContext";
 import styles from "../homeMain.module.css";
 
 const HomeHero = () => {
-  const context = useContext(MainContext);
-  if (!context) throw new Error("No main context");
-  const { user } = context;
 
   return (
     <div className={`${styles.home_hero}`}>
-      {user.email ? <Recent /> : ""}
+      {/* {user.email ? <Recent /> : ""} */}
       <div>
         <ArtistBar
           main={"Popular artists"}
