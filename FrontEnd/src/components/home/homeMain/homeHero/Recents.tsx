@@ -21,7 +21,13 @@ const Recents = ({ className, setGradient }: props) => {
         onMouseOver={setGradient}
         onMouseOut={() => setGradient({ r: 83, g: 83, b: 83 })}
       />
-      {/* <RecentlyPlayed cover="playlists/al.jpeg" title="Al" id="id" /> */}
+      <RecentlyPlayed
+        cover="playlists/al.jpeg"
+        title="Al"
+        id="id"
+        onMouseOver={setGradient}
+        onMouseOut={() => setGradient({ r: 83, g: 83, b: 83 })}
+      />
     </div>
   );
 };
