@@ -24,10 +24,9 @@
 
 *::-webkit-scrollbar-thumb {
   background: #80808077;
-  visibility: hidden;
+  /* visibility: hidden; */
 }
 
 ::-webkit-scrollbar-thumb:hover {
   background: #808080aa;
 }
-

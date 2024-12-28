@@ -1,6 +1,11 @@
+.home_main::-webkit-scrollbar-thumb {
+  /* background: var(--text-subdued); */
+  visibility: visible;
+}
+
 .home_main {
   background-color: var(--background-base);
-  overflow: hidden;
+  overflow: auto;
   border-radius: 8px;
   position: relative;
 }
@@ -22,7 +27,7 @@
   padding: 10px;
   position: relative;
   background: transparent;
-  overflow: auto;
+  /* overflow: auto; */
   z-index: 99;
 }
 

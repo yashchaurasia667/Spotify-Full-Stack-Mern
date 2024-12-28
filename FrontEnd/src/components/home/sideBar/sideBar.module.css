@@ -2,6 +2,10 @@
   color: white;
 }
 
+*::webkit-scrollbar-thumb {
+  visibility: hidden;
+}
+
 .sidebar {
   height: 100%;
 }

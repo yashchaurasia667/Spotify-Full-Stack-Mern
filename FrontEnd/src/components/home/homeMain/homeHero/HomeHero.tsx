@@ -1,19 +1,12 @@
-import { useContext } from "react";
-
-import Recent from "./Recents";
 import ArtistCard from "../../../global/ArtistCard";
 import ArtistBar from "../../../global/ArtistBar";
 import Footer from "./Footer";
 
-import MainContext from "../../../../context/mainContext/MainContext";
-
 import styles from "../homeMain.module.css";
 
 const HomeHero = () => {
-
   return (
     <div className={`${styles.home_hero}`}>
-      {/* {user.email ? <Recent /> : ""} */}
       <div>
         <ArtistBar
           main={"Popular artists"}
