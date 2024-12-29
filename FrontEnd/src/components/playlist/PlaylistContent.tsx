@@ -14,6 +14,7 @@ const PlaylistContent = ({ bg }: PlaylistContentProps) => {
         style={{
           backgroundImage: `linear-gradient(to bottom, rgba(${bg.r}, ${bg.g}, ${bg.b}, 0.3), #00000000)`,
           maxHeight: "50vh",
+          padding: "0 1rem"
         }}
       >
         <div className="w-full px-5 py-5">
