@@ -10,7 +10,8 @@ export const songSchema = new mongoose.Schema({
     required: true,
   },
   artists: {
-    type: [String],
+    type: [mongoose.Schema.ObjectId],
+    ref: "User",
     required: true,
   },
   albums: {

@@ -20,7 +20,6 @@ const PlaylistHeader = ({
   time,
 }: props) => {
   return (
-    // <div className="relative bg-[#4b3692] h-fit bg-gradient-to-t from-[#00000066] to-[#00000000]">
     <div
       className="relative h-fit bg-gradient-to-t from-[#00000066] to-[#00000000]"
       style={{ backgroundColor: `rgb(${bg.r}, ${bg.g}, ${bg.b})` }}

@@ -14,13 +14,13 @@ const PlaylistContent = ({ bg }: PlaylistContentProps) => {
         style={{
           backgroundImage: `linear-gradient(to bottom, rgba(${bg.r}, ${bg.g}, ${bg.b}, 0.3), #00000000)`,
           maxHeight: "50vh",
-          padding: "0 1rem"
+          padding: "0 1rem",
         }}
       >
         <div className="w-full px-5 py-5">
           <GreenButton
             content={<FaPlay fill="#121212" size={20} />}
-            className="p-5"
+            className="p-5 hover:scale-105 hover:bg-[#3be477]"
           />
         </div>
         <Track

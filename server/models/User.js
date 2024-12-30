@@ -41,6 +41,10 @@ export const userSchema = new mongoose.Schema({
   profile: {
     type: String,
     required: true,
+  },
+  playlists: {
+    type: [mongoose.Schema.ObjectId],
+    ref: "Playlist",
   }
 });
 

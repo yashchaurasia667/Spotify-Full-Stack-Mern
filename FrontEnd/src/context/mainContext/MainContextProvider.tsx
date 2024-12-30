@@ -109,9 +109,9 @@ const MainContextProvider = ({ children }: contextProps) => {
       count++;
     }
 
-    rgb.r = Math.floor(rgb.r / count);
-    rgb.g = Math.floor(rgb.g / count);
-    rgb.b = Math.floor(rgb.b / count);
+    rgb.r = Math.floor(rgb.r / count) - 50;
+    rgb.g = Math.floor(rgb.g / count) - 50;
+    rgb.b = Math.floor(rgb.b / count) - 50;
 
     return rgb;
   };
