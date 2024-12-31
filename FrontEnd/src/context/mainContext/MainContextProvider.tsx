@@ -1,4 +1,4 @@
-import { ReactNode, useState } from "react";
+import React, { ReactNode, useState } from "react";
 import MainContext from "./MainContext";
 import { user, RGB } from "../../types/index";
 
@@ -116,6 +116,11 @@ const MainContextProvider = ({ children }: contextProps) => {
     return rgb;
   };
 
+  const clickOutside = (e: MouseEvent, ref: React.RefObject<HTMLElement>) => {
+    if (ref.current && !ref.current.contains(e.target as Node)) return false;
+    return true;
+  };
+
   const value = {
     token,
     setToken,
@@ -129,6 +134,7 @@ const MainContextProvider = ({ children }: contextProps) => {
     setLibIcon,
     collapse,
     averageImageColor,
+    clickOutside,
   };
   return <MainContext.Provider value={value}>{children}</MainContext.Provider>;
 };

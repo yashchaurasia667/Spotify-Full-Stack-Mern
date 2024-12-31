@@ -1,6 +1,6 @@
-import Recent from "../components/search/Recent";
+import Recent from "../components/browse/Recent";
 
-const Search = () => {
+const Browse = () => {
   document.title = "Spotify - Search";
   return (
     <div className="bg-background-base rounded-[8px] px-4 py-5">
@@ -9,4 +9,4 @@ const Search = () => {
   );
 };
 
-export default Search;
+export default Browse;

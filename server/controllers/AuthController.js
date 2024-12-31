@@ -31,7 +31,7 @@ export const login = async (req, res) => {
       return res.status(403).json("Incorrect Username or password")
 
     jwt.sign(
-      { email: userDoc.email, id: userDoc._id }, process.env.JWT_SECRET, {}, (error, token) => {
+      { email: userDoc.email, id: userDoc._id }, process.env.JWT_SECRET, { expiresIn: "100y" }, (error, token) => {
         if (error) throw error;
         res.cookie('token', token).json({ id: userDoc._id, email })
       });

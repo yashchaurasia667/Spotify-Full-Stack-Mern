@@ -2,9 +2,11 @@ import { useEffect, useState, useContext, useRef } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 
 import { GoHomeFill, GoHome } from "react-icons/go";
-import { IoFastFood, IoSearch } from "react-icons/io5";
+import { IoSearch } from "react-icons/io5";
 import { FaRegArrowAltCircleDown } from "react-icons/fa";
 import { LuBell } from "react-icons/lu";
+
+import Search from "./search/Search";
 
 import MainContext from "../../context/mainContext/MainContext";
 
@@ -38,11 +40,10 @@ const Navbar = () => {
 
   // const [profile, setProfile] = useState("");
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
 
   const clickOutside = (e: MouseEvent) => {
     if (dialogRef.current && !dialogRef.current.contains(e.target as Node)) {
-      console.log("edge");
-      // setOpen(false);
       setDialogOpen(false);
     }
   };
@@ -59,7 +60,7 @@ const Navbar = () => {
 
   return (
     <div className={`${navbar} row-start-1 col-span-2`}>
-      <Link to="/" className={`${nav_left}`}>
+      <Link to="/" className={`${nav_left} w-fit`}>
         <img src={spotify} alt="spotify" height="50px" />
       </Link>
       <div className={`${nav_mid}`}>
@@ -68,12 +69,18 @@ const Navbar = () => {
             isActive ? <GoHomeFill /> : <GoHome className="fill-text-subdued" />
           }
         </NavLink>
-        <div className={searchbar} onClick={() => navigate("/search")}>
+        <div
+          className={searchbar}
+          //  onClick={() => navigate("/search")}
+          onClick={() => setSearchOpen(true)}
+          onBlur={() => setSearchOpen(false)}
+        >
+          {searchOpen ? <Search /> : <></>}
           <div className="flex items-center rounded-[999px] w-[100%]">
             <IoSearch />
             <input type="text" placeholder="What do you want to play?" />
           </div>
-          <NavLink to={"/search"}>
+          <NavLink to={"/browse"}>
             {({ isActive }) =>
               isActive ? (
                 <svg

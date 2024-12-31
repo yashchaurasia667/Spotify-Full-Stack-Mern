@@ -14,6 +14,7 @@ type MainContextType = {
   setLibIcon: (icon: JSX.Element) => void;
   collapse: () => void;
   averageImageColor: (imageElement: string) => RGB;
+  clickOutside: (e: MouseEvent, ref: React.RefObject<HTMLElement>) => boolean;
 };
 
 const MainContext = React.createContext<MainContextType | undefined>(undefined);

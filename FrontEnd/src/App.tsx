@@ -1,7 +1,7 @@
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import HomeMain from "./components/home/homeMain/HomeMain";
-import Search from "./pages/Search";
+import Browse from "./pages/Browse";
 import NotFound from "./pages/NotFound";
 import SignupHero from "./components/signup/SignupHero";
 import Profile from "./pages/Profile";
@@ -35,7 +35,7 @@ const App = () => {
           }
         >
           <Route index element={<HomeMain />} />
-          <Route path="search" element={<Search />} />
+          <Route path="browse" element={<Browse />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/playlist/:id" element={<Playlist />} />
         </Route>

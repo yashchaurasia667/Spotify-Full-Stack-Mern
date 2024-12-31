@@ -1,8 +1,10 @@
 .navbar {
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: relative;
+  /* display: grid;
+  grid-template-columns: repeat(3, auto); */
   /* overflow: hidden; */
 }
 
@@ -21,6 +23,16 @@
   width: 35%;
 }
 
+@media (max-width: 1150px) {
+  .nav_mid {
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: translate(0, 0);
+    width: 100%;
+  }
+}
+
 .nav_mid a:first-child svg {
   background: var(--background-highlight);
   height: 50px;
@@ -37,6 +49,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
   width: 100%;
   padding: 0 15px;
   border-radius: 999px;
@@ -67,7 +80,7 @@
 .searchbar:hover * {
   fill: var(--text-base);
   background: var(--background-elevated-highlight);
-  cursor: pointer;
+  /* cursor: pointer; */
 }
 
 .searchbar:hover {
