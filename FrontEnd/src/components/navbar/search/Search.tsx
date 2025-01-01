@@ -1,13 +1,15 @@
 interface props {
-  open: boolean;
+  query: string;
 }
-const Search = () => {
+const Search = ({ query }: props) => {
   return (
     <dialog
       open
-      className="w-full absolute rounded-lg top-full z-[1000] bg-background-elevated-highlight"
+      className="w-full absolute top-[calc(100%+6px)] z-[1000] bg-background-elevated-highlight rounded-lg overflow-hidden py-5 px-4"
     >
-      search box
+      <h1 className="font-bold text-xl my-5 mx-auto w-fit">
+        Start searching to see results
+      </h1>
     </dialog>
   );
 };

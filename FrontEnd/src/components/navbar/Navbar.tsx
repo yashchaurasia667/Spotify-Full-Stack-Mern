@@ -41,6 +41,7 @@ const Navbar = () => {
   // const [profile, setProfile] = useState("");
   const [dialogOpen, setDialogOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+  const [query, setQuery] = useState("");
 
   const clickOutside = (e: MouseEvent) => {
     if (dialogRef.current && !dialogRef.current.contains(e.target as Node)) {
@@ -75,10 +76,15 @@ const Navbar = () => {
           onClick={() => setSearchOpen(true)}
           onBlur={() => setSearchOpen(false)}
         >
-          {searchOpen ? <Search /> : <></>}
+          {searchOpen ? <Search query={query} /> : <></>}
           <div className="flex items-center rounded-[999px] w-[100%]">
             <IoSearch />
-            <input type="text" placeholder="What do you want to play?" />
+            <input
+              type="text"
+              value={query}
+              placeholder="What do you want to play?"
+              onChange={(e) => setQuery(e.target.value)}
+            />
           </div>
           <NavLink to={"/browse"}>
             {({ isActive }) =>
