@@ -5,17 +5,19 @@ import cors from "cors"
 import multer from 'multer';
 
 import Authrouter from "./routes/AuthRouter.js"
+import searchRouter from "./routes/SearchRouter.js"
 
 
 const app = express();
 
 const PORT = process.env.PORT || 8000;
 
-app.use(express.json());
+app.use(express.json())
 app.use(cors({ credentials: true, origin: "http://localhost:3000" }))
 app.use(cookieParser())
 app.use('/uploads', express.static('./uploads'))
 app.use('/auth', Authrouter)
+app.use('/search', searchRouter)
 
 app.get('/ping', (req, res) => {
   res.json('pong')
