@@ -1,6 +1,9 @@
 import bcrypt from "bcryptjs";
 import querystring from "querystring";
 
+const stateKey = "spotifyAuthState";
+const redirect_uri = "http://localhost:4000/search/callback";
+
 export const getToken = async (req, res) => {
   const body = new URLSearchParams({
     grant_type: "client_credentials",
@@ -31,11 +34,12 @@ export const login = async (req, res) => {
   const state = bcrypt.genSaltSync(16);
   const scope = "user-read-playback-state user-read-currently-playing playlist-read-private playlist-read-collaborative user-follow-read user-library-read user-read-email";
 
+  res.cookie(stateKey, state);
   res.redirect("https://accounts.spotify.com/authorize?" + querystring.stringify({
     response_type: "code",
     client_id: process.env.API_ID,
     scope: scope,
-    redirect_uri: "http://localhost:4000/search/callback",
+    redirect_uri: redirect_uri,
     state: state
   }));
 }
@@ -43,21 +47,38 @@ export const login = async (req, res) => {
 export const callback = async (req, res) => {
   const code = req.query.code || null;
   const state = req.query.state || null;
+  const storedState = req.cookies ? req.cookies[stateKey] : null;
 
-  if (state) {
+  if (state && state == storedState) {
+    res.clearCookie(stateKey);
+
     const authOptions = {
-      url: "https://accounts.spotify.com/api/token",
-      form: {
-        code: code,
-        redirect_uri: "http://localhost:4000/search/callback",
-        grant_type: "authorization_code"
-      },
+      method: "POST",
       headers: {
         "content-type": "application/x-www-form-urlencoded",
         "Authorization": "Basic " + (Buffer.from(process.env.API_ID + ":" + process.env.API_SECRET).toString("base64"))
       },
-      json: true
+      body: `code=${code}&redirect_uri=${redirect_uri}&grant_type=authorization_code`,
+      json: true,
     };
+
+    const response = await fetch("https://accounts.spotify.com/api/token", authOptions)
+
+    if (response.status == 200) {
+      response.json().then((data) => {
+        const accessToken = data.access_token;
+        const refreshToken = data.refresh_token;
+
+        res.redirect("http://localhost:3000/?" + querystring.stringify({
+          access_token: accessToken,
+          refresh_token: refreshToken
+        }))
+      })
+    }
+    else
+      res.redirect("/#" + querystring.stringify({
+        error: "invalid token"
+      }))
   }
   else
     res.redirect("/#" + querystring.stringify({ error: "state mismatch" }));
