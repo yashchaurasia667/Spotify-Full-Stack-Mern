@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 interface props {
   query: string;
 }
@@ -10,6 +11,15 @@ const Search = ({ query }: props) => {
       <h1 className="font-bold text-xl my-5 mx-auto w-fit">
         Start searching to see results
       </h1>
+      {/* {localStorage.getItem("access_token") ? (
+        <h1 className="font-bold text-xl my-5 mx-auto w-fit">
+          Start searching to see results
+        </h1>
+      ) : (
+        <Link to={"http://localhost:4000/spotify/login"}>
+          Link Spotify to start Searching
+        </Link>
+      )} */}
     </dialog>
   );
 };

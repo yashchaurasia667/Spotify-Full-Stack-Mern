@@ -1,6 +1,6 @@
 import express from "express";
 
-import { callback, getToken, login } from "../controllers/SearchController.js";
+import { callback, getToken, login } from "../controllers/SpotifyController.js";
 
 const router = express.Router();
 

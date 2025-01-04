@@ -2,7 +2,7 @@ import bcrypt from "bcryptjs";
 import querystring from "querystring";
 
 const stateKey = "spotifyAuthState";
-const redirect_uri = "http://localhost:4000/search/callback";
+const redirect_uri = "http://localhost:4000/spotify/callback";
 
 export const getToken = async (req, res) => {
   const body = new URLSearchParams({
@@ -58,23 +58,18 @@ export const callback = async (req, res) => {
         "content-type": "application/x-www-form-urlencoded",
         "Authorization": "Basic " + (Buffer.from(process.env.API_ID + ":" + process.env.API_SECRET).toString("base64"))
       },
-      // body: `code=${code}&redirect_uri=${redirect_uri}&grant_type=authorization_code`,
-      form: {
-        code: code,
-        redirect_uri: redirect_uri,
-        grant_type: "authorization_code",
-      },
+      body: `code=${code}&redirect_uri=${redirect_uri}&grant_type=authorization_code`,
       json: true,
     };
-
-    const response = await fetch("https://accounts.spotify.com/api/token", authOptions)
+    // 
+    const response = await fetch("https://accounts.spotify.com/api/token", authOptions);
 
     if (response.status == 200) {
       response.json().then((data) => {
         const accessToken = data.access_token;
         const refreshToken = data.refresh_token;
 
-        res.redirect("http://localhost:3000/?" + querystring.stringify({
+        res.redirect("http://localhost:3000/#" + querystring.stringify({
           access_token: accessToken,
           refresh_token: refreshToken
         }))
