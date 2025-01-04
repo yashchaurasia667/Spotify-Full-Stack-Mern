@@ -58,7 +58,12 @@ export const callback = async (req, res) => {
         "content-type": "application/x-www-form-urlencoded",
         "Authorization": "Basic " + (Buffer.from(process.env.API_ID + ":" + process.env.API_SECRET).toString("base64"))
       },
-      body: `code=${code}&redirect_uri=${redirect_uri}&grant_type=authorization_code`,
+      // body: `code=${code}&redirect_uri=${redirect_uri}&grant_type=authorization_code`,
+      form: {
+        code: code,
+        redirect_uri: redirect_uri,
+        grant_type: "authorization_code",
+      },
       json: true,
     };
 
@@ -82,4 +87,28 @@ export const callback = async (req, res) => {
   }
   else
     res.redirect("/#" + querystring.stringify({ error: "state mismatch" }));
+}
+
+export const refreshToken = async (req, res) => {
+  const refresh_token = req.query.refresh_token;
+  const authOptions = {
+    // url: "https://accounts.spotify.com/api/token",
+    method: "POST",
+    headers: {
+      "content-type": "application/x-www-form-urlencoded",
+      "Authorization": "Basic " + (Buffer.from(process.env.API_ID + ":" + process.env.API_SECRET).toString("base64"))
+    },
+    form: {
+      grant_type: "refresh_token",
+      refresh_token: refresh_token
+    },
+    json: true,
+  };
+
+  const response = await fetch("https://accounts.spotify.com/api/token", authOptions);
+  if (response.status == 200) {
+    const access_token = body.access_token;
+    const refresh_token = body.refresh_token || refresh_token;
+    res.json({ access_token, refresh_token })
+  }
 }
