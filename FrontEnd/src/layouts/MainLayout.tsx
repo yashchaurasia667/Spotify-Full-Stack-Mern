@@ -63,14 +63,12 @@ const MainLayout = () => {
 
   useEffect(() => {
     if (!user.email && !user.profile)
-      fetch("/api/auth/getuser", {
+      fetch("/api/user/getuser", {
         method: "POST",
         credentials: "include",
       }).then((res) =>
         res.json().then((newUser) => {
-          // console.log(newUser);
           if (newUser.email) setUser({ ...newUser, id: newUser._id });
-          else setUser({ email: "", id: "", iat: 0, name: "", profile: "" });
         })
       );
   }, [user]);

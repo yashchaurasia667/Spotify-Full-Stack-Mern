@@ -1,4 +1,5 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
+import { Navigate } from "react-router-dom";
 
 import ProfileHeader from "../components/profile/ProfileHeader";
 import ProfileContent from "../components/profile/ProfileContent";
@@ -9,8 +10,22 @@ const Profile = () => {
   const context = useContext(MainContext);
   if (!context) throw new Error("No main context");
   const { user } = context;
+  const [redirect, setRedirect] = useState(false);
 
-  return (
+  useEffect(() => {
+    fetch("/api/user/getuser", {
+      method: "post",
+      credentials: "include",
+    }).then((res) =>
+      res.json().then((data) => {
+        if (!data) setRedirect(true);
+      })
+    );
+  }, []);
+
+  return redirect ? (
+    <Navigate to={"/login"} replace />
+  ) : (
     <div className="rounded-[8px] overflow-y-auto h-full">
       <ProfileHeader
         name={user.name}

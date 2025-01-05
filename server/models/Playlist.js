@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 
-import { userSchema } from "./User";
 import { songSchema } from "./Song"
 
 const playlistSongSchema = new mongoose.Schema({

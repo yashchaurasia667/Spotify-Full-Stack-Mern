@@ -45,7 +45,17 @@ export const userSchema = new mongoose.Schema({
   playlists: {
     type: [mongoose.Schema.ObjectId],
     ref: "Playlist",
-  }
+  },
+  recents: {
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: "Playlist",
+  },
+  access_token: {
+    type: String,
+  },
+  refresh_token: {
+    type: String,
+  },
 });
 
 const userModel = mongoose.model("Users", userSchema);

@@ -49,7 +49,7 @@ const ProfileHeader = ({
     else data.set("profile", "");
     e.preventDefault();
 
-    fetch("http://localhost:4000/auth/editprofile", {
+    fetch("/api/user/editprofile", {
       method: "POST",
       body: data,
       credentials: "include",
@@ -77,7 +77,7 @@ const ProfileHeader = ({
         profile={
           // inputProf
           //   ? URL.createObjectURL(inputProf[0])
-             `http://localhost:4000/uploads/${profile}`
+          `http://localhost:4000/uploads/${profile}`
         }
         width={220}
         height={220}
