@@ -63,9 +63,8 @@ export const editProfile = async (req, res) => {
 
 export const linkSpotify = async (req, res) => {
   const { id, access_token, refresh_token } = req.body;
-  console.log(req.body)
   try {
-    const userDoc = await User.findByIdAndUpdate(id, { access_token, refresh_token })
+    const userDoc = await User.findByIdAndUpdate(id, { access_token: access_token, refresh_token: refresh_token })
     console.log(userDoc)
     if (userDoc)
       res.status(200).json(true)

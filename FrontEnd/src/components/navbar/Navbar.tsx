@@ -51,8 +51,8 @@ const Navbar = () => {
 
   const logout = async (e: React.MouseEvent<HTMLButtonElement>) => {
     await fetch("/api/auth/logout");
-    localStorage.removeItem("access_token");
-    localStorage.removeItem("refresh_token");
+    // localStorage.removeItem("access_token");
+    // localStorage.removeItem("refresh_token");
     window.location.reload();
   };
 
@@ -79,7 +79,7 @@ const Navbar = () => {
           onBlur={() => setSearchOpen(false)}
         >
           {searchOpen ? (
-            localStorage.getItem("access_token") ? (
+            user.access_token ? (
               <Search query={query} />
             ) : (
               <dialog
@@ -170,18 +170,21 @@ const Navbar = () => {
                       Profile
                     </Link>
                   </li>
-                  {localStorage.getItem("access_token") ? (
-                    ""
-                  ) : (
-                    <li>
-                      <Link
-                        to={"http://localhost:4000/spotify/login"}
-                        className={modal_link}
-                      >
-                        Link spotify
-                      </Link>
-                    </li>
-                  )}
+                  {
+                    // localStorage.getItem("access_token")
+                    user.access_token ? (
+                      ""
+                    ) : (
+                      <li>
+                        <Link
+                          to={"http://localhost:4000/spotify/login"}
+                          className={modal_link}
+                        >
+                          Link spotify
+                        </Link>
+                      </li>
+                    )
+                  }
                   <li>
                     <button onClick={logout} className={modal_link}>
                       Logout

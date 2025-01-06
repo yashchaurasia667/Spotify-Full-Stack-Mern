@@ -34,7 +34,8 @@ const HomeMain = () => {
     const hashParams = new URLSearchParams(location.hash.replace("#", ""));
     const access_token = hashParams.get("access_token");
     const refresh_token = hashParams.get("refresh_token");
-    if (access_token != null && refresh_token != null) {
+    if (access_token != null && refresh_token != null && user._id) {
+      // fetch("http://localhost:4000/user/linkspotify", {
       fetch("/api/user/linkspotify", {
         method: "post",
         credentials: "include",
@@ -42,9 +43,9 @@ const HomeMain = () => {
           "content-type": "application/json",
         },
         body: JSON.stringify({
-          id: user.id,
-          access_token,
-          refresh_token,
+          id: user._id,
+          access_token: access_token,
+          refresh_token: refresh_token,
         }),
       }).then((res) => {
         if (res.ok) navigate("/");
@@ -52,7 +53,7 @@ const HomeMain = () => {
       // localStorage.setItem("access_token", access_token);
       // localStorage.setItem("refresh_token", refresh_token);
     }
-  }, []);
+  }, [user]);
 
   return (
     <div className={home_main}>

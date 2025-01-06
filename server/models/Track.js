@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-export const songSchema = new mongoose.Schema({
+export const trackSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -27,5 +27,5 @@ export const songSchema = new mongoose.Schema({
   }
 });
 
-const songModel = mongoose.model("Song", songSchema);
-export default songModel;
+const trackModel = mongoose.model("Track", trackSchema);
+export default trackModel;

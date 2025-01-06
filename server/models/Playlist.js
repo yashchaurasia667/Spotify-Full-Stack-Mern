@@ -1,10 +1,10 @@
 import mongoose from "mongoose";
 
-import { songSchema } from "./Song"
+import { trackSchema } from "./Track"
 
-const playlistSongSchema = new mongoose.Schema({
+const playlistTrackSchema = new mongoose.Schema({
   song: {
-    type: songSchema,
+    type: trackSchema,
     required: true,
   },
   dateAdded: {
@@ -28,11 +28,11 @@ const playlistSchema = new mongoose.Schema({
     required: true,
   },
   duration: {
-    type: number,
+    type: Number,
     required: true,
   },
   songs: {
-    type: [playlistSongSchema],
+    type: [playlistTrackSchema],
     required: true,
   }
 });

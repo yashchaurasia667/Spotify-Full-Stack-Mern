@@ -1,0 +1,5 @@
+✅ change link spotify buttons to check for token from in user rather than localstorage
+implement search 
+implement songs
+implement playlists
+import from spotify

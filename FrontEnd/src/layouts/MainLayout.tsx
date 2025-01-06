@@ -68,7 +68,10 @@ const MainLayout = () => {
         credentials: "include",
       }).then((res) =>
         res.json().then((newUser) => {
-          if (newUser.email) setUser({ ...newUser, id: newUser._id });
+          if (newUser.email) {
+            // console.log(newUser._id);
+            setUser({ ...newUser });
+          }
         })
       );
   }, [user]);

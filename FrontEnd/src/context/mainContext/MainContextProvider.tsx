@@ -31,6 +31,8 @@ const MainContextProvider = ({ children }: contextProps) => {
     iat: 0,
     profile: "",
     name: "",
+    access_token: "",
+    refresh_token: "",
   });
   const minSidebarWidth = 280;
   const maxSidebarWidth = 450;
