@@ -14,8 +14,8 @@ const Login = () => {
   const [loggedIn, setLoggedIn] = useState(false);
 
   useEffect(() => {
-    fetch("/api/auth/getuser", {
-      method: 'Post',
+    fetch("/api/user/getuser", {
+      method: "Post",
       credentials: "include",
     }).then((res) => {
       res.json().then((user) => {

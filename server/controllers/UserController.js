@@ -40,19 +40,37 @@ export const editProfile = async (req, res) => {
     const newPath = "uploads/" + newName;
     fs.renameSync(path, newPath);
     try {
-      await User.findByIdAndUpdate(id, { name, profile: newName })
-      res.status(200).json(filename)
+      const userDoc = await User.findByIdAndUpdate(id, { name, profile: newName })
+      if (userDoc)
+        res.status(200).json(filename)
+      else throw new Error("something went wrong")
     } catch (error) {
       res.status(500).json("Internal Server Error")
     }
   }
   else {
     try {
-      await User.findByIdAndUpdate(id, { name })
-      res.status(200).json(true)
+      const userDoc = await User.findByIdAndUpdate(id, { name })
+      if (userDoc)
+        res.status(200).json(true)
+      else throw new Error("something went wrong")
     }
     catch (error) {
       res.status(500).json("Internal server error")
     }
+  }
+}
+
+export const linkSpotify = async (req, res) => {
+  const { id, access_token, refresh_token } = req.body;
+  console.log(req.body)
+  try {
+    const userDoc = await User.findByIdAndUpdate(id, { access_token, refresh_token })
+    console.log(userDoc)
+    if (userDoc)
+      res.status(200).json(true)
+    else throw new Error("something went wrong")
+  } catch (error) {
+    res.status(500).json("Internal server error")
   }
 }

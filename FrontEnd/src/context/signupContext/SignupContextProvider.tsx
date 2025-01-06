@@ -11,7 +11,7 @@ const SignupContextProvider = ({ children }: props) => {
 
   const checkUser = async (email: string) => {
     try {
-      const res = await fetch("/api/auth/checkuser", {
+      const res = await fetch("/api/user/checkuser", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

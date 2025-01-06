@@ -35,10 +35,23 @@ const HomeMain = () => {
     const access_token = hashParams.get("access_token");
     const refresh_token = hashParams.get("refresh_token");
     if (access_token != null && refresh_token != null) {
-      localStorage.setItem("access_token", access_token);
-      localStorage.setItem("refresh_token", refresh_token);
+      fetch("/api/user/linkspotify", {
+        method: "post",
+        credentials: "include",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({
+          id: user.id,
+          access_token,
+          refresh_token,
+        }),
+      }).then((res) => {
+        if (res.ok) navigate("/");
+      });
+      // localStorage.setItem("access_token", access_token);
+      // localStorage.setItem("refresh_token", refresh_token);
     }
-    navigate("/");
   }, []);
 
   return (

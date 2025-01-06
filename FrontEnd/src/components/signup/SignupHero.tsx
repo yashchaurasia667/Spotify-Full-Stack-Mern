@@ -25,7 +25,7 @@ function SignupHero() {
   const [loggedIn, setLoggedIn] = useState(false);
 
   useEffect(() => {
-    fetch("/api/auth/checkuser", {
+    fetch("/api/user/checkuser", {
       method: "POST",
       credentials: "include",
     }).then((res) => {
