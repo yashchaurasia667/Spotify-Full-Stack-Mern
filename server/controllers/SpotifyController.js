@@ -1,6 +1,8 @@
 import bcrypt from "bcryptjs";
 import querystring from "querystring";
 
+import User from "../models/User.js";
+
 const stateKey = "spotifyAuthState";
 const redirect_uri = "http://localhost:4000/spotify/callback";
 
@@ -106,4 +108,18 @@ export const refreshToken = async (req, res) => {
     const refresh_token = body.refresh_token || refresh_token;
     res.json({ access_token, refresh_token })
   }
+}
+
+export const search = async (req, res) => {
+  const { userId, query, type, limit } = req.body;
+  const userDoc = User.findById(userId)
+  console.log(userDoc);
+
+  // const response = await fetch("https://api.spotify.com/v1/search", {
+  //   method: "GET",
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //     "Authorization": `Basic ${}`
+  //   },
+  // })
 }
