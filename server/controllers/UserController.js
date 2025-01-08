@@ -62,10 +62,11 @@ export const editProfile = async (req, res) => {
 }
 
 export const linkSpotify = async (req, res) => {
-  const { id, access_token, refresh_token } = req.body;
+  const { id } = req.body;
+  const {access_token, refresh_token} = req.cookies;
   try {
     const userDoc = await User.findByIdAndUpdate(id, { access_token: access_token, refresh_token: refresh_token })
-    console.log(userDoc)
+    // console.log(userDoc)
     if (userDoc)
       res.status(200).json(true)
     else throw new Error("something went wrong")

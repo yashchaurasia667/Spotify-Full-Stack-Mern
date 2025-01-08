@@ -1,19 +1,33 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 interface props {
   query: string;
+  token?: string;
 }
-const Search = ({ query }: props) => {
+const Search = ({ query, token }: props) => {
   const [result, setResult] = useState(null);
   const searchSpotify = async (query: string) => {
+    document.cookie = `access_token=${token}; path=/;`;
     const res = await fetch("/api/spotify/search", {
       method: "POST",
       credentials: "include",
       headers: {
         "content-type": "application/json",
       },
+      body: JSON.stringify({
+        query: query,
+        type: "track",
+        limit: 20,
+      }),
     });
   };
+
+  useEffect(() => {
+    if (query) {
+      console.log(query);
+      searchSpotify(query);
+    }
+  }, [query]);
+
   return (
     <dialog
       open

@@ -80,7 +80,7 @@ const Navbar = () => {
         >
           {searchOpen ? (
             user.access_token ? (
-              <Search query={query} />
+              <Search query={query} token={user.access_token} />
             ) : (
               <dialog
                 open

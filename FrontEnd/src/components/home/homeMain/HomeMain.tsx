@@ -30,28 +30,62 @@ const HomeMain = () => {
     });
   }, [gradient]);
 
+  const setToken = async (
+    id: string,
+    access_token: string,
+    refresh_token: string
+  ) => {
+    document.cookie = `access_token=${access_token}; path=/`;
+    document.cookie = `refresh_token=${refresh_token}; path=/`;
+
+    const res = await fetch("/api/user/linkspotify", {
+      method: "post",
+      credentials: "include",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({
+        id: id,
+      }),
+    });
+    if (!res.ok) console.error("something went wrong");
+  };
+
+  const refreshToken = async (refresh_token: string) => {
+    const res = await fetch(
+      `/api/spotify/getrefreshtoken?refresh_token=${refresh_token}`
+    );
+  };
+
   useEffect(() => {
     const hashParams = new URLSearchParams(location.hash.replace("#", ""));
     const access_token = hashParams.get("access_token");
     const refresh_token = hashParams.get("refresh_token");
+
     if (access_token != null && refresh_token != null && user._id) {
-      // fetch("http://localhost:4000/user/linkspotify", {
-      fetch("/api/user/linkspotify", {
-        method: "post",
+      setToken(user._id, access_token, refresh_token);
+      //   fetch("/api/user/linkspotify", {
+      //     method: "post",
+      //     credentials: "include",
+      //     headers: {
+      //       "content-type": "application/json",
+      //     },
+      //     body: JSON.stringify({
+      //       id: user._id,
+      //       access_token: access_token,
+      //       refresh_token: refresh_token,
+      //     }),
+      //   }).then((res) => {
+      //     if (res.ok) navigate("/");
+      //   });
+    }
+
+    if (user.refresh_token) {
+      fetch("/api/spotify/checktokenvalidity", {
         credentials: "include",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify({
-          id: user._id,
-          access_token: access_token,
-          refresh_token: refresh_token,
-        }),
       }).then((res) => {
-        if (res.ok) navigate("/");
+        if (!res.ok) refreshToken(user.refresh_token);
       });
-      // localStorage.setItem("access_token", access_token);
-      // localStorage.setItem("refresh_token", refresh_token);
     }
   }, [user]);
 
