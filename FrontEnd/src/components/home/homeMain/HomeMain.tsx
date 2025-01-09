@@ -49,12 +49,20 @@ const HomeMain = () => {
       }),
     });
     if (!res.ok) console.error("something went wrong");
+    else navigate("/");
   };
 
   const refreshToken = async (refresh_token: string) => {
-    const res = await fetch(
-      `/api/spotify/getrefreshtoken?refresh_token=${refresh_token}`
-    );
+    try {
+      const res = await fetch(
+        `/api/spotify/refreshtoken?refresh_token=${refresh_token}`
+      );
+      const data = await res.json();
+      const { access_token } = data;
+      if (access_token) setToken(user._id, access_token, refresh_token);
+    } catch (error) {
+      console.error(`Something went wrong: ${error}`);
+    }
   };
 
   useEffect(() => {

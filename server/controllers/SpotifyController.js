@@ -6,16 +6,30 @@ const stateKey = "spotifyAuthState";
 const redirect_uri = "http://localhost:4000/spotify/callback";
 
 export const checkTokenValidity = async (req, res) => {
-  const { token } = req.cookies;
-  const response = await fetch("https://api.spotify.com/v1/me", {
-    method: "GET",
-    headers: {
-      "Authorization": `Bearer ${token}`
+  // const { access_token } = req.cookies;
+  const { access_token } = req.body;
+  if (!access_token) return res.status(400).json("Access Token is required");
+  try {
+    const response = await fetch("https://api.spotify.com/v1/me", {
+      method: "GET",
+      headers: {
+        "Authorization": `Bearer ${access_token}`
+      }
+    });
+
+    console.log(response)
+
+    if (response.ok) {
+      return res.status(200).json("Valid");
+    } else {
+      // const erroData = await response.json();
+      // console.error(erroData)
+      return res.status(401).json("Invalid Token");
     }
-  });
-  if (response.ok)
-    return res.status(200).json("Valid");
-  return res.status(401).json("Invalid Token");
+  } catch (error) {
+    console.log(error);
+    res.status(500).json("Internal server error");
+  }
 }
 
 export const getToken = async (req, res) => {
@@ -46,60 +60,90 @@ export const getToken = async (req, res) => {
 
 export const login = async (req, res) => {
   const state = bcrypt.genSaltSync(16);
-  const scope = "user-read-playback-state user-read-currently-playing playlist-read-private playlist-read-collaborative user-follow-read user-library-read user-read-email";
+  const scope = [
+    "user-read-private",
+    "user-read-playback-state",
+    "user-read-currently-playing",
+    "playlist-read-private",
+    "playlist-read-collaborative",
+    "user-follow-read",
+    "user-library-read",
+    "user-read-email"
+  ].join(" ");
 
-  res.cookie(stateKey, state);
-  res.redirect("https://accounts.spotify.com/authorize?" + querystring.stringify({
-    response_type: "code",
-    client_id: process.env.API_ID,
-    scope: scope,
-    redirect_uri: redirect_uri,
-    state: state
-  }));
+  res.cookie(stateKey, state, {
+    httpOnly: true,
+    sameSite: "Strict",
+  });
+
+  try {
+    res.redirect("https://accounts.spotify.com/authorize?" + querystring.stringify({
+      response_type: "code",
+      client_id: process.env.API_ID,
+      scope: scope,
+      redirect_uri: encodeURIComponent(redirect_uri),
+      state: state
+    }));
+  } catch (error) {
+    res.status(500).json(`Internal server error: ${error}`)
+  }
 }
 
 export const callback = async (req, res) => {
   const code = req.query.code || null;
   const state = req.query.state || null;
-  const storedState = req.cookies ? req.cookies[stateKey] : null;
+  const storedState = req.cookies[stateKey];
 
-  if (state && state == storedState) {
-    res.clearCookie(stateKey);
+  if (!state || state != storedState)
+    return res.redirect("/#" + querystring.stringify({ error: "state mismatch" }));
+  if (!code)
+    return res.redirect("/#" + querystring.stringify({ error: "authorization code missing" }));
 
-    const authOptions = {
-      method: "POST",
-      headers: {
-        "content-type": "application/x-www-form-urlencoded",
-        "Authorization": "Basic " + (Buffer.from(process.env.API_ID + ":" + process.env.API_SECRET).toString("base64"))
-      },
-      body: `code=${code}&redirect_uri=${redirect_uri}&grant_type=authorization_code`,
-      json: true,
-    };
-    // 
+  res.clearCookie(stateKey);
+
+  const authOptions = {
+    method: "POST",
+    headers: {
+      "content-type": "application/x-www-form-urlencoded",
+      "Authorization": "Basic " + (Buffer.from(process.env.API_ID + ":" + process.env.API_SECRET).toString("base64"))
+    },
+    // body: `code=${code}&redirect_uri=${redirect_uri}&grant_type=authorization_code`,
+    body: new URLSearchParams({
+      code: code,
+      redirect_uri: encodeURIComponent(redirect_uri),
+      grant_type: "authorization_code",
+    }).toString(),
+  };
+
+  try {
+
     const response = await fetch("https://accounts.spotify.com/api/token", authOptions);
 
-    if (response.status == 200) {
-      response.json().then((data) => {
-        const accessToken = data.access_token;
-        const refreshToken = data.refresh_token;
+    if (response.ok) {
+      const data = await response.json();
+      const accessToken = data.access_token;
+      const refreshToken = data.refresh_token;
 
-        res.redirect("http://localhost:3000/#" + querystring.stringify({
-          access_token: accessToken,
-          refresh_token: refreshToken
-        }))
-      })
-    }
-    else
+      res.redirect("http://localhost:3000/#" + querystring.stringify({
+        access_token: accessToken,
+        refresh_token: refreshToken
+      }));
+    } else {
+      const errorData = await response.json();
       res.redirect("/#" + querystring.stringify({
-        error: "invalid token"
+        // error: "invalid token"
+        error: errorData.error || "Unknown error"
       }))
+    }
+  } catch (error) {
+    res.redirect("/#", querystring.stringify({ error: "token_exchange_failed" }));
   }
-  else
-    res.redirect("/#" + querystring.stringify({ error: "state mismatch" }));
 }
 
 export const refreshToken = async (req, res) => {
   const refresh_token = req.query.refresh_token;
+  if (!refresh_token) return res.status(400).json("Refresh token is required");
+
   const authOptions = {
     method: "POST",
     headers: {
@@ -110,19 +154,24 @@ export const refreshToken = async (req, res) => {
       grant_type: "refresh_token",
       refresh_token: refresh_token,
     }).toString(),
-    json: true,
   };
 
-  const response = await fetch("https://accounts.spotify.com/api/token", authOptions);
-  console.log(response)
-  if (response.status == 200) {
-    const data = await response.json();
-    // const access_token = body.access_token;
-    // const refresh_token = body.refresh_token || refresh_token;
-    // res.json({ access_token, refresh_token })
-    console.log(data);
+  try {
+    const response = await fetch("https://accounts.spotify.com/api/token", authOptions);
+
+    if (response.ok) {
+      const data = await response.json();
+      const { access_token, expires_in } = data;
+      return res.json({ access_token, expires_in })
+    }
+    else {
+      const error = await response.text();
+      res.status(response.status).json(`Failed to refresh token: ${error}`)
+    }
   }
-  res.json('well done');
+  catch (error) {
+    res.status(500).json(`Internal server error: ${error}`);
+  }
 }
 
 export const search = async (req, res) => {
@@ -141,7 +190,6 @@ export const search = async (req, res) => {
     });
 
     const data = await response.json();
-    console.log(data)
     res.status(200).json("well done")
   } catch (error) {
     res.status(500).json("something went wrong")

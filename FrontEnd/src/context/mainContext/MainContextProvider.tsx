@@ -27,7 +27,7 @@ const MainContextProvider = ({ children }: contextProps) => {
   );
   const [user, setUser] = useState<user>({
     email: "",
-    id: "",
+    _id: "",
     iat: 0,
     profile: "",
     name: "",
