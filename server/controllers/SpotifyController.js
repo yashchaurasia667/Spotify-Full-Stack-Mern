@@ -7,7 +7,7 @@ const redirect_uri = "http://localhost:4000/spotify/callback";
 
 export const checkTokenValidity = async (req, res) => {
   // const { access_token } = req.cookies;
-  const { access_token } = req.body;
+  const access_token = req.query.access_token;
   if (!access_token) return res.status(400).json("Access Token is required");
   try {
     const response = await fetch("https://api.spotify.com/v1/me", {
@@ -68,21 +68,19 @@ export const login = async (req, res) => {
     "playlist-read-collaborative",
     "user-follow-read",
     "user-library-read",
-    "user-read-email"
+    "user-read-email",
   ].join(" ");
 
-  res.cookie(stateKey, state, {
-    httpOnly: true,
-    sameSite: "Strict",
-  });
+  res.cookie(stateKey, state);
 
   try {
     res.redirect("https://accounts.spotify.com/authorize?" + querystring.stringify({
       response_type: "code",
       client_id: process.env.API_ID,
       scope: scope,
-      redirect_uri: encodeURIComponent(redirect_uri),
-      state: state
+      redirect_uri: redirect_uri,
+      state: state,
+      // show_dialog: true
     }));
   } catch (error) {
     res.status(500).json(`Internal server error: ${error}`)
@@ -110,7 +108,7 @@ export const callback = async (req, res) => {
     // body: `code=${code}&redirect_uri=${redirect_uri}&grant_type=authorization_code`,
     body: new URLSearchParams({
       code: code,
-      redirect_uri: encodeURIComponent(redirect_uri),
+      redirect_uri: redirect_uri,
       grant_type: "authorization_code",
     }).toString(),
   };
@@ -123,10 +121,15 @@ export const callback = async (req, res) => {
       const data = await response.json();
       const accessToken = data.access_token;
       const refreshToken = data.refresh_token;
+      const expiresIn = data.expires_in
+
+      console.log(accessToken)
+      console.log(expiresIn)
 
       res.redirect("http://localhost:3000/#" + querystring.stringify({
         access_token: accessToken,
-        refresh_token: refreshToken
+        refresh_token: refreshToken,
+        expires_in: expiresIn
       }));
     } else {
       const errorData = await response.json();
@@ -172,6 +175,19 @@ export const refreshToken = async (req, res) => {
   catch (error) {
     res.status(500).json(`Internal server error: ${error}`);
   }
+}
+
+export const playlists = async (req, res) => {
+  const access_token = req.query.access_token;
+
+  const response = await fetch("https://api.spotify.com/v1/me", {
+    headers: {
+      "Authorization": `Bearer ${access_token}`
+    },
+  });
+  const data = await response.json();
+  console.log(data)
+  res.json(data)
 }
 
 export const search = async (req, res) => {

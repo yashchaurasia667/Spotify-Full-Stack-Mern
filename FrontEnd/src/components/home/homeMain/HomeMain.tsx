@@ -88,13 +88,13 @@ const HomeMain = () => {
       //   });
     }
 
-    if (user.refresh_token) {
-      fetch("/api/spotify/checktokenvalidity", {
-        credentials: "include",
-      }).then((res) => {
-        if (!res.ok) refreshToken(user.refresh_token);
-      });
-    }
+    // if (user.refresh_token) {
+    //   fetch("/api/spotify/checktokenvalidity", {
+    //     credentials: "include",
+    //   }).then((res) => {
+    // if (!res.ok) refreshToken(user.refresh_token);
+    // });
+    // }
   }, [user]);
 
   return (

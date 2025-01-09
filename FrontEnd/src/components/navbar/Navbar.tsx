@@ -74,27 +74,26 @@ const Navbar = () => {
         </NavLink>
         <div
           className={searchbar}
-          //  onClick={() => navigate("/search")}
           onClick={() => setSearchOpen(true)}
-          onBlur={() => setSearchOpen(false)}
+          // onBlur={() => setSearchOpen(false)}
         >
           {searchOpen ? (
-            user.access_token ? (
-              <Search query={query} token={user.access_token} />
-            ) : (
-              <dialog
-                open
-                className="w-full absolute top-[calc(100%+6px)] z-[1000] bg-background-elevated-highlight rounded-lg overflow-hidden py-5 px-4 flex justify-center"
+            // user.access_token ? (
+            //   <Search query={query} token={user.access_token} />
+            // ) : (
+            <dialog
+              open
+              className="w-full absolute top-[calc(100%+6px)] z-[1000] bg-background-elevated-highlight rounded-lg overflow-hidden py-5 px-4 flex justify-center"
+            >
+              <Link
+                to={"http://localhost:4000/spotify/login"}
+                className="!bg-white text-background-base px-3 py-2 rounded-full font-medium my-4"
               >
-                <Link
-                  to={"http://localhost:4000/spotify/login"}
-                  className="!bg-white text-background-base px-3 py-2 rounded-full font-medium my-4"
-                >
-                  Link Your Spotify Account to search
-                </Link>
-              </dialog>
-            )
+                Link Your Spotify Account to search
+              </Link>
+            </dialog>
           ) : (
+            // )
             <></>
           )}
           <div className="flex items-center rounded-[999px] w-[100%]">
