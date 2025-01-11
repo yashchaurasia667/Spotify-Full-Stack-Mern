@@ -19,11 +19,13 @@ const Search = ({ query, token }: props) => {
         limit: 20,
       }),
     });
+    const data = await res.json();
+    // console.log(data.tracks.items[1].external_urls.spotify);
+    console.log(data.tracks.items);
   };
 
   useEffect(() => {
     if (query) {
-      console.log(query);
       searchSpotify(query);
     }
   }, [query]);

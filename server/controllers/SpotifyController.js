@@ -6,8 +6,8 @@ const stateKey = "spotifyAuthState";
 const redirect_uri = "http://localhost:4000/spotify/callback";
 
 export const checkTokenValidity = async (req, res) => {
-  // const { access_token } = req.cookies;
-  const access_token = req.query.access_token;
+  const { access_token } = req.cookies;
+  // const access_token = req.query.access_token;
   if (!access_token) return res.status(400).json("Access Token is required");
   try {
     const response = await fetch("https://api.spotify.com/v1/me", {
@@ -17,18 +17,13 @@ export const checkTokenValidity = async (req, res) => {
       }
     });
 
-    console.log(response)
-
     if (response.ok) {
       return res.status(200).json("Valid");
     } else {
-      // const erroData = await response.json();
-      // console.error(erroData)
       return res.status(401).json("Invalid Token");
     }
   } catch (error) {
-    console.log(error);
-    res.status(500).json("Internal server error");
+    res.status(500).json("Internal server error: " + error);
   }
 }
 
@@ -123,9 +118,6 @@ export const callback = async (req, res) => {
       const refreshToken = data.refresh_token;
       const expiresIn = data.expires_in
 
-      console.log(accessToken)
-      console.log(expiresIn)
-
       res.redirect("http://localhost:3000/#" + querystring.stringify({
         access_token: accessToken,
         refresh_token: refreshToken,
@@ -191,14 +183,14 @@ export const playlists = async (req, res) => {
 }
 
 export const search = async (req, res) => {
-  // const { query, type, limit } = req.body;
+  const { query, type, limit } = req.body;
   const { access_token } = req.cookies;
 
   if (!access_token)
     return res.status(401).json("Unauthorized");
 
   try {
-    const response = await fetch("https://api.spotify.com/v1/search?q=save+your+tears&type=track", {
+    const response = await fetch(`https://api.spotify.com/v1/search?q=${query}&type=${type}&limit=${limit}`, {
       method: "GET",
       headers: {
         "Authorization": `Bearer ${access_token}`
@@ -206,7 +198,7 @@ export const search = async (req, res) => {
     });
 
     const data = await response.json();
-    res.status(200).json("well done")
+    res.status(200).json(data)
   } catch (error) {
     res.status(500).json("something went wrong")
   }

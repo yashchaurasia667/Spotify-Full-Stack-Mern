@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext, useRef } from "react";
+import React, { useEffect, useState, useContext, useRef } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 
 import { GoHomeFill, GoHome } from "react-icons/go";
@@ -31,6 +31,7 @@ const Navbar = () => {
   } = styles;
 
   const dialogRef = useRef<HTMLDialogElement | null>(null);
+  const searchRef = useRef<HTMLDialogElement | null>(null);
 
   const navigate = useNavigate();
 
@@ -43,23 +44,35 @@ const Navbar = () => {
   const [searchOpen, setSearchOpen] = useState(false);
   const [query, setQuery] = useState("");
 
-  const clickOutside = (e: MouseEvent) => {
-    if (dialogRef.current && !dialogRef.current.contains(e.target as Node)) {
-      setDialogOpen(false);
+  const handleBlur = (
+    // e: MouseEvent,
+    e: React.FocusEvent<HTMLElement>,
+    ref: React.RefObject<HTMLElement>,
+    stateFunction: (state: boolean) => void
+  ) => {
+    console.log("ran");
+    // if (ref.current && !ref.current.contains(e.target as Node)) {
+    if (ref.current && !ref.current.contains(e.relatedTarget as Node)) {
+      console.log("fun");
+      stateFunction(false);
     }
   };
 
   const logout = async (e: React.MouseEvent<HTMLButtonElement>) => {
     await fetch("/api/auth/logout");
-    // localStorage.removeItem("access_token");
-    // localStorage.removeItem("refresh_token");
     window.location.reload();
   };
 
-  useEffect(() => {
-    if (dialogOpen) document.addEventListener("mousedown", clickOutside);
-    return () => document.removeEventListener("mousedown", clickOutside);
-  }, [dialogOpen]);
+  // useEffect(() => {
+  //   if (dialogOpen)
+  //     document.addEventListener("mousedown", (e) =>
+  //       handleBlur(e, dialogRef, setDialogOpen)
+  //     );
+  //   return () =>
+  //     document.removeEventListener("mousedown", (e) =>
+  //       handleBlur(e, dialogRef, setDialogOpen)
+  //     );
+  // }, [dialogOpen]);
 
   return (
     <div className={`${navbar} row-start-1 col-span-2`}>
@@ -76,24 +89,25 @@ const Navbar = () => {
           className={searchbar}
           onClick={() => setSearchOpen(true)}
           // onBlur={() => setSearchOpen(false)}
+          // onBlur={(e) => handleBlur(e, searchRef, setSearchOpen)}
         >
           {searchOpen ? (
-            // user.access_token ? (
-            //   <Search query={query} token={user.access_token} />
-            // ) : (
-            <dialog
-              open
-              className="w-full absolute top-[calc(100%+6px)] z-[1000] bg-background-elevated-highlight rounded-lg overflow-hidden py-5 px-4 flex justify-center"
-            >
-              <Link
-                to={"http://localhost:4000/spotify/login"}
-                className="!bg-white text-background-base px-3 py-2 rounded-full font-medium my-4"
+            user.access_token ? (
+              <Search query={query} token={user.access_token} />
+            ) : (
+              <dialog
+                open
+                className="w-full absolute top-[calc(100%+6px)] z-[1000] bg-background-elevated-highlight rounded-lg overflow-hidden py-5 px-4 flex justify-center"
               >
-                Link Your Spotify Account to search
-              </Link>
-            </dialog>
+                <Link
+                  to={"http://localhost:4000/spotify/login"}
+                  className="!bg-white text-background-base px-3 py-2 rounded-full font-medium my-4"
+                >
+                  Link Your Spotify Account to search
+                </Link>
+              </dialog>
+            )
           ) : (
-            // )
             <></>
           )}
           <div className="flex items-center rounded-[999px] w-[100%]">
@@ -155,6 +169,9 @@ const Navbar = () => {
                   // console.log(dialogOpen);
                   setDialogOpen(!dialogOpen);
                 }}
+                onBlur={(e) => {
+                  handleBlur(e, dialogRef, setDialogOpen);
+                }}
                 className={profile_icon}
               >
                 <img
@@ -162,7 +179,12 @@ const Navbar = () => {
                   alt=""
                 />
               </button>
-              <dialog ref={dialogRef} open={dialogOpen} className={modal}>
+              <dialog
+                ref={dialogRef}
+                open={dialogOpen}
+                className={modal}
+                onClick={() => setDialogOpen(false)}
+              >
                 <ul className="w-full">
                   <li>
                     <Link to={"/profile"} className={modal_link}>
