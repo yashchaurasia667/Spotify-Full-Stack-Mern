@@ -1,9 +1,11 @@
-import { useEffect, useState } from "react";
+import React, { forwardRef, useEffect, useState } from "react";
 interface props {
   query: string;
+  // ref: React.ForwardedRef<HTMLDialogElement>;
   token?: string;
 }
-const Search = ({ query, token }: props) => {
+
+const Search = forwardRef<HTMLDialogElement, props>(({ query, token }, ref) => {
   const [result, setResult] = useState(null);
   const searchSpotify = async (query: string) => {
     document.cookie = `access_token=${token}; path=/;`;
@@ -20,8 +22,8 @@ const Search = ({ query, token }: props) => {
       }),
     });
     const data = await res.json();
-    // console.log(data.tracks.items[1].external_urls.spotify);
-    console.log(data.tracks.items);
+    console.log(data.tracks.items[1].external_urls.spotify);
+    // console.log(data.tracks.items);
   };
 
   useEffect(() => {
@@ -32,6 +34,7 @@ const Search = ({ query, token }: props) => {
 
   return (
     <dialog
+      ref={ref}
       open
       className="w-full absolute top-[calc(100%+6px)] z-[1000] bg-background-elevated-highlight rounded-lg overflow-hidden py-5 px-4"
     >
@@ -44,6 +47,6 @@ const Search = ({ query, token }: props) => {
       )}
     </dialog>
   );
-};
+});
 
 export default Search;

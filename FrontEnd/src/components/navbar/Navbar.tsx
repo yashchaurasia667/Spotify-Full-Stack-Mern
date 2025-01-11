@@ -50,10 +50,8 @@ const Navbar = () => {
     ref: React.RefObject<HTMLElement>,
     stateFunction: (state: boolean) => void
   ) => {
-    console.log("ran");
     // if (ref.current && !ref.current.contains(e.target as Node)) {
     if (ref.current && !ref.current.contains(e.relatedTarget as Node)) {
-      console.log("fun");
       stateFunction(false);
     }
   };
@@ -64,15 +62,13 @@ const Navbar = () => {
   };
 
   // useEffect(() => {
-  //   if (dialogOpen)
-  //     document.addEventListener("mousedown", (e) =>
-  //       handleBlur(e, dialogRef, setDialogOpen)
-  //     );
-  //   return () =>
-  //     document.removeEventListener("mousedown", (e) =>
-  //       handleBlur(e, dialogRef, setDialogOpen)
-  //     );
-  // }, [dialogOpen]);
+  //   if (searchOpen) document.addEventListener("mousedown", clickOutside);
+  //   return () => document.removeEventListener("mousedown", clickOutside);
+  // }, [searchOpen]);
+
+  useEffect(() => {
+    if (searchRef.current) console.log(searchRef.current);
+  }, [searchRef]);
 
   return (
     <div className={`${navbar} row-start-1 col-span-2`}>
@@ -89,11 +85,11 @@ const Navbar = () => {
           className={searchbar}
           onClick={() => setSearchOpen(true)}
           // onBlur={() => setSearchOpen(false)}
-          // onBlur={(e) => handleBlur(e, searchRef, setSearchOpen)}
+          onBlur={(e) => handleBlur(e, searchRef, setSearchOpen)}
         >
           {searchOpen ? (
             user.access_token ? (
-              <Search query={query} token={user.access_token} />
+              <Search ref={searchRef} query={query} token={user.access_token} />
             ) : (
               <dialog
                 open
