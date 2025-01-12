@@ -33,8 +33,6 @@ const Navbar = () => {
   const dialogRef = useRef<HTMLDialogElement | null>(null);
   const searchRef = useRef<HTMLDialogElement | null>(null);
 
-  const navigate = useNavigate();
-
   const context = useContext(MainContext);
   if (!context) throw new Error("No main context");
   const { user } = context;
@@ -50,7 +48,6 @@ const Navbar = () => {
     ref: React.RefObject<HTMLElement>,
     stateFunction: (state: boolean) => void
   ) => {
-    // if (ref.current && !ref.current.contains(e.target as Node)) {
     if (ref.current && !ref.current.contains(e.relatedTarget as Node)) {
       stateFunction(false);
     }
