@@ -26,51 +26,27 @@ type image = {
   url: string;
 };
 
+interface album extends spotifyObject {
+  album_type: string;
+  artists: [spotifyObject];
+  images: [image];
+  is_playable: boolean;
+  release_date: string;
+  total_tracks: number;
+}
+
 interface resultProps extends spotifyObject {
-  album: {
-    album_type: string;
-    artists: [
-      spotifyObject
-      //   {
-      //   external_urls: externalUrl;
-      //   href: string;
-      //   id: string;
-      //   name: string;
-      //   type: string;
-      //   uri: string;
-      // }
-    ];
-    images: [image];
-    is_playable: boolean;
-    release_date: string;
-    total_tracks: number;
-  };
+  album: album;
   artists: [spotifyObject];
   duration_ms: number;
   explicit: boolean;
-  // external_urls: externalUrl;
+  is_playable: boolean;
+  track_number: number;
 }
 
-// interface resultProps {
-//   album: {
-//     album_type: string;
-//     artists: [
-//       {
-//         external_urls: { spotify: string };
-//         href: string;
-//         id: string;
-//         type: string;
-//         uri: string;
-//       }
-//     ];
-//     external_urls: {
-//       spotify: string;
-//     };
-//   };
-// }
-
 const Search = forwardRef<HTMLDialogElement, props>(({ query, token }, ref) => {
-  const [results, setResults] = useState([{}]);
+  const [results, setResults] = useState<resultProps[]>([]);
+  const [showRes, setShowRes] = useState<HTMLElement[]>([]);
   const searchSpotify = async (query: string) => {
     document.cookie = `access_token=${token}; path=/;`;
     const res = await fetch("/api/spotify/search", {
@@ -87,7 +63,6 @@ const Search = forwardRef<HTMLDialogElement, props>(({ query, token }, ref) => {
     });
     const data = await res.json();
     setResults(data.tracks.items);
-    console.log(data.tracks.items[0]);
     // console.log(data.tracks.items[1].external_urls.spotify);
     // console.log(data.tracks.items);
   };
@@ -99,7 +74,20 @@ const Search = forwardRef<HTMLDialogElement, props>(({ query, token }, ref) => {
   }, [query]);
 
   useEffect(() => {
-    // console.log(results);
+    console.log(results);
+    let tmp = [];
+    results.map((songObj) => {
+      tmp.push(
+        <>
+          <div>
+            <p>song = {songObj.name}</p>
+            <p>album = {songObj.album.name}</p>
+            <p>link = {songObj.external_urls.spotify}</p>
+          </div>
+        </>
+      );
+    });
+    setShowRes(tmp);
   }, [results]);
 
   return (
@@ -109,8 +97,7 @@ const Search = forwardRef<HTMLDialogElement, props>(({ query, token }, ref) => {
       className="w-full absolute top-[calc(100%+6px)] z-[1000] bg-background-elevated-highlight rounded-lg overflow-hidden py-5 px-4"
     >
       {query ? (
-        // results
-        "results"
+        showRes[0]
       ) : (
         <h1 className="font-bold text-xl my-5 mx-auto w-fit">
           Start searching to see results
