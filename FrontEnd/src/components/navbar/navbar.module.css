@@ -78,7 +78,7 @@
 }
 
 .searchbar:hover,
-.searchbar:hover * {
+.searchbar:hover input[type="text"] {
   fill: var(--text-base);
   background: var(--background-elevated-highlight);
   /* cursor: pointer; */

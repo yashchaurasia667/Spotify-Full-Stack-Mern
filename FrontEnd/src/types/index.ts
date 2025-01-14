@@ -30,3 +30,22 @@ export interface user {
   access_token: string;
   refresh_token: string;
 }
+
+export type externalUrl = {
+  spotify: string;
+};
+
+export type spotifyObject = {
+  external_urls: externalUrl;
+  href: string;
+  id: string;
+  name: string;
+  uri: string;
+  type: string;
+};
+
+export type image = {
+  height: number;
+  width: number;
+  url: string;
+};
