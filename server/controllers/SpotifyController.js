@@ -183,7 +183,8 @@ export const playlists = async (req, res) => {
 }
 
 export const search = async (req, res) => {
-  const { query, type, limit } = req.body;
+  // const { query, type, limit } = req.body;
+  const { query, type, limit } = req.query;
   const { access_token } = req.cookies;
 
   if (!access_token)

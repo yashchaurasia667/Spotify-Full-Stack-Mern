@@ -29,28 +29,37 @@ interface resultProps extends spotifyObject {
 
 const Search = forwardRef<HTMLDialogElement, props>(({ query, token }, ref) => {
   const [results, setResults] = useState<resultProps[]>([]);
+  const [type, setType] = useState("Track");
+  const [limit, setLimit] = useState(10);
 
-  const searchSpotify = async (query: string) => {
+  const searchSpotify = async (query: string, type: string, limit: number) => {
     document.cookie = `access_token=${token}; path=/;`;
-    const res = await fetch("/api/spotify/search", {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({
-        query: query,
-        type: "track",
-        limit: 20,
-      }),
-    });
-    const data = await res.json();
-    setResults(data.tracks.items);
+    try {
+      const res = await fetch(
+        `/api/spotify/search/?query=${query}&type=${type}&limit=${limit}`,
+        {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "content-type": "application/json",
+          },
+          // body: JSON.stringify({
+          //   query: query,
+          //   type: "track",
+          //   limit: 20,
+          // }),
+        }
+      );
+      const data = await res.json();
+      setResults(data.tracks.items);
+    } catch (error) {
+      console.error(`Something went wrong: ${error}`);
+    }
   };
 
   useEffect(() => {
     if (query) {
-      searchSpotify(query);
+      searchSpotify(query, type, limit);
     }
   }, [query]);
 
@@ -72,6 +81,12 @@ const Search = forwardRef<HTMLDialogElement, props>(({ query, token }, ref) => {
       open
       className="max-h-[50vh] w-full absolute top-[calc(100%+6px)] z-[1000] bg-background-elevated-press rounded-lg overflow-auto"
     >
+      <div>
+        <label>
+          Type:
+          <input type="text" value={type} />
+        </label>
+      </div>
       {query ? (
         renderRes
       ) : (
