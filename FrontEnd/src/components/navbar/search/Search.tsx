@@ -73,6 +73,7 @@ const Search = forwardRef<HTMLDialogElement, props>(
     const renderRes = useMemo(() => {
       return results.map((track, index) => (
         <SearchResult
+          id={track.id}
           key={index}
           name={track.name}
           artists={track.artists}
@@ -106,7 +107,7 @@ const Search = forwardRef<HTMLDialogElement, props>(
         {query ? (
           renderRes
         ) : (
-          <h1 className="font-bold text-xl my-5 mx-auto w-fit">
+          <h1 className="font-bold text-xl my-5 mx-auto w-fit py-5">
             Start searching to see results
           </h1>
         )}

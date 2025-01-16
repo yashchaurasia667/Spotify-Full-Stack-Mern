@@ -1,16 +1,20 @@
 import { useMemo } from "react";
-import { spotifyObject } from "../../../types";
-import GreenButton from "../../global/GreenButton";
+import { useNavigate } from "react-router-dom";
 import { FaPlay } from "react-icons/fa";
+
+import GreenButton from "../../global/GreenButton";
+
+import { spotifyObject } from "../../../types";
 
 interface props {
   name: string;
   artists: spotifyObject[];
   cover: string;
   duration: number;
+  id: string;
 }
 
-const SearchResult = ({ name, artists, cover, duration }: props) => {
+const SearchResult = ({ name, artists, cover, duration, id }: props) => {
   const displayArtist = useMemo(() => {
     return artists.map((artist) => artist.name + ", ");
   }, [artists]);
@@ -25,9 +29,13 @@ const SearchResult = ({ name, artists, cover, duration }: props) => {
   };
   // const [time, setTime] = useState({ hours: 0, mins: 0, seconds: 0 });
   const time = convertToTime(duration);
+  const navigate = useNavigate();
 
   return (
-    <div className="flex justify-between group relative hover:bg-background-elevated-highlight cursor-pointer">
+    <div
+      className="flex justify-between group relative hover:bg-background-elevated-highlight cursor-pointer"
+      onClick={() => navigate(`/track/${id}`)}
+    >
       <div className="flex py-4 px-4">
         <img src={cover} alt={name} className="rounded-md mr-4" />
         <div className="w-9/12 text-ellipsis">
