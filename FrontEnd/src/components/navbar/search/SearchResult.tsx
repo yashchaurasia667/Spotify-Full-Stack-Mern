@@ -1,5 +1,7 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { spotifyObject } from "../../../types";
+import GreenButton from "../../global/GreenButton";
+import { FaPlay } from "react-icons/fa";
 
 interface props {
   name: string;
@@ -25,19 +27,33 @@ const SearchResult = ({ name, artists, cover, duration }: props) => {
   const time = convertToTime(duration);
 
   return (
-    <div className="flex py-4 px-4 hover:bg-background-elevated-highlight cursor-pointer">
-      <img src={cover} alt={name} className="rounded-md mr-4" />
-      <div className="">
-        <p className="font-semibold text-md">{name}</p>
-        <div className="flex justify-between">
-          <p className="mr-3">{displayArtist}</p>
-          <p>
-            {time.hours ? time.hours + ":" : ""}
-            {time.mins + ":"}
-            {time.seconds}
-          </p>
+    <div className="flex justify-between group relative hover:bg-background-elevated-highlight cursor-pointer">
+      <div className="flex py-4 px-4">
+        <img src={cover} alt={name} className="rounded-md mr-4" />
+        <div className="w-9/12 text-ellipsis">
+          <p className="font-semibold text-md w-full overflow-hidden">{name}</p>
+          <div className="flex justify-between">
+            <p className="mr-3">{displayArtist}</p>
+            <p>
+              {time.hours ? time.hours + ":" : ""}
+              {time.mins + ":"}
+              {time.seconds}
+            </p>
+          </div>
         </div>
       </div>
+      <GreenButton
+        content={
+          <FaPlay
+            style={{
+              fill: "#121212",
+              scale: "80%",
+            }}
+          />
+        }
+        className={`p-2 absolute opacity-0 right-4 top-1/2 -translate-y-1/2 group-hover:opacity-100 hover:scale-110 hover:bg-[#3be477]`}
+        // className={`p-2 absolute right-4 top-1/2 -translate-y-1/2 hover:scale-110 hover:bg-[#3be477]`}
+      />
     </div>
   );
 };
