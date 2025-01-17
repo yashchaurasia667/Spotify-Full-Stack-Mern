@@ -83,29 +83,13 @@ const Navbar = () => {
           onClick={() => setSearchOpen(true)}
           onBlur={(e) => handleBlur(e, searchRef, setSearchOpen)}
         >
-          {user.access_token ? (
-            <Search
-              open={searchOpen}
-              ref={searchRef}
-              query={query}
-              token={user.access_token}
-            />
-          ) : (
-            // <dialog className="w-full absolute top-[calc(100%+6px)] bg-background-elevated-highlight rounded-lg overflow-hidden py-5 px-4 flex justify-center">
-            <dialog
-              open={searchOpen}
-              ref={searchRef}
-              className="w-full bg-background-elevated-press rounded-lg top-[calc(100%+6px)] py-8 px-4"
-            >
-              <Link
-                to={"http://localhost:4000/spotify/login"}
-                className="!bg-white text-background-base px-3 py-2 rounded-full font-medium my-4 ml-40"
-              >
-                Link Your Spotify Account to search
-              </Link>
-            </dialog>
-            // <></>
-          )}
+          <Search
+            open={searchOpen}
+            ref={searchRef}
+            query={query}
+            token={user.access_token}
+            // openFunction={setSearchOpen}
+          />
           <div className="flex items-center rounded-[999px] w-[100%]">
             <IoSearch />
             <input

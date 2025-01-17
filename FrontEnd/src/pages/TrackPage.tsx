@@ -1,3 +1,5 @@
+import { useParams } from "react-router-dom";
+
 interface props {
   cover: string;
   type: string;
@@ -18,7 +20,7 @@ const TrackPage = ({
   duration,
 }: props) => {
   return (
-    <div className="bg-background-base">
+    <div className="bg-background-base rounded-lg">
       <div>
         <img src={cover} alt={name} />
         <div>

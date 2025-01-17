@@ -1,4 +1,5 @@
 import { forwardRef, useEffect, useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 
 import SearchResult from "./SearchResult";
 
@@ -7,9 +8,10 @@ import { spotifyObject, image } from "../../../types";
 type props = {
   open: boolean;
   query: string;
-  // ref: React.ForwardedRef<HTMLDialogElement>;
   token?: string;
+  // openFunction: (e: boolean) => void;
 };
+
 interface album extends spotifyObject {
   album_type: string;
   artists: spotifyObject[];
@@ -30,6 +32,7 @@ interface resultProps extends spotifyObject {
 
 const Search = forwardRef<HTMLDialogElement, props>(
   ({ query, token, open }, ref) => {
+    // const [searchOpen, setSearchOpen] = useState<boolean>(open);
     const [results, setResults] = useState<resultProps[]>([]);
     const [type, setType] = useState("track");
     const [limit, setLimit] = useState(10);
@@ -49,15 +52,10 @@ const Search = forwardRef<HTMLDialogElement, props>(
             headers: {
               "content-type": "application/json",
             },
-            // body: JSON.stringify({
-            //   query: query,
-            //   type: "track",
-            //   limit: 20,
-            // }),
           }
         );
         const data = await res.json();
-        console.log(data);
+        // console.log(data);
         setResults(data.tracks.items);
       } catch (error) {
         console.error(`Something went wrong: ${error}`);
@@ -89,27 +87,21 @@ const Search = forwardRef<HTMLDialogElement, props>(
         open={open}
         className="max-h-[50vh] w-full absolute top-[calc(100%+6px)] z-[1000] bg-background-elevated-press rounded-lg overflow-auto"
       >
-        {/* <div>
-        <label>
-          Type:
-          <select value={type} className="bg-background-elevated-press">
-            <option value="all" onChange={()=> setType("")}>All</option>
-            <option value="track" onChange={()=> setType()}>Track</option>
-            <option value="album" onChange={()=> setType()}>Album</option>
-            <option value="playlist" onChange={()=> setType()}>Playlist</option>
-            <option value="show" onChange={()=> setType()}>Show</option>
-            <option value="episode" onChange={()=> setType()}>Episode</option>
-            <option value="audiobook" onChange={()=> setType()}>Audio Book</option>
-            <option value="artist" onChange={()=> setType()}>Artist</option>
-          </select>
-        </label>
-      </div> */}
-        {query ? (
-          renderRes
+        {token ? (
+          query ? (
+            renderRes
+          ) : (
+            <h1 className="font-bold text-xl my-5 mx-auto w-fit py-5">
+              Start searching to see results
+            </h1>
+          )
         ) : (
-          <h1 className="font-bold text-xl my-5 mx-auto w-fit py-5">
-            Start searching to see results
-          </h1>
+          <Link
+            to={"http://localhost:4000/spotify/login"}
+            className="!bg-white text-background-base px-3 py-2 rounded-full font-medium my-4 ml-20"
+          >
+            Link Your Spotify Account to search
+          </Link>
         )}
       </dialog>
     );
