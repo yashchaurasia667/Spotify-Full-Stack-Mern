@@ -5,6 +5,10 @@ import { URLSearchParams } from "url";
 const stateKey = "spotifyAuthState";
 const redirect_uri = "http://localhost:4000/spotify/callback";
 
+// ####################################################################################
+// ##################### AUTHORIZATION AND TOKEN RELATED STUFF ######################## 
+// ####################################################################################
+
 export const checkTokenValidity = async (req, res) => {
   const { access_token } = req.cookies;
   // const access_token = req.query.access_token;
@@ -169,18 +173,9 @@ export const refreshToken = async (req, res) => {
   }
 }
 
-export const playlists = async (req, res) => {
-  const access_token = req.query.access_token;
-
-  const response = await fetch("https://api.spotify.com/v1/me", {
-    headers: {
-      "Authorization": `Bearer ${access_token}`
-    },
-  });
-  const data = await response.json();
-  console.log(data)
-  res.json(data)
-}
+// ####################################################################################
+// ######################### SEARCH AND MUSIC RELATED STUFF ###########################
+// ####################################################################################
 
 export const search = async (req, res) => {
   // const { query, type, limit } = req.body;
@@ -205,3 +200,39 @@ export const search = async (req, res) => {
   }
 }
 
+export const getTrack = async (req, res) => {
+  const id = req.query.id;
+  const access_token = req.cookies;
+  // console.log(req.cookies)
+
+  if (!id || !access_token)
+    return res.status(400).json("Bad request");
+
+  try {
+    const response = await fetch(`https://api.spotify.com/track/${id}`, {
+      headers: {
+        "Authorization": `Bearer ${access_token}`
+      }
+    });
+    if (response.ok) {
+      const data = await response.json();
+      return res.status(200).json(data);
+    }
+  } catch (error) {
+    return res.status(500).json(`Internal server error: ${error}`)
+  }
+
+}
+
+export const playlists = async (req, res) => {
+  const access_token = req.query.access_token;
+
+  const response = await fetch("https://api.spotify.com/v1/me", {
+    headers: {
+      "Authorization": `Bearer ${access_token}`
+    },
+  });
+  const data = await response.json();
+  console.log(data)
+  res.json(data)
+}

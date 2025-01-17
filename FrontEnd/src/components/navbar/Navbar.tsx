@@ -59,13 +59,9 @@ const Navbar = () => {
   };
 
   // useEffect(() => {
-  //   if (searchOpen) document.addEventListener("mousedown", clickOutside);
-  //   return () => document.removeEventListener("mousedown", clickOutside);
-  // }, [searchOpen]);
-
-  useEffect(() => {
-    if (searchRef.current) console.log(searchRef.current);
-  }, [searchRef]);
+  // if (searchRef.current) console.log(searchRef.current);
+  // searchRef.current?.showModal();
+  // }, [searchRef]);
 
   return (
     <div className={`${navbar} row-start-1 col-span-2`}>
@@ -88,7 +84,6 @@ const Navbar = () => {
             ref={searchRef}
             query={query}
             token={user.access_token}
-            // openFunction={setSearchOpen}
           />
           <div className="flex items-center rounded-[999px] w-[100%]">
             <IoSearch />

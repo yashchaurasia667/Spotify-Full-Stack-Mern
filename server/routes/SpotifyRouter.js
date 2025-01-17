@@ -1,7 +1,7 @@
 import express from "express";
 
 import { isLoggedIn } from "../middlewares/AuthValidator.js";
-import { callback, checkTokenValidity, getToken, login, playlists, refreshToken, search } from "../controllers/SpotifyController.js";
+import { callback, checkTokenValidity, getToken, getTrack, login, playlists, refreshToken, search } from "../controllers/SpotifyController.js";
 
 const router = express.Router();
 
@@ -12,5 +12,6 @@ router.get("/callback", isLoggedIn, callback);
 router.get("/refreshtoken", isLoggedIn, refreshToken);
 router.post("/search", isLoggedIn, search);
 router.get("/playlists", isLoggedIn, playlists);
+router.get("/track", isLoggedIn, getTrack);
 
 export default router;

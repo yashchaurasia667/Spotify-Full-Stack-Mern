@@ -5,12 +5,11 @@ import SearchResult from "./SearchResult";
 
 import { spotifyObject, image } from "../../../types";
 
-type props = {
+interface props {
   open: boolean;
   query: string;
   token?: string;
-  // openFunction: (e: boolean) => void;
-};
+}
 
 interface album extends spotifyObject {
   album_type: string;
@@ -86,6 +85,7 @@ const Search = forwardRef<HTMLDialogElement, props>(
         ref={ref}
         open={open}
         className="max-h-[50vh] w-full absolute top-[calc(100%+6px)] z-[1000] bg-background-elevated-press rounded-lg overflow-auto"
+        onClick={(e) => (query ? e.currentTarget.close() : "")}
       >
         {token ? (
           query ? (
