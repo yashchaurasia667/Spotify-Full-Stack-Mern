@@ -8,7 +8,6 @@ import MainContext from "../../../context/mainContext/MainContext";
 
 import styles from "./homeMain.module.css";
 import { RGB } from "../../../types";
-import { useNavigate, useLocation } from "react-router-dom";
 
 const HomeMain = () => {
   document.title = "Spotify - Web Player: Music for everyone";

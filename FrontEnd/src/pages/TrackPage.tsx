@@ -1,41 +1,64 @@
-import { useContext, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import MainContext from "../context/mainContext/MainContext";
+import { image } from "../types";
 
-// interface props {
-//   cover: string;
-//   type: string;
-//   name: string;
-//   artist: string[];
-//   album: string;
-//   year: number;
-//   duration: number;
-// }
+interface detailProps {
+  album: {
+    name: string;
+    href: string;
+    images: image[];
+    release_date: string;
+  };
+  artists: {
+    name: string;
+    href: string;
+  }[];
+  duration_ms: number;
+  name: string;
+  type: string;
+}
 
-// const TrackPage = ({
-//   cover,
-//   type,
-//   name,
-//   artist,
-//   album,
-//   year,
-//   duration,
-// }: props) => {
 const TrackPage = () => {
   const { id } = useParams();
+  const [trackDetails, setTrackDetails] = useState<detailProps>();
+  const [duration, setDuration] = useState({ hours: 0, mins: 0, seconds: 0 });
 
-  const context = useContext(MainContext);
-  if (!context) throw new Error("No main context");
-  const { user } = context;
+  const convertToTime = (durationMs: number) => {
+    const hours = Math.floor(durationMs / 600000);
+    durationMs %= 600000;
+    const mins = Math.floor(durationMs / 60000);
+    durationMs %= 60000;
+    const seconds = Math.floor(durationMs / 1000);
+    setDuration({ hours, mins, seconds });
+  };
 
   useEffect(() => {
-    console.log(user.access_token);
-    document.cookie = `access_token=${user.access_token}; path=/`;
-    fetch(`/api/spotify/track/?${id}`, {
+    fetch(`/api/spotify/track/?id=${id}`, {
       credentials: "include",
-    });
-  }, []);
-  return <div className="bg-background-base rounded-lg"></div>;
+    }).then((res) =>
+      res.json().then((data) => {
+        // console.log(data);
+        setTrackDetails(() => {
+          convertToTime(data.duration_ms);
+          return { ...data };
+        });
+      })
+    );
+  }, [id]);
+
+  return (
+    <div className="bg-background-base rounded-lg">
+      <img src={trackDetails?.album.images[1].url} height={50} />
+      <p>{trackDetails?.type}</p>
+      <h1>{trackDetails?.name}</h1>
+      <p>{trackDetails?.artists[0].name}</p>
+      <p>{trackDetails?.album.name}</p>
+      <p>{trackDetails?.album.release_date}</p>
+      <p>{`${duration.hours ? duration.hours + ":" : ""}${duration.mins}:${
+        duration.seconds
+      }`}</p>
+    </div>
+  );
 };
 
 export default TrackPage;

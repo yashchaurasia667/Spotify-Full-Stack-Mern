@@ -202,26 +202,27 @@ export const search = async (req, res) => {
 
 export const getTrack = async (req, res) => {
   const id = req.query.id;
-  const access_token = req.cookies;
-  // console.log(req.cookies)
+  const access_token = req.cookies.access_token;
 
   if (!id || !access_token)
-    return res.status(400).json("Bad request");
+    return res.status(400).json("Bad request: Track id and Access Token is required");
 
   try {
-    const response = await fetch(`https://api.spotify.com/track/${id}`, {
+    const response = await fetch(`https://api.spotify.com/v1/tracks/${id}`, {
       headers: {
         "Authorization": `Bearer ${access_token}`
       }
     });
+
     if (response.ok) {
       const data = await response.json();
       return res.status(200).json(data);
     }
+    else
+      return res.status(response.status).json(response.body)
   } catch (error) {
     return res.status(500).json(`Internal server error: ${error}`)
   }
-
 }
 
 export const playlists = async (req, res) => {
