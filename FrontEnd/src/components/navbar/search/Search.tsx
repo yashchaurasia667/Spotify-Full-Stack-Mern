@@ -84,7 +84,7 @@ const Search = forwardRef<HTMLDialogElement, props>(
       <dialog
         ref={ref}
         open={open}
-        className="max-h-[50vh] w-full absolute top-[calc(100%+6px)] z-[1000] bg-background-elevated-press rounded-lg overflow-auto"
+        className="max-h-[50vh] min-h-[20vh] w-full absolute top-[calc(100%+6px)] z-[1000] bg-background-elevated-press rounded-lg overflow-auto "
         onClick={(e) => (query ? e.currentTarget.close() : "")}
       >
         {token ? (
@@ -98,9 +98,9 @@ const Search = forwardRef<HTMLDialogElement, props>(
         ) : (
           <Link
             to={"http://localhost:4000/spotify/login"}
-            className="!bg-white text-background-base px-3 py-2 rounded-full font-medium my-4 ml-20"
+            className="!bg-white text-background-base px-3 py-2 rounded-full font-medium absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
           >
-            Link Your Spotify Account to search
+            Link Your Spotify Account
           </Link>
         )}
       </dialog>

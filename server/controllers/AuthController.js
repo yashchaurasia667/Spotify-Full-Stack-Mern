@@ -37,7 +37,9 @@ export const login = async (req, res) => {
     jwt.sign(
       { email: userDoc.email, id: userDoc._id }, process.env.JWT_SECRET, { expiresIn: "100y" }, (error, token) => {
         if (error) throw error;
-        res.cookie('token', token).json({ id: userDoc._id, email })
+        res.cookie("token", token)
+        res.cookie("user_id", userDoc._id)
+        res.json({ id: userDoc._id, email })
       });
   } catch (error) {
     res.status(500).json(`Internal Server Error ${error}`);

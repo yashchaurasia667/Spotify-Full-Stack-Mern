@@ -100,9 +100,10 @@ const MainLayout = () => {
   };
 
   useEffect(() => {
+    // console.log(user);
     if (!user.email && !user.profile)
       fetch("/api/user/getuser", {
-        method: "POST",
+        // method: "POST",
         credentials: "include",
       }).then((res) =>
         res.json().then((newUser) => {

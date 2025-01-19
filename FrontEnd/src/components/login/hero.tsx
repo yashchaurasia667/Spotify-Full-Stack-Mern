@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 
 import ContinueWith from "../global/continueWith";
 import InputFrom from "./inputFrom";
+import DividerWithText from "../global/DividerWithText";
 
 import spotify from "/spotifyBw.svg";
 import google from "../../assets/google.svg";
@@ -9,7 +10,7 @@ import facebook from "../../assets/facebook.svg";
 import apple from "../../assets/apple.svg";
 
 import SignupContextProvider from "../../context/signupContext/SignupContextProvider";
-import DividerWithText from "../global/DividerWithText";
+import MainContextProvider from "../../context/mainContext/MainContextProvider";
 
 const Hero = () => {
   const linkStyling = `mx-auto mt-8 hover:text-[#1fdf64] cursor-pointer text-center underline decoration-2`;
@@ -28,9 +29,11 @@ const Hero = () => {
 
       <DividerWithText className="w-[70%] my-8" />
 
-      <SignupContextProvider>
-        <InputFrom />
-      </SignupContextProvider>
+      <MainContextProvider>
+        <SignupContextProvider>
+          <InputFrom />
+        </SignupContextProvider>
+      </MainContextProvider>
 
       <div className="w-[100%] flex">
         <Link to={"/forgot-password"} className={linkStyling}>

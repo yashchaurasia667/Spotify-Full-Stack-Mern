@@ -7,6 +7,8 @@ mongoose.connect("mongodb://localhost:27017/Spotify")
 
 export const checkUser = async (req, res) => {
   const { email } = req.body;
+  if (!email)
+    return res.status(400).json("Bad Request: email is required to find the user")
   try {
     const userDoc = await User.findOne({ email });
     if (!userDoc)
@@ -19,9 +21,11 @@ export const checkUser = async (req, res) => {
 }
 
 export const getUser = async (req, res) => {
-  const { email } = req.body;
+  const { user_id } = req.cookies;
+  if (!user_id) return res.status(400).json("Bad Request: id is required to get user info")
+
   try {
-    const user = await User.findOne(email).select("-password -year -day -month");
+    const user = await User.findById(user_id).select("-password -year -day -month");
 
     if (!user) return res.status(404).json("User not found")
     res.json(user)
@@ -63,7 +67,7 @@ export const editProfile = async (req, res) => {
 
 export const linkSpotify = async (req, res) => {
   const { id } = req.body;
-  const {access_token, refresh_token} = req.cookies;
+  const { access_token, refresh_token } = req.cookies;
   try {
     const userDoc = await User.findByIdAndUpdate(id, { access_token: access_token, refresh_token: refresh_token })
     // console.log(userDoc)

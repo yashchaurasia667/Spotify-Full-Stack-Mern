@@ -7,7 +7,7 @@ import { editProfile, getUser, checkUser, linkSpotify } from "../controllers/Use
 const router = express.Router();
 
 router.post("/checkuser", checkUser);
-router.post("/getuser", isLoggedIn, getUser);
+router.get("/getuser", isLoggedIn, getUser);
 router.post("/linkspotify", isLoggedIn, linkSpotify);
 router.post("/editprofile", isLoggedIn, multer({ dest: "uploads/" }).single("profile"), editProfile);
 

@@ -9,12 +9,16 @@ import ErrorBanner from "../global/ErrorBanner";
 import styles from "./login.module.css";
 
 import SignupContext from "../../context/signupContext/SignupContext";
+import MainContext from "../../context/mainContext/MainContext";
 
 const InputFrom = () => {
-  const context = useContext(SignupContext);
-  if (!context) throw new Error("No signup context");
+  const signupContext = useContext(SignupContext);
+  const userContext = useContext(MainContext);
 
-  const { checkUser } = context;
+  if (!signupContext || !userContext) throw new Error("No context");
+
+  const { checkUser } = signupContext;
+  const { setUser } = userContext;
 
   const { formInput } = styles;
 
@@ -55,7 +59,7 @@ const InputFrom = () => {
           body: JSON.stringify({ email, password }),
         });
         if (res.ok) {
-          navigate("/");
+          navigate(`/`);
         } else {
           setError("Incorrect Username or Password");
           setErrorVisibility("visible");
@@ -68,8 +72,6 @@ const InputFrom = () => {
       setError("User does not exist");
     }
   };
-
-  // useEffect(() => console.log(persistent), [persistent]);
 
   return (
     <>
