@@ -100,10 +100,15 @@ const MainLayout = () => {
   };
 
   useEffect(() => {
-    if (!user.email && !user.profile)
+    const id = new URLSearchParams(location.search.replace("?", "")).get("id");
+
+    if (!user.email && !user.profile && id)
       fetch("/api/user/getuser", {
         method: "POST",
         credentials: "include",
+        body: JSON.stringify({
+          id: id,
+        }),
       }).then((res) =>
         res.json().then((newUser) => {
           if (newUser.email) {

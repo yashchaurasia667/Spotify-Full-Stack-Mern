@@ -38,6 +38,6 @@ export const isLoggedIn = async (req, res, next) => {
       if (error) res.status(500).json('Internal server error');
       else next();
     })
-  // else res.status(200).json(false)
-  else res.redirect("http://localhost:3000/login")
+  else res.status(401).json({redired_url: "http://localhost:3000/login"})
+  // else res.redirect("http://localhost:3000/login")
 }

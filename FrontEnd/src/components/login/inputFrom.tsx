@@ -55,7 +55,8 @@ const InputFrom = () => {
           body: JSON.stringify({ email, password }),
         });
         if (res.ok) {
-          navigate("/");
+          const data = await res.json();
+          navigate(`/?id=${data.id}`);
         } else {
           setError("Incorrect Username or Password");
           setErrorVisibility("visible");
@@ -68,8 +69,6 @@ const InputFrom = () => {
       setError("User does not exist");
     }
   };
-
-  // useEffect(() => console.log(persistent), [persistent]);
 
   return (
     <>
