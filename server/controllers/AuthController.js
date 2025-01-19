@@ -28,6 +28,9 @@ export const signup = async (req, res) => {
 export const login = async (req, res) => {
   const { email, password } = req.body;
 
+  if (!email || !password)
+    return res.status(400).json("Bad Request");
+
   try {
     const userDoc = await User.findOne({ email });
     const passOk = bcrypt.compareSync(password, userDoc.password);

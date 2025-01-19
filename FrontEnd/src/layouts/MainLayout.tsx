@@ -105,6 +105,9 @@ const MainLayout = () => {
       fetch("/api/user/getuser", {
         // method: "POST",
         credentials: "include",
+        body: JSON.stringify({
+          id: id,
+        }),
       }).then((res) =>
         res.json().then((newUser) => {
           if (newUser.email) {
