@@ -78,6 +78,7 @@ const MainContextProvider = ({ children }: contextProps) => {
   const averageImageColor = (imagePath: string): RGB => {
     const img = document.createElement("img");
     img.src = imagePath;
+
     const canvas = document.createElement("canvas");
     const context = canvas.getContext && canvas.getContext("2d");
     let imgData,

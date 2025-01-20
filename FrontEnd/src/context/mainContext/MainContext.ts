@@ -13,7 +13,7 @@ type MainContextType = {
   libIcon: JSX.Element;
   setLibIcon: (icon: JSX.Element) => void;
   collapse: () => void;
-  averageImageColor: (imageElement: string) => RGB;
+  averageImageColor: (imagePath: string) => RGB;
   clickOutside: (e: MouseEvent, ref: React.RefObject<HTMLElement>) => boolean;
 };
 
