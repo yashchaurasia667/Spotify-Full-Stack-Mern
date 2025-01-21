@@ -33,7 +33,7 @@ const RecentlyPlayed = ({
       className={
         "flex gap-x-4 max-h-[100px] bg-[#7c7c7c33] rounded-md overflow-hidden relative group"
       }
-      onMouseOver={() => onMouseOver(averageImageColor(cover))}
+      onMouseOver={async () => onMouseOver(await averageImageColor(cover))}
       onMouseOut={onMouseOut}
     >
       <img src={cover} className="max-h-[80px]" />

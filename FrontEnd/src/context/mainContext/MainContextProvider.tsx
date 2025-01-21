@@ -75,9 +75,15 @@ const MainContextProvider = ({ children }: contextProps) => {
     return setSidebarWidth(350);
   };
 
-  const averageImageColor = (imagePath: string): RGB => {
+  const averageImageColor = async (imagePath: string): Promise<RGB> => {
     const img = document.createElement("img");
     img.src = imagePath;
+    img.crossOrigin = "anonymous";
+
+    await new Promise((resolve, reject) => {
+      img.onload = resolve;
+      img.onerror = () => reject(new Error("Image failed to load"));
+    });
 
     const canvas = document.createElement("canvas");
     const context = canvas.getContext && canvas.getContext("2d");
