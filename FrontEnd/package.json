@@ -14,6 +14,7 @@
     "@types/react-resizable": "^3.0.8",
     "gsap": "^3.12.5",
     "lodash": "^4.17.21",
+    "node-vibrant": "^4.0.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-draggable": "^4.4.6",

@@ -112,15 +112,20 @@ const MainContextProvider = ({ children }: contextProps) => {
     length = imgData.data.length;
 
     for (let i = 0; i < length; i += 4) {
+      if (imgData.data[i] + imgData.data[i + 1] + imgData.data[i + 2] > 600)
+        continue;
       rgb.r += imgData.data[i];
       rgb.g += imgData.data[i + 1];
       rgb.b += imgData.data[i + 2];
       count++;
     }
 
-    rgb.r = Math.floor(rgb.r / count) - 50;
-    rgb.g = Math.floor(rgb.g / count) - 50;
-    rgb.b = Math.floor(rgb.b / count) - 50;
+    // rgb.r = Math.floor(rgb.r / count) - 50;
+    // rgb.g = Math.floor(rgb.g / count) - 50;
+    // rgb.b = Math.floor(rgb.b / count) - 50;
+    rgb.r = Math.floor(rgb.r / count);
+    rgb.g = Math.floor(rgb.g / count);
+    rgb.b = Math.floor(rgb.b / count);
 
     return rgb;
   };
