@@ -49,3 +49,19 @@ export type image = {
   width: number;
   url: string;
 };
+
+export interface trackDetails {
+  album: {
+    name: string;
+    href: string;
+    images: image[];
+    release_date: string;
+  };
+  artists: {
+    name: string;
+    href: string;
+  }[];
+  duration_ms: number;
+  name: string;
+  type: string;
+}
