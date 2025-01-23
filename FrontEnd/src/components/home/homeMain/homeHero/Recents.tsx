@@ -17,7 +17,7 @@ const Recents = ({ className, setGradient }: props) => {
       <RecentlyPlayed
         cover="playlists/likedSongs.jpg"
         title="Liked Songs"
-        id="id"
+        id="likedSongs"
         onMouseOver={setGradient}
         onMouseOut={() => setGradient({ r: 83, g: 83, b: 83 })}
       />

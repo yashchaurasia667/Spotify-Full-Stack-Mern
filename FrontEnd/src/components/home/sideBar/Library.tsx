@@ -15,7 +15,7 @@ interface libProps {
 function Library({ sidebarWidth }: libProps) {
   const context = useContext(MainContext);
   if (!context) throw new Error("no main context");
-  const { collapse, libIcon, setLibIcon } = context;
+  const { collapse, libIcon } = context;
 
   const { outer, library, lib_bar, bar_element, inactive, playlist_container } =
     styles;
