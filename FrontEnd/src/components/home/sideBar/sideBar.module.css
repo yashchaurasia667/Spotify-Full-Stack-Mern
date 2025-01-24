@@ -75,7 +75,8 @@
 }
 
 .white_card_button:hover {
-  padding: 0.3rem 1.15rem;
+  /* padding: 0.3rem 1.15rem; */
+  scale: 105%;
   background-color: #f0f0f0;
 }
 

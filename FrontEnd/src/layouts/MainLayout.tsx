@@ -100,8 +100,8 @@ const MainLayout = () => {
   };
 
   useEffect(() => {
-    // console.log(user);
-    if (!user.email && !user.profile)
+    const user_id = document.cookie;
+    if (!user.email && !user.profile && user_id)
       fetch("/api/user/getuser", {
         // method: "POST",
         credentials: "include",

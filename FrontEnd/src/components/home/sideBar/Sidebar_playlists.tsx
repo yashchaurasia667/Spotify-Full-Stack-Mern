@@ -17,18 +17,27 @@ const Sidebar_playlists = () => {
   const { user, sidebarWidth } = context;
 
   const renderPlaylist = () => {
-    return !user.email ? (
+    return (
       <>
         <div className={`${cards}`}>
-          <Card
-            heading={"Create your first playlist"}
-            content={"It's easy, we'll help you"}
-            buttonContent={"Create playlist"}
-          />
+          {user.email ? (
+            <Card
+              heading={"Create your first playlist"}
+              content={"It's easy, we'll help you"}
+              buttonContent={"Create playlist"}
+            />
+          ) : (
+            ""
+          )}
           <Card
             heading={"Let's find some podcasts to follow"}
             content={"We'll keep you updated on episodes"}
             buttonContent={"Browse podcasts"}
+          />
+          <Card
+            heading="Import Playlists from Spotify"
+            content="Playlists from your spotify"
+            buttonContent="Import"
           />
         </div>
         <div
@@ -60,14 +69,6 @@ const Sidebar_playlists = () => {
           </button>
         </div>
       </>
-    ) : (
-      <div className={`${playlists}`}>
-        <div className="w-full flex justify-center py-5">
-          <button className="bg-white text-background-base px-4 py-2 rounded-full font-medium hover:scale-105">
-            Import your Spotify playlists
-          </button>
-        </div>
-      </div>
     );
   };
   return renderPlaylist();

@@ -1,11 +1,17 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { FaPlus } from "react-icons/fa6";
 
 import styles from "./sideBar.module.css";
 
 import MainContext from "../../../context/mainContext/MainContext";
 
-const Card = ({ heading = "", content = "", buttonContent = "" }) => {
+interface props {
+  heading: string;
+  content: string;
+  buttonContent: string;
+}
+
+const Card = ({ heading, content, buttonContent }: props) => {
   const context = useContext(MainContext);
   if (!context) throw new Error("No Context");
   const { sidebarWidth } = context;

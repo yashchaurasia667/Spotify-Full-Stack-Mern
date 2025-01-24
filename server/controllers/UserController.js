@@ -78,3 +78,7 @@ export const linkSpotify = async (req, res) => {
     res.status(500).json("Internal server error")
   }
 }
+
+export const createPlaylist = async (req, res) => {
+  const { id } = req.cookies;
+}
