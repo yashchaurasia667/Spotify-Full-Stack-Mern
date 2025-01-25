@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-import { trackSchema } from "./Track"
+import { trackSchema } from "./Track.js"
 
 const playlistTrackSchema = new mongoose.Schema({
   song: {
@@ -33,7 +33,7 @@ const playlistSchema = new mongoose.Schema({
   },
   songs: {
     type: [playlistTrackSchema],
-    required: true,
+    required: false,
   }
 });
 

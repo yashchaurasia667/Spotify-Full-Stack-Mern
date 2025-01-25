@@ -25,6 +25,7 @@ const Sidebar_playlists = () => {
               heading={"Create your first playlist"}
               content={"It's easy, we'll help you"}
               buttonContent={"Create playlist"}
+              navigateUrl="/create/playlist"
             />
           ) : (
             ""
@@ -33,11 +34,13 @@ const Sidebar_playlists = () => {
             heading={"Let's find some podcasts to follow"}
             content={"We'll keep you updated on episodes"}
             buttonContent={"Browse podcasts"}
+            navigateUrl="#"
           />
           <Card
             heading="Import Playlists from Spotify"
             content="Playlists from your spotify"
             buttonContent="Import"
+            navigateUrl="#"
           />
         </div>
         <div

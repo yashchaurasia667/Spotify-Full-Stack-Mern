@@ -2,6 +2,7 @@ import fs from "fs";
 import mongoose from "mongoose";
 
 import User from "../models/User.js";
+import Playlist from "../models/Playlist.js";
 
 mongoose.connect("mongodb://localhost:27017/Spotify")
 
@@ -80,5 +81,21 @@ export const linkSpotify = async (req, res) => {
 }
 
 export const createPlaylist = async (req, res) => {
-  const { id } = req.cookies;
+  const { user_id } = req.query;
+  if (!user_id) return res.status(403).json("Need User id to create a playlist");
+
+  const userDoc = await User.findById(user_id);
+  if (!userDoc) return res.status(400).json("Could not find a user with that id");
+
+  const playlistDoc = await Playlist.create({
+    cover: "playlist_default",
+    name: `My playlist #${userDoc.playlists.length + 1}`,
+    owner: user_id,
+    duration: 0,
+    songs: []
+  });
+  userDoc.playlists.push(playlistDoc._id);
+  await userDoc.save();
+
+  res.json(userDoc.playlists)
 }

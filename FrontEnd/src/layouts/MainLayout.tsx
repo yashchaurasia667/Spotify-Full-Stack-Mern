@@ -122,6 +122,7 @@ const MainLayout = () => {
 
     if (access_token != null && refresh_token != null && user._id) {
       setToken(user._id, access_token, refresh_token);
+      return;
     }
 
     if (user.refresh_token) {
