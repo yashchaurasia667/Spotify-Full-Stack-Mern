@@ -10,10 +10,11 @@ interface props {
   heading: string;
   content: string;
   buttonContent: string;
-  navigateUrl: string;
+  // navigateUrl: string;
+  onClick?: () => void;
 }
 
-const Card = ({ heading, content, buttonContent, navigateUrl }: props) => {
+const Card = ({ heading, content, buttonContent, onClick }: props) => {
   const context = useContext(MainContext);
   if (!context) throw new Error("No Context");
   const { sidebarWidth } = context;
@@ -26,10 +27,7 @@ const Card = ({ heading, content, buttonContent, navigateUrl }: props) => {
     >
       <p className="font-semibold">{heading}</p>
       <p className="text-[14px] leading-8">{content}</p>
-      <button
-        onClick={() => navigate(navigateUrl)}
-        className={`${styles.white_card_button}`}
-      >
+      <button onClick={onClick} className={`${styles.white_card_button}`}>
         {buttonContent}
       </button>
     </div>

@@ -18,7 +18,7 @@ export const signup = async (req, res) => {
       email, password: bcrypt.hashSync(password, salt), name, year, month, day, profile: "profile_default.png",
       playlists: [], recents: [], access_token: "", refresh_token: ""
     })
-    res.json(userDoc);
+    res.status(201).json(userDoc);
   }
   catch (error) {
     res.status(409).json(error)

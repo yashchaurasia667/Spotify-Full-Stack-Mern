@@ -81,21 +81,38 @@ export const linkSpotify = async (req, res) => {
 }
 
 export const createPlaylist = async (req, res) => {
-  const { user_id } = req.query;
+  const { user_id } = req.cookies;
   if (!user_id) return res.status(403).json("Need User id to create a playlist");
 
-  const userDoc = await User.findById(user_id);
-  if (!userDoc) return res.status(400).json("Could not find a user with that id");
+  try {
+    const userDoc = await User.findById(user_id);
+    if (!userDoc) return res.status(400).json("Could not find a user with that id");
 
-  const playlistDoc = await Playlist.create({
-    cover: "playlist_default",
-    name: `My playlist #${userDoc.playlists.length + 1}`,
-    owner: user_id,
-    duration: 0,
-    songs: []
-  });
-  userDoc.playlists.push(playlistDoc._id);
-  await userDoc.save();
+    const playlistDoc = await Playlist.create({
+      cover: "playlist_default",
+      name: `My playlist #${userDoc.playlists.length + 1}`,
+      owner: user_id,
+      duration: 0,
+      songs: []
+    });
+    userDoc.playlists.push(playlistDoc._id);
+    await userDoc.save();
 
-  res.json(userDoc.playlists)
+    res.status(201).json(playlistDoc._id);
+  }
+  catch (error) {
+    res.status(500).json("Failed to create playlist");
+  }
+}
+
+export const getUserPlaylists = async (req, res) => {
+  const { user_id } = req.cookies;
+  if (!user_id) return res.status(400).json("user id is requried");
+
+  try {
+    const userDoc = await User.findById(user_id);
+    res.status(200).json(userDoc.playlists)
+  } catch (error) {
+    res.status(500).json("Failed to fetch playlists")
+  }
 }

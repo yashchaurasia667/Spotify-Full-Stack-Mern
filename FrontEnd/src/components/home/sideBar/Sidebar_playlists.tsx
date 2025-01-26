@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { GoGlobe } from "react-icons/go";
 import Card from "./Card";
@@ -16,33 +16,66 @@ const Sidebar_playlists = () => {
   if (!context) throw new Error("No main context");
   const { user, sidebarWidth } = context;
 
+  const navigate = useNavigate();
+
+  const createPlaylist = async () => {
+    const res = await fetch("/api/user/createplaylist", {
+      credentials: "include",
+    });
+    if (res.ok) {
+      const data = await res.json();
+      navigate(`/playlist/${data}`);
+    }
+  };
+
+  const getPlaylists = async (): Promise<string[]> => {
+    const res = await fetch("/api/user/getplaylists", {
+      credentials: "include",
+    });
+    if (res.ok) {
+      const data = await res.json();
+      console.log(data);
+      setPlaylistId(data);
+      return data;
+    }
+    return [];
+  };
+
+  useEffect(() => {
+    getPlaylists();
+  }, []);
+
+  const [playlistId, setPlaylistId] = useState([]);
+
   const renderPlaylist = () => {
     return (
       <>
-        <div className={`${cards}`}>
-          {user.email ? (
+        {playlistId.length ? (
+          playlistId
+        ) : (
+          <div className={`${cards}`}>
+            {user.email ? (
+              <Card
+                heading={"Create your first playlist"}
+                content={"It's easy, we'll help you"}
+                buttonContent={"Create playlist"}
+                onClick={createPlaylist}
+              />
+            ) : (
+              ""
+            )}
             <Card
-              heading={"Create your first playlist"}
-              content={"It's easy, we'll help you"}
-              buttonContent={"Create playlist"}
-              navigateUrl="/create/playlist"
+              heading={"Let's find some podcasts to follow"}
+              content={"We'll keep you updated on episodes"}
+              buttonContent={"Browse podcasts"}
             />
-          ) : (
-            ""
-          )}
-          <Card
-            heading={"Let's find some podcasts to follow"}
-            content={"We'll keep you updated on episodes"}
-            buttonContent={"Browse podcasts"}
-            navigateUrl="#"
-          />
-          <Card
-            heading="Import Playlists from Spotify"
-            content="Playlists from your spotify"
-            buttonContent="Import"
-            navigateUrl="#"
-          />
-        </div>
+            <Card
+              heading="Import Playlists from Spotify"
+              content="Playlists from your spotify"
+              buttonContent="Import"
+            />
+          </div>
+        )}
         <div
           className={`${sidebar_footer} ${sidebarWidth > 70 ? "" : "hidden"}`}
         >

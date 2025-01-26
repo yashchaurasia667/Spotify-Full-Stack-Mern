@@ -6,6 +6,7 @@ import Sidebar_playlists from "./Sidebar_playlists";
 import MainContext from "../../../context/mainContext/MainContext";
 
 import styles from "./sideBar.module.css";
+import { useNavigate } from "react-router-dom";
 
 interface libProps {
   sidebarWidth: number;
@@ -20,6 +21,16 @@ function Library({ sidebarWidth }: libProps) {
   const { outer, library, lib_bar, bar_element, inactive, playlist_container } =
     styles;
 
+  const navigate = useNavigate();
+
+  const createPlaylist = async () => {
+    const res = await fetch("/api/user/createplaylist", {
+      credentials: "include",
+    });
+    const data = await res.json();
+    navigate(`/playlist/${data}`);
+  };
+
   return (
     <div className={`${outer} ${library}`}>
       <div className={`${lib_bar}`}>
@@ -30,6 +41,7 @@ function Library({ sidebarWidth }: libProps) {
           className={`${bar_element} ${inactive} ${
             sidebarWidth > 70 ? "visible" : "hidden"
           }`}
+          onClick={createPlaylist}
         />
       </div>
       <div className={`${playlist_container}`}>
