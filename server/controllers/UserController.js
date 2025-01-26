@@ -116,3 +116,17 @@ export const getUserPlaylists = async (req, res) => {
     res.status(500).json("Failed to fetch playlists")
   }
 }
+
+export const getPlaylistDetails = async (req, res) => {
+  const { playlist_id } = req.query;
+  if (!playlist_id) return res.status(400).json("Bad request");
+
+  try {
+    const playlistDoc = await Playlist.findById(playlist_id);
+    if (playlistDoc)
+      return res.status(200).json(playlistDoc);
+    res.status(404).json("not found");
+  } catch (error) {
+    res.status(500).json("Internal server error: " + error)
+  }
+}
