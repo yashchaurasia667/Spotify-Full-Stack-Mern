@@ -57,24 +57,22 @@ const Sidebar_playlists = () => {
     }
   };
 
-  const getPlaylists = async (): Promise<string[]> => {
+  const getPlaylists = async () => {
     const res = await fetch("/api/user/getuserplaylists", {
       credentials: "include",
     });
+
     if (res.ok) {
       const data = await res.json();
-      // console.log(data);
+      const tmp: playlistProps[] = [];
+
+      // Gets all the playlists of the user
       data.map(async (id: string) => {
         const details = await getPlaylistDetails(id);
-        if (details)
-          setPlaylistDetails((prev) => {
-            return [...prev, details];
-          });
+        if (details) tmp.push(details);
+        setPlaylistDetails(tmp);
       });
-      // setPlaylistId(data);
-      // return data;
     }
-    return [];
   };
 
   useEffect(() => {
@@ -82,7 +80,6 @@ const Sidebar_playlists = () => {
   }, []);
 
   const renderPlaylists = useMemo(() => {
-    console.log(playlistDetails);
     return playlistDetails.map((details, index) => (
       <Sidebar_PlaylistTile
         cover={details.cover}
