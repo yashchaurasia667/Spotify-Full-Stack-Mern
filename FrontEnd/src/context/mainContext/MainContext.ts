@@ -15,6 +15,7 @@ type MainContextType = {
   collapse: () => void;
   averageImageColor: (imagePath: string) => Promise<RGB>;
   clickOutside: (e: MouseEvent, ref: React.RefObject<HTMLElement>) => boolean;
+  createPlaylist: () => void;
 };
 
 const MainContext = React.createContext<MainContextType | undefined>(undefined);

@@ -1,5 +1,8 @@
 import React, { ReactNode, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import MainContext from "./MainContext";
+
 import { user, RGB } from "../../types/index";
 
 type contextProps = {
@@ -7,6 +10,7 @@ type contextProps = {
 };
 
 const MainContextProvider = ({ children }: contextProps) => {
+  const navigate = useNavigate();
   const [sidebarWidth, setSidebarWidth] = useState(350);
   const [token, setToken] = useState("");
   const [libIcon, setLibIcon] = useState(
@@ -135,6 +139,16 @@ const MainContextProvider = ({ children }: contextProps) => {
     return true;
   };
 
+  const createPlaylist = async () => {
+    const res = await fetch("/api/user/createplaylist", {
+      credentials: "include",
+    });
+    if (res.ok) {
+      const data = await res.json();
+      navigate(`/playlist/${data}`);
+    }
+  };
+
   const value = {
     token,
     setToken,
@@ -149,6 +163,7 @@ const MainContextProvider = ({ children }: contextProps) => {
     collapse,
     averageImageColor,
     clickOutside,
+    createPlaylist,
   };
   return <MainContext.Provider value={value}>{children}</MainContext.Provider>;
 };
