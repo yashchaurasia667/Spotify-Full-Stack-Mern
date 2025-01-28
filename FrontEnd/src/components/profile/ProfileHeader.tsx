@@ -44,7 +44,7 @@ const ProfileHeader = ({
   const editProfile = async (e: React.FormEvent) => {
     const data = new FormData();
     data.set("name", editName);
-    data.set("id", user.id);
+    data.set("id", user._id);
     if (inputProf) data.set("profile", inputProf[0]);
     else data.set("profile", "");
     e.preventDefault();
@@ -77,7 +77,7 @@ const ProfileHeader = ({
         profile={
           // inputProf
           //   ? URL.createObjectURL(inputProf[0])
-          `http://localhost:4000/uploads/${profile}`
+          `/api/uploads/${profile}`
         }
         width={220}
         height={220}

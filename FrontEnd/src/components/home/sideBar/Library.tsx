@@ -32,7 +32,9 @@ function Library({ sidebarWidth }: libProps) {
   };
 
   return (
-    <div className={`${outer} ${library}`}>
+    <div
+      className={`${outer} ${library} ${sidebarWidth > 70 ? "px-[10px]" : ""}`}
+    >
       <div className={`${lib_bar}`}>
         <button className={`${bar_element} ${inactive}`} onClick={collapse}>
           {libIcon}

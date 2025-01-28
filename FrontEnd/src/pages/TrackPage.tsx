@@ -7,7 +7,6 @@ import PlayPage from "../components/global/PlayPage";
 import MainContext from "../context/mainContext/MainContext";
 
 import { RGB, trackDetails } from "../types";
-import Track from "../components/global/Track";
 
 const TrackPage = () => {
   const { id } = useParams();
@@ -55,7 +54,9 @@ const TrackPage = () => {
         <PlayPage />
         <div>
           <p className="text-2xl font-bold">Lyrics</p>
-          <p className="text-4xl font-extrabold py-10">We're still working on it</p>
+          <p className="text-4xl font-extrabold py-10">
+            We're still working on it
+          </p>
         </div>
       </div>
     </div>

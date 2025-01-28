@@ -89,7 +89,7 @@ export const createPlaylist = async (req, res) => {
     if (!userDoc) return res.status(400).json("Could not find a user with that id");
 
     const playlistDoc = await Playlist.create({
-      cover: "playlist_default",
+      cover: "playlist_default.png",
       name: `My playlist #${userDoc.playlists.length + 1}`,
       owner: user_id,
       duration: 0,
