@@ -1,4 +1,5 @@
 import { RGB } from "types";
+import ProfilePhoto from "../global/EditablePhoto";
 
 interface props {
   bg: RGB;
@@ -25,12 +26,13 @@ const PlaylistHeader = ({
       style={{ backgroundColor: `rgb(${bg.r}, ${bg.g}, ${bg.b})` }}
     >
       <div className="flex gap-x-5 items-center px-4 py-5 h-full">
-        <img
+        {/* <img
           src={cover}
           width={250}
           height={250}
           className="rounded-md shadow-[0px_0px_20px_#00000088]"
-        />
+        /> */}
+        <ProfilePhoto profile={cover} width={250} height={250} />
         <div className="flex flex-col gap-y-3">
           <p className="font-medium">{type}</p>
           <h2 className="text-8xl font-extrabold -tracking-[0.2rem]">{name}</h2>

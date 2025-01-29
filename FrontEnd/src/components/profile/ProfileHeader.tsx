@@ -3,7 +3,7 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { IoIosClose } from "react-icons/io";
 
 import styles from "./profile.module.css";
-import ProfilePhoto from "./ProfilePhoto";
+import EditablePhoto from "../global/EditablePhoto";
 
 import MainContext from "../../context/mainContext/MainContext";
 
@@ -71,7 +71,7 @@ const ProfileHeader = ({
 
   return (
     <div className={styles.hero_bg}>
-      <ProfilePhoto
+      <EditablePhoto
         onClick={() => setEditOpen(true)}
         // profile={`${displayProfile}`}
         profile={
@@ -81,6 +81,7 @@ const ProfileHeader = ({
         }
         width={220}
         height={220}
+        className="rounded-[50%]"
       />
       <div className="info">
         <p className="font-medium">Profile</p>
@@ -116,7 +117,7 @@ const ProfileHeader = ({
           </div>
           <form onSubmit={editProfile}>
             <div className="grid grid-cols-[1fr_1.5fr] gap-x-4">
-              <ProfilePhoto
+              <EditablePhoto
                 profile={
                   inputProf
                     ? URL.createObjectURL(inputProf[0])

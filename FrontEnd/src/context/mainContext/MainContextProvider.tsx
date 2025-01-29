@@ -149,6 +149,18 @@ const MainContextProvider = ({ children }: contextProps) => {
     }
   };
 
+  const getPlaylistDetails = async (id: string) => {
+    const res = await fetch(`/api/user/getplaylist?playlist_id=${id}`, {
+      credentials: "include",
+    });
+
+    if (res.ok) {
+      const data = await res.json();
+      return data;
+    }
+    return;
+  };
+
   const value = {
     token,
     setToken,
@@ -164,6 +176,7 @@ const MainContextProvider = ({ children }: contextProps) => {
     averageImageColor,
     clickOutside,
     createPlaylist,
+    getPlaylistDetails,
   };
   return <MainContext.Provider value={value}>{children}</MainContext.Provider>;
 };

@@ -1,27 +1,48 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import PlaylistHeader from "../components/playlist/PlaylistHeader";
 import PlaylistContent from "../components/playlist/PlaylistContent";
 
 import MainContext from "../context/mainContext/MainContext";
 
-import { RGB } from "../types";
+import { playlist, RGB } from "../types";
+import { useParams } from "react-router-dom";
 
 const Playlist = () => {
+  const { id } = useParams();
   const [bg, setBg] = useState<RGB>({ r: 0, g: 0, b: 0 });
+  const [playlist, setPlaylist] = useState<playlist>({
+    cover: "",
+    name: "",
+    owner: "",
+    duration: 0,
+    songs: [],
+  });
+
   const context = useContext(MainContext);
   if (!context) throw new Error("Context is null");
-  const { averageImageColor } = context;
-  averageImageColor("/playlists/likedSongs.jpg").then((color) => setBg(color));
+  const { averageImageColor, getPlaylistDetails } = context;
+
+  // averageImageColor("/playlists/likedSongs.jpg").then((color) => setBg(color));
+
+  useEffect(() => {
+    if (id)
+      getPlaylistDetails(id).then((details) => {
+        setPlaylist(details);
+        averageImageColor(`/api/uploads/playlists/${details.cover}`).then(
+          (color) => setBg(color)
+        );
+      });
+  });
 
   return (
     <div className="row-start-2 col-start-2 overflow-auto relative bg-background-base rounded-md">
       <PlaylistHeader
         bg={bg}
-        cover="/playlists/likedSongs.jpg"
-        name="Liked Songs"
+        cover={`/api/uploads/playlists/${playlist.cover}`}
+        name={playlist.name}
         type="Playlist"
-        length={768}
+        length={playlist.songs.length}
       />
       <PlaylistContent bg={bg} />
     </div>

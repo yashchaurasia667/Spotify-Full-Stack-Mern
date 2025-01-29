@@ -2,19 +2,21 @@ import { HiOutlinePencil } from "react-icons/hi";
 
 import styles from "./profile.module.css";
 
-interface profileProps {
+interface Props {
   profile: string;
   width: number;
   height: number;
+  className?: string;
   onClick?: () => void;
 }
 
-const ProfilePhoto = ({
+const EditablePhoto = ({
   profile,
   width,
   height,
+  className,
   onClick = () => {},
-}: profileProps) => {
+}: Props) => {
   return (
     <div
       onClick={() => onClick()}
@@ -22,10 +24,13 @@ const ProfilePhoto = ({
         width,
         height,
       }}
-      className={styles.hero}
+      className="cursor-pointer relative group"
     >
-      <img src={profile} />
-      <div>
+      <img
+        src={profile}
+        className={`object-cover w-full h-full shadow-[0px_0px_20px] shadow-[#00000088] group-hover:brightness-[25%] ${className}`}
+      />
+      <div className="absolute inset-0 flex flex-col justify-center items-center invisible group-hover:visible">
         <HiOutlinePencil size={60} className="" />
         <p className="font-medium">Choose photo</p>
       </div>
@@ -33,4 +38,4 @@ const ProfilePhoto = ({
   );
 };
 
-export default ProfilePhoto;
+export default EditablePhoto;

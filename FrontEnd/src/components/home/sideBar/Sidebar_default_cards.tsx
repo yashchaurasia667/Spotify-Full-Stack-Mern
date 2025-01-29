@@ -21,7 +21,9 @@ const Sidebar_default_cards = ({ email }: props) => {
           heading={"Create your first playlist"}
           content={"It's easy, we'll help you"}
           buttonContent={"Create playlist"}
-          onClick={createPlaylist}
+          onClick={() => {
+            createPlaylist();
+          }}
         />
       ) : (
         ""

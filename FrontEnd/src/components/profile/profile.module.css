@@ -8,34 +8,3 @@
   align-items: center;
   column-gap: 1.5rem;
 }
-
-.hero {
-  cursor: pointer;
-  position: relative;
-}
-
-.hero img {
-  border-radius: 50%;
-  object-fit: cover;
-  width: 100%;
-  height: 100%;
-  box-shadow: 0px 0px 20px #00000088;
-}
-
-.hero:hover img {
-  filter: brightness(25%);
-}
-
-.hero div {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  visibility: hidden;
-}
-
-.hero:hover div {
-  visibility: visible;
-}

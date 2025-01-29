@@ -27,20 +27,10 @@ interface playlistProps {
 const Sidebar_playlists = () => {
   const context = useContext(MainContext);
   if (!context) throw new Error("No main context");
-  const { user, sidebarWidth } = context;
+  const { user, sidebarWidth, getPlaylistDetails } = context;
 
   const [playlistDetails, setPlaylistDetails] = useState<playlistProps[]>([]);
-
-  const getPlaylistDetails = async (id: string) => {
-    const res = await fetch(`/api/user/getplaylist?playlist_id=${id}`, {
-      credentials: "include",
-    });
-
-    if (res.ok) {
-      const data = await res.json();
-      return data;
-    }
-  };
+  const [refresh, setRefresh] = useState(false);
 
   const getPlaylists = async () => {
     const res = await fetch("/api/user/getuserplaylists", {
@@ -62,7 +52,7 @@ const Sidebar_playlists = () => {
 
   useEffect(() => {
     getPlaylists();
-  }, []);
+  }, [refresh]);
 
   const renderPlaylists = useMemo(() => {
     return playlistDetails.map((details, index) => (

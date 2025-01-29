@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { FaPlus } from "react-icons/fa6";
 
 import Sidebar_playlists from "./Sidebar_playlists";
@@ -43,7 +43,9 @@ function Library({ sidebarWidth }: libProps) {
           className={`${bar_element} ${inactive} ${
             sidebarWidth > 70 ? "visible" : "hidden"
           }`}
-          onClick={createPlaylist}
+          onClick={() => {
+            createPlaylist();
+          }}
         />
       </div>
       <div className={`${playlist_container}`}>
