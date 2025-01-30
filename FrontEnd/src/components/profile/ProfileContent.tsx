@@ -4,7 +4,7 @@ import Track from "../global/Track";
 
 const ProfileContent = () => {
   return (
-    <div className="main_content bg-background-base h-full p-5 ">
+    <div className="main_content bg-background-base h-full p-5 relative">
       <div className="absolute top-0 left-0 h-[35vh] w-full pointer-events-none bg-gradient-to-b from-[#a9b1c755] to-[#00000000]"></div>
       <div className="h-[60px]">
         <button className="text-text-subdued h-full">• • •</button>

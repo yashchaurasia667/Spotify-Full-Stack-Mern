@@ -25,9 +25,12 @@ const PlaylistHeader = ({
   time,
 }: props) => {
   const [editPlaylist, setEditPlaylist] = useState(false);
+  const [newName, setNewName] = useState(name);
+  const [newDescription, setNewDescription] = useState(description);
+
   return (
     <div
-      className="relative h-fit bg-gradient-to-t from-[#00000066] to-[#00000000]"
+      className="h-fit bg-gradient-to-t from-[#00000066] to-[#00000000]"
       style={{ backgroundColor: `rgb(${bg.r}, ${bg.g}, ${bg.b})` }}
     >
       <div className="flex gap-x-5 items-center px-4 py-5 h-full">
@@ -36,15 +39,17 @@ const PlaylistHeader = ({
           width={230}
           height={230}
           className="rounded-lg"
+          onClick={() => setEditPlaylist(true)}
         />
+
         <dialog
           open={editPlaylist}
-          className="absolute w-full h-full top-0 left-0 bg-[#000000cc] z-30"
+          className="w-full h-full top-0 left-0 bg-[#000000cc] z-[1000]"
         >
-          <div className="bg-background-elevated-highlight rounded-lg w-[500px] p-6 ">
+          <div className="absolute bg-background-elevated-highlight rounded-lg w-[500px] p-6 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
             <div className="flex justify-between mb-6">
               <p className="text-2xl font-bold">Edit details</p>
-              <button>
+              <button onClick={() => setEditPlaylist(false)}>
                 <FaX />
               </button>
             </div>
@@ -58,13 +63,15 @@ const PlaylistHeader = ({
               <div className="grid grid-rows-[1fr_3fr] gap-y-4 w-full">
                 <input
                   type="text"
-                  value={name}
+                  value={newName}
+                  onChange={(e) => setNewName(e.target.value)}
                   placeholder="Add a name"
                   className="bg-[#3e3e3e] rounded-md px-4 py-2 outline-none border-[#acacac] focus:border"
                 />
                 <input
                   type="text"
-                  value={description}
+                  value={newDescription}
+                  onChange={(e) => setNewDescription(e.target.value)}
                   placeholder="Add an optional description"
                   className="bg-[#3e3e3e] rounded-md px-4 py-2 outline-none border-[#acacac] h-full focus:border"
                 />
@@ -75,6 +82,7 @@ const PlaylistHeader = ({
             </div>
           </div>
         </dialog>
+
         <div className="flex flex-col gap-y-3">
           <p className="font-medium">{type}</p>
           <h2 className="text-8xl font-extrabold -tracking-[0.2rem]">{name}</h2>

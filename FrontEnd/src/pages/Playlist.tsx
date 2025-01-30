@@ -27,7 +27,7 @@ const Playlist = () => {
   // averageImageColor("/playlists/likedSongs.jpg").then((color) => setBg(color));
 
   useEffect(() => {
-    if (id)
+    if (id && !playlist.cover)
       getPlaylistDetails(id).then((details) => {
         setPlaylist(details);
         averageImageColor(`/api/uploads/playlists/${details.cover}`).then(
@@ -37,7 +37,7 @@ const Playlist = () => {
   });
 
   return (
-    <div className="row-start-2 col-start-2 overflow-auto relative bg-background-base rounded-md">
+    <div className="row-start-2 col-start-2 overflow-auto bg-background-base rounded-md">
       <PlaylistHeader
         bg={bg}
         cover={`/api/uploads/playlists/${playlist.cover}`}
