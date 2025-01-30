@@ -28,7 +28,7 @@ const EditablePhoto = ({
     >
       <img
         src={profile}
-        className={`object-cover w-full h-full shadow-[0px_0px_20px] shadow-[#00000088] group-hover:brightness-[25%] ${className}`}
+        className={`object-cover w-full h-full shadow-[0px_0px_20px_#00000088] group-hover:brightness-[25%] ${className}`}
       />
       <div className="absolute inset-0 flex flex-col justify-center items-center invisible group-hover:visible">
         <HiOutlinePencil size={60} className="" />

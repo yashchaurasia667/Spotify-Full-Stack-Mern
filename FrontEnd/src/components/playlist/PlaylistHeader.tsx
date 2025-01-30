@@ -1,10 +1,13 @@
 import { RGB } from "types";
-import ProfilePhoto from "../global/EditablePhoto";
+import EditablePhoto from "../global/EditablePhoto";
+import { FaX } from "react-icons/fa6";
+import { useState } from "react";
 
 interface props {
   bg: RGB;
   cover: string;
   name: string;
+  description: string;
   type: string;
   author?: string;
   length: number;
@@ -15,27 +18,67 @@ const PlaylistHeader = ({
   bg,
   cover,
   name,
+  description,
   type,
   author,
   length,
   time,
 }: props) => {
+  const [editPlaylist, setEditPlaylist] = useState(false);
   return (
     <div
       className="relative h-fit bg-gradient-to-t from-[#00000066] to-[#00000000]"
       style={{ backgroundColor: `rgb(${bg.r}, ${bg.g}, ${bg.b})` }}
     >
       <div className="flex gap-x-5 items-center px-4 py-5 h-full">
-        {/* <img
-          src={cover}
-          width={250}
-          height={250}
-          className="rounded-md shadow-[0px_0px_20px_#00000088]"
-        /> */}
-        <ProfilePhoto profile={cover} width={250} height={250} />
+        <EditablePhoto
+          profile={cover}
+          width={230}
+          height={230}
+          className="rounded-lg"
+        />
+        <dialog
+          open={editPlaylist}
+          className="absolute w-full h-full top-0 left-0 bg-[#000000cc] z-30"
+        >
+          <div className="bg-background-elevated-highlight rounded-lg w-[500px] p-6 ">
+            <div className="flex justify-between mb-6">
+              <p className="text-2xl font-bold">Edit details</p>
+              <button>
+                <FaX />
+              </button>
+            </div>
+            <div className="grid grid-cols-[180px_1fr] gap-x-4 w-full">
+              <EditablePhoto
+                profile={cover}
+                width={180}
+                height={180}
+                className="rounded-md"
+              />
+              <div className="grid grid-rows-[1fr_3fr] gap-y-4 w-full">
+                <input
+                  type="text"
+                  value={name}
+                  placeholder="Add a name"
+                  className="bg-[#3e3e3e] rounded-md px-4 py-2 outline-none border-[#acacac] focus:border"
+                />
+                <input
+                  type="text"
+                  value={description}
+                  placeholder="Add an optional description"
+                  className="bg-[#3e3e3e] rounded-md px-4 py-2 outline-none border-[#acacac] h-full focus:border"
+                />
+                <button className="w-full font-medium bg-white rounded-full text-black text-lg py-2">
+                  Save
+                </button>
+              </div>
+            </div>
+          </div>
+        </dialog>
         <div className="flex flex-col gap-y-3">
           <p className="font-medium">{type}</p>
           <h2 className="text-8xl font-extrabold -tracking-[0.2rem]">{name}</h2>
+          <p>{description}</p>
           <div className="flex gap-x-3 items-center">
             <div
               className="flex"

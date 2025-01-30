@@ -4,6 +4,7 @@ import bcrypt from "bcryptjs"
 import fs from 'fs'
 
 import User from "../models/User.js"
+import Playlist from "../models/Playlist.js";
 
 mongoose.connect("mongodb://localhost:27017/Spotify")
 
@@ -16,7 +17,7 @@ export const signup = async (req, res) => {
   try {
     const userDoc = await User.create({
       email, password: bcrypt.hashSync(password, salt), name, year, month, day, profile: "profile_default.png",
-      playlists: [], recents: [], access_token: "", refresh_token: ""
+      playlists: [], likedSongs: [], recents: [], access_token: "", refresh_token: ""
     })
     res.status(201).json(userDoc);
   }

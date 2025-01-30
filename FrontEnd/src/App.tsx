@@ -38,6 +38,7 @@ const App = () => {
           <Route index element={<HomeMain />} />
           <Route path="browse" element={<Browse />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/likedsongs" element={<Playlist />} />
           <Route path="/playlist/:id" element={<Playlist />} />
           <Route path="/track/:id" element={<TrackPage />} />
         </Route>

@@ -14,6 +14,7 @@ const Playlist = () => {
   const [playlist, setPlaylist] = useState<playlist>({
     cover: "",
     name: "",
+    description: "",
     owner: "",
     duration: 0,
     songs: [],
@@ -41,6 +42,7 @@ const Playlist = () => {
         bg={bg}
         cover={`/api/uploads/playlists/${playlist.cover}`}
         name={playlist.name}
+        description={playlist.description}
         type="Playlist"
         length={playlist.songs.length}
       />

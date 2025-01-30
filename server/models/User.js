@@ -46,8 +46,13 @@ export const userSchema = new mongoose.Schema({
     type: [mongoose.Schema.ObjectId],
     ref: "Playlist",
   },
+  likedSongs: {
+    required: true,
+    type: [mongoose.Schema.ObjectId],
+    ref: "Track",
+  },
   recents: {
-    type: [mongoose.Schema.Types.ObjectId],
+    type: [mongoose.Schema.ObjectId],
     ref: "Playlist",
   },
   access_token: {

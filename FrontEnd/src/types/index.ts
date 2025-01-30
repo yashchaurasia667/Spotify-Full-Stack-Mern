@@ -16,6 +16,7 @@ export interface track {
 export interface playlist {
   cover: string;
   name: string;
+  description: string;
   owner: string;
   duration: number;
   songs: track[];

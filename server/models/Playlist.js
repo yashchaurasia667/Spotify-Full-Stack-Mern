@@ -1,10 +1,9 @@
 import mongoose from "mongoose";
 
-import { trackSchema } from "./Track.js"
-
 const playlistTrackSchema = new mongoose.Schema({
   song: {
-    type: trackSchema,
+    type: mongoose.Schema.ObjectId,
+    ref: "Track",
     required: true,
   },
   dateAdded: {
@@ -21,6 +20,9 @@ const playlistSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
+  },
+  description: {
+    type: String,
   },
   owner: {
     type: mongoose.Schema.Types.ObjectId,
