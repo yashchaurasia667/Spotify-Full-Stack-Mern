@@ -36,6 +36,10 @@ const playlistSchema = new mongoose.Schema({
   songs: {
     type: [playlistTrackSchema],
     required: false,
+  },
+  public: {
+    type: Boolean,
+    required: true,
   }
 });
 

@@ -1,10 +1,11 @@
+import { useEffect } from "react";
 import ArtistBar from "../global/ArtistBar";
 import ArtistCard from "../global/ArtistCard";
 import Track from "../global/Track";
 
 const ProfileContent = () => {
   return (
-    <div className="main_content bg-background-base h-full p-5 relative">
+    <div className="main_content bg-background-base p-5 relative">
       <div className="absolute top-0 left-0 h-[35vh] w-full pointer-events-none bg-gradient-to-b from-[#a9b1c755] to-[#00000000]"></div>
       <div className="h-[60px]">
         <button className="text-text-subdued h-full">• • •</button>
@@ -56,6 +57,10 @@ const ProfileContent = () => {
             duration="3:33"
           />
         </div>
+      </div>
+      <div className="mt-12">
+        <p className="text-2xl font-bold hover:underline">Public Playlists</p>
+        {/* {publicPlaylists} */}
       </div>
     </div>
   );

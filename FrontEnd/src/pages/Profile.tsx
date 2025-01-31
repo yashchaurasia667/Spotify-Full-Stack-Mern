@@ -11,17 +11,18 @@ const Profile = () => {
   if (!context) throw new Error("No main context");
   const { user } = context;
   const [redirect, setRedirect] = useState(false);
+  const [playlists, setPlaylists] = useState<string[]>(user.playlists);
 
-  useEffect(() => {
-    fetch("/api/user/getuser", {
-      method: "post",
-      credentials: "include",
-    }).then((res) =>
-      res.json().then((data) => {
-        if (!data) setRedirect(true);
-      })
-    );
-  }, []);
+  // useEffect(() => {
+  //   fetch("/api/user/getcurrentuser", {
+  //     credentials: "include",
+  //   }).then((res) =>
+  //     res.json().then((data) => {
+  //       if (!data) setRedirect(true);
+  //       else setPlaylists(user.playlists);
+  //     })
+  //   );
+  // }, []);
 
   return redirect ? (
     <Navigate to={"/login"} replace />

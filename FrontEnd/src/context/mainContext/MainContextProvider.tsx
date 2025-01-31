@@ -35,6 +35,7 @@ const MainContextProvider = ({ children }: contextProps) => {
     iat: 0,
     profile: "",
     name: "",
+    playlists: [],
     access_token: "",
     refresh_token: "",
   });

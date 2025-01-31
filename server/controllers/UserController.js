@@ -21,7 +21,7 @@ export const checkUser = async (req, res) => {
   }
 }
 
-export const getUser = async (req, res) => {
+export const getCurrentUser = async (req, res) => {
   const { user_id } = req.cookies;
   if (!user_id) return res.status(400).json("Bad Request: id is required to get user info")
 
@@ -33,6 +33,21 @@ export const getUser = async (req, res) => {
   } catch (error) {
     res.status(500).json(`Something went wrong ${error}`)
   }
+}
+
+export const getUser = async (req, res) => {
+  const { user_id } = req.query;
+  if (!user_id) return res.status(400).json("Bad request: user id is required to get user info");
+
+  try {
+    const user = await User.findById(user_id).select("-password -year -day -month");
+
+    if (!user) return res.status(404).json("User not found")
+    res.json(user)
+  } catch (error) {
+    res.status(500).json(`Something went wrong ${error}`)
+  }
+
 }
 
 export const editProfile = async (req, res) => {
@@ -93,8 +108,10 @@ export const createPlaylist = async (req, res) => {
       name: `My playlist #${userDoc.playlists.length + 1}`,
       owner: user_id,
       duration: 0,
-      songs: []
+      songs: [],
+      public: true
     });
+
     userDoc.playlists.push(playlistDoc._id);
     await userDoc.save();
 

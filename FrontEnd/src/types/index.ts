@@ -30,6 +30,7 @@ export interface user {
   profile: string;
   access_token: string;
   refresh_token: string;
+  playlists: string[];
 }
 
 export type externalUrl = {

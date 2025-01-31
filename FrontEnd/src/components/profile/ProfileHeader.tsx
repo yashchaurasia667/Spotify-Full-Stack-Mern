@@ -91,10 +91,10 @@ const ProfileHeader = ({
         >
           {name}
         </button>
-        <p className="mt-5 text-sm text-text-subdued inline-block">
+        <p className="mt-5 text-sm text-text-subdued inline-block font-medium">
           {public_playlists} Public Playlists •
         </p>{" "}
-        <p className="text-sm inline-block">
+        <p className="text-sm inline-block font-medium">
           {followers} Followers • {following} Following
         </p>
       </div>

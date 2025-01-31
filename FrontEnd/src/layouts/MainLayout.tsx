@@ -102,7 +102,7 @@ const MainLayout = () => {
   useEffect(() => {
     const user_id = document.cookie;
     if (!user.email && !user.profile && user_id)
-      fetch("/api/user/getuser", {
+      fetch("/api/user/getcurrentuser", {
         // method: "POST",
         credentials: "include",
       }).then((res) =>
