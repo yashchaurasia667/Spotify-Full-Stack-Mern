@@ -1,7 +1,8 @@
 import { RGB } from "types";
 import EditablePhoto from "../global/EditablePhoto";
 import { FaX } from "react-icons/fa6";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 interface props {
   bg: RGB;
@@ -9,9 +10,9 @@ interface props {
   name: string;
   description: string;
   type: string;
-  author?: string;
+  owner: string;
   length: number;
-  time?: string;
+  duration: number;
 }
 
 const PlaylistHeader = ({
@@ -20,13 +21,28 @@ const PlaylistHeader = ({
   name,
   description,
   type,
-  author,
+  owner,
   length,
-  time,
+  duration,
 }: props) => {
   const [editPlaylist, setEditPlaylist] = useState(false);
   const [newName, setNewName] = useState(name);
   const [newDescription, setNewDescription] = useState(description);
+  const [ownerDetails, setOwnerDetails] = useState({
+    _id: "",
+    name: "",
+    profile: "",
+  });
+
+  useEffect(() => {
+    fetch("/api/user/getuser", {
+      credentials: "include",
+    }).then((res) =>
+      res.json().then((user) => {
+        if (user) setOwnerDetails({ ...user });
+      })
+    );
+  }, [owner]);
 
   return (
     <div
@@ -96,13 +112,24 @@ const PlaylistHeader = ({
               }}
             >
               <img
-                src="http://localhost:4000/uploads/profile.png"
+                src={`http://localhost:4000/uploads/${ownerDetails.profile}`}
                 className="rounded-[50%] object-cover"
               />
             </div>
-            {author ? <p>{author}</p> : ""}
+
+            <Link to={`/user/${owner}`} className="hover:underline">
+              {ownerDetails.name}
+            </Link>
+
+            {duration ? (
+              <p className="text-text-subdued -tracking-wider font-medium">
+                {duration}
+              </p>
+            ) : (
+              ""
+            )}
             <p className="text-text-subdued -tracking-wider font-medium">
-              {time || length + " Songs"}
+              {length + " Songs"}
             </p>
           </div>
         </div>

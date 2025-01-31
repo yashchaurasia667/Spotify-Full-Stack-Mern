@@ -154,8 +154,8 @@ const MainLayout = () => {
           />
         </div>
       </Resizable>
-
       <Outlet />
+
       <BottomPlayBar />
     </div>
   );
