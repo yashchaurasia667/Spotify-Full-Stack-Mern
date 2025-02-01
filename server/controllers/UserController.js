@@ -47,7 +47,6 @@ export const getUser = async (req, res) => {
   } catch (error) {
     res.status(500).json(`Something went wrong ${error}`)
   }
-
 }
 
 export const editProfile = async (req, res) => {
@@ -119,6 +118,40 @@ export const createPlaylist = async (req, res) => {
   }
   catch (error) {
     res.status(500).json("Failed to create playlist");
+  }
+}
+
+export const editPlaylist = async (req, res) => {
+  const { name, description } = req.body;
+
+  // const { user_id } = req.cookies;
+  const { user_id, playlist_id } = req.query;
+  if (!user_id || !playlist_id) return res.status(400).json("Bad request: user id and playlist id is required");
+
+  try {
+    const playlistDoc = await Playlist.findById(playlist_id);
+    if (playlistDoc.owner != user_id)
+      return res.status(401).json("You can not edit this playlist");
+
+    playlistDoc.name = name;
+    playlistDoc.description = description;
+
+    if (req.file) {
+      const { originalname, path, filename } = req.file;
+      const parts = originalname.split(".");
+      const ext = parts[parts.length - 1];
+      const newName = filename + "." + ext;
+      const newPath = "uploads/playlists/" + newName;
+
+      fs.renameSync(path, newPath);
+      playlistDoc.profile = newName;
+    }
+
+    await playlistDoc.save();
+    res.status(201).json("Changes saved");
+  } catch (error) {
+    console.log(error);
+    res.status(500).json("Internal server error");
   }
 }
 
