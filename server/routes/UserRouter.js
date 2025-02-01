@@ -18,6 +18,6 @@ router.get("/createplaylist", isLoggedIn, createPlaylist);
 router.get("/getuserplaylists", isLoggedIn, getUserPlaylists);
 router.get("/getplaylist", isLoggedIn, getPlaylistDetails);
 
-router.get("/editplaylist", multer({ dest: "uploads/playlists/" }).single("cover"), editPlaylist);
+router.post("/editplaylist", multer({ dest: "uploads/playlists/" }).single("cover"), editPlaylist);
 
 export default router;

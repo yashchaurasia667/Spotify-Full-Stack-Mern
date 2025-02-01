@@ -44,7 +44,7 @@ const ProfileHeader = ({
   const editProfile = async (e: React.FormEvent) => {
     const data = new FormData();
     data.set("name", editName);
-    data.set("id", user._id);
+    // data.set("id", user._id);
     if (inputProf) data.set("profile", inputProf[0]);
     else data.set("profile", "");
     e.preventDefault();
@@ -73,12 +73,7 @@ const ProfileHeader = ({
     <div className={styles.hero_bg}>
       <EditablePhoto
         onClick={() => setEditOpen(true)}
-        // profile={`${displayProfile}`}
-        profile={
-          // inputProf
-          //   ? URL.createObjectURL(inputProf[0])
-          `/api/uploads/${profile}`
-        }
+        profile={`/api/uploads/${profile}`}
         width={220}
         height={220}
         className="rounded-[50%]"
@@ -126,6 +121,7 @@ const ProfileHeader = ({
                 width={180}
                 height={180}
                 onClick={() => inputRef.current?.click()}
+                className="rounded-[50%]"
               />
               <input
                 ref={inputRef}

@@ -50,7 +50,11 @@ export const getUser = async (req, res) => {
 }
 
 export const editProfile = async (req, res) => {
-  const { name, id } = req.body;
+  const { user_id } = req.cookies;
+  const { name } = req.body;
+
+  if (!user_id) return res.status(401).json("Unauthorized")
+
   if (req.file) {
     const { originalname, path, filename } = req.file;
     const parts = originalname.split(".");
@@ -59,7 +63,7 @@ export const editProfile = async (req, res) => {
     const newPath = "uploads/" + newName;
     fs.renameSync(path, newPath);
     try {
-      const userDoc = await User.findByIdAndUpdate(id, { name, profile: newName })
+      const userDoc = await User.findByIdAndUpdate(user_id, { name, profile: newName })
       if (userDoc)
         res.status(200).json(filename)
       else throw new Error("something went wrong")
@@ -69,7 +73,7 @@ export const editProfile = async (req, res) => {
   }
   else {
     try {
-      const userDoc = await User.findByIdAndUpdate(id, { name })
+      const userDoc = await User.findByIdAndUpdate(user_id, { name })
       if (userDoc)
         res.status(200).json(true)
       else throw new Error("something went wrong")
@@ -124,8 +128,8 @@ export const createPlaylist = async (req, res) => {
 export const editPlaylist = async (req, res) => {
   const { name, description } = req.body;
 
-  // const { user_id } = req.cookies;
-  const { user_id, playlist_id } = req.query;
+  const { user_id } = req.cookies;
+  const { playlist_id } = req.query;
   if (!user_id || !playlist_id) return res.status(400).json("Bad request: user id and playlist id is required");
 
   try {
@@ -133,18 +137,21 @@ export const editPlaylist = async (req, res) => {
     if (playlistDoc.owner != user_id)
       return res.status(401).json("You can not edit this playlist");
 
-    playlistDoc.name = name;
-    playlistDoc.description = description;
+    if (name)
+      playlistDoc.name = name;
+    if (description)
+      playlistDoc.description = description;
 
     if (req.file) {
-      const { originalname, path, filename } = req.file;
-      const parts = originalname.split(".");
-      const ext = parts[parts.length - 1];
-      const newName = filename + "." + ext;
-      const newPath = "uploads/playlists/" + newName;
+      console.log(req.file)
+      // const { originalname, path, filename } = req.file;
+      // const parts = originalname.split(".");
+      // const ext = parts[parts.length - 1];
+      // const newName = filename + "." + ext;
+      // const newPath = "uploads/playlists/" + newName;
 
-      fs.renameSync(path, newPath);
-      playlistDoc.profile = newName;
+      // fs.renameSync(path, newPath);
+      // playlistDoc.profile = newName;
     }
 
     await playlistDoc.save();

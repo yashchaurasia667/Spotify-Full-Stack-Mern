@@ -38,6 +38,7 @@ const Playlist = () => {
   return (
     <div className="row-start-2 col-start-2 overflow-auto bg-background-base rounded-md">
       <PlaylistHeader
+        id={id!}
         bg={bg}
         cover={`/api/uploads/playlists/${playlist.cover}`}
         name={playlist.name}

@@ -1,10 +1,14 @@
-import { RGB } from "types";
-import EditablePhoto from "../global/EditablePhoto";
-import { FaX } from "react-icons/fa6";
-import { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
+import { FaX } from "react-icons/fa6";
+
+import EditablePhoto from "../global/EditablePhoto";
+
+import { RGB } from "types";
+
 interface props {
+  id: string;
   bg: RGB;
   cover: string;
   name: string;
@@ -16,6 +20,7 @@ interface props {
 }
 
 const PlaylistHeader = ({
+  id,
   bg,
   cover,
   name,
@@ -26,13 +31,21 @@ const PlaylistHeader = ({
   duration,
 }: props) => {
   const [editPlaylist, setEditPlaylist] = useState(false);
-  const [newName, setNewName] = useState(name);
-  const [newDescription, setNewDescription] = useState(description);
+  const [editCover, setEditcover] = useState<FileList | null>(null);
+  const [editName, setEditname] = useState(name);
+  const [editDescription, setEditDescription] = useState(description);
   const [ownerDetails, setOwnerDetails] = useState({
     _id: "",
     name: "",
     profile: "",
   });
+
+  const coverRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    setEditname(name);
+    setEditDescription(description);
+  }, [name, description]);
 
   useEffect(() => {
     if (owner)
@@ -44,6 +57,27 @@ const PlaylistHeader = ({
         })
       );
   }, [owner]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    const reqData = new FormData();
+    editName !== name ? reqData.set("name", editName) : "";
+    editDescription !== description
+      ? reqData.set("description", editDescription)
+      : "";
+    editCover ? reqData.set("cover", editCover[0]) : "";
+    e.preventDefault();
+
+    const res = await fetch(`/api/user/editPlaylist?playlist_id=${id}`, {
+      credentials: "include",
+      method: "post",
+      body: reqData,
+    });
+
+    if (res.ok) {
+      // const data = await res.json();
+      window.location.reload();
+    }
+  };
 
   return (
     <div
@@ -99,6 +133,7 @@ const PlaylistHeader = ({
           </div>
         </div>
       </div>
+
       <dialog
         open={editPlaylist}
         className="w-full h-full top-0 left-0 bg-[#000000cc] z-[1000]"
@@ -110,33 +145,56 @@ const PlaylistHeader = ({
               <FaX />
             </button>
           </div>
-          <div className="grid grid-cols-[180px_1fr] gap-x-4 w-full">
+
+          <form
+            onSubmit={handleSubmit}
+            className="grid grid-cols-[180px_1fr] gap-x-4 w-full"
+          >
             <EditablePhoto
-              profile={cover}
+              profile={editCover ? URL.createObjectURL(editCover[0]) : cover}
               width={180}
               height={180}
               className="rounded-md"
+              onClick={() => coverRef.current?.click()}
+            />
+            <input
+              ref={coverRef}
+              type="file"
+              accept="image/*"
+              className="hidden"
+              onChange={(e) =>
+                e.target.files?.length ? setEditcover(e.target.files) : ""
+              }
             />
             <div className="grid grid-rows-[1fr_3fr] gap-y-4 w-full">
               <input
                 type="text"
-                value={newName}
-                onChange={(e) => setNewName(e.target.value)}
+                value={editName}
+                onChange={(e) => setEditname(e.target.value)}
                 placeholder="Add a name"
-                className="bg-[#3e3e3e] rounded-md px-4 py-2 outline-none border-[#acacac] focus:border"
+                className="bg-[#3e3e3e] rounded-md px-4 py-2 outline-none border border-[#3e3e3e] focus:border-[#acacac] box-border"
               />
-              <input
+              {/* <input
                 type="text"
-                value={newDescription}
-                onChange={(e) => setNewDescription(e.target.value)}
+                value={editDescription}
+                onChange={(e) => setEditDescription(e.target.value)}
                 placeholder="Add an optional description"
-                className="bg-[#3e3e3e] rounded-md px-4 py-2 outline-none border-[#acacac] h-full focus:border"
+                className="bg-[#3e3e3e] rounded-md px-4 py-2 outline-none border-[#acacac] h-full focus:border box-border"
+              /> */}
+              <textarea
+                value={editDescription}
+                onChange={(e) => setEditDescription(e.target.value)}
+                placeholder="Add an optional description"
+                className="bg-[#3e3e3e] rounded-md px-4 py-2 outline-none border-[#acacac] h-full focus:border box-border overflow-auto resize-none"
               />
-              <button className="w-full font-medium bg-white rounded-full text-black text-lg py-2">
+              <button
+                type="submit"
+                className="w-full font-medium bg-white rounded-full text-black text-lg py-2"
+              >
                 Save
               </button>
             </div>
-          </div>
+          </form>
         </div>
       </dialog>
     </div>
