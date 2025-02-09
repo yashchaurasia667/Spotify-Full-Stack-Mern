@@ -31,6 +31,7 @@ export interface user {
   access_token: string;
   refresh_token: string;
   playlists: string[];
+  likedSongs: string[]
 }
 
 export type externalUrl = {

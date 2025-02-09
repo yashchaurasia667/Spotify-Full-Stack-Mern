@@ -10,14 +10,14 @@ import { RGB } from "../../../types";
 interface RecentlyPlayedProps {
   cover: string;
   title: string;
-  id: string;
+  href: string;
   onMouseOver: (color: RGB) => void;
   onMouseOut: () => void;
 }
 const RecentlyPlayed = ({
   cover,
   title,
-  id,
+  href,
   onMouseOver,
   onMouseOut,
 }: RecentlyPlayedProps) => {
@@ -29,7 +29,7 @@ const RecentlyPlayed = ({
 
   return (
     <Link
-      to={`/playlist/${id}`}
+      to={href}
       className={
         "flex gap-x-4 max-h-[100px] bg-[#7c7c7c33] rounded-md overflow-hidden relative group"
       }

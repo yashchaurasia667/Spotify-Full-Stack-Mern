@@ -143,15 +143,15 @@ export const editPlaylist = async (req, res) => {
       playlistDoc.description = description;
 
     if (req.file) {
-      console.log(req.file)
-      // const { originalname, path, filename } = req.file;
-      // const parts = originalname.split(".");
-      // const ext = parts[parts.length - 1];
-      // const newName = filename + "." + ext;
-      // const newPath = "uploads/playlists/" + newName;
+      // console.log(req.file)
+      const { originalname, path, filename } = req.file;
+      const parts = originalname.split(".");
+      const ext = parts[parts.length - 1];
+      const newName = filename + "." + ext;
+      const newPath = "uploads/playlists/" + newName;
 
-      // fs.renameSync(path, newPath);
-      // playlistDoc.profile = newName;
+      fs.renameSync(path, newPath);
+      playlistDoc.cover = newName;
     }
 
     await playlistDoc.save();

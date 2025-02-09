@@ -63,7 +63,11 @@ const Search = forwardRef<HTMLDialogElement, props>(
 
     useEffect(() => {
       if (query) {
-        searchSpotify(query, type, limit);
+        const getData = setTimeout(() => {
+          searchSpotify(query, type, limit);
+        }, 200);
+
+        return () => clearTimeout(getData);
       }
     }, [query]);
 

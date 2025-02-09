@@ -31,7 +31,9 @@ const Sidebar_PlaylistTile = ({
             ? "playlist_default_small.png"
             : cover
         }`}
-        className="rounded-md"
+        height={65}
+        width={65}
+        className="rounded-md object-cover"
       />
       {sidebarWidth > 70 ? (
         <div>
