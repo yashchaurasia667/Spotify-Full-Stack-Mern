@@ -187,3 +187,26 @@ export const getPlaylistDetails = async (req, res) => {
     res.status(500).json("Internal server error: " + error)
   }
 }
+
+export const getLikedSongs = async (req, res) => {
+  const { user_id } = req.cookies;
+
+  try {
+    const userDoc = await User.findById(user_id);
+    if (!userDoc)
+      return res.status(404).json("User not found");
+    res.status(200).json(userDoc.likedSongs);
+  } catch (error) {
+    res.status(500).json("Internal server error: " + error);
+  }
+}
+
+export const addToLikedSongs = async (req, res) => {
+  const { user_id } = req.cookies;
+
+  try {
+    const userDoc = await User.findByIdAndUpdate();
+  } catch (error) {
+    res.status(500).json("Internal server error: " + error);
+  }
+}

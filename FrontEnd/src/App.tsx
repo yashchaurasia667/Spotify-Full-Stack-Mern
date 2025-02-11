@@ -7,6 +7,7 @@ import SignupHero from "./components/signup/SignupHero";
 import Profile from "./pages/Profile";
 import Playlist from "./pages/Playlist";
 import TrackPage from "./pages/TrackPage";
+import LikedSongs from "./pages/LikedSongs";
 
 import {
   createBrowserRouter,
@@ -38,7 +39,7 @@ const App = () => {
           <Route index element={<HomeMain />} />
           <Route path="browse" element={<Browse />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/likedsongs" element={<Playlist />} />
+          <Route path="/likedsongs" element={<LikedSongs />} />
           <Route path="/playlist/:id" element={<Playlist />} />
           <Route path="/track/:id" element={<TrackPage />} />
         </Route>
