@@ -67,7 +67,7 @@ const PlaylistHeader = ({
     editCover ? reqData.set("cover", editCover[0]) : "";
     e.preventDefault();
 
-    const res = await fetch(`/api/user/editPlaylist?playlist_id=${id}`, {
+    const res = await fetch(`/api/playlist/editPlaylist?playlist_id=${id}`, {
       credentials: "include",
       method: "post",
       body: reqData,

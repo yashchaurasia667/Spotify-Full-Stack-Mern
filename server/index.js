@@ -7,6 +7,7 @@ import multer from 'multer';
 import Authrouter from "./routes/AuthRouter.js"
 import Spotifyrouter from "./routes/SpotifyRouter.js"
 import UserRouter from "./routes/UserRouter.js"
+import PlaylistRouter from "./routes/PlaylistRouter.js"
 
 
 const app = express();
@@ -21,6 +22,7 @@ app.use('/uploads', express.static('./uploads'))
 app.use('/auth', Authrouter)
 app.use('/spotify', Spotifyrouter)
 app.use('/user', UserRouter)
+app.use('/playlist', PlaylistRouter)
 
 app.get('/ping', (req, res) => {
   res.json('pong')
