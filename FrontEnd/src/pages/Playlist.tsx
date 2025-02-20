@@ -48,7 +48,7 @@ const Playlist = () => {
         owner={playlist.owner}
         duration={playlist.duration}
       />
-      <PlaylistContent bg={bg} />
+      <PlaylistContent bg={bg} id={id!} />
     </div>
   );
 };

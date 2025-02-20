@@ -5,15 +5,26 @@ import GreenButton from "../global/GreenButton";
 import Track from "../global/Track";
 
 import { RGB } from "types";
-import { useRef, useState } from "react";
+import { MouseEventHandler, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 interface PlaylistContentProps {
   bg: RGB;
+  id: string;
 }
 
-const PlaylistContent = ({ bg }: PlaylistContentProps) => {
+const PlaylistContent = ({ bg, id }: PlaylistContentProps) => {
   const [optionsDialog, setOptionsDialog] = useState(false);
   const optionsRef = useRef<HTMLDialogElement>(null);
+  const navigate = useNavigate();
+
+  const deletePlaylist = async () => {
+    const res = await fetch(`/api/playlist/delete?playlist_id=${id}`, {
+      method: "post",
+      credentials: "include",
+    });
+    if (res.ok) navigate("/");
+  };
 
   return (
     <div className="w-full relative">
@@ -41,7 +52,10 @@ const PlaylistContent = ({ bg }: PlaylistContentProps) => {
             className="bg-background-elevated-highlight rounded-sm w-[150px] mx-0 absolute top-1/2 -translate-y-1/3 left-36"
           >
             <ul>
-              <li className="flex items-center gap-x-3 text-lg px-3 py-3 w-full hover:bg-[#3e3e3e]">
+              <li
+                className="flex items-center gap-x-3 text-lg px-3 py-3 w-full hover:bg-[#3e3e3e]"
+                onClick={deletePlaylist}
+              >
                 <CiCircleMinus strokeWidth={1} />
                 Delete
               </li>

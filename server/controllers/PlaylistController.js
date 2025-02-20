@@ -68,4 +68,18 @@ export const editPlaylist = async (req, res) => {
   }
 }
 
-export const deletePlaylist = async (req, res) => { }
+export const deletePlaylist = async (req, res) => {
+  const { user_id } = req.cookies;
+  const { playlist_id } = req.query;
+  if (!user_id || !playlist_id) return res.status(400).json("Bad request: user id and playlist id are requiured");
+
+  try {
+    const playlistDoc = await Playlist.findByIdAndDelete(playlist_id);
+    if (!playlistDoc || playlistDoc.owner != user_id)
+      return res.status(401).json("Unauthorized: You can not perform that action on this playlist")
+
+    res.status(204).json("Deleted")
+  } catch (error) {
+    return res.status(500).json("Internal Server Error");
+  }
+}
