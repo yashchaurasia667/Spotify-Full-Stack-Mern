@@ -24,7 +24,7 @@ function Library({ sidebarWidth }: libProps) {
   const navigate = useNavigate();
 
   const createPlaylist = async () => {
-    const res = await fetch("/api/user/createplaylist", {
+    const res = await fetch("/api/playlist/create", {
       credentials: "include",
     });
     const data = await res.json();

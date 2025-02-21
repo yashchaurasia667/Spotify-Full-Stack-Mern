@@ -77,9 +77,26 @@ export const deletePlaylist = async (req, res) => {
     const playlistDoc = await Playlist.findByIdAndDelete(playlist_id);
     if (!playlistDoc || playlistDoc.owner != user_id)
       return res.status(401).json("Unauthorized: You can not perform that action on this playlist")
+    const userDoc = await User.findById(user_id);
+    userDoc.playlists = userDoc.playlists.filter((id) => id != playlist_id)
+    await userDoc.save();
 
     res.status(204).json("Deleted")
   } catch (error) {
     return res.status(500).json("Internal Server Error");
+  }
+}
+
+export const getPlaylistDetails = async (req, res) => {
+  const { playlist_id } = req.query;
+  if (!playlist_id) return res.status(400).json("Bad request");
+
+  try {
+    const playlistDoc = await Playlist.findById(playlist_id);
+    if (playlistDoc)
+      return res.status(200).json(playlistDoc);
+    res.status(404).json("not found");
+  } catch (error) {
+    res.status(500).json("Internal server error: " + error)
   }
 }

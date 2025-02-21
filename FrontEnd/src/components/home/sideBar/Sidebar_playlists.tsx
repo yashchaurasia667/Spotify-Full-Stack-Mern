@@ -32,7 +32,7 @@ const Sidebar_playlists = () => {
   const [playlistDetails, setPlaylistDetails] = useState<playlistProps[]>([]);
 
   const getUserPlaylists = async () => {
-    const res = await fetch("/api/user/getuserplaylists", {
+    const res = await fetch("/api/user/playlists", {
       credentials: "include",
     });
 
@@ -43,7 +43,10 @@ const Sidebar_playlists = () => {
       // Gets all the playlists of the user
       for (const id of data) {
         const details = await getPlaylistDetails(id);
-        if (details) tmp.push(details);
+        if (details) {
+          tmp.push({ ...details });
+          // user.playlists.push({ ...details });
+        }
       }
       setPlaylistDetails(tmp);
     }
@@ -51,7 +54,9 @@ const Sidebar_playlists = () => {
 
   useEffect(() => {
     if (user._id) getUserPlaylists();
-  }, [user._id]);
+    console.log("user playlists");
+    console.log(user.playlists);
+  }, [user._id, window.location.href]);
 
   const renderPlaylists = useMemo(() => {
     return playlistDetails.map((details, index) => (

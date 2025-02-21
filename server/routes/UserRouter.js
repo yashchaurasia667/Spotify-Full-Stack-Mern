@@ -2,7 +2,7 @@ import express from "express"
 import multer from "multer"
 
 import { isLoggedIn } from "../middlewares/AuthValidator.js";
-import { editProfile, checkUser, linkSpotify, getUserPlaylists, getPlaylistDetails, getCurrentUser, getUser } from "../controllers/UserController.js"
+import { editProfile, checkUser, linkSpotify, getUserPlaylists, getCurrentUser, getUser } from "../controllers/UserController.js"
 
 const router = express.Router();
 
@@ -14,7 +14,6 @@ router.get("/getuser", isLoggedIn, getUser);
 
 router.post("/linkspotify", isLoggedIn, linkSpotify);
 
-router.get("/getuserplaylists", isLoggedIn, getUserPlaylists);
-router.get("/getplaylist", isLoggedIn, getPlaylistDetails);
+router.get("/playlists", isLoggedIn, getUserPlaylists);
 
 export default router;

@@ -142,7 +142,7 @@ const MainContextProvider = ({ children }: contextProps) => {
   };
 
   const createPlaylist = async () => {
-    const res = await fetch("/api/user/createplaylist", {
+    const res = await fetch("/api/playlist/create", {
       credentials: "include",
     });
     if (res.ok) {
@@ -152,7 +152,7 @@ const MainContextProvider = ({ children }: contextProps) => {
   };
 
   const getPlaylistDetails = async (id: string) => {
-    const res = await fetch(`/api/user/getplaylist?playlist_id=${id}`, {
+    const res = await fetch(`/api/playlist/getplaylist?playlist_id=${id}`, {
       credentials: "include",
     });
 
