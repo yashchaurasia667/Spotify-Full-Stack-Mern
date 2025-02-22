@@ -2,12 +2,14 @@ import mongoose from "mongoose";
 
 const playlistTrackSchema = new mongoose.Schema({
   song: {
-    type: mongoose.Schema.ObjectId,
-    ref: "Track",
+    // type: mongoose.Schema.ObjectId,
+    // ref: "Track",
+    type: String,
     required: true,
   },
   dateAdded: {
     type: Date,
+    default: Date.now,
     required: true,
   }
 });
