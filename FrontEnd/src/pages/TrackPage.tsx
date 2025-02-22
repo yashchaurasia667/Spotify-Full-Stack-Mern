@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useMemo, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import TrackHeader from "../components/Track/TrackHeader";
@@ -9,6 +9,7 @@ import MainContext from "../context/mainContext/MainContext";
 import { RGB, trackDetails } from "../types";
 import { RxTriangleRight } from "react-icons/rx";
 import { FaPlus } from "react-icons/fa";
+import DividerWithText from "../components/global/DividerWithText";
 
 const TrackPage = () => {
   const { id } = useParams();
@@ -21,7 +22,7 @@ const TrackPage = () => {
 
   const context = useContext(MainContext);
   if (!context) throw new Error("No main context");
-  const { averageImageColor } = context;
+  const { user, createPlaylist, averageImageColor } = context;
 
   useEffect(() => {
     fetch(`/api/spotify/track/?id=${id}`, {
@@ -41,6 +42,12 @@ const TrackPage = () => {
         setBackground(color)
       );
   }, [trackDetails?.album.images[1].url]);
+
+  const playlists = useMemo(() => {
+    return user.playlists.map((pl) => (
+      <li className="hover:bg-[#3e3e3e] px-2 py-3 text-md">{pl.name}</li>
+    ));
+  }, [user.playlists]);
 
   return (
     <div className="bg-background-base overflow-auto rounded-lg">
@@ -67,14 +74,27 @@ const TrackPage = () => {
               </button>
               <dialog
                 open={optionsDialog}
-                className="bg-background-elevated-highlight rounded-sm w-[210px] mx-0 absolute top-1/2 -translate-y-1/3 left-36"
+                className="bg-background-elevated-highlight rounded-md w-[200px] mx-0 absolute top-1/3 -translate-y-1/3 left-36 p-1"
               >
                 <ul>
-                  <li className="flex items-center gap-x-3 text-lg px-3 py-3 w-full hover:bg-[#3e3e3e]">
+                  <li className="flex items-center gap-x-3 text-md px-3 py-3 w-full hover:bg-[#3e3e3e] relative group">
                     <FaPlus size={15} />
-                    Add to Playlist
+                    <p>Add to Playlist</p>
                     <RxTriangleRight size={25} />
-                    <ul ref={playlistRef}></ul>
+                    <ul
+                      ref={playlistRef}
+                      className="hidden overflow-hidden p-1 absolute rounded-md left-[calc(100%_-_5px)] shadow-[0px_0px_20px_#000000] top-1 bg-background-elevated-highlight w-[220px] hover:block group-hover:block max-h-[200px]"
+                    >
+                      <li
+                        className="hover:bg-[#3e3e3e] px-2 py-3 text-md flex items-center gap-x-3"
+                        onClick={createPlaylist}
+                      >
+                        <FaPlus size={15} />
+                        <p>New Playlist</p>
+                      </li>
+                      <DividerWithText />
+                      <>{playlists}</>
+                    </ul>
                   </li>
                 </ul>
               </dialog>

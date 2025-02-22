@@ -30,7 +30,7 @@ export interface user {
   profile: string;
   access_token: string;
   refresh_token: string;
-  playlists: {id: string, name: string}[];
+  playlists: {_id: string, name: string}[];
   likedSongs: string[]
 }
 

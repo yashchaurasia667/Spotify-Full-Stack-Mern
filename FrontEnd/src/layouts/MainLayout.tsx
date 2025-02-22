@@ -108,7 +108,6 @@ const MainLayout = () => {
       }).then((res) =>
         res.json().then((newUser) => {
           if (newUser.email) {
-            // console.log(newUser._id);
             setUser({ ...newUser });
           }
         })

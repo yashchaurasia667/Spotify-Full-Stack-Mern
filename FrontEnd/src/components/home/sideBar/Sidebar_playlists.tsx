@@ -8,7 +8,7 @@ import styles from "./sideBar.module.css";
 
 import MainContext from "../../../context/mainContext/MainContext";
 
-import { track } from "../../../types";
+import { playlist, track } from "../../../types";
 import Sidebar_default_cards from "./Sidebar_default_cards";
 
 interface playlistProps {
@@ -27,7 +27,7 @@ interface playlistProps {
 const Sidebar_playlists = () => {
   const context = useContext(MainContext);
   if (!context) throw new Error("No main context");
-  const { user, sidebarWidth, getPlaylistDetails } = context;
+  const { user, setUser, sidebarWidth, getPlaylistDetails } = context;
 
   const [playlistDetails, setPlaylistDetails] = useState<playlistProps[]>([]);
 
@@ -39,23 +39,33 @@ const Sidebar_playlists = () => {
     if (res.ok) {
       const data = await res.json();
       const tmp: playlistProps[] = [];
+      // const user_playlists_tmp: { _id: string; name: string }[] = [];
 
       // Gets all the playlists of the user
       for (const id of data) {
         const details = await getPlaylistDetails(id);
         if (details) {
           tmp.push({ ...details });
-          // user.playlists.push({ ...details });
         }
       }
       setPlaylistDetails(tmp);
+      setUser({
+        ...user,
+        playlists: [
+          ...tmp.map((playlist: playlistProps) => {
+            // console.log({ _id: playlist._id, name: playlist.name });
+            return { _id: playlist._id, name: playlist.name };
+          }),
+        ],
+      });
+      console.log(user);
     }
   };
 
   useEffect(() => {
     if (user._id) getUserPlaylists();
-    console.log("user playlists");
-    console.log(user.playlists);
+    // console.log("user playlists");
+    // console.log(userplaylists);
   }, [user._id, window.location.href]);
 
   const renderPlaylists = useMemo(() => {
