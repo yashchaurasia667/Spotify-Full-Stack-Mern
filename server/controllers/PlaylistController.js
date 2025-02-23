@@ -102,20 +102,23 @@ export const getPlaylistDetails = async (req, res) => {
 }
 
 export const addToPlaylist = async (req, res) => {
-  const { user_id } = req.cookies;
-  const { playlist_id, track_id } = req.query;
+  // const { user_id } = req.cookies;
+  const { playlist_id, track_id, user_id } = req.query;
 
-  if (!user_id || !playlist_id || track_id) return res.status(400).json("Bad Request: user id, playlist id, track id are required")
+  if (!user_id || !playlist_id || !track_id) return res.status(400).json("Bad Request: user id, playlist id, track id are required")
 
   try {
     const playlistDoc = await Playlist.findById(playlist_id);
     if (!playlistDoc) return res.status(404).json("Playlist not found");
-    if (playlistDoc.owner !== user_id) return res.status(401).json("Unauthorized");
+    const owner_id = playlistDoc.owner.toString()
+    console.log(owner_id)
+    if (owner_id != user_id) return res.status(401).json("Unauthorized");
 
     playlistDoc.songs.push(track_id);
     await playlistDoc.save();
     res.status(200).json("track added");
   } catch (error) {
+    console.log(error)
     res.status(500).json("Internal Server Error");
   }
 }

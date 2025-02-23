@@ -8,8 +8,10 @@ const router = express.Router();
 
 router.get("/create", isLoggedIn, createPlaylist);
 router.get("/getplaylist", isLoggedIn, getPlaylistDetails);
+
 router.post("/edit", isLoggedIn, multer({ dest: "uploads/playlists/" }).single("cover"), editPlaylist);
+
 router.get("/delete", isLoggedIn, deletePlaylist);
-router.get("/addtoplaylist", isLoggedIn, addToPlaylist);
+router.get("/addtoplaylist", addToPlaylist);
 
 export default router;

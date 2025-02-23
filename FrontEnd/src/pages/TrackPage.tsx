@@ -44,8 +44,10 @@ const TrackPage = () => {
   }, [trackDetails?.album.images[1].url]);
 
   const playlists = useMemo(() => {
-    return user.playlists.map((pl) => (
-      <li className="hover:bg-[#3e3e3e] px-2 py-3 text-md">{pl.name}</li>
+    return user.playlists.map((pl, index) => (
+      <li key={index} className="hover:bg-[#3e3e3e] px-2 py-3 text-md">
+        {pl.name}
+      </li>
     ));
   }, [user.playlists]);
 

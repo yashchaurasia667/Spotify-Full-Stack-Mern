@@ -58,7 +58,7 @@ const Sidebar_playlists = () => {
           }),
         ],
       });
-      console.log(user);
+      // console.log(user);
     }
   };
 
