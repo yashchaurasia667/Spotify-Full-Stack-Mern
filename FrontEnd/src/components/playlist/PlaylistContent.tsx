@@ -20,7 +20,6 @@ const PlaylistContent = ({ bg, id }: PlaylistContentProps) => {
 
   const deletePlaylist = async () => {
     const res = await fetch(`/api/playlist/delete?playlist_id=${id}`, {
-      method: "post",
       credentials: "include",
     });
     if (res.ok) navigate("/");
