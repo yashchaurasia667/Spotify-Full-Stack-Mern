@@ -24,6 +24,18 @@ const TrackPage = () => {
   if (!context) throw new Error("No main context");
   const { user, createPlaylist, averageImageColor } = context;
 
+  const addToPlaylist = async (e: React.MouseEvent, playlist_id: string) => {
+    e.preventDefault();
+    const res = await fetch(
+      `/api/playlist/addtoplaylist?playlist_id=${playlist_id}&track_id=${id}`,
+      {
+        credentials: "include",
+      }
+    );
+    if (res.ok) {
+    }
+  };
+
   useEffect(() => {
     fetch(`/api/spotify/track/?id=${id}`, {
       credentials: "include",
