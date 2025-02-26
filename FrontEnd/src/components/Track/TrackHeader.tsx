@@ -23,7 +23,7 @@ const TrackHeader = ({ background, duration_ms, trackDetails }: props) => {
 
   return (
     <div
-      className="bg-background-base flex items-center gap-x-6 h-[50vh] pt-24 pb-6 px-6"
+      className="bg-background-base flex items-center gap-x-6 min-h-[50vh] pt-24 pb-6 px-6"
       style={{
         background: `linear-gradient(to bottom, rgba(${background.r}, ${background.g}, ${background.b}, 0.9), rgba(${background.r}, ${background.g}, ${background.b}, 0.5))`,
       }}

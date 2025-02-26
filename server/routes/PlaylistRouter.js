@@ -2,12 +2,13 @@ import express from "express";
 import multer from "multer";
 
 import { isLoggedIn } from "../middlewares/AuthValidator.js";
-import { addToPlaylist, createPlaylist, deletePlaylist, editPlaylist, getPlaylistDetails } from "../controllers/PlaylistController.js";
+import { addToPlaylist, createPlaylist, deletePlaylist, editPlaylist, getPlaylistDetails, getTracks } from "../controllers/PlaylistController.js";
 
 const router = express.Router();
 
 router.get("/create", isLoggedIn, createPlaylist);
 router.get("/getplaylist", isLoggedIn, getPlaylistDetails);
+router.get("/tracks", getTracks);
 
 router.post("/edit", isLoggedIn, multer({ dest: "uploads/playlists/" }).single("cover"), editPlaylist);
 

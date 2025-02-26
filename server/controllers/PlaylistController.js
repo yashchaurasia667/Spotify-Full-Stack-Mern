@@ -122,3 +122,20 @@ export const addToPlaylist = async (req, res) => {
     res.status(500).json("Internal Server Error");
   }
 }
+
+export const getTracks = async (req, res) => {
+  const { playlist_id } = req.query;
+
+  if (!playlist_id) return res.status(400).json("Bad Request: Playlist id is required");
+
+  try {
+    const playlistDoc = await Playlist.findById(playlist_id);
+    if (!playlistDoc) return res.status(404).json("Playlist not found");
+
+    const tracks = playlistDoc.songs;
+    res.status(200).json(tracks);
+  } catch (error) {
+    console.error(`Error: ${error}`)
+    return res.status(500).json("Internal server Error")
+  }
+}

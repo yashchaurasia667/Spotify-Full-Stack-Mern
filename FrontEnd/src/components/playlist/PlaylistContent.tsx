@@ -7,6 +7,7 @@ import Track from "../global/Track";
 import { RGB } from "types";
 import { MouseEventHandler, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import PlaylistTracks from "./PlaylistTracks";
 
 interface PlaylistContentProps {
   bg: RGB;
@@ -62,14 +63,7 @@ const PlaylistContent = ({ bg, id }: PlaylistContentProps) => {
           </dialog>
         </div>
 
-        <Track
-          rank={1}
-          name="Lovers Rock"
-          artist="TV Girl"
-          cover="https://i.scdn.co/image/ab67616d00004851e1bc1af856b42dd7fdba9f84"
-          album="French Exit"
-          duration="3:00"
-        />
+        <PlaylistTracks id={id} />
       </div>
     </div>
   );

@@ -1,15 +1,17 @@
 import { useContext, useEffect, useMemo, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 
+import { RxTriangleRight } from "react-icons/rx";
+import { FaPlus } from "react-icons/fa";
+import { ToastContainer, toast } from "react-toastify";
+
 import TrackHeader from "../components/Track/TrackHeader";
 import PlayPage from "../components/global/PlayPage";
+import DividerWithText from "../components/global/DividerWithText";
 
 import MainContext from "../context/mainContext/MainContext";
 
 import { RGB, trackDetails } from "../types";
-import { RxTriangleRight } from "react-icons/rx";
-import { FaPlus } from "react-icons/fa";
-import DividerWithText from "../components/global/DividerWithText";
 
 const TrackPage = () => {
   const { id } = useParams();
@@ -33,6 +35,16 @@ const TrackPage = () => {
       }
     );
     if (res.ok) {
+      toast.success("Added to Playlist", {
+        position: "bottom-center",
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: false,
+        progress: undefined,
+        theme: "light",
+      });
     }
   };
 
@@ -57,7 +69,11 @@ const TrackPage = () => {
 
   const playlists = useMemo(() => {
     return user.playlists.map((pl, index) => (
-      <li key={index} className="hover:bg-[#3e3e3e] px-2 py-3 text-md">
+      <li
+        key={index}
+        className="hover:bg-[#3e3e3e] px-2 py-3 text-md"
+        onClick={(e) => addToPlaylist(e, pl._id)}
+      >
         {pl.name}
       </li>
     ));
@@ -65,6 +81,20 @@ const TrackPage = () => {
 
   return (
     <div className="bg-background-base overflow-auto rounded-lg">
+      <ToastContainer
+        position="bottom-center"
+        autoClose={3000}
+        limit={1}
+        hideProgressBar
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss={false}
+        draggable={false}
+        pauseOnHover={false}
+        theme="light"
+      />
+
       <TrackHeader
         background={background}
         duration_ms={trackDetails?.duration_ms}
