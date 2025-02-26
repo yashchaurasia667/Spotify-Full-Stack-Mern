@@ -30,8 +30,8 @@ export interface user {
   profile: string;
   access_token: string;
   refresh_token: string;
-  playlists: {_id: string, name: string}[];
-  likedSongs: string[]
+  playlists: { _id: string; name: string }[];
+  likedSongs: string[];
 }
 
 export type externalUrl = {
@@ -54,6 +54,7 @@ export type image = {
 };
 
 export interface trackDetails {
+  id: string;
   album: {
     name: string;
     href: string;

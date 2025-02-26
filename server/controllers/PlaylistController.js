@@ -49,7 +49,6 @@ export const editPlaylist = async (req, res) => {
       playlistDoc.description = description;
 
     if (req.file) {
-      // console.log(req.file)
       const { originalname, path, filename } = req.file;
       const parts = originalname.split(".");
       const ext = parts[parts.length - 1];
@@ -111,7 +110,6 @@ export const addToPlaylist = async (req, res) => {
     const playlistDoc = await Playlist.findById(playlist_id);
     if (!playlistDoc) return res.status(404).json("Playlist not found");
     const owner_id = playlistDoc.owner.toString()
-    console.log(typeof (user_id))
     if (owner_id != user_id) return res.status(401).json("Unauthorized");
 
     playlistDoc.songs.push({ song: track_id });
