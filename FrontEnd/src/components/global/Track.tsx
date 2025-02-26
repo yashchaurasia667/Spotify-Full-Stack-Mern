@@ -5,13 +5,15 @@ import { SlTrash } from "react-icons/sl";
 import { FaPlay } from "react-icons/fa";
 import { FaPlus } from "react-icons/fa6";
 import { RxTriangleRight } from "react-icons/rx";
+import { toast, ToastContainer } from "react-toastify";
 
 import DividerWithText from "./DividerWithText";
+
 import MainContext from "../../context/mainContext/MainContext";
-import { ToastContainer } from "react-toastify";
 
 interface trackProps {
-  id: string;
+  playlist_id?: string;
+  track_id: string;
   index: number;
   name: string;
   artist: string;
@@ -21,7 +23,8 @@ interface trackProps {
 }
 
 const Track = ({
-  id,
+  playlist_id,
+  track_id,
   index,
   name,
   artist,
@@ -40,7 +43,6 @@ const Track = ({
     const mins = Math.floor(durationMs / 60000);
     durationMs %= 60000;
     const seconds = Math.floor(durationMs / 1000);
-    // setDuration({ hours, mins, seconds });
     return { hours: hours, mins: mins, seconds: seconds };
   };
 
@@ -55,7 +57,7 @@ const Track = ({
       <li
         key={index}
         className="hover:bg-[#3e3e3e] px-2 py-3 text-md"
-        onClick={() => addToPlaylist(pl._id, id!)}
+        onClick={() => addToPlaylist(pl._id, track_id!)}
       >
         {pl.name}
       </li>
@@ -63,7 +65,23 @@ const Track = ({
   }, [user.playlists]);
 
   const removeTrack = async () => {
-    // const res = await fetch()
+    if (!playlist_id) return;
+    const res = await fetch(
+      `/api/playlist/removetrack?playlist_id=${playlist_id}&track_id=${track_id}`,
+      { credentials: "include" }
+    );
+    if (res.ok) {
+      toast.success("Removed from Playlist", {
+        position: "bottom-center",
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: false,
+        progress: undefined,
+        theme: "light",
+      });
+    }
   };
 
   return (
@@ -85,7 +103,7 @@ const Track = ({
 
           <div>
             <p
-              onClick={() => navigate(`/track/${id}`)}
+              onClick={() => navigate(`/track/${track_id}`)}
               className="text-white hover:underline hover:cursor-pointer"
             >
               {name}
@@ -140,7 +158,10 @@ const Track = ({
               </ul>
             </li>
 
-            <li className="flex items-center gap-x-2 px-2 py-3 hover:bg-[#3e3e3e]">
+            <li
+              onClick={removeTrack}
+              className="flex items-center gap-x-2 px-2 py-3 hover:bg-[#3e3e3e]"
+            >
               <SlTrash />
               Remove from this Playlist
             </li>

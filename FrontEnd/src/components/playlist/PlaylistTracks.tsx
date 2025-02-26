@@ -5,15 +5,17 @@ import Track from "../global/Track";
 import { track, trackDetails } from "../../types";
 
 interface props {
-  id: string;
+  playlist_id: string;
 }
 
-const PlaylistTracks = ({ id }: props) => {
+const PlaylistTracks = ({ playlist_id }: props) => {
   const [tracks, setTracks] = useState<trackDetails[]>([]);
 
   const getTracks = async () => {
     try {
-      const res = await fetch(`/api/playlist/tracks?playlist_id=${id}`);
+      const res = await fetch(
+        `/api/playlist/tracks?playlist_id=${playlist_id}`
+      );
       if (!res.ok) throw new Error("Something went Wrong");
       const songs = await res.json();
 
@@ -35,7 +37,7 @@ const PlaylistTracks = ({ id }: props) => {
 
   useEffect(() => {
     getTracks();
-  }, [id]);
+  }, [playlist_id]);
 
   const displayTracks = useMemo(() => {
     return tracks.map((track, index) => {
@@ -43,7 +45,8 @@ const PlaylistTracks = ({ id }: props) => {
       return (
         <Track
           key={index}
-          id={track.id}
+          playlist_id={playlist_id}
+          track_id={track.id}
           index={index + 1}
           name={track.name}
           artist={track.artists.map((artist) => artist.name).join(", ")}

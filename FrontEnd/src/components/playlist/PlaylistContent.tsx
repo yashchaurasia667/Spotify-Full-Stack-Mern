@@ -63,7 +63,7 @@ const PlaylistContent = ({ bg, id }: PlaylistContentProps) => {
           </dialog>
         </div>
 
-        <PlaylistTracks id={id} />
+        <PlaylistTracks playlist_id={id} />
       </div>
     </div>
   );

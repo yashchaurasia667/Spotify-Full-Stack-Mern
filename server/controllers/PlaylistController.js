@@ -133,7 +133,29 @@ export const getTracks = async (req, res) => {
     const tracks = playlistDoc.songs;
     res.status(200).json(tracks);
   } catch (error) {
-    console.error(`Error: ${error}`)
+    console.error(error)
     return res.status(500).json("Internal server Error")
+  }
+}
+
+export const removeTrack = async (req, res) => {
+  const { user_id } = req.cookies;
+  const { playlist_id, track_id } = req.query;
+  if (!user_id || !playlist_id || !track_id) return res.status(400).json("Bad request: user id, playlist id, track id are required");
+
+  try {
+    const playlistDoc = await Playlist.findById(playlist_id);
+    if (!playlistDoc) return res.status(404).json("Playlist not found");
+
+    const owner_id = playlistDoc.owner.toString()
+    if (owner_id != user_id) return res.status(401).json("Unauthorized");
+
+    playlistDoc.songs.filter((song) => song.song != track_id);
+    console.log(playlistDoc.songs)
+    await playlistDoc.save();
+    res.status(200).json("track removed");
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json("Internal server error");
   }
 }
