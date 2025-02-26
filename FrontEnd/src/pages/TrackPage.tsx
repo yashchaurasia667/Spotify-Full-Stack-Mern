@@ -20,33 +20,9 @@ const TrackPage = () => {
   const [background, setBackground] = useState<RGB>({ r: 0, g: 0, b: 0 });
   const [optionsDialog, setOptionsDialog] = useState<boolean>(false);
 
-  const playlistRef = useRef<HTMLUListElement>(null);
-
   const context = useContext(MainContext);
   if (!context) throw new Error("No main context");
-  const { user, createPlaylist, averageImageColor } = context;
-
-  const addToPlaylist = async (e: React.MouseEvent, playlist_id: string) => {
-    e.preventDefault();
-    const res = await fetch(
-      `/api/playlist/addtoplaylist?playlist_id=${playlist_id}&track_id=${id}`,
-      {
-        credentials: "include",
-      }
-    );
-    if (res.ok) {
-      toast.success("Added to Playlist", {
-        position: "bottom-center",
-        autoClose: 3000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: false,
-        progress: undefined,
-        theme: "light",
-      });
-    }
-  };
+  const { user, createPlaylist, averageImageColor, addToPlaylist } = context;
 
   useEffect(() => {
     fetch(`/api/spotify/track/?id=${id}`, {
@@ -72,7 +48,7 @@ const TrackPage = () => {
       <li
         key={index}
         className="hover:bg-[#3e3e3e] px-2 py-3 text-md"
-        onClick={(e) => addToPlaylist(e, pl._id)}
+        onClick={() => addToPlaylist(pl._id, id!)}
       >
         {pl.name}
       </li>
@@ -125,10 +101,7 @@ const TrackPage = () => {
                     <FaPlus size={15} />
                     <p>Add to Playlist</p>
                     <RxTriangleRight size={25} />
-                    <ul
-                      ref={playlistRef}
-                      className="hidden overflow-hidden p-1 absolute rounded-md left-[calc(100%_-_5px)] shadow-[0px_0px_20px_#000000] top-1 bg-background-elevated-highlight w-[220px] hover:block group-hover:block max-h-[200px]"
-                    >
+                    <ul className="hidden overflow-hidden p-1 absolute rounded-md left-[calc(100%_-_5px)] shadow-[0px_0px_20px_#000000] top-1 bg-background-elevated-highlight w-[220px] hover:block group-hover:block max-h-[200px]">
                       <li
                         className="hover:bg-[#3e3e3e] px-2 py-3 text-md flex items-center gap-x-3"
                         onClick={createPlaylist}

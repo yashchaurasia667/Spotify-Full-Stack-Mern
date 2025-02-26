@@ -1,5 +1,6 @@
 import React, { ReactNode, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 import MainContext from "./MainContext";
 
@@ -163,6 +164,27 @@ const MainContextProvider = ({ children }: contextProps) => {
     return;
   };
 
+  const addToPlaylist = async (playlist_id: string, track_id: string) => {
+    const res = await fetch(
+      `/api/playlist/addtoplaylist?playlist_id=${playlist_id}&track_id=${track_id}`,
+      {
+        credentials: "include",
+      }
+    );
+    if (res.ok) {
+      toast.success("Added to Playlist", {
+        position: "bottom-center",
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: false,
+        progress: undefined,
+        theme: "light",
+      });
+    }
+  };
+
   const value = {
     token,
     setToken,
@@ -179,6 +201,7 @@ const MainContextProvider = ({ children }: contextProps) => {
     clickOutside,
     createPlaylist,
     getPlaylistDetails,
+    addToPlaylist,
   };
   return <MainContext.Provider value={value}>{children}</MainContext.Provider>;
 };

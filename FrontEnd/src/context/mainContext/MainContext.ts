@@ -17,6 +17,7 @@ type MainContextType = {
   clickOutside: (e: MouseEvent, ref: React.RefObject<HTMLElement>) => boolean;
   createPlaylist: () => void;
   getPlaylistDetails: (id: string) => Promise<any>;
+  addToPlaylist: (playlist_id: string, track_id: string) => void;
 };
 
 const MainContext = React.createContext<MainContextType | undefined>(undefined);

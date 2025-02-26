@@ -39,7 +39,7 @@ const PlaylistTracks = ({ id }: props) => {
 
   const displayTracks = useMemo(() => {
     return tracks.map((track, index) => {
-      console.log(track.album.images);
+      // console.log(track.album.images);
       return (
         <Track
           key={index}
@@ -49,7 +49,7 @@ const PlaylistTracks = ({ id }: props) => {
           artist={track.artists.map((artist) => artist.name).join(", ")}
           cover={track.album.images[2].url}
           album={track.album.name}
-          duration={track.duration_ms.toString()}
+          duration_ms={track.duration_ms}
         />
       );
     });
@@ -65,7 +65,7 @@ const PlaylistTracks = ({ id }: props) => {
         artist="asdfafdadf"
         cover="asdhfasdf"
         album="aasdfasdff"
-        duration="asdfasdf"
+        duration_ms={12341234}
       /> */}
     </div>
   );

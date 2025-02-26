@@ -1,6 +1,14 @@
-import { useState } from "react";
-import { FaPlay } from "react-icons/fa";
+import { useContext, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
+
+import { SlTrash } from "react-icons/sl";
+import { FaPlay } from "react-icons/fa";
+import { FaPlus } from "react-icons/fa6";
+import { RxTriangleRight } from "react-icons/rx";
+
+import DividerWithText from "./DividerWithText";
+import MainContext from "../../context/mainContext/MainContext";
+import { ToastContainer } from "react-toastify";
 
 interface trackProps {
   id: string;
@@ -9,7 +17,7 @@ interface trackProps {
   artist: string;
   cover: string;
   album: string;
-  duration: string;
+  duration_ms: number;
 }
 
 const Track = ({
@@ -19,45 +27,127 @@ const Track = ({
   artist,
   cover,
   album,
-  duration,
+  duration_ms,
 }: trackProps) => {
   const [hover, setHover] = useState(false);
+  const [optionsDialog, setOptionsDialog] = useState(false);
+
   const navigate = useNavigate();
 
+  const convertToTime = (durationMs: number) => {
+    const hours = Math.floor(durationMs / 600000);
+    durationMs %= 600000;
+    const mins = Math.floor(durationMs / 60000);
+    durationMs %= 60000;
+    const seconds = Math.floor(durationMs / 1000);
+    // setDuration({ hours, mins, seconds });
+    return { hours: hours, mins: mins, seconds: seconds };
+  };
+
+  const duration = convertToTime(duration_ms);
+
+  const context = useContext(MainContext);
+  if (!context) throw new Error("No main context");
+  const { user, addToPlaylist, createPlaylist } = context;
+
+  const playlists = useMemo(() => {
+    return user.playlists.map((pl, index) => (
+      <li
+        key={index}
+        className="hover:bg-[#3e3e3e] px-2 py-3 text-md"
+        onClick={() => addToPlaylist(pl._id, id!)}
+      >
+        {pl.name}
+      </li>
+    ));
+  }, [user.playlists]);
+
+  const removeTrack = async () => {
+    // const res = await fetch()
+  };
+
   return (
-    <div
-      onMouseOver={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
-      className="group grid grid-cols-[0.5fr_10fr_6fr_1fr] items-center px-4 py-2 rounded-md hover:bg-[#acacac20]"
-    >
-      <p className="text-text-subdued">
-        {hover ? <FaPlay fill="#acacac" /> : index}
-      </p>
+    <>
+      <ToastContainer />
+      {/* OUTERMOST DIV */}
+      <div
+        onMouseOver={() => setHover(true)}
+        onMouseLeave={() => setHover(false)}
+        className="group grid grid-cols-[0.5fr_10fr_6fr_1fr] items-center px-4 py-2 rounded-md hover:bg-[#acacac20] relative"
+      >
+        <p className="text-text-subdued">
+          {hover ? <FaPlay fill="#acacac" /> : index}
+        </p>
 
-      <div className="flex items-center gap-x-3">
-        <img src={cover} width={45} height={45} className="rounded-md" />
-        <div>
-          <p
-            onClick={() => navigate(`/track/${id}`)}
-            className="text-white hover:underline hover:cursor-pointer"
-          >
-            {name}
-          </p>
-          <p className="text-sm text-text-subdued hover:underline hover:text-white">
-            {artist}
-          </p>
+        {/* NAME AND ARTIST */}
+        <div className="flex items-center gap-x-3">
+          <img src={cover} width={45} height={45} className="rounded-md" />
+
+          <div>
+            <p
+              onClick={() => navigate(`/track/${id}`)}
+              className="text-white hover:underline hover:cursor-pointer"
+            >
+              {name}
+            </p>
+            <p className="text-sm text-text-subdued hover:underline hover:text-white">
+              {artist}
+            </p>
+          </div>
         </div>
-      </div>
 
-      <p className="text-text-subdued text-sm">{album}</p>
+        <p className="text-text-subdued text-sm">{album}</p>
 
-      <div className="flex gap-x-4">
-        <p className="text-text-subdued text-sm">{duration}</p>
-        <button className="text-text-subdued invisible group-hover:visible">
-          •••
-        </button>
+        {/* DURATION AND OPTIONS */}
+        <div className="flex gap-x-4">
+          <p className="text-text-subdued text-sm">
+            {`${duration.hours ? duration.hours + ":" : ""}
+          ${duration.mins}:${duration.seconds}`}
+          </p>
+
+          <button
+            onClick={() => setOptionsDialog(!optionsDialog)}
+            className="text-text-subdued invisible group-hover:visible"
+          >
+            •••
+          </button>
+        </div>
+
+        <dialog
+          open={optionsDialog}
+          className="absolute z-50 top-0 w-full bg-transparent"
+          onMouseLeave={() => setOptionsDialog(false)}
+          onClick={() => setOptionsDialog(false)}
+        >
+          <ul className="bg-background-elevated-highlight p-1 rounded-md w-fit absolute right-0">
+            <li className="text-md px-3 py-3 w-full hover:bg-[#3e3e3e] relative group">
+              <div className="flex items-center gap-x-3 ">
+                <FaPlus size={15} />
+                <p>Add to Playlist</p>
+                <RxTriangleRight size={25} />
+              </div>
+
+              <ul className="hidden overflow-hidden p-1 absolute rounded-md right-[calc(100%_-_5px)] shadow-[0px_0px_20px_#000000] bottom-1 bg-background-elevated-highlight min-w-[220px] hover:block group-hover:block max-h-[200px]">
+                <li
+                  className="hover:bg-[#3e3e3e] px-2 py-3 text-md flex items-center gap-x-3"
+                  onClick={createPlaylist}
+                >
+                  <FaPlus size={15} />
+                  <p>New Playlist</p>
+                </li>
+                <DividerWithText />
+                <>{playlists}</>
+              </ul>
+            </li>
+
+            <li className="flex items-center gap-x-2 px-2 py-3 hover:bg-[#3e3e3e]">
+              <SlTrash />
+              Remove from this Playlist
+            </li>
+          </ul>
+        </dialog>
       </div>
-    </div>
+    </>
   );
 };
 
