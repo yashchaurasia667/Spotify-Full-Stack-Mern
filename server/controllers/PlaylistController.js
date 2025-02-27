@@ -140,8 +140,8 @@ export const getTracks = async (req, res) => {
 
 export const removeTrack = async (req, res) => {
   const { user_id } = req.cookies;
-  const { playlist_id, track_id } = req.query;
-  if (!user_id || !playlist_id || !track_id) return res.status(400).json("Bad request: user id, playlist id, track id are required");
+  const { playlist_id, track_index } = req.query;
+  if (!user_id || !playlist_id || !track_index) return res.status(400).json("Bad request: user id, playlist id, track id are required");
 
   try {
     const playlistDoc = await Playlist.findById(playlist_id);
@@ -150,8 +150,8 @@ export const removeTrack = async (req, res) => {
     const owner_id = playlistDoc.owner.toString()
     if (owner_id != user_id) return res.status(401).json("Unauthorized");
 
-    playlistDoc.songs.filter((song) => song.song != track_id);
-    console.log(playlistDoc.songs)
+    if (track_index > -1)
+      playlistDoc.songs.splice(track_index - 1, 1);
     await playlistDoc.save();
     res.status(200).json("track removed");
   } catch (error) {

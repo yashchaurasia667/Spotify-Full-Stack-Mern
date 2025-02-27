@@ -59,7 +59,7 @@ const PlaylistTracks = ({ playlist_id }: props) => {
   }, [tracks]);
 
   return (
-    <div>
+    <div className="mb-4">
       <>{displayTracks}</>
       {/* <Track
         id="gugugaga"

@@ -67,7 +67,7 @@ const Track = ({
   const removeTrack = async () => {
     if (!playlist_id) return;
     const res = await fetch(
-      `/api/playlist/removetrack?playlist_id=${playlist_id}&track_id=${track_id}`,
+      `/api/playlist/removetrack?playlist_id=${playlist_id}&track_index=${index}`,
       { credentials: "include" }
     );
     if (res.ok) {
@@ -138,14 +138,14 @@ const Track = ({
           onClick={() => setOptionsDialog(false)}
         >
           <ul className="bg-background-elevated-highlight p-1 rounded-md w-fit absolute right-0">
-            <li className="text-md px-3 py-3 w-full hover:bg-[#3e3e3e] relative group">
-              <div className="flex items-center gap-x-3 ">
+            <li className="text-md px-3 py-3 w-full hover:bg-[#3e3e3e] relative">
+              <div className="flex items-center gap-x-3 group">
                 <FaPlus size={15} />
                 <p>Add to Playlist</p>
                 <RxTriangleRight size={25} />
               </div>
 
-              <ul className="hidden overflow-hidden p-1 absolute rounded-md right-[calc(100%_-_5px)] shadow-[0px_0px_20px_#000000] bottom-1 bg-background-elevated-highlight min-w-[220px] hover:block group-hover:block max-h-[200px]">
+              <ul className="overflow-hidden p-1 absolute rounded-md right-[calc(100%_-_5px)] shadow-[0px_0px_20px_#000000] bottom-1 bg-background-elevated-highlight min-w-[220px] hover:visible group-hover:visible invisible max-h-[200px]">
                 <li
                   className="hover:bg-[#3e3e3e] px-2 py-3 text-md flex items-center gap-x-3"
                   onClick={createPlaylist}

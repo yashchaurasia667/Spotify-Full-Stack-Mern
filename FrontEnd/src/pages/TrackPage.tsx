@@ -94,6 +94,7 @@ const TrackPage = () => {
               </button>
               <dialog
                 open={optionsDialog}
+                onMouseLeave={() => setOptionsDialog(false)}
                 className="bg-background-elevated-highlight rounded-md w-[200px] mx-0 absolute top-1/3 -translate-y-1/3 left-36 p-1"
               >
                 <ul>
