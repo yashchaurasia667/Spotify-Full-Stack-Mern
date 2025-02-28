@@ -8,7 +8,6 @@ const SignUp = () => {
 
   const navigate = useNavigate();
   useEffect(() => navigate("/signup/1"), []);
-  return <></>;
 };
 
 export default SignUp;

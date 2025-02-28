@@ -178,12 +178,13 @@ export const refreshToken = async (req, res) => {
 // ####################################################################################
 
 export const search = async (req, res) => {
-  // const { query, type, limit } = req.body;
   const { query, type, limit } = req.query;
   const { access_token } = req.cookies;
 
   if (!access_token)
     return res.status(401).json("Unauthorized");
+  if (!query)
+    return res.status(400).json("Bad request: query is required");
 
   try {
     const response = await fetch(`https://api.spotify.com/v1/search?q=${query}&type=${type}&limit=${limit}`, {
@@ -193,16 +194,22 @@ export const search = async (req, res) => {
       },
     });
 
+    if (!response.ok) {
+      console.log(response);
+      throw new Error("Failed to get search results from spotify");
+    }
+
     const data = await response.json();
     res.status(200).json(data)
   } catch (error) {
+    console.error(error);
     res.status(500).json("something went wrong")
   }
 }
 
 export const getTrack = async (req, res) => {
-  const id = req.query.id;
-  const access_token = req.cookies.access_token;
+  const { id } = req.query;
+  const { access_token } = req.cookies;
 
   if (!id || !access_token)
     return res.status(400).json("Bad request: Track id and Access Token is required");

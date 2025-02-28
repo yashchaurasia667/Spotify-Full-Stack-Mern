@@ -49,12 +49,13 @@ const ProfileContent = () => {
         />
         <div className="mt-3">
           <Track
-            rank={1}
+            track_id="asdfas"
+            index={1}
             name="Lovers Rock"
             artist="TV Girl"
             cover="https://i.scdn.co/image/ab67616d00004851e1bc1af856b42dd7fdba9f84"
             album="French Exit"
-            duration="3:33"
+            duration_ms={112341234}
           />
         </div>
       </div>

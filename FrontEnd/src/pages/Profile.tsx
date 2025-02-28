@@ -5,13 +5,16 @@ import ProfileHeader from "../components/profile/ProfileHeader";
 import ProfileContent from "../components/profile/ProfileContent";
 
 import MainContext from "../context/mainContext/MainContext";
+import { user } from "../types";
 
 const Profile = () => {
   const context = useContext(MainContext);
   if (!context) throw new Error("No main context");
   const { user } = context;
   const [redirect, setRedirect] = useState(false);
-  const [playlists, setPlaylists] = useState<string[]>(user.playlists);
+  const [playlists, setPlaylists] = useState<{ _id: string; name: string }[]>(
+    user.playlists
+  );
 
   // useEffect(() => {
   //   fetch("/api/user/getcurrentuser", {

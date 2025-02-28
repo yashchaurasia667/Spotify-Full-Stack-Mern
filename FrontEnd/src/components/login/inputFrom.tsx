@@ -18,7 +18,7 @@ const InputFrom = () => {
   if (!signupContext || !userContext) throw new Error("No context");
 
   const { checkUser } = signupContext;
-  const { setUser } = userContext;
+  // const { setUser } = userContext;
 
   const { formInput } = styles;
 

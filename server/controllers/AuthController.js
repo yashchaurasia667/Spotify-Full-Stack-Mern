@@ -1,10 +1,10 @@
 import mongoose from "mongoose";
 import jwt from 'jsonwebtoken'
 import bcrypt from "bcryptjs"
-import fs from 'fs'
+// import fs from 'fs'
 
 import User from "../models/User.js"
-import Playlist from "../models/Playlist.js";
+// import Playlist from "../models/Playlist.js";
 
 mongoose.connect("mongodb://localhost:27017/Spotify")
 
@@ -17,7 +17,10 @@ export const signup = async (req, res) => {
     const userDoc = await User.create({
       email, password: bcrypt.hashSync(password, salt), name, year, month, day, profile: "profile_default.png",
       playlists: [], likedSongs: [], recents: [], access_token: "", refresh_token: ""
-    })
+    });
+    if (!userDoc) {
+      throw new Error("Failed to create user");
+    }
     res.status(201).json(userDoc);
   }
   catch (error) {
@@ -101,5 +104,6 @@ export const ensureAuth = async (req, res) => {
 }
 
 export const logout = async (req, res) => {
-  res.cookie("token", "").json("logged out")
+  // res.cookie("token", "").json("logged out")
+  res.clearCookie
 }
