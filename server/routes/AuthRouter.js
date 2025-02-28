@@ -10,6 +10,6 @@ router.post("/signup", signupValidation, signup);
 router.post("/login", loginValidation, login);
 router.get("/logout", isLoggedIn, logout);
 router.get("/authenticate", isLoggedIn, authenticate);
-router.get("/changePassword", isLoggedIn, changePassword);
+router.post("/changePassword", isLoggedIn, changePassword);
 
 export default router;

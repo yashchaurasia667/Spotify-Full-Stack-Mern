@@ -18,7 +18,12 @@ const SignupContextProvider = ({ children }: props) => {
         },
         body: JSON.stringify({ email }),
       });
-      return await res.json();
+      return res.ok;
+      // if (!res.ok) {
+      //   console.log(res);
+      //   throw new Error("Failed to check user");
+      // }
+      // return await res.json();
     } catch (error) {
       throw new Error(`Something went wrong ${error}`);
     }

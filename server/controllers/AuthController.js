@@ -30,13 +30,14 @@ export const signup = async (req, res) => {
 
 export const changePassword = async (req, res) => {
   const { user_id } = req.cookies;
-  const { new_password } = req.body;
+  const { current_password, new_password } = req.body;
 
   if (!user_id || !new_password) return res.status(400).json("Bad request: user id and new password are required");
 
   try {
     const userDoc = await User.findById(user_id);
     if (!userDoc) return res.status(404).json("User not found");
+    if (!userDoc.password == bcrypt.hashSync(current_password, salt)) return res.status(401).json("Unauthorized");
 
     userDoc.password = bcrypt.hashSync(new_password, salt);
     await userDoc.save();
@@ -105,5 +106,5 @@ export const ensureAuth = async (req, res) => {
 
 export const logout = async (req, res) => {
   // res.cookie("token", "").json("logged out")
-  res.clearCookie
+  res.clearCookie("token").clearCookie("access_token").clearCookie("refresh_token").clearCookie("user_id").json("logged out");
 }
