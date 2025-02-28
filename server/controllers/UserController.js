@@ -2,7 +2,6 @@ import fs from "fs";
 import mongoose from "mongoose";
 
 import User from "../models/User.js";
-import Playlist from "../models/Playlist.js";
 
 mongoose.connect("mongodb://localhost:27017/Spotify")
 
