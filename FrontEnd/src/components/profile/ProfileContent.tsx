@@ -1,16 +1,44 @@
 import { useState } from "react";
+
+import { IoIosClose } from "react-icons/io";
+import { ToastContainer, toast } from "react-toastify";
+
 import ArtistBar from "../global/ArtistBar";
 import ArtistCard from "../global/ArtistCard";
 import Track from "../global/Track";
-import { IoIosClose } from "react-icons/io";
 
 const ProfileContent = () => {
   const [options, setOptions] = useState(false);
   const [currentPass, setCurrentPass] = useState<string>("");
   const [newPass, setNewPass] = useState<string>("");
 
+  const checkPass = () => {
+    const letterCheck = newPass.match(/[a-zA-Z]/);
+    const numberCheck = newPass.match(/[\d\W]/);
+    const lenCheck = newPass.length > 9;
+
+    if (!(letterCheck && numberCheck && lenCheck)) {
+      toast.error(
+        "password must contain a letter, a digit or a special character and must have atleast 10 characters",
+        {
+          position: "bottom-center",
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: false,
+          progress: undefined,
+          theme: "light",
+        }
+      );
+      return false;
+    }
+    return true;
+  };
+
   const changePass = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!checkPass()) return;
 
     const res = await fetch("/api/auth/changepassword", {
       method: "post",
@@ -23,20 +51,62 @@ const ProfileContent = () => {
         new_password: newPass,
       }),
     });
-    if (res.status == 401) {
-      console.error("Wrong password");
+
+    if (res.status == 201) {
+      toast.success("password changed", {
+        position: "bottom-center",
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: false,
+        progress: undefined,
+        theme: "light",
+      });
+      setOptions(false);
+    } else if (res.status == 401) {
+      toast.error("Wrong password", {
+        position: "bottom-center",
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: false,
+        progress: undefined,
+        theme: "light",
+      });
       return;
+    } else {
+      toast.error("Something went wrong", {
+        position: "bottom-center",
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: false,
+        progress: undefined,
+        theme: "light",
+      });
     }
-    setOptions(false);
   };
 
   return (
     <>
+      <ToastContainer
+        position="bottom-center"
+        autoClose={3000}
+        limit={1}
+        hideProgressBar
+        closeOnClick
+        pauseOnFocusLoss={false}
+        pauseOnHover={false}
+        theme="light"
+      />
       <dialog
         open={options}
         className="bg-[#12121288] w-full h-[100vh] z-[1000] top-0"
       >
-        <div className="absolute bg-background-elevated-highlight w-1/3 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 p-4 rounded-md">
+        <div className="absolute bg-background-elevated-highlight w-1/3 min-h-[250px] left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 p-4 rounded-md">
           <div className="flex justify-between mb-4">
             <p className="text-[1.6rem] font-bold tracking-tight">
               Change Password
@@ -54,15 +124,21 @@ const ProfileContent = () => {
                 onChange={(e) => setCurrentPass(e.target.value)}
                 className="bg-[#3e3e3e] w-full rounded-md p-2 py-4 outline-none focus:border focus:border-[#acacac]"
               />
-              <input
-                type="text"
-                placeholder="New password"
-                value={newPass}
-                onChange={(e) => setNewPass(e.target.value)}
-                className="bg-[#3e3e3e] w-full rounded-md p-2 py-4 outline-none focus:border focus:border-[#acacac]"
-              />
+              <div>
+                <input
+                  type="text"
+                  placeholder="New password"
+                  value={newPass}
+                  onChange={(e) => setNewPass(e.target.value)}
+                  className="bg-[#3e3e3e] w-full rounded-md p-2 py-4 outline-none focus:border focus:border-[#acacac]"
+                />
+                <p></p>
+              </div>
             </div>
-            <button type="submit" className="bg-white text-background-base font-medium rounded-full text-lg px-10 py-4">
+            <button
+              type="submit"
+              className="bg-white text-background-base font-medium rounded-full text-lg px-10 py-4"
+            >
               Save
             </button>
           </form>

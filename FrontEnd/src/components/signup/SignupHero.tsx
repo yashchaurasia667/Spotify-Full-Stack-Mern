@@ -29,9 +29,10 @@ function SignupHero() {
       method: "POST",
       credentials: "include",
     }).then((res) => {
-      res.json().then((info) => {
-        if (info) setLoggedIn(true);
-      });
+      if (res.ok) setLoggedIn(true);
+      // res.json().then((info) => {
+      //   if (info) setLoggedIn(true);
+      // });
     });
   }, []);
 

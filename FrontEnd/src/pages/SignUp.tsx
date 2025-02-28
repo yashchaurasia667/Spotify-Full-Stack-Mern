@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
@@ -8,6 +8,7 @@ const SignUp = () => {
 
   const navigate = useNavigate();
   useEffect(() => navigate("/signup/1"), []);
+  return <></>;
 };
 
 export default SignUp;

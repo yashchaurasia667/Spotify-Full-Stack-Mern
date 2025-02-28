@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
-import jwt from 'jsonwebtoken'
-import bcrypt from "bcryptjs"
+import jwt from "jsonwebtoken";
+import bcrypt from "bcryptjs";
+import Joi from "joi";
 // import fs from 'fs'
 
 import User from "../models/User.js"
@@ -29,15 +30,20 @@ export const signup = async (req, res) => {
 }
 
 export const changePassword = async (req, res) => {
-  const { user_id } = req.cookies;
   const { current_password, new_password } = req.body;
+  const { user_id } = req.cookies;
 
   if (!user_id || !new_password) return res.status(400).json("Bad request: user id and new password are required");
+
+  const schema = Joi.string().regex(/^(?=.*[a-zA-Z])(?=.*[\d\W]).{10,}$/);
+  const { error } = schema.validate(new_password);
+
+  if (error) return res.status(403).json("Please use the proper format for the password");
 
   try {
     const userDoc = await User.findById(user_id);
     if (!userDoc) return res.status(404).json("User not found");
-    if (!userDoc.password == bcrypt.hashSync(current_password, salt)) return res.status(401).json("Unauthorized");
+    if (userDoc.password !== bcrypt.hashSync(current_password, salt)) return res.status(401).json("Unauthorized");
 
     userDoc.password = bcrypt.hashSync(new_password, salt);
     await userDoc.save();
@@ -71,6 +77,7 @@ export const authenticate = async (req, res) => {
 
 export const login = async (req, res) => {
   const { email, password } = req.body;
+  console.log(bcrypt.hashSync("password123", salt))
 
   if (!email || !password)
     return res.status(400).json("Bad Request");

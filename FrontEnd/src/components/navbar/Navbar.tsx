@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext, useRef } from "react";
+import React, { useState, useContext, useRef } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 
 import { GoHomeFill, GoHome } from "react-icons/go";
@@ -42,6 +42,8 @@ const Navbar = () => {
   const [searchOpen, setSearchOpen] = useState(false);
   const [query, setQuery] = useState("");
 
+  const navigate = useNavigate();
+
   const handleBlur = (
     // e: MouseEvent,
     e: React.FocusEvent<HTMLElement>,
@@ -55,7 +57,7 @@ const Navbar = () => {
 
   const logout = async (e: React.MouseEvent<HTMLButtonElement>) => {
     await fetch("/api/auth/logout");
-    window.location.reload();
+    navigate("/");
   };
 
   // useEffect(() => {

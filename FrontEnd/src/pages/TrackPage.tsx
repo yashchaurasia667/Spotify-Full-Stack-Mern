@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 
 import { RxTriangleRight } from "react-icons/rx";
 import { FaPlus } from "react-icons/fa";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 
 import TrackHeader from "../components/Track/TrackHeader";
 import PlayPage from "../components/global/PlayPage";
