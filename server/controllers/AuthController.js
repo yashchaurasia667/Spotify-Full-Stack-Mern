@@ -11,7 +11,6 @@ mongoose.connect("mongodb://localhost:27017/Spotify")
 const salt = bcrypt.genSaltSync(10);
 
 export const signup = async (req, res) => {
-  console.log('signup endpoint hit')
   const { email, password, name, year, month, day } = req.body;
 
   try {
@@ -23,6 +22,46 @@ export const signup = async (req, res) => {
   }
   catch (error) {
     res.status(409).json(error)
+  }
+}
+
+export const changePassword = async (req, res) => {
+  const { user_id } = req.cookies;
+  const { new_password } = req.body;
+
+  if (!user_id || !new_password) return res.status(400).json("Bad request: user id and new password are required");
+
+  try {
+    const userDoc = await User.findById(user_id);
+    if (!userDoc) return res.status(404).json("User not found");
+
+    userDoc.password = bcrypt.hashSync(new_password, salt);
+    await userDoc.save();
+
+    res.status(201).json("Password set");
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json("Internal server error");
+  }
+}
+
+export const authenticate = async (req, res) => {
+  const { user_id } = req.cookies;
+  const { password } = req.query;
+
+  if (!user_id || !password) return res.status(400).json("Bad Request: user id and password are required");
+
+  try {
+    const userDoc = await User.findById(user_id);
+    if (!userDoc) return res.status(404).json("User not found");
+
+    if (userDoc.password == bcrypt.hashSync(password, salt))
+      return res.status(200).json("Authorized");
+    else
+      return res.status(401).json("Unauthorized");
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json("Internal server error");
   }
 }
 
