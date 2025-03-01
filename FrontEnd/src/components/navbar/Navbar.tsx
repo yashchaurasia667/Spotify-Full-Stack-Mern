@@ -151,10 +151,7 @@ const Navbar = () => {
                 }}
                 className={profile_icon}
               >
-                <img
-                  src={`http://localhost:4000/uploads/${user.profile}`}
-                  alt=""
-                />
+                <img src={user.profile} />
               </button>
               <dialog
                 ref={dialogRef}

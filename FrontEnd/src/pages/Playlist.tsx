@@ -8,10 +8,13 @@ import MainContext from "../context/mainContext/MainContext";
 import { playlist, RGB } from "../types";
 import { useParams } from "react-router-dom";
 
+import NotFound from "./NotFound";
+
 const Playlist = () => {
   const { id } = useParams();
 
   const [bg, setBg] = useState<RGB>({ r: 0, g: 0, b: 0 });
+  const [notFound, setNotfound] = useState(false);
   const [playlist, setPlaylist] = useState<playlist>({
     cover: "",
     name: "",
@@ -28,6 +31,9 @@ const Playlist = () => {
   useEffect(() => {
     if (id)
       getPlaylistDetails(id).then((details) => {
+        if (!details) {
+          setNotfound(true);
+        }
         setPlaylist(details);
         averageImageColor(`/api/uploads/playlists/${details.cover}`).then(
           (color) => setBg(color)
@@ -35,7 +41,9 @@ const Playlist = () => {
       });
   }, [id]);
 
-  return (
+  return notFound ? (
+    <NotFound />
+  ) : (
     <div className="row-start-2 col-start-2 overflow-auto bg-background-base rounded-md">
       <PlaylistHeader
         id={id!}

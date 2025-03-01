@@ -8,6 +8,7 @@ import EditablePhoto from "../global/EditablePhoto";
 import MainContext from "../../context/mainContext/MainContext";
 
 interface profileProps {
+  id: string;
   name: string;
   public_playlists: number;
   followers: number;
@@ -16,6 +17,7 @@ interface profileProps {
 }
 
 const ProfileHeader = ({
+  id,
   name,
   public_playlists,
   followers,
@@ -73,7 +75,7 @@ const ProfileHeader = ({
     <div className={styles.hero_bg}>
       <EditablePhoto
         onClick={() => setEditOpen(true)}
-        profile={`/api/uploads/${profile}`}
+        profile={profile}
         width={220}
         height={220}
         className="rounded-[50%]"
@@ -114,9 +116,7 @@ const ProfileHeader = ({
             <div className="grid grid-cols-[1fr_1.5fr] gap-x-4">
               <EditablePhoto
                 profile={
-                  inputProf
-                    ? URL.createObjectURL(inputProf[0])
-                    : `http://localhost:4000/uploads/${profile}`
+                  inputProf ? URL.createObjectURL(inputProf[0]) : profile
                 }
                 width={180}
                 height={180}
@@ -135,6 +135,7 @@ const ProfileHeader = ({
               <div className="flex flex-col gap-y-3 items-end justify-center relative">
                 <input
                   value={editName}
+                  required
                   onChange={(e) => setEditName(e.target.value)}
                   type="text"
                   className="bg-[#3e3e3e] w-full rounded-md p-2 outline-none focus:border focus:border-[#acacac]"

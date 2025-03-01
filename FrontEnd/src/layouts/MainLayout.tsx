@@ -108,7 +108,13 @@ const MainLayout = () => {
       }).then((res) =>
         res.json().then((newUser) => {
           if (newUser.email) {
-            setUser({ ...newUser });
+            setUser({
+              ...newUser,
+              profile:
+                newUser.profile == "profile_default.png"
+                  ? `/api/uploads/global/${newUser.profile}`
+                  : `/api/uploads/${newUser._id}/${newUser.profile}`,
+            });
           }
         })
       );

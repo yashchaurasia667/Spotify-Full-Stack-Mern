@@ -1,10 +1,11 @@
 const YTAPI = process.env.YOUTUBE_API
 export const search = async (req, res) => {
-  // const { limit, q } = req.query;
+  const { name, artist } = req.query;
+  // const { q } = req.query;
   try {
-    const ytres = await fetch(`https://youtube.googleapis.com/youtube/v3/search?part=${"id"}&q=${"BØRNS"}&key=${YTAPI}&maxResults=${10}`);
+    const ytres = await fetch(`https://youtube.googleapis.com/youtube/v3/search?part=${"id"}&q=${name + " " + artist}&key=${YTAPI}&maxResults=${1}`);
     if (!ytres.ok) {
-      console.log(ytres)
+      console.error(ytres)
       throw new Error("Failed to fetch from youtube");
     }
     const data = await ytres.json();

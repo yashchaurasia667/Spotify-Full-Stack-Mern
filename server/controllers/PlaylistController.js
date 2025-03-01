@@ -1,5 +1,4 @@
 import fs from "fs";
-import mongoose from "mongoose";
 
 import Playlist from "../models/Playlist.js";
 import User from "../models/User.js";

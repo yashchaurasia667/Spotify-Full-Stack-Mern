@@ -5,12 +5,12 @@ import ProfileHeader from "../components/profile/ProfileHeader";
 import ProfileContent from "../components/profile/ProfileContent";
 
 import MainContext from "../context/mainContext/MainContext";
-import { user } from "../types";
 
 const Profile = () => {
   const context = useContext(MainContext);
   if (!context) throw new Error("No main context");
   const { user } = context;
+
   const [redirect, setRedirect] = useState(false);
   const [playlists, setPlaylists] = useState<{ _id: string; name: string }[]>(
     user.playlists
@@ -32,8 +32,9 @@ const Profile = () => {
   ) : (
     <div className="rounded-[8px] overflow-y-auto h-full">
       <ProfileHeader
+        id={user._id}
         name={user.name}
-        public_playlists={2}
+        public_playlists={user.playlists.length}
         followers={2}
         following={4}
         profile={user.profile}

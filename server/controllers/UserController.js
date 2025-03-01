@@ -1,4 +1,5 @@
 import fs from "fs";
+import path from "path";
 import mongoose from "mongoose";
 
 import User from "../models/User.js";
@@ -56,12 +57,20 @@ export const editProfile = async (req, res) => {
   if (!user_id) return res.status(401).json("Unauthorized")
 
   if (req.file) {
-    const { originalname, path, filename } = req.file;
+    const { originalname, filename } = req.file;
+
     const parts = originalname.split(".");
     const ext = parts[parts.length - 1];
-    const newName = filename + "." + ext;
-    const newPath = "uploads/" + newName;
-    fs.renameSync(path, newPath);
+    const newName = "profile." + ext;
+
+    const newDir = `uploads/${user_id}/`;
+    fs.mkdirSync(newDir, { recursive: true });
+
+    const newPath = path.join(newDir, newName);
+    fs.renameSync(`uploads/${filename}`, newPath);
+
+    console.log(newName)
+
     try {
       const userDoc = await User.findByIdAndUpdate(user_id, { name, profile: newName })
       if (userDoc)

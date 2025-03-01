@@ -12,6 +12,7 @@ import DividerWithText from "../components/global/DividerWithText";
 import MainContext from "../context/mainContext/MainContext";
 
 import { RGB, trackDetails } from "../types";
+import NotFound from "./NotFound";
 
 const TrackPage = () => {
   const { id } = useParams();
@@ -19,6 +20,7 @@ const TrackPage = () => {
   const [trackDetails, setTrackDetails] = useState<trackDetails>();
   const [background, setBackground] = useState<RGB>({ r: 0, g: 0, b: 0 });
   const [optionsDialog, setOptionsDialog] = useState<boolean>(false);
+  const [notFound, setNotfound] = useState(false);
 
   const context = useContext(MainContext);
   if (!context) throw new Error("No main context");
@@ -27,13 +29,17 @@ const TrackPage = () => {
   useEffect(() => {
     fetch(`/api/spotify/track/?id=${id}`, {
       credentials: "include",
-    }).then((res) =>
+    }).then((res) => {
+      if (!res.ok) {
+        setNotfound(true);
+        return;
+      }
       res.json().then((data) => {
         setTrackDetails(() => {
           return { ...data };
         });
-      })
-    );
+      });
+    });
   }, [id]);
 
   useEffect(() => {
@@ -55,7 +61,9 @@ const TrackPage = () => {
     ));
   }, [user.playlists]);
 
-  return (
+  return notFound ? (
+    <NotFound />
+  ) : (
     <div className="bg-background-base overflow-auto rounded-lg">
       <ToastContainer
         position="bottom-center"
