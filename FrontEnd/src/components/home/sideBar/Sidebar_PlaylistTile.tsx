@@ -7,6 +7,7 @@ interface props {
   name: string;
   id: string;
   sidebarWidth: number;
+  owner: string;
 }
 
 const Sidebar_PlaylistTile = ({
@@ -15,6 +16,7 @@ const Sidebar_PlaylistTile = ({
   length,
   type,
   id,
+  owner,
   sidebarWidth,
 }: props) => {
   const navigate = useNavigate();
@@ -26,10 +28,10 @@ const Sidebar_PlaylistTile = ({
       onClick={() => navigate(`/playlist/${id}`)}
     >
       <img
-        src={`/api/uploads/playlists/${
+        src={`/api/uploads/${
           cover === "playlist_default.png"
-            ? "playlist_default_small.png"
-            : cover
+            ? "global/playlist_default_small.png"
+            : `${owner}/${id}/${cover}`
         }`}
         // height={65}
         width={50}

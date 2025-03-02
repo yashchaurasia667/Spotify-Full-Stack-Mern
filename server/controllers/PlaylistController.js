@@ -2,6 +2,7 @@ import fs from "fs";
 
 import Playlist from "../models/Playlist.js";
 import User from "../models/User.js";
+import path from "path";
 
 export const createPlaylist = async (req, res) => {
   const { user_id } = req.cookies;
@@ -48,13 +49,18 @@ export const editPlaylist = async (req, res) => {
       playlistDoc.description = description;
 
     if (req.file) {
-      const { originalname, path, filename } = req.file;
+      const { originalname, filename } = req.file;
+
       const parts = originalname.split(".");
       const ext = parts[parts.length - 1];
       const newName = filename + "." + ext;
-      const newPath = "uploads/playlists/" + newName;
 
-      fs.renameSync(path, newPath);
+      const newDir = `uploads/${user_id}/${playlist_id}`;
+      fs.mkdirSync(newDir, { recursive: true });
+
+      const newPath = path.join(newDir, newName);
+      fs.renameSync(`uploads/tmp/${filename}`, newPath);
+
       playlistDoc.cover = newName;
     }
 

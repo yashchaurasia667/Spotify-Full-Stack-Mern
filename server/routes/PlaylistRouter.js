@@ -10,7 +10,7 @@ router.get("/create", isLoggedIn, createPlaylist);
 router.get("/getplaylist", isLoggedIn, getPlaylistDetails);
 router.get("/tracks", getTracks);
 
-router.post("/edit", isLoggedIn, multer({ dest: "uploads/playlists/" }).single("cover"), editPlaylist);
+router.post("/edit", isLoggedIn, multer({ dest: "uploads/tmp" }).single("cover"), editPlaylist);
 
 router.get("/delete", isLoggedIn, deletePlaylist);
 router.get("/addtoplaylist", isLoggedIn, addToPlaylist);

@@ -71,6 +71,7 @@ const Sidebar_playlists = () => {
   const renderPlaylists = useMemo(() => {
     return playlistDetails.map((details, index) => (
       <Sidebar_PlaylistTile
+        owner={details.owner}
         sidebarWidth={sidebarWidth}
         cover={details.cover}
         length={details.songs.length}

@@ -67,9 +67,7 @@ export const editProfile = async (req, res) => {
     fs.mkdirSync(newDir, { recursive: true });
 
     const newPath = path.join(newDir, newName);
-    fs.renameSync(`uploads/${filename}`, newPath);
-
-    console.log(newName)
+    fs.renameSync(`uploads/tmp/${filename}`, newPath);
 
     try {
       const userDoc = await User.findByIdAndUpdate(user_id, { name, profile: newName })

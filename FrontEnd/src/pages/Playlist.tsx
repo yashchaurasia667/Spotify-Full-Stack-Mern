@@ -35,9 +35,14 @@ const Playlist = () => {
           setNotfound(true);
         }
         setPlaylist(details);
-        averageImageColor(`/api/uploads/playlists/${details.cover}`).then(
-          (color) => setBg(color)
-        );
+
+        averageImageColor(
+          details.cover == "playlist_default.png"
+            ? `/api/uploads/global/${details.cover}`
+            : `/api/uploads/${details.owner}/${id}/${details.cover}`
+        ).then((color) => {
+          setBg(color);
+        });
       });
   }, [id]);
 
@@ -48,7 +53,11 @@ const Playlist = () => {
       <PlaylistHeader
         id={id!}
         bg={bg}
-        cover={`/api/uploads/playlists/${playlist.cover}`}
+        cover={
+          playlist.cover == "playlist_default.png"
+            ? `/api/uploads/global/${playlist.cover}`
+            : `/api/uploads/${playlist.owner}/${id}/${playlist.cover}`
+        }
         name={playlist.name}
         description={playlist.description}
         type="Playlist"

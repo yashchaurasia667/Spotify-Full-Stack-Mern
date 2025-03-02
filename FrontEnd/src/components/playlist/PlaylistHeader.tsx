@@ -111,7 +111,7 @@ const PlaylistHeader = ({
               }}
             >
               <img
-                src={`http://localhost:4000/uploads/${ownerDetails.profile}`}
+                src={`/api/uploads/${ownerDetails._id}/${ownerDetails.profile}`}
                 className="rounded-[50%] object-cover"
               />
             </div>

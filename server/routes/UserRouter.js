@@ -9,7 +9,7 @@ const router = express.Router();
 router.post("/checkuser", checkUser);
 
 router.get("/getcurrentuser", isLoggedIn, getCurrentUser);
-router.post("/editprofile", isLoggedIn, multer({ dest: "uploads/" }).single("profile"), editProfile);
+router.post("/editprofile", isLoggedIn, multer({ dest: "uploads/tmp" }).single("profile"), editProfile);
 router.get("/getuser", isLoggedIn, getUser);
 
 router.post("/linkspotify", isLoggedIn, linkSpotify);
