@@ -13,7 +13,7 @@ const YtTest = () => {
       /> */}
       <audio controls autoPlay>
         <source
-          src={`/api/youtube/stream?video_id=${"pFptt7Cargc"}&stream_quality=${"highest_audio"}`}
+          src={`/api/youtube/stream?video_id=${"pFptt7Cargc"}&stream_quality=${"highestaudio"}`}
           type="audio/mpeg"
         />
       </audio>

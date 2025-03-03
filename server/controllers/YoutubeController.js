@@ -1,4 +1,5 @@
-import ytdl from "ytdl-core";
+import ytdl from "@distube/ytdl-core";
+import fs from "fs";
 import ffmpeg from "fluent-ffmpeg";
 
 const YTAPI = process.env.YOUTUBE_API
@@ -27,9 +28,16 @@ export const stream = async (req, res) => {
   const ytUrl = `https://youtube.com/watch?v=${video_id}`;
 
   try {
-    if (!(await ytdl.validateURL(ytUrl))) return res.status(400).json("Invalid video url");
+    if (!(ytdl.validateURL(ytUrl))) return res.status(400).json("Invalid video url");
 
     const audioStream = ytdl(ytUrl, { filter: "audioonly", quality: stream_quality || "highestaudio", highWaterMark: 1 << 25 });
+    // audioStream.pipe(fs.createWriteStream("uploads/tmp/audio.mp3")).on("finish", () => {
+    //   console.log('video downloaded')
+    //   res.status(200).json('downloaded')
+    // }).
+    //   on("error", (err) => {
+    //     console.error(err)
+    //   })
 
     res.setHeader("Content-Type", "audio/mpeg");
     res.setHeader("Transfer-Encoding", "chunked");
