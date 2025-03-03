@@ -53,7 +53,7 @@ export const editPlaylist = async (req, res) => {
 
       const parts = originalname.split(".");
       const ext = parts[parts.length - 1];
-      const newName = filename + "." + ext;
+      const newName = "cover." + ext;
 
       const newDir = `uploads/${user_id}/${playlist_id}`;
       fs.mkdirSync(newDir, { recursive: true });
@@ -84,6 +84,8 @@ export const deletePlaylist = async (req, res) => {
     const userDoc = await User.findById(user_id);
     userDoc.playlists = userDoc.playlists.filter((id) => id != playlist_id)
     await userDoc.save();
+    if (playlistDoc.cover != "playlist_default.png")
+      fs.rmSync(`uploads/${user_id}/${playlist_id}`, { recursive: true, force: true });
 
     res.status(204).json("Deleted")
   } catch (error) {

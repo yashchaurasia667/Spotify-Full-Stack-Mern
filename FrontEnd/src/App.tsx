@@ -21,6 +21,7 @@ import SignupLayout from "./layouts/SignupLayout";
 import MainContextProvider from "./context/mainContext/MainContextProvider";
 
 import "./App.css";
+import YtTest from "./pages/YtTest";
 
 const App = () => {
   const router = createBrowserRouter(
@@ -49,6 +50,7 @@ const App = () => {
           <Route index element={<SignUp />} />
           <Route path=":id" element={<SignupHero />} />
         </Route>
+        <Route path="/yt" element={<YtTest />} />
       </Route>
     )
   );

@@ -26,21 +26,37 @@ const TrackPage = () => {
   if (!context) throw new Error("No main context");
   const { user, createPlaylist, averageImageColor, addToPlaylist } = context;
 
-  useEffect(() => {
-    fetch(`/api/spotify/track/?id=${id}`, {
+  const getTrackDetails = async () => {
+    const res = await fetch(`/api/spotify/track/?id=${id}`, {
       credentials: "include",
-    }).then((res) => {
-      if (!res.ok) {
-        setNotfound(true);
-        return;
-      }
-      res.json().then((data) => {
-        setTrackDetails(() => {
-          return { ...data };
-        });
-      });
     });
+    if (!res.ok) {
+      setNotfound(true);
+      return;
+    }
+    const data = await res.json();
+    setTrackDetails({ ...data });
+  };
+
+  const searchYoutube = async (name: string, artist: string) => {
+    const res = await fetch(
+      `/api/youtube/search?name=${name}&artist=${artist}`
+    );
+    if (!res.ok) {
+      setNotfound(true);
+      return;
+    }
+    const data = await res.json();
+    console.log(data);
+  };
+
+  useEffect(() => {
+    getTrackDetails();
   }, [id]);
+  useEffect(() => {
+    if (trackDetails?.name && trackDetails.artists.length != 0)
+      searchYoutube(trackDetails?.name, trackDetails?.artists[0].name);
+  }, [trackDetails]);
 
   useEffect(() => {
     if (trackDetails?.album.images[2].url)
