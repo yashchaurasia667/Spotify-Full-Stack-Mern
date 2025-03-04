@@ -25,7 +25,9 @@ input[type="range"]::-webkit-slider-thumb {
   background: white;
   border-radius: 50%;
   cursor: pointer;
+  visibility: visible;
   opacity: 0;
+  transition: opacity 0.2s;
 }
 
 input[type="range"]:hover::-webkit-slider-thumb {

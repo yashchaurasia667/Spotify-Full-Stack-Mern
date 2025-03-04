@@ -7,7 +7,7 @@ export const search = async (req, res) => {
   const { name, artist } = req.query;
   // const { q } = req.query;
   try {
-    const ytres = await fetch(`https://youtube.googleapis.com/youtube/v3/search?part=${"id"}&q=${name + " " + artist}&key=${YTAPI}&maxResults=${1}`);
+    const ytres = await fetch(`https://youtube.googleapis.com/youtube/v3/search?part=${"id"}&q=${name + " " + artist + "official audio"}&key=${YTAPI}&maxResults=${1}`);
     if (!ytres.ok) {
       console.error(ytres)
       throw new Error("Failed to fetch from youtube");

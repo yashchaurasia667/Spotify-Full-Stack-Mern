@@ -1,4 +1,5 @@
-import { ReactElement, useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 
 import { MdSkipNext, MdSkipPrevious } from "react-icons/md";
 import { IoPlayCircle, IoPauseCircle } from "react-icons/io5";
@@ -11,7 +12,12 @@ import PurpleBar from "./PurpleBar";
 import styles from "./BottomPlayBar.module.css";
 
 import MainContext from "../../../context/mainContext/MainContext";
-import { Link } from "react-router-dom";
+
+interface duration {
+  hour: number;
+  min: number;
+  sec: number;
+}
 
 const BottomPlayBar = () => {
   const context = useContext(MainContext);
@@ -25,6 +31,21 @@ const BottomPlayBar = () => {
   } = context;
 
   const playerRef = useRef<HTMLAudioElement>(null);
+  const progressRef = useRef<HTMLInputElement>(null);
+
+  const [progress, setProgress] = useState(0);
+  const [progressBg, setProgressBg] = useState<string>("white");
+  const [volume, setVolume] = useState(100.0);
+  const [duration, setDuration] = useState<duration>({
+    hour: 0,
+    min: 0,
+    sec: 0,
+  });
+  const [timeStamp, setTimeStamp] = useState<duration>({
+    hour: 0,
+    min: 0,
+    sec: 0,
+  });
 
   const changeColor = (
     e: HTMLInputElement,
@@ -38,18 +59,63 @@ const BottomPlayBar = () => {
   };
 
   useEffect(() => {
+    if (currentlyPlaying.duration_ms) {
+      let tmp = currentlyPlaying.duration_ms;
+      const hr = Math.floor(tmp / 600000);
+      tmp %= 600000;
+      const min = Math.floor(tmp / 60000);
+      tmp %= 60000;
+      const sec = Math.floor(tmp / 1000);
+
+      setDuration({
+        hour: hr,
+        min: min,
+        sec: sec,
+      });
+    }
+  }, [currentlyPlaying]);
+
+  useEffect(() => {
     if (!playerRef.current) return;
     if (!isPlaying) {
       playerRef.current.pause();
     } else if (isPlaying) {
       playerRef.current.play();
     }
+    // setProgress(
+    //   (parseInt(progressRef.current.value) /
+    //     parseInt(progressRef.current.max)) *
+    //     100
+    // );
   }, [isPlaying]);
 
-  const controlAudio = (e: MouseEvent, event: string) => {
-    switch (event) {
-    }
-  };
+  useEffect(() => {
+    const handleTimeUpdate = () => {
+      if (playerRef.current && currentlyPlaying && progressRef.current) {
+        const currTime = playerRef.current.currentTime;
+        const duration = currentlyPlaying.duration_ms / 1000;
+        const timeProgress = (currTime / duration) * 100;
+
+        const min = Math.floor(currTime / 60);
+        const sec = Math.floor(currTime % 60);
+
+        setTimeStamp((prev) => {
+          return { ...prev, min: min, sec: sec };
+        });
+
+        progressRef.current.value = timeProgress.toString();
+      }
+    };
+
+    const audioElement = playerRef.current;
+    if (audioElement)
+      audioElement.addEventListener("timeupdate", handleTimeUpdate);
+
+    return () => {
+      if (audioElement)
+        audioElement.removeEventListener("timeupdate", handleTimeUpdate);
+    };
+  }, [isPlaying, currentlyPlaying]);
 
   return (
     <>
@@ -59,7 +125,8 @@ const BottomPlayBar = () => {
             <audio ref={playerRef}>
               <source
                 // src={`/api/youtube/stream?video_id=${currentlyPlaying.id.youtubeId}`}
-                src={`/api/youtube/stream?video_id=${"pFptt7Cargc"}`}
+                // src={`/api/youtube/stream?video_id=${"odeHP8N4LKc"}`}
+                src={`/api/youtube/stream?video_id=${"u6lihZAcy4s"}`}
                 type="audio/mpeg"
               />
             </audio>
@@ -123,22 +190,40 @@ const BottomPlayBar = () => {
               </button>
             </div>
             <div className="flex w-[100%] gap-x-3 justify-center items-center overflow-hidden">
-              <p>{"0:00"}</p>
+              <p>{`${timeStamp.hour ? timeStamp.hour + ":" : ""}${
+                timeStamp.min
+              }:${String(timeStamp.sec).padStart(2, "0")}`}</p>
+
+              {/* progress bar */}
               <input
                 type="range"
+                ref={progressRef}
                 min={0}
                 max={100}
                 defaultValue={0}
-                onInput={(e) => changeColor(e.currentTarget, "#1ed760", "gray")}
-                onMouseOver={(e) =>
-                  changeColor(e.currentTarget, "#1ed760", "gray")
-                }
-                onMouseOut={(e) =>
-                  changeColor(e.currentTarget, "white", "gray")
-                }
-                className={`${styles.progress}`}
+                style={{
+                  background: `linear-gradient(to right, ${progressBg} ${progress}%, ${"gray"} ${
+                    100 - progress
+                  }%)`,
+                }}
+                onMouseOver={() => setProgressBg("#1ed760")}
+                onMouseOut={() => setProgressBg("white")}
+                // onMouseOver={(e) => console.log(e.currentTarget)}
+
+                //   onChange={(e) =>
+                //     changeColor(e.currentTarget, "#1ed760", "gray")
+                //   }
+                //   onMouseOver={(e) =>
+                //     changeColor(e.currentTarget, "#1ed760", "gray")
+                //   }
+                //   onMouseOut={(e) =>
+                //     changeColor(e.currentTarget, "white", "gray")
+                //   }
               />
-              <p>3:23</p>
+
+              <p>{`${duration.hour ? duration.hour + ":" : ""}${duration.min}:${
+                duration.sec
+              }`}</p>
             </div>
           </div>
 
@@ -155,7 +240,8 @@ const BottomPlayBar = () => {
                 type="range"
                 min={0}
                 max={100}
-                defaultValue={100}
+                value={volume}
+                onChange={(e) => console.log(e.target.value)}
                 onInput={(e) => changeColor(e.currentTarget, "#1ed760", "gray")}
                 onMouseOver={(e) =>
                   changeColor(e.currentTarget, "#1ed760", "gray")
