@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 
 import MainContext from "./MainContext";
 
-import { user, RGB } from "../../types/index";
+import { user, RGB, currentlyPlaying } from "../../types/index";
 
 type contextProps = {
   children: ReactNode;
@@ -14,6 +14,7 @@ const MainContextProvider = ({ children }: contextProps) => {
   const navigate = useNavigate();
   const [sidebarWidth, setSidebarWidth] = useState(350);
   const [token, setToken] = useState("");
+  const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [libIcon, setLibIcon] = useState(
     <>
       <svg
@@ -41,6 +42,23 @@ const MainContextProvider = ({ children }: contextProps) => {
     access_token: "",
     refresh_token: "",
   });
+  const [currentlyPlaying, setCurrentlyPlaying] = useState<currentlyPlaying>({
+    id: {
+      youtubeId: "",
+      spotifyId: "",
+    },
+    album: {
+      name: "",
+      href: "",
+      images: [],
+      release_date: "",
+    },
+    artists: [],
+    duration_ms: 0,
+    name: "",
+    type: "",
+  });
+
   const minSidebarWidth = 280;
   const maxSidebarWidth = 450;
 
@@ -202,6 +220,10 @@ const MainContextProvider = ({ children }: contextProps) => {
     createPlaylist,
     getPlaylistDetails,
     addToPlaylist,
+    currentlyPlaying,
+    setCurrentlyPlaying,
+    isPlaying,
+    setIsPlaying,
   };
   return <MainContext.Provider value={value}>{children}</MainContext.Provider>;
 };

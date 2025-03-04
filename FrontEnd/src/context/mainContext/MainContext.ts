@@ -1,5 +1,5 @@
 import React from "react";
-import { user, RGB } from "../../types/index";
+import { user, RGB, currentlyPlaying } from "../../types/index";
 
 type MainContextType = {
   token: string;
@@ -18,6 +18,10 @@ type MainContextType = {
   createPlaylist: () => void;
   getPlaylistDetails: (id: string) => Promise<any>;
   addToPlaylist: (playlist_id: string, track_id: string) => void;
+  currentlyPlaying: currentlyPlaying;
+  setCurrentlyPlaying: (e: currentlyPlaying) => void;
+  isPlaying: boolean;
+  setIsPlaying: (e: boolean) => void;
 };
 
 const MainContext = React.createContext<MainContextType | undefined>(undefined);

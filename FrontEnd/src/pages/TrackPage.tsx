@@ -8,11 +8,11 @@ import { ToastContainer } from "react-toastify";
 import TrackHeader from "../components/Track/TrackHeader";
 import PlayPage from "../components/global/PlayPage";
 import DividerWithText from "../components/global/DividerWithText";
+import NotFound from "./NotFound";
 
 import MainContext from "../context/mainContext/MainContext";
 
 import { RGB, trackDetails } from "../types";
-import NotFound from "./NotFound";
 
 const TrackPage = () => {
   const { id } = useParams();
@@ -20,12 +20,19 @@ const TrackPage = () => {
   const [trackDetails, setTrackDetails] = useState<trackDetails>();
   const [background, setBackground] = useState<RGB>({ r: 0, g: 0, b: 0 });
   const [optionsDialog, setOptionsDialog] = useState<boolean>(false);
-  const [ytId, setYtId] = useState<string>();
+  const [ytId, setYtId] = useState<string>("");
   const [notFound, setNotfound] = useState(false);
 
   const context = useContext(MainContext);
   if (!context) throw new Error("No main context");
-  const { user, createPlaylist, averageImageColor, addToPlaylist } = context;
+  const {
+    user,
+    createPlaylist,
+    averageImageColor,
+    addToPlaylist,
+    setCurrentlyPlaying,
+    setIsPlaying,
+  } = context;
 
   const getTrackDetails = async () => {
     const res = await fetch(`/api/spotify/track/?id=${id}`, {
@@ -43,13 +50,12 @@ const TrackPage = () => {
     const res = await fetch(
       `/api/youtube/search?name=${name}&artist=${artist}`
     );
-    if (!res.ok) {
-      setNotfound(true);
-      return;
-    }
+    // if (!res.ok) {
+    //   setNotfound(true);
+    //   return;
+    // }
     const data = await res.json();
     setYtId(data.items[0].id.videoId);
-    // console.log(data.items[0].id.videoId);
   };
 
   useEffect(() => {
@@ -111,6 +117,18 @@ const TrackPage = () => {
         }}
       >
         <PlayPage
+          onClick={() => {
+            if (trackDetails) {
+              setCurrentlyPlaying({
+                ...trackDetails,
+                id: {
+                  youtubeId: ytId,
+                  spotifyId: trackDetails.id,
+                },
+              });
+              setIsPlaying(true);
+            }
+          }}
           elements={
             <>
               <button

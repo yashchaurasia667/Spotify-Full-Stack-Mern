@@ -69,3 +69,10 @@ export interface trackDetails {
   name: string;
   type: string;
 }
+
+export interface currentlyPlaying extends Omit<trackDetails, "id"> {
+  id: {
+    youtubeId: string;
+    spotifyId: string;
+  };
+}

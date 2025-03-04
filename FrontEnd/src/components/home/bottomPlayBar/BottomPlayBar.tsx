@@ -1,4 +1,4 @@
-import { useEffect, useContext, useRef } from "react";
+import { ReactElement, useContext, useEffect, useRef, useState } from "react";
 
 import { MdSkipNext, MdSkipPrevious } from "react-icons/md";
 import { IoPlayCircle, IoPauseCircle } from "react-icons/io5";
@@ -11,11 +11,18 @@ import PurpleBar from "./PurpleBar";
 import styles from "./BottomPlayBar.module.css";
 
 import MainContext from "../../../context/mainContext/MainContext";
+import { Link } from "react-router-dom";
 
 const BottomPlayBar = () => {
   const context = useContext(MainContext);
   if (!context) throw new Error("No main context");
-  const { user } = context;
+  const {
+    user,
+    currentlyPlaying,
+    isPlaying,
+    setIsPlaying,
+    setCurrentlyPlaying,
+  } = context;
 
   const playerRef = useRef<HTMLAudioElement>(null);
 
@@ -30,16 +37,19 @@ const BottomPlayBar = () => {
     e.style.background = `linear-gradient(to right, ${primaryColor} ${percentage}%, ${secondaryColor} ${percentage}%)`;
   };
 
-  // useEffect(() => {
-  //   // fetch("/api/auth/checkauth", {
-  //   //   credentials: "include",
-  //   // }).then((res) =>
-  //   //   res.json().then((info) => {
-  //   //     if (info) setLoggedIn(true);
-  //   //     else setLoggedIn(false);
-  //   //   })
-  //   // );
-  // }, []);
+  useEffect(() => {
+    if (!playerRef.current) return;
+    if (!isPlaying) {
+      playerRef.current.pause();
+    } else if (isPlaying) {
+      playerRef.current.play();
+    }
+  }, [isPlaying]);
+
+  const controlAudio = (e: MouseEvent, event: string) => {
+    switch (event) {
+    }
+  };
 
   return (
     <>
@@ -47,20 +57,34 @@ const BottomPlayBar = () => {
         <div className="h-[70px] overflow-hidden px-3 grid grid-cols-[2fr_3fr_2fr] text-white row-start-3 col-span-2">
           <div className="hidden">
             <audio ref={playerRef}>
-              <source src="" />
+              <source
+                // src={`/api/youtube/stream?video_id=${currentlyPlaying.id.youtubeId}`}
+                src={`/api/youtube/stream?video_id=${"pFptt7Cargc"}`}
+                type="audio/mpeg"
+              />
             </audio>
           </div>
           <div className="flex gap-x-4 items-center">
             <img
-              src="/albums/rockstar.jpg"
-              alt="cover"
+              // src="/albums/rockstar.jpg"
+              src={
+                currentlyPlaying.album.images.length
+                  ? currentlyPlaying.album.images[1].url
+                  : ""
+              }
+              alt={currentlyPlaying.name}
               width={55}
               className="rounded-sm"
             />
             <div className="leading-3">
-              <p className="text-sm font-medium">Tum Ho</p>
+              <Link
+                to={`/track/${currentlyPlaying.id.spotifyId}`}
+                className="text-sm font-medium"
+              >
+                {currentlyPlaying.name}
+              </Link>
               <p className="text-sm text-text-subdued cursor-pointer hover:text-white hover:underline">
-                Mohit Chauhan
+                {currentlyPlaying.artists.map((artist) => artist.name + ", ")}
               </p>
             </div>
           </div>
@@ -76,8 +100,18 @@ const BottomPlayBar = () => {
                   onMouseOut={(e) => (e.currentTarget.style.fill = "#a7a7a7")}
                 />
               </button>
-              <button className={styles.controls}>
-                <IoPlayCircle size={40} />
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  setIsPlaying(!isPlaying);
+                }}
+                className={styles.controls}
+              >
+                {isPlaying ? (
+                  <IoPauseCircle size={40} />
+                ) : (
+                  <IoPlayCircle size={40} />
+                )}
               </button>
               <button className={styles.controls}>
                 <MdSkipNext
@@ -89,7 +123,7 @@ const BottomPlayBar = () => {
               </button>
             </div>
             <div className="flex w-[100%] gap-x-3 justify-center items-center overflow-hidden">
-              <p>1:00</p>
+              <p>{"0:00"}</p>
               <input
                 type="range"
                 min={0}

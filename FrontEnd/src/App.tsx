@@ -22,6 +22,7 @@ import MainContextProvider from "./context/mainContext/MainContextProvider";
 
 import "./App.css";
 import YtTest from "./pages/YtTest";
+import AudioContextProvider from "./context/audioContext/AudioContextProvider";
 
 const App = () => {
   const router = createBrowserRouter(
@@ -33,7 +34,9 @@ const App = () => {
           path="/"
           element={
             <MainContextProvider>
-              <MainLayout />
+              <AudioContextProvider>
+                <MainLayout />
+              </AudioContextProvider>
             </MainContextProvider>
           }
         >
