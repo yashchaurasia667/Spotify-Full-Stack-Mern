@@ -1,4 +1,4 @@
-import { useEffect, useContext } from "react";
+import { useEffect, useContext, useRef } from "react";
 
 import { MdSkipNext, MdSkipPrevious } from "react-icons/md";
 import { IoPlayCircle, IoPauseCircle } from "react-icons/io5";
@@ -17,6 +17,8 @@ const BottomPlayBar = () => {
   if (!context) throw new Error("No main context");
   const { user } = context;
 
+  const playerRef = useRef<HTMLAudioElement>(null);
+
   const changeColor = (
     e: HTMLInputElement,
     primaryColor: string,
@@ -28,20 +30,26 @@ const BottomPlayBar = () => {
     e.style.background = `linear-gradient(to right, ${primaryColor} ${percentage}%, ${secondaryColor} ${percentage}%)`;
   };
 
-  useEffect(() => {
-    // fetch("/api/auth/checkauth", {
-    //   credentials: "include",
-    // }).then((res) =>
-    //   res.json().then((info) => {
-    //     if (info) setLoggedIn(true);
-    //     else setLoggedIn(false);
-    //   })
-    // );
-  }, []);
+  // useEffect(() => {
+  //   // fetch("/api/auth/checkauth", {
+  //   //   credentials: "include",
+  //   // }).then((res) =>
+  //   //   res.json().then((info) => {
+  //   //     if (info) setLoggedIn(true);
+  //   //     else setLoggedIn(false);
+  //   //   })
+  //   // );
+  // }, []);
+
   return (
     <>
       {user.email ? (
         <div className="h-[70px] overflow-hidden px-3 grid grid-cols-[2fr_3fr_2fr] text-white row-start-3 col-span-2">
+          <div className="hidden">
+            <audio ref={playerRef}>
+              <source src="" />
+            </audio>
+          </div>
           <div className="flex gap-x-4 items-center">
             <img
               src="/albums/rockstar.jpg"

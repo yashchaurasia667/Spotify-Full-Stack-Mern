@@ -1,4 +1,4 @@
-import { useContext, useEffect, useMemo, useRef, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import { RxTriangleRight } from "react-icons/rx";
@@ -20,6 +20,7 @@ const TrackPage = () => {
   const [trackDetails, setTrackDetails] = useState<trackDetails>();
   const [background, setBackground] = useState<RGB>({ r: 0, g: 0, b: 0 });
   const [optionsDialog, setOptionsDialog] = useState<boolean>(false);
+  const [ytId, setYtId] = useState<string>();
   const [notFound, setNotfound] = useState(false);
 
   const context = useContext(MainContext);
@@ -47,12 +48,14 @@ const TrackPage = () => {
       return;
     }
     const data = await res.json();
-    console.log(data);
+    setYtId(data.items[0].id.videoId);
+    // console.log(data.items[0].id.videoId);
   };
 
   useEffect(() => {
     getTrackDetails();
   }, [id]);
+
   useEffect(() => {
     if (trackDetails?.name && trackDetails.artists.length != 0)
       searchYoutube(trackDetails?.name, trackDetails?.artists[0].name);
