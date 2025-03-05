@@ -80,6 +80,10 @@ const BottomPlayBar = () => {
   };
 
   useEffect(() => {
+    if (currentlyPlaying.id.youtubeId && playerRef.current) {
+      playerRef.current.src = `/api/youtube/stream?video_id=${currentlyPlaying.id.youtubeId}`;
+    }
+
     if (currentlyPlaying.duration_ms) {
       let tmp = currentlyPlaying.duration_ms;
       const hr = Math.floor(tmp / 600000);
@@ -143,7 +147,7 @@ const BottomPlayBar = () => {
               <source
                 // src={`/api/youtube/stream?video_id=${currentlyPlaying.id.youtubeId}`}
                 // src={`/api/youtube/stream?video_id=${"odeHP8N4LKc"}`}
-                src={`/api/youtube/stream?video_id=${"u6lihZAcy4s"}`}
+                // src={`/api/youtube/stream?video_id=${"u6lihZAcy4s"}`}
                 type="audio/mpeg"
               />
             </audio>
