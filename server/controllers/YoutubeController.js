@@ -64,3 +64,20 @@ export const stream = async (req, res) => {
     return res.status(500).json("Internal server error");
   }
 }
+
+export const ytSearch = async (req, res) => {
+  const { name, artist } = req.query;
+  if (!name || !artist) return res.status(400).json("Bad request: name and artist are required");
+
+  try {
+    const url = `https://www.youtube.com/results?search_query=${name} ${artist} official audio`;
+    const ytres = await fetch(url)
+    const html = await ytres.text();
+
+    const ids = html.match(/watch\?v=(\S{11})/);
+    res.status(200).json(ids[1]);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json("Internal server error");
+  }
+}

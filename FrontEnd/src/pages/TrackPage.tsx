@@ -49,14 +49,16 @@ const TrackPage = () => {
   const searchYoutube = async (name: string, artist: string) => {
     console.log("yt req");
     const res = await fetch(
-      `/api/youtube/search?name=${name}&artist=${artist}`
+      `/api/youtube/ytsearch?name=${name}&artist=${artist}`
     );
     if (!res.ok) {
       setNotfound(true);
       return;
     }
     const data = await res.json();
-    setYtId(data.items[0].id.videoId);
+    console.log(data);
+    setYtId(data);
+    // setYtId(data.items[0].id.videoId);
   };
 
   useEffect(() => {
