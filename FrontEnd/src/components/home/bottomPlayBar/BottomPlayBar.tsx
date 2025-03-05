@@ -22,13 +22,7 @@ interface duration {
 const BottomPlayBar = () => {
   const context = useContext(MainContext);
   if (!context) throw new Error("No main context");
-  const {
-    user,
-    currentlyPlaying,
-    isPlaying,
-    setIsPlaying,
-    setCurrentlyPlaying,
-  } = context;
+  const { user, currentlyPlaying, isPlaying, setIsPlaying } = context;
 
   const playerRef = useRef<HTMLAudioElement>(null);
   const progressRef = useRef<HTMLInputElement>(null);
@@ -58,6 +52,33 @@ const BottomPlayBar = () => {
     e.style.background = `linear-gradient(to right, ${primaryColor} ${percentage}%, ${secondaryColor} ${percentage}%)`;
   };
 
+  const updateProgress = () => {
+    if (progressRef.current) {
+      const percentage =
+        (parseInt(progressRef.current.value) /
+          parseInt(progressRef.current.max)) *
+        100;
+      setProgress(percentage);
+    }
+  };
+
+  const seek = (value: number) => {
+    if (currentlyPlaying.duration_ms) {
+      let seekDuration = (value / 100) * currentlyPlaying.duration_ms;
+      if (playerRef.current) playerRef.current.currentTime = seekDuration;
+
+      const hr = Math.floor(seekDuration / 600000);
+      seekDuration %= 600000;
+      const min = Math.floor(seekDuration / 60000);
+      seekDuration %= 60000;
+      const sec = Math.floor(seekDuration / 1000);
+
+      setTimeStamp({ hour: hr, min: min, sec: sec });
+      setProgress(value);
+      // console.log(seekDuration);
+    }
+  };
+
   useEffect(() => {
     if (currentlyPlaying.duration_ms) {
       let tmp = currentlyPlaying.duration_ms;
@@ -82,11 +103,6 @@ const BottomPlayBar = () => {
     } else if (isPlaying) {
       playerRef.current.play();
     }
-    // setProgress(
-    //   (parseInt(progressRef.current.value) /
-    //     parseInt(progressRef.current.max)) *
-    //     100
-    // );
   }, [isPlaying]);
 
   useEffect(() => {
@@ -104,6 +120,7 @@ const BottomPlayBar = () => {
         });
 
         progressRef.current.value = timeProgress.toString();
+        updateProgress();
       }
     };
 
@@ -202,23 +219,14 @@ const BottomPlayBar = () => {
                 max={100}
                 defaultValue={0}
                 style={{
-                  background: `linear-gradient(to right, ${progressBg} ${progress}%, ${"gray"} ${
-                    100 - progress
-                  }%)`,
+                  background: `linear-gradient(to right, ${progressBg} ${progress}%, ${"gray"} ${progress}%)`,
+                }}
+                onChange={(e) => {
+                  // console.log(parseInt(e.target.value));
+                  seek(parseInt(e.target.value));
                 }}
                 onMouseOver={() => setProgressBg("#1ed760")}
                 onMouseOut={() => setProgressBg("white")}
-                // onMouseOver={(e) => console.log(e.currentTarget)}
-
-                //   onChange={(e) =>
-                //     changeColor(e.currentTarget, "#1ed760", "gray")
-                //   }
-                //   onMouseOver={(e) =>
-                //     changeColor(e.currentTarget, "#1ed760", "gray")
-                //   }
-                //   onMouseOut={(e) =>
-                //     changeColor(e.currentTarget, "white", "gray")
-                //   }
               />
 
               <p>{`${duration.hour ? duration.hour + ":" : ""}${duration.min}:${
@@ -241,7 +249,6 @@ const BottomPlayBar = () => {
                 min={0}
                 max={100}
                 value={volume}
-                onChange={(e) => console.log(e.target.value)}
                 onInput={(e) => changeColor(e.currentTarget, "#1ed760", "gray")}
                 onMouseOver={(e) =>
                   changeColor(e.currentTarget, "#1ed760", "gray")
