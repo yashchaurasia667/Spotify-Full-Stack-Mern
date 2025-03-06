@@ -52,6 +52,7 @@ export const stream = async (req, res) => {
         }
       });
     ffmProc.pipe(res, { end: true });
+    console.log("Streaming");
 
     res.on("close", () => {
       console.log("Client disconnected, stopping stream");

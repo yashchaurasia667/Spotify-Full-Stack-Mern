@@ -6,8 +6,8 @@ import { search, stream, ytSearch } from "../controllers/YoutubeController.js";
 
 const router = express.Router();
 
-router.get("/search", search);
-router.get("/ytsearch", ytSearch);
-router.get("/stream", stream);
+router.get("/search", isLoggedIn, search);
+router.get("/ytsearch", isLoggedIn, ytSearch);
+router.get("/stream", isLoggedIn, stream);
 
 export default router;

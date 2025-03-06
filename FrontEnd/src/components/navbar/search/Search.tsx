@@ -45,14 +45,10 @@ const Search = forwardRef<HTMLDialogElement, props>(
       try {
         const res = await fetch(
           `/api/spotify/search/?query=${query}&type=${type}&limit=${limit}`,
-          {
-            method: "POST",
-            credentials: "include",
-            headers: {
-              "content-type": "application/json",
-            },
-          }
+          { credentials: "include" }
         );
+        if (!res.ok) throw new Error("failed to search");
+
         const data = await res.json();
         // console.log(data);
         setResults(data.tracks.items);
@@ -74,12 +70,13 @@ const Search = forwardRef<HTMLDialogElement, props>(
     const renderRes = useMemo(() => {
       return results.map((track, index) => (
         <SearchResult
-          id={track.id}
-          key={index}
-          name={track.name}
-          artists={track.artists}
-          cover={track.album.images[2].url}
-          duration={track.duration_ms}
+          {...track}
+          // id={track.id}
+          // key={index}
+          // name={track.name}
+          // artists={track.artists}
+          // cover={track.album.images[2].url}
+          // duration={track.duration_ms}
         />
       ));
     }, [results]);

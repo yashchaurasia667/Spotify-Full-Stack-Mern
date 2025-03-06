@@ -47,7 +47,6 @@ const TrackPage = () => {
   };
 
   const searchYoutube = async (name: string, artist: string) => {
-    console.log("yt req");
     const res = await fetch(
       `/api/youtube/ytsearch?name=${name}&artist=${artist}`
     );
@@ -56,7 +55,6 @@ const TrackPage = () => {
       return;
     }
     const data = await res.json();
-    console.log(data);
     setYtId(data);
     // setYtId(data.items[0].id.videoId);
   };
