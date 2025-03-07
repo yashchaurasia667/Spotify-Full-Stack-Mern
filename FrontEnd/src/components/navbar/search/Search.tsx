@@ -71,8 +71,8 @@ const Search = forwardRef<HTMLDialogElement, props>(
       return results.map((track, index) => (
         <SearchResult
           {...track}
+          key={index}
           // id={track.id}
-          // key={index}
           // name={track.name}
           // artists={track.artists}
           // cover={track.album.images[2].url}

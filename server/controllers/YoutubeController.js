@@ -36,7 +36,10 @@ export const stream = async (req, res) => {
       liveBuffer: 10000,
       dlChunkSize: 0
     });
+    const info = await ytdl.getInfo(ytUrl);
+    console.log(`duration: ${info.videoDetails.lengthSeconds}`)
 
+    // res.setHeader("duration", info.videoDetails.lengthSeconds);
     res.setHeader("Content-Type", "audio/mpeg");
     res.setHeader("Transfer-Encoding", "chunked");
 

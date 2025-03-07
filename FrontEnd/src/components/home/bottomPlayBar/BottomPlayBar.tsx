@@ -143,11 +143,18 @@ const BottomPlayBar = () => {
       {user.email ? (
         <div className="h-[70px] overflow-hidden px-3 grid grid-cols-[2fr_3fr_2fr] text-white row-start-3 col-span-2">
           <div className="hidden">
-            <audio ref={playerRef}>
+            <audio
+              ref={playerRef}
+              onLoadedMetadata={() => {
+                if (playerRef.current) console.log(playerRef.current.duration);
+              }}
+            >
               <source
-                // src={`/api/youtube/stream?video_id=${currentlyPlaying.id.youtubeId}`}
-                // src={`/api/youtube/stream?video_id=${"odeHP8N4LKc"}`}
-                // src={`/api/youtube/stream?video_id=${"u6lihZAcy4s"}`}
+                // src={
+                //   currentlyPlaying.id.youtubeId
+                //     ? `/api/youtube/stream?video_id=${currentlyPlaying.id.youtubeId}`
+                //     : ""
+                // }
                 type="audio/mpeg"
               />
             </audio>

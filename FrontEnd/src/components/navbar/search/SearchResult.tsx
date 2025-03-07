@@ -17,7 +17,7 @@ const SearchResult = ({
 }: trackDetails) => {
   const context = useContext(MainContext);
   if (!context) throw new Error("No main context");
-  const { setCurrentlyPlaying } = context;
+  const { setCurrentlyPlaying, setIsPlaying } = context;
 
   const displayArtist = useMemo(() => {
     return artists.map((artist) => artist.name + ", ");
@@ -55,6 +55,7 @@ const SearchResult = ({
       name: name,
       type: "track",
     });
+    setIsPlaying(true);
   };
 
   return (
