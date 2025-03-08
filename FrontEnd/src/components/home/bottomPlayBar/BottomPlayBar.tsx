@@ -81,7 +81,12 @@ const BottomPlayBar = () => {
 
   useEffect(() => {
     if (currentlyPlaying.id.youtubeId && playerRef.current) {
+      playerRef.current.pause();
       playerRef.current.src = `/api/youtube/stream?video_id=${currentlyPlaying.id.youtubeId}`;
+      playerRef.current.load();
+      playerRef.current
+        .play()
+        .catch((err) => console.error("Playback error: ", err));
     }
 
     if (currentlyPlaying.duration_ms) {
@@ -149,14 +154,7 @@ const BottomPlayBar = () => {
                 if (playerRef.current) console.log(playerRef.current.duration);
               }}
             >
-              <source
-                // src={
-                //   currentlyPlaying.id.youtubeId
-                //     ? `/api/youtube/stream?video_id=${currentlyPlaying.id.youtubeId}`
-                //     : ""
-                // }
-                type="audio/mpeg"
-              />
+              <source type="audio/mpeg" />
             </audio>
           </div>
           <div className="flex gap-x-4 items-center">

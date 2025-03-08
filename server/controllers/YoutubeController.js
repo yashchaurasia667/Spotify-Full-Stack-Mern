@@ -5,7 +5,7 @@ const YTAPI = process.env.YOUTUBE_API
 
 export const search = async (req, res) => {
   const { name, artist } = req.query;
-  // const { q } = req.query;
+
   try {
     const ytres = await fetch(`https://youtube.googleapis.com/youtube/v3/search?part=${"id"}&q=${name + " " + artist + "official audio"}&key=${YTAPI}&maxResults=${1}`);
     if (!ytres.ok) {
@@ -58,7 +58,7 @@ export const stream = async (req, res) => {
     console.log("Streaming");
 
     res.on("close", () => {
-      console.log("Client disconnected, stopping stream");
+      console.error("Client disconnected, stopping stream");
       audioStream.destroy();
       ffmProc.kill();
     })
@@ -74,12 +74,32 @@ export const ytSearch = async (req, res) => {
   if (!name || !artist) return res.status(400).json("Bad request: name and artist are required");
 
   try {
-    const url = `https://www.youtube.com/results?search_query=${name} ${artist} official audio`;
-    const ytres = await fetch(url)
+    const q = `${name} ${artist} official audio`;
+    const url = `https://www.youtube.com/results?search_query=${encodeURIComponent(q)}`;
+
+    const ytres = await fetch(url, {
+      headers: {
+        "User-Agent": "Mozilla/5.0",
+      }
+    });
     const html = await ytres.text();
 
-    const ids = html.match(/watch\?v=(\S{11})/);
-    res.status(200).json(ids[1]);
+    const jsonMatch = html.match(/var ytInitialData = (\{.*?\});/);
+    if (!jsonMatch) return res.status(500).json("Failed to extract video data");
+
+    const jsonData = JSON.parse(jsonMatch[1]);
+
+    const videos = jsonData.contents?.twoColumnSearchResultsRenderer?.primaryContents
+      ?.sectionListRenderer?.contents[0]?.itemSectionRenderer?.contents;
+
+    if (!videos) return res.status(404).json("No results found");
+
+    const video = videos.find((v) => v.videoRenderer);
+    if (!video) return res.status(404).json("No valid video found");
+
+    const videoId = video.videoRenderer.videoId;
+
+    res.status(200).json(videoId);
   } catch (error) {
     console.error(error);
     return res.status(500).json("Internal server error");

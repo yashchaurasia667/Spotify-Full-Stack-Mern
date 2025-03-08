@@ -91,6 +91,10 @@ const MainLayout = () => {
       const res = await fetch(
         `/api/spotify/refreshtoken?refresh_token=${refresh_token}`
       );
+      if (!res.ok) {
+        console.error("Failed to refresh token");
+        return;
+      }
       const data = await res.json();
       const { access_token } = data;
       if (access_token) setToken(user._id, access_token, refresh_token);
@@ -134,7 +138,8 @@ const MainLayout = () => {
       fetch("/api/spotify/checktokenvalidity", {
         credentials: "include",
       }).then((res) => {
-        if (!res.ok) refreshToken(user.refresh_token);
+        if (res.status == 401)
+          if (user.refresh_token) refreshToken(user.refresh_token);
       });
     }
   }, [user]);

@@ -34,36 +34,36 @@ const TrackPage = () => {
     setIsPlaying,
   } = context;
 
-  const getTrackDetails = async () => {
-    const res = await fetch(`/api/spotify/track/?id=${id}`, {
-      credentials: "include",
-    });
-    if (!res.ok) {
-      setNotfound(true);
-      return;
-    }
-    const data = await res.json();
-    setTrackDetails({ ...data });
-  };
-
-  const searchYoutube = async (name: string, artist: string) => {
-    const res = await fetch(
-      `/api/youtube/ytsearch?name=${name}&artist=${artist}`
-    );
-    if (!res.ok) {
-      setNotfound(true);
-      return;
-    }
-    const data = await res.json();
-    setYtId(data);
-    // setYtId(data.items[0].id.videoId);
-  };
-
   useEffect(() => {
+    setYtId("");
+    const getTrackDetails = async () => {
+      const res = await fetch(`/api/spotify/track/?id=${id}`, {
+        credentials: "include",
+      });
+      if (!res.ok) {
+        setNotfound(true);
+        return;
+      }
+      const data = await res.json();
+      setTrackDetails({ ...data });
+    };
+
     getTrackDetails();
   }, [id]);
 
   useEffect(() => {
+    const searchYoutube = async (name: string, artist: string) => {
+      const res = await fetch(
+        `/api/youtube/ytsearch?name=${name}&artist=${artist}`
+      );
+      if (!res.ok) {
+        setNotfound(true);
+        return;
+      }
+      const data = await res.json();
+      setYtId(data);
+    };
+
     if (trackDetails?.name && trackDetails.artists.length != 0)
       searchYoutube(trackDetails?.name, trackDetails?.artists[0].name);
   }, [trackDetails]);
@@ -119,7 +119,7 @@ const TrackPage = () => {
       >
         <PlayPage
           onClick={() => {
-            if (trackDetails) {
+            if (trackDetails && ytId) {
               setCurrentlyPlaying({
                 ...trackDetails,
                 id: {
