@@ -1,0 +1,131 @@
+* {
+  color: white;
+}
+
+*::webkit-scrollbar-thumb {
+  visibility: hidden;
+}
+
+.sidebar {
+  height: 100%;
+}
+
+.outer {
+  background-color: var(--background-base);
+  border-radius: 8px;
+}
+
+/* .pages {
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+  row-gap: 18px;
+} */
+
+.inactive_page {
+  display: flex;
+  align-items: center;
+  column-gap: 1rem;
+  font-size: 1rem;
+  padding: 3px 25px;
+}
+
+.inactive {
+  color: var(--text-subdued);
+  fill: var(--text-subdued);
+  font-weight: 600;
+}
+
+.active,
+.inactive:hover > *,
+.inactive:hover {
+  fill: white;
+  color: white;
+}
+
+.library {
+  height: calc(100vh - 160px);
+  padding: 20px 0px;
+  overflow: hidden;
+}
+
+.library .lib_bar {
+  display: flex;
+  justify-content: space-between;
+
+  padding: 0 20px;
+  margin-bottom: 15px;
+}
+
+.bar_element {
+  display: flex;
+  column-gap: 1rem;
+  cursor: pointer;
+}
+
+.white_card_button {
+  color: black;
+  font-weight: 600;
+  font-size: 14px;
+
+  background-color: #fff;
+  border-radius: 99px;
+
+  padding: 0.25rem 1rem;
+  margin-top: 0.75rem;
+}
+
+.white_card_button:hover {
+  /* padding: 0.3rem 1.15rem; */
+  scale: 105%;
+  background-color: #f0f0f0;
+}
+
+.sidebar_footer {
+  padding: 2.8rem 10px;
+  grid-row: 2;
+  margin-top: auto;
+}
+
+.sidebar_footer .policies {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 20px;
+  row-gap: 10px;
+  margin-bottom: 1rem;
+}
+
+.sidebar_footer button {
+  display: flex;
+  align-items: center;
+  column-gap: 0.25rem;
+  font-size: 14px;
+  font-weight: 600;
+  border: 1px solid var(--essential-subdued);
+  border-radius: 99px;
+  padding: 0.25rem 0.75rem;
+}
+
+.sidebar_footer button:hover {
+  border-color: white;
+  padding: 0.35rem 0.85rem;
+}
+
+.cards {
+  min-height: 150px;
+  overflow-y: auto;
+}
+
+.cards::-webkit-scrollbar-thumb:hover {
+  background: #808080aa;
+}
+
+.playlist_container:hover > .cards::-webkit-scrollbar-thumb {
+  visibility: visible;
+}
+
+.playlist_container {
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - 24px);
+  overflow: hidden;
+}

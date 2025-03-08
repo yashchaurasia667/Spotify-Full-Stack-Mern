@@ -4,12 +4,12 @@ import { user, RGB, currentlyPlaying } from "../../types/index";
 type MainContextType = {
   token: string;
   setToken: (token: string) => void;
-  sidebarWidth: number;
-  setSidebarWidth: (width: number) => void;
+  libraryWidth: number;
+  setLibraryWidth: (width: number) => void;
   user: user;
   setUser: (e: user) => void;
-  minSidebarWidth: number;
-  maxSidebarWidth: number;
+  minLibraryWidth: number;
+  maxLibraryWidth: number;
   libIcon: JSX.Element;
   setLibIcon: (icon: JSX.Element) => void;
   collapse: () => void;

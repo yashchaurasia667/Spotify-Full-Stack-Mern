@@ -12,7 +12,7 @@ type contextProps = {
 
 const MainContextProvider = ({ children }: contextProps) => {
   const navigate = useNavigate();
-  const [sidebarWidth, setSidebarWidth] = useState(350);
+  const [libraryWidth, setLibraryWidth] = useState(350);
   const [token, setToken] = useState("");
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [queue, setQueue] = useState<queueItem[]>([]);
@@ -60,11 +60,11 @@ const MainContextProvider = ({ children }: contextProps) => {
     type: "",
   });
 
-  const minSidebarWidth = 280;
-  const maxSidebarWidth = 450;
+  const minLibraryWidth = 280;
+  const maxLibraryWidth = 450;
 
   const collapse = () => {
-    if (sidebarWidth > 70) {
+    if (libraryWidth > 70) {
       setLibIcon(
         <>
           <svg
@@ -80,7 +80,7 @@ const MainContextProvider = ({ children }: contextProps) => {
           </svg>
         </>
       );
-      return setSidebarWidth(70);
+      return setLibraryWidth(70);
     }
     setLibIcon(
       <>
@@ -98,7 +98,7 @@ const MainContextProvider = ({ children }: contextProps) => {
         Your Library
       </>
     );
-    return setSidebarWidth(350);
+    return setLibraryWidth(350);
   };
 
   const averageImageColor = async (imagePath: string): Promise<RGB> => {
@@ -207,12 +207,12 @@ const MainContextProvider = ({ children }: contextProps) => {
   const value = {
     token,
     setToken,
-    sidebarWidth,
-    setSidebarWidth,
+    libraryWidth,
+    setLibraryWidth,
     user,
     setUser,
-    minSidebarWidth,
-    maxSidebarWidth,
+    minLibraryWidth,
+    maxLibraryWidth,
     libIcon,
     setLibIcon,
     collapse,

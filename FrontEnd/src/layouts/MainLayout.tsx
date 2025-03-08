@@ -3,7 +3,7 @@ import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { Resizable } from "react-resizable";
 
 import Navbar from "../components/navbar/Navbar";
-import Library from "../components/home/sideBar/Library";
+import Library from "../components/home/Library/Library";
 import BottomPlayBar from "../components/home/bottomPlayBar/BottomPlayBar";
 
 import "react-resizable/css/styles.css";
@@ -22,12 +22,12 @@ const MainLayout = () => {
   const context = useContext(MainContext);
   if (!context) throw new Error("No Main context");
   const {
-    sidebarWidth,
-    setSidebarWidth,
+    libraryWidth,
+    setLibraryWidth,
     user,
     setUser,
-    minSidebarWidth,
-    maxSidebarWidth,
+    minLibraryWidth,
+    maxLibraryWidth,
     collapse,
   } = context;
 
@@ -37,30 +37,30 @@ const MainLayout = () => {
     width: "100vw",
     height: "100vh",
     display: "grid",
-    gridTemplateColumns: `${sidebarWidth}px 1fr`,
+    gridTemplateColumns: `${libraryWidth}px 1fr`,
     gridTemplateRows: "50px repeat(2, auto)",
     columnGap: "10px",
     rowGap: "10px",
   };
 
-  const onResizeSidebar = (
+  const onResizeLibrary = (
     event: React.SyntheticEvent,
     { size }: { size: { width: number } }
   ) => {
-    if (size.width > minSidebarWidth) return setSidebarWidth(size.width);
+    if (size.width > minLibraryWidth) return setLibraryWidth(size.width);
   };
 
   const onResizeStop = (
     event: React.SyntheticEvent,
     { size }: { size: { width: number } }
   ) => {
-    if (size.width == minSidebarWidth) return collapse();
+    if (size.width == minLibraryWidth) return collapse();
   };
 
   const onResizeStart = (event: React.SyntheticEvent) => {
-    if (sidebarWidth == 70) {
-      setSidebarWidth(minSidebarWidth + 1);
-      onResizeSidebar(event, { size: { width: sidebarWidth } });
+    if (libraryWidth == 70) {
+      setLibraryWidth(minLibraryWidth + 1);
+      onResizeLibrary(event, { size: { width: libraryWidth } });
     }
   };
 
@@ -151,24 +151,26 @@ const MainLayout = () => {
   return (
     <div className={styles.parent} style={style}>
       <Navbar />
-      <Resizable
-        width={sidebarWidth}
-        height={0}
-        minConstraints={[minSidebarWidth, 0]}
-        maxConstraints={[maxSidebarWidth, 0]}
-        onResize={onResizeSidebar}
-        onResizeStart={onResizeStart}
-        onResizeStop={onResizeStop}
-        draggableOpts={{ axis: "x" }}
-      >
-        <div>
-          <Library
-            sidebarWidth={sidebarWidth}
-            // setSidebarWidth={setSidebarWidth}
-          />
-        </div>
-      </Resizable>
-      <Outlet />
+      <>
+        <Resizable
+          width={libraryWidth}
+          height={0}
+          minConstraints={[minLibraryWidth, 0]}
+          maxConstraints={[maxLibraryWidth, 0]}
+          onResize={onResizeLibrary}
+          onResizeStart={onResizeStart}
+          onResizeStop={onResizeStop}
+          draggableOpts={{ axis: "x" }}
+        >
+          <div>
+            <Library
+              sidebarWidth={libraryWidth}
+              // setLibraryWidth={setLibraryWidth}
+            />
+          </div>
+        </Resizable>
+        <Outlet />
+      </>
       <BottomPlayBar />
     </div>
   );
