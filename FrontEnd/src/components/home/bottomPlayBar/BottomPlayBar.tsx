@@ -148,12 +148,7 @@ const BottomPlayBar = () => {
       {user.email ? (
         <div className="h-[70px] overflow-hidden px-3 grid grid-cols-[2fr_3fr_2fr] text-white row-start-3 col-span-2">
           <div className="hidden">
-            <audio
-              ref={playerRef}
-              onLoadedMetadata={() => {
-                if (playerRef.current) console.log(playerRef.current.duration);
-              }}
-            >
+            <audio ref={playerRef}>
               <source type="audio/mpeg" />
             </audio>
           </div>
@@ -246,7 +241,14 @@ const BottomPlayBar = () => {
 
           <div className="flex justify-end items-center gap-x-4">
             <LuMic2 size={16} strokeWidth={3} stroke="#a7a7a7" />
-            <HiOutlineQueueList size={20} strokeWidth={2} stroke="#a7a7a7" />
+            <button>
+              <HiOutlineQueueList
+                size={20}
+                strokeWidth={2}
+                stroke="#a7a7a7"
+                className="hover:stroke-white"
+              />
+            </button>
             <div className="flex items-center gap-x-2">
               <HiOutlineSpeakerWave
                 size={20}

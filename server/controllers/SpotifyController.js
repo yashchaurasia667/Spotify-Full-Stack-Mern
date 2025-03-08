@@ -196,7 +196,7 @@ export const search = async (req, res) => {
 
     if (!response.ok) {
       console.log(response);
-      throw new Error("Failed to get search results from spotify");
+      return res.status(response.status).json(await response.text())
     }
 
     const data = await response.json();

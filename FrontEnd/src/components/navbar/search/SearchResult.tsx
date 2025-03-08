@@ -59,8 +59,12 @@ const SearchResult = ({
   };
 
   return (
-    <div className="flex justify-between group relative hover:bg-background-elevated-highlight cursor-pointer">
-      <div className="flex py-4 px-4" onClick={() => navigate(`/track/${id}`)}>
+    // <div className="grid grid-cols-[5fr_1fr] group relative hover:bg-background-elevated-highlight cursor-pointer">
+    <div className="grid grid-cols-[5fr_1fr] group relative hover:bg-background-elevated-highlight cursor-pointer">
+      <div
+        className="flex py-4 px-4 gugu"
+        onClick={() => navigate(`/track/${id}`)}
+      >
         <img src={album.images[2].url} alt={name} className="rounded-md mr-4" />
         <div className="w-9/12 text-ellipsis">
           <p className="font-semibold text-md w-full overflow-hidden">{name}</p>

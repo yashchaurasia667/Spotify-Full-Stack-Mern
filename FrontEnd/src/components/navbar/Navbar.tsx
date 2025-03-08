@@ -82,6 +82,7 @@ const Navbar = () => {
           onBlur={(e) => handleBlur(e, searchRef, setSearchOpen)}
         >
           <Search
+            // open={searchOpen}
             open={searchOpen}
             ref={searchRef}
             query={query}

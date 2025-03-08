@@ -76,3 +76,16 @@ export interface currentlyPlaying extends Omit<trackDetails, "id"> {
     spotifyId: string;
   };
 }
+
+export interface queueItem {
+  id: {
+    youtubeId: string;
+    spotifyId: string;
+  };
+  name: string;
+  artists: {
+    name: string;
+    href: string;
+  }[];
+  cover: string;
+}

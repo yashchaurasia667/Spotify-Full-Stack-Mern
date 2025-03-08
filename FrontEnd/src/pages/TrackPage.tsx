@@ -35,7 +35,6 @@ const TrackPage = () => {
   } = context;
 
   useEffect(() => {
-    setYtId("");
     const getTrackDetails = async () => {
       const res = await fetch(`/api/spotify/track/?id=${id}`, {
         credentials: "include",
@@ -48,6 +47,7 @@ const TrackPage = () => {
       setTrackDetails({ ...data });
     };
 
+    setYtId("");
     getTrackDetails();
   }, [id]);
 
@@ -60,11 +60,27 @@ const TrackPage = () => {
         setNotfound(true);
         return;
       }
+
       const data = await res.json();
-      setYtId(data);
+      setYtId(data.id);
+      let hr = 0,
+        min = 0,
+        sec = 0;
+      const tm = data.durationText.split(":");
+      if (tm.length > 2) {
+        hr = parseInt(tm[0]);
+        min = parseInt(tm[1]);
+        sec = parseInt(tm[2]);
+      } else {
+        min = parseInt(tm[0]);
+        sec = parseInt(tm[1]);
+      }
+      const duration_ms = hr * 600000 + min * 60000 + sec * 1000;
+      if (trackDetails)
+        setTrackDetails({ ...trackDetails, duration_ms: duration_ms });
     };
 
-    if (trackDetails?.name && trackDetails.artists.length != 0)
+    if (trackDetails?.name && trackDetails.artists.length != 0 && !ytId)
       searchYoutube(trackDetails?.name, trackDetails?.artists[0].name);
   }, [trackDetails]);
 

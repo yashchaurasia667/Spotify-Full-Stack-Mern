@@ -104,24 +104,28 @@ const MainLayout = () => {
   };
 
   useEffect(() => {
-    const user_id = document.cookie;
-    if (!user.email && !user.profile && user_id)
-      fetch("/api/user/getcurrentuser", {
-        // method: "POST",
-        credentials: "include",
-      }).then((res) =>
-        res.json().then((newUser) => {
-          if (newUser.email) {
-            setUser({
-              ...newUser,
-              profile:
-                newUser.profile == "profile_default.png"
-                  ? `/api/uploads/global/${newUser.profile}`
-                  : `/api/uploads/${newUser._id}/${newUser.profile}`,
-            });
-          }
-        })
-      );
+    const getCurrentUser = async () => {
+      const user_id = document.cookie;
+
+      if (!user.email && !user.profile && user_id) {
+        const res = await fetch("/api/user/getcurrentuser", {
+          credentials: "include",
+        });
+        if (!res.ok) return;
+
+        const data = await res.json();
+        if (data.email) {
+          setUser({
+            ...data,
+            profile:
+              data.profile == "profile_default.png"
+                ? `/api/uploads/global/${data.profile}`
+                : `/api/uploads/${data._id}/${data.profile}`,
+          });
+        }
+      }
+    };
+    getCurrentUser();
   }, [user]);
 
   useEffect(() => {
@@ -165,7 +169,6 @@ const MainLayout = () => {
         </div>
       </Resizable>
       <Outlet />
-
       <BottomPlayBar />
     </div>
   );

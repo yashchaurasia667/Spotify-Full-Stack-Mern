@@ -37,7 +37,7 @@ export const stream = async (req, res) => {
       dlChunkSize: 0
     });
     const info = await ytdl.getInfo(ytUrl);
-    console.log(`duration: ${info.videoDetails.lengthSeconds}`)
+    // console.log(`duration: ${info.videoDetails.lengthSeconds}`)
 
     // res.setHeader("duration", info.videoDetails.lengthSeconds);
     res.setHeader("Content-Type", "audio/mpeg");
@@ -98,8 +98,9 @@ export const ytSearch = async (req, res) => {
     if (!video) return res.status(404).json("No valid video found");
 
     const videoId = video.videoRenderer.videoId;
+    const durationString = video.videoRenderer.lengthText.simpleText || "0:00";
 
-    res.status(200).json(videoId);
+    res.status(200).json({ id: videoId, durationText: durationString });
   } catch (error) {
     console.error(error);
     return res.status(500).json("Internal server error");

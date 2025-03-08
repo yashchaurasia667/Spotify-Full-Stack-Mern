@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 
 import MainContext from "./MainContext";
 
-import { user, RGB, currentlyPlaying } from "../../types/index";
+import { user, RGB, currentlyPlaying, queueItem } from "../../types/index";
 
 type contextProps = {
   children: ReactNode;
@@ -15,6 +15,7 @@ const MainContextProvider = ({ children }: contextProps) => {
   const [sidebarWidth, setSidebarWidth] = useState(350);
   const [token, setToken] = useState("");
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
+  const [queue, setQueue] = useState<queueItem[]>([]);
   const [libIcon, setLibIcon] = useState(
     <>
       <svg
