@@ -7,7 +7,7 @@ interface props {
   name: string;
   id: string;
   sidebarWidth: number;
-  owner: string;
+  owner?: string;
 }
 
 const Library_PlaylistTile = ({

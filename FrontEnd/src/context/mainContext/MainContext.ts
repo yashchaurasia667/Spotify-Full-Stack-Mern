@@ -1,13 +1,13 @@
 import React from "react";
-import { user, RGB, currentlyPlaying } from "../../types/index";
+import { user, RGB, currentlyPlaying, queueItem } from "../../types/index";
 
 type MainContextType = {
   token: string;
   setToken: (token: string) => void;
   queueOpen: boolean;
   setQueueOpen: (e: boolean) => void;
-  minRightBarWidth: number;
-  maxRightBarWidth: number;
+  queue: queueItem[];
+  setQueue: (e: queueItem[]) => void;
   libraryWidth: number;
   setLibraryWidth: (width: number) => void;
   user: user;

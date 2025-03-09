@@ -16,6 +16,7 @@ const MainContextProvider = ({ children }: contextProps) => {
   const [token, setToken] = useState("");
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [queueOpen, setQueueOpen] = useState<boolean>(true);
+  const [queue, setQueue] = useState<queueItem[]>([]);
   const [libIcon, setLibIcon] = useState(
     <>
       <svg
@@ -62,9 +63,6 @@ const MainContextProvider = ({ children }: contextProps) => {
 
   const minLibraryWidth = 280;
   const maxLibraryWidth = 450;
-
-  const minRightBarWidth = 200;
-  const maxRightBarWidth = 350;
 
   const collapse = () => {
     if (libraryWidth > 70) {
@@ -214,8 +212,8 @@ const MainContextProvider = ({ children }: contextProps) => {
     setUser,
     queueOpen,
     setQueueOpen,
-    minRightBarWidth,
-    maxRightBarWidth,
+    queue,
+    setQueue,
     libraryWidth,
     setLibraryWidth,
     minLibraryWidth,

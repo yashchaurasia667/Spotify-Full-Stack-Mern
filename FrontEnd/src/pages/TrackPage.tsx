@@ -32,6 +32,7 @@ const TrackPage = () => {
     addToPlaylist,
     setCurrentlyPlaying,
     setIsPlaying,
+    setQueue,
   } = context;
 
   useEffect(() => {

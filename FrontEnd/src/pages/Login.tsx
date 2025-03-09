@@ -14,8 +14,8 @@ const Login = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (document.cookie.split(";").length > 0) {
-      navigate("/");
+    if (document.cookie) {
+      document.cookie.split(";").length ? navigate("/") : "";
       // fetch("/api/user/getuser", {
       //   credentials: "include",
       // }).then((res) => {
