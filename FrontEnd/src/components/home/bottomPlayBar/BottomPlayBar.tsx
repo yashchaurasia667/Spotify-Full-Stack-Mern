@@ -22,7 +22,14 @@ interface duration {
 const BottomPlayBar = () => {
   const context = useContext(MainContext);
   if (!context) throw new Error("No main context");
-  const { user, currentlyPlaying, isPlaying, setIsPlaying } = context;
+  const {
+    user,
+    currentlyPlaying,
+    isPlaying,
+    setIsPlaying,
+    queueOpen,
+    setQueueOpen,
+  } = context;
 
   const playerRef = useRef<HTMLAudioElement>(null);
   const progressRef = useRef<HTMLInputElement>(null);
@@ -146,7 +153,7 @@ const BottomPlayBar = () => {
   return (
     <>
       {user.email ? (
-        <div className="h-[70px] overflow-hidden px-3 grid grid-cols-[2fr_3fr_2fr] text-white row-start-3 col-span-2">
+        <div className="h-[70px] overflow-hidden px-3 grid grid-cols-[2fr_3fr_2fr] text-white row-start-3 col-span-3">
           <div className="hidden">
             <audio ref={playerRef}>
               <source type="audio/mpeg" />
@@ -241,7 +248,7 @@ const BottomPlayBar = () => {
 
           <div className="flex justify-end items-center gap-x-4">
             <LuMic2 size={16} strokeWidth={3} stroke="#a7a7a7" />
-            <button>
+            <button onClick={() => setQueueOpen(!queueOpen)}>
               <HiOutlineQueueList
                 size={20}
                 strokeWidth={2}

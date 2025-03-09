@@ -10,6 +10,7 @@ import "react-resizable/css/styles.css";
 import styles from "../styleSheets/Home.module.css";
 
 import MainContext from "../context/mainContext/MainContext";
+import QueueSection from "../components/queueBar/QueueSection";
 
 const MainLayout = () => {
   // document.querySelector("#favicon")!.href = "spotifyGreen.svg";
@@ -22,6 +23,7 @@ const MainLayout = () => {
   const context = useContext(MainContext);
   if (!context) throw new Error("No Main context");
   const {
+    queueOpen,
     libraryWidth,
     setLibraryWidth,
     user,
@@ -37,7 +39,7 @@ const MainLayout = () => {
     width: "100vw",
     height: "100vh",
     display: "grid",
-    gridTemplateColumns: `${libraryWidth}px 1fr`,
+    gridTemplateColumns: `${libraryWidth}px 1fr ${queueOpen ? "300" : "0"}px`,
     gridTemplateRows: "50px repeat(2, auto)",
     columnGap: "10px",
     rowGap: "10px",
@@ -163,13 +165,12 @@ const MainLayout = () => {
           draggableOpts={{ axis: "x" }}
         >
           <div>
-            <Library
-              sidebarWidth={libraryWidth}
-              // setLibraryWidth={setLibraryWidth}
-            />
+            <Library sidebarWidth={libraryWidth} />
           </div>
         </Resizable>
         <Outlet />
+
+        <QueueSection />
       </>
       <BottomPlayBar />
     </div>

@@ -66,7 +66,7 @@ const Navbar = () => {
   // }, [searchRef]);
 
   return (
-    <div className={`${navbar} row-start-1 col-span-2`}>
+    <div className={`${navbar} row-start-1 col-span-3`}>
       <Link to="/" className={`${nav_left} w-fit`}>
         <img src={spotify} alt="spotify" height="50px" />
       </Link>

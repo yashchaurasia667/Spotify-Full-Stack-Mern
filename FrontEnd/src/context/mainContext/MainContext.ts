@@ -4,6 +4,10 @@ import { user, RGB, currentlyPlaying } from "../../types/index";
 type MainContextType = {
   token: string;
   setToken: (token: string) => void;
+  queueOpen: boolean;
+  setQueueOpen: (e: boolean) => void;
+  minRightBarWidth: number;
+  maxRightBarWidth: number;
   libraryWidth: number;
   setLibraryWidth: (width: number) => void;
   user: user;

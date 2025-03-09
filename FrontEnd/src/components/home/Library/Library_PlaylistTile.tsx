@@ -28,11 +28,12 @@ const Library_PlaylistTile = ({
       onClick={() => navigate(`/playlist/${id}`)}
     >
       <img
-        src={`/api/uploads/${
-          cover === "playlist_default.png"
-            ? "global/playlist_default_small.png"
-            : `${owner}/${id}/${cover}`
-        }`}
+        // src={`/api/uploads/${
+        //   cover === "playlist_default.png"
+        //     ? "global/playlist_default_small.png"
+        //     : `${owner}/${id}/${cover}`
+        // }`}
+        src={cover}
         // height={65}
         width={50}
         className="rounded-md object-cover"

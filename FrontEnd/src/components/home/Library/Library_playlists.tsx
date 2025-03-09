@@ -70,7 +70,12 @@ const Library_playlists = () => {
       <Library_PlaylistTile
         owner={details.owner}
         sidebarWidth={libraryWidth}
-        cover={details.cover}
+        // cover={details.cover}
+        cover={`/api/uploads/${
+          details.cover === "playlist_default.png"
+            ? "global/playlist_default_small.png"
+            : `${details.owner}/${details._id}/${details.cover}`
+        }`}
         length={details.songs.length}
         type="Playlist"
         name={details.name}

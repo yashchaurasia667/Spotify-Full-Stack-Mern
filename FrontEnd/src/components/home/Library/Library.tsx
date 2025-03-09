@@ -1,4 +1,6 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+
 import { FaPlus } from "react-icons/fa6";
 
 import Library_playlists from "./Library_playlists";
@@ -6,7 +8,6 @@ import Library_playlists from "./Library_playlists";
 import MainContext from "../../../context/mainContext/MainContext";
 
 import styles from "./library.module.css";
-import { useNavigate } from "react-router-dom";
 
 interface libProps {
   sidebarWidth: number;

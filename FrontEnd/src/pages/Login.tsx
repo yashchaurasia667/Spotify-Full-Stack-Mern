@@ -14,15 +14,15 @@ const Login = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (document.cookie) {
-      fetch("/api/user/getuser", {
-        method: "Post",
-        credentials: "include",
-      }).then((res) => {
-        res.json().then((user) => {
-          if (user.email) navigate("/");
-        });
-      });
+    if (document.cookie.split(";").length > 0) {
+      navigate("/");
+      // fetch("/api/user/getuser", {
+      //   credentials: "include",
+      // }).then((res) => {
+      //   res.json().then((user) => {
+      //     if (user.email) navigate("/");
+      //   });
+      // });
     }
   }, []);
 
