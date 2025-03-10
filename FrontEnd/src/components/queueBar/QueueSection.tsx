@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useMemo } from "react";
 
 import { IoIosClose } from "react-icons/io";
 
@@ -9,7 +9,23 @@ import MainContext from "../../context/mainContext/MainContext";
 const QueueSection = () => {
   const context = useContext(MainContext);
   if (!context) throw new Error("No main context");
-  const { queueOpen, setQueueOpen, queue } = context;
+  const {
+    queueOpen,
+    setQueueOpen,
+    queue,
+    currentlyPlaying,
+    setCurrentlyPlaying,
+  } = context;
+
+  const queueList = useMemo(() => {
+    return queue.map((track, index) => (
+      <QueueTile
+        cover={track.cover}
+        name={track.name}
+        artists={track.artists.map((artist) => artist.name).join(", ")}
+      />
+    ));
+  }, [queue]);
 
   return (
     <dialog
@@ -28,16 +44,22 @@ const QueueSection = () => {
 
       <div className="mt-6">
         <p className="font-bold text-md pl-2 mb-2">Now playing</p>
-        <QueueTile
-          nowPlaying={true}
-          cover={"/api/uploads/global/playlist_default_small.png"}
-          name={"name"}
-          artists={"Artists"}
-        />
+        {currentlyPlaying.album.images.length ? (
+          <QueueTile
+            cover={currentlyPlaying.album.images[0].url}
+            name={currentlyPlaying.name}
+            artists={currentlyPlaying.artists
+              .map((artist) => artist.name)
+              .join(", ")}
+          />
+        ) : (
+          ""
+        )}
       </div>
 
       <div className="mt-6">
         <p className="font-bold text-md pl-2 mb-2">Next up</p>
+        <div>{queueList}</div>
       </div>
     </dialog>
   );

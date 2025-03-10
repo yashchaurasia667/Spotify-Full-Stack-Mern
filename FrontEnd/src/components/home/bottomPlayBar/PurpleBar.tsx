@@ -1,6 +1,6 @@
 const PurpleBar = () => {
   return (
-    <div className="h-[70px] p-3 bg-gradient-to-r from-[#af2896] to-[#509bf5] text-white flex justify-between row-start-3 col-span-2">
+    <div className="h-[70px] p-3 bg-gradient-to-r from-[#af2896] to-[#509bf5] text-white flex justify-between row-start-3 col-span-3">
       <div>
         <p className="font-semibold text-sm">Preview of Spotify</p>
         <p className="text-sm">

@@ -1,3 +1,6 @@
+import { useContext } from "react";
+import MainContext from "../../context/mainContext/MainContext";
+
 interface props {
   nowPlaying?: boolean;
   cover: string;
@@ -6,8 +9,15 @@ interface props {
 }
 
 const QueueTile = ({ nowPlaying = false, cover, name, artists }: props) => {
+  const context = useContext(MainContext);
+  if (!context) throw new Error("No main context");
+  const { setCurrentlyPlaying } = context;
+
   return (
-    <div className="flex items-center gap-x-3 p-2 hover:bg-[#acacac18] cursor-pointer rounded-md">
+    <div
+      className="flex items-center gap-x-3 p-2 group hover:bg-[#acacac18] cursor-pointer rounded-md"
+      // onClick={() => setCurrentlyPlaying({})}
+    >
       <img
         // src="/api/uploads/global/playlist_default_small.png"
         src={cover}

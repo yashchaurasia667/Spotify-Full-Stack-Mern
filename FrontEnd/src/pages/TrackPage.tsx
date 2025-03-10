@@ -12,7 +12,7 @@ import NotFound from "./NotFound";
 
 import MainContext from "../context/mainContext/MainContext";
 
-import { RGB, trackDetails } from "../types";
+import { queueItem, RGB, trackDetails } from "../types";
 
 const TrackPage = () => {
   const { id } = useParams();
@@ -32,8 +32,23 @@ const TrackPage = () => {
     addToPlaylist,
     setCurrentlyPlaying,
     setIsPlaying,
+    queue,
     setQueue,
   } = context;
+
+  const addToQueue = async () => {
+    if (!trackDetails?.id || !ytId) return;
+    const item = {
+      id: {
+        spotifyId: trackDetails.id,
+        youtubeId: ytId,
+      },
+      name: trackDetails.name,
+      artists: trackDetails.artists,
+      cover: trackDetails.album.images[2].url,
+    };
+    setQueue([...queue, item]);
+  };
 
   useEffect(() => {
     const getTrackDetails = async () => {
@@ -176,6 +191,13 @@ const TrackPage = () => {
                       <DividerWithText />
                       <>{playlists}</>
                     </ul>
+                  </li>
+                  <li
+                    className="flex items-center gap-x-3 text-md px-3 py-3 w-full hover:bg-[#3e3e3e] relative group cursor-default"
+                    onClick={addToQueue}
+                  >
+                    <FaPlus size={15} />
+                    <p>Add to Queue</p>
                   </li>
                 </ul>
               </dialog>

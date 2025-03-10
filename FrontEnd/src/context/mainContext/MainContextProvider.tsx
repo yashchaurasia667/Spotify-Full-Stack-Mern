@@ -15,7 +15,7 @@ const MainContextProvider = ({ children }: contextProps) => {
   const [libraryWidth, setLibraryWidth] = useState<number>(350);
   const [token, setToken] = useState("");
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
-  const [queueOpen, setQueueOpen] = useState<boolean>(true);
+  const [queueOpen, setQueueOpen] = useState<boolean>(false);
   const [queue, setQueue] = useState<queueItem[]>([]);
   const [libIcon, setLibIcon] = useState(
     <>
