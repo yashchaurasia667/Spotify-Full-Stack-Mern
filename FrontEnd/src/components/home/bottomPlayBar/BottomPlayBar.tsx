@@ -34,7 +34,7 @@ const BottomPlayBar = () => {
   const playerRef = useRef<HTMLAudioElement>(null);
   const progressRef = useRef<HTMLInputElement>(null);
 
-  const [progress, setProgress] = useState(0);
+  const [progress, setProgress] = useState(0.0);
   const [progressBg, setProgressBg] = useState<string>("white");
   const [volume, setVolume] = useState(100.0);
   const [duration, setDuration] = useState<duration>({
@@ -66,6 +66,7 @@ const BottomPlayBar = () => {
           parseInt(progressRef.current.max)) *
         100;
       setProgress(percentage);
+      console.log(percentage);
     }
   };
 
@@ -85,6 +86,8 @@ const BottomPlayBar = () => {
       // console.log(seekDuration);
     }
   };
+
+  const autoNext = async () => {};
 
   useEffect(() => {
     if (currentlyPlaying.id.youtubeId && playerRef.current) {

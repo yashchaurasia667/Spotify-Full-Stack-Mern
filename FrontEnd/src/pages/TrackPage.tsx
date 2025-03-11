@@ -38,16 +38,25 @@ const TrackPage = () => {
 
   const addToQueue = async () => {
     if (!trackDetails?.id || !ytId) return;
-    const item = {
-      id: {
-        spotifyId: trackDetails.id,
-        youtubeId: ytId,
+    // const item = {
+    //   id: {
+    //     spotifyId: trackDetails.id,
+    //     youtubeId: ytId,
+    //   },
+    //   name: trackDetails.name,
+    //   artists: trackDetails.artists,
+    //   cover: trackDetails.album.images[2].url,
+    // };
+    setQueue([
+      ...queue,
+      {
+        ...trackDetails,
+        id: {
+          spotifyId: trackDetails.id,
+          youtubeId: ytId,
+        },
       },
-      name: trackDetails.name,
-      artists: trackDetails.artists,
-      cover: trackDetails.album.images[2].url,
-    };
-    setQueue([...queue, item]);
+    ]);
   };
 
   useEffect(() => {

@@ -2,6 +2,7 @@ import ytdl from "@distube/ytdl-core";
 import ffmpeg from "fluent-ffmpeg";
 
 const YTAPI = process.env.YOUTUBE_API
+const activeStreams = {};
 
 export const search = async (req, res) => {
   const { name, artist } = req.query;
@@ -29,6 +30,11 @@ export const stream = async (req, res) => {
   try {
     if (!(ytdl.validateURL(ytUrl))) return res.status(400).json("Invalid video url");
 
+    if (activeStreams[video_id]) {
+      activeStreams[video_id].audioStream.destroy();
+      activeStreams[video_id].ffmProc.kill();
+    }
+
     const audioStream = ytdl(ytUrl, {
       filter: "audioonly",
       quality: stream_quality || "highestaudio",
@@ -36,10 +42,7 @@ export const stream = async (req, res) => {
       liveBuffer: 10000,
       dlChunkSize: 0
     });
-    const info = await ytdl.getInfo(ytUrl);
-    // console.log(`duration: ${info.videoDetails.lengthSeconds}`)
 
-    // res.setHeader("duration", info.videoDetails.lengthSeconds);
     res.setHeader("Content-Type", "audio/mpeg");
     res.setHeader("Transfer-Encoding", "chunked");
 
@@ -53,14 +56,20 @@ export const stream = async (req, res) => {
           console.error(`FFmpeg error: ${err.message}`);
           if (!res.headersSent) res.status(500).json("Streaming Error");
         }
+        // audioStream.destroy();
+        // ffmProc.kill();
+        // delete activeStreams[video_id];
       });
     ffmProc.pipe(res, { end: true });
     console.log("Streaming");
+
+    activeStreams[video_id] = { audioStream, ffmProc };
 
     res.on("close", () => {
       console.error("Client disconnected, stopping stream");
       audioStream.destroy();
       ffmProc.kill();
+      delete activeStreams[video_id];
     })
 
   } catch (error) {

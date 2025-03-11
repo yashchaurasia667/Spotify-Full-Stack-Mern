@@ -77,15 +77,15 @@ export interface currentlyPlaying extends Omit<trackDetails, "id"> {
   };
 }
 
-export interface queueItem {
-  id: {
-    youtubeId: string;
-    spotifyId: string;
-  };
-  name: string;
-  artists: {
-    name: string;
-    href: string;
-  }[];
-  cover: string;
+export interface queueItem extends currentlyPlaying {
+  // id: {
+  //   youtubeId: string;
+  //   spotifyId: string;
+  // };
+  // name: string;
+  // artists: {
+  //   name: string;
+  //   href: string;
+  // }[];
+  // cover: string;
 }
