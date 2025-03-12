@@ -50,15 +50,15 @@ export const stream = async (req, res) => {
       .audioCodec("libmp3lame")
       .format("mp3")
       .on("error", (err) => {
-        if (err.message.includes("ffmpeg was killed with signal SIGKILL")) {
-          console.log("FFmpeg stopped due to client disconnection.");
-        } else {
-          console.error(`FFmpeg error: ${err.message}`);
-          if (!res.headersSent) res.status(500).json("Streaming Error");
-        }
-        // audioStream.destroy();
-        // ffmProc.kill();
-        // delete activeStreams[video_id];
+        console.error(`FFmpeg error: ${err.message}`);
+        if (!res.headersSent) res.status(500).json("Streaming Error");
+        audioStream.destroy();
+        ffmProc.kill();
+        delete activeStreams[video_id];
+      })
+      .on("end", () => {
+        console.log("ffmpeg processing finished successfully");
+        delete activeStreams[video_id];
       });
     ffmProc.pipe(res, { end: true });
     console.log("Streaming");
