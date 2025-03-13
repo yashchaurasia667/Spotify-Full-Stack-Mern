@@ -1,13 +1,10 @@
-import mongoose from "mongoose";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import Joi from "joi";
+
 // import fs from 'fs'
 
 import User from "../models/User.js"
-// import Playlist from "../models/Playlist.js";
-
-mongoose.connect("mongodb://localhost:27017/Spotify")
 
 const salt = bcrypt.genSaltSync(10);
 

@@ -1,10 +1,7 @@
 import fs from "fs";
 import path from "path";
-import mongoose from "mongoose";
 
 import User from "../models/User.js";
-
-mongoose.connect("mongodb://localhost:27017/Spotify")
 
 export const checkUser = async (req, res) => {
   const { email } = req.body;
