@@ -1,5 +1,8 @@
 import ytdl from "@distube/ytdl-core";
+import ytdlp from "youtube-dl-exec";
 import ffmpeg from "fluent-ffmpeg";
+
+import { PassThrough } from "stream";
 
 const YTAPI = process.env.YOUTUBE_API
 const activeStreams = {};
@@ -40,7 +43,7 @@ export const stream = async (req, res) => {
       quality: stream_quality || "highestaudio",
       highWaterMark: 1 << 25,
       liveBuffer: 10000,
-      dlChunkSize: 0
+      dlChunkSize: 0,
     });
 
     res.setHeader("Content-Type", "audio/mpeg");
@@ -75,6 +78,44 @@ export const stream = async (req, res) => {
   } catch (error) {
     console.error(error);
     return res.status(500).json("Internal server error");
+  }
+}
+
+export const dlp = async (req, res) => {
+  const { video_id, stream_quality } = req.query;
+  if (!video_id) return res.status(400).json("Bad Request: youtube video id is required");
+
+  const ytUrl = `https://youtube.com/watch?v=${video_id}`;
+
+  try {
+    res.setHeader("Content-Type", "audio/mpeg");
+
+    const audioStream = ytdlp.exec(ytUrl, {
+      extractAudio: true,
+      audioFormat: "mp3",
+      audioQuality: "192k",
+      output: "-"
+    }, { stdio: ["ignore", "pipe", "pipe"] });
+
+    audioStream.stderr.on("data", data => console.error(data.toString()));
+
+    console.log("yt-dlp output stream ready, starting ffmpeg");
+    const ffmProc = ffmpeg(audioStream.stdout)
+      .audioCodec("libmp3lame")
+      .format("mp3")
+      .on("error", (err) => console.error(err))
+      .on("end", () => console.log("ffmpeg processing finished"));
+    ffmProc.pipe(res, { end: true });
+
+    audioStream.on("close", (code) => {
+      if (code != 0) {
+        console.error(`yt-dlp closed with error code ${code}`);
+        return res.status(500).json("Internal server error")
+      }
+    })
+  } catch (error) {
+    console.error(error);
+    res.status(500).json("Internal server error");
   }
 }
 

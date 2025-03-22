@@ -38,15 +38,6 @@ const TrackPage = () => {
 
   const addToQueue = async () => {
     if (!trackDetails?.id || !ytId) return;
-    // const item = {
-    //   id: {
-    //     spotifyId: trackDetails.id,
-    //     youtubeId: ytId,
-    //   },
-    //   name: trackDetails.name,
-    //   artists: trackDetails.artists,
-    //   cover: trackDetails.album.images[2].url,
-    // };
     setQueue([
       ...queue,
       {
@@ -87,6 +78,7 @@ const TrackPage = () => {
       }
 
       const data = await res.json();
+      console.log(data.id);
       setYtId(data.id);
       let hr = 0,
         min = 0,

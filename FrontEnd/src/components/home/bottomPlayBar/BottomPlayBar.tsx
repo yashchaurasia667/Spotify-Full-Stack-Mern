@@ -66,7 +66,7 @@ const BottomPlayBar = () => {
           parseInt(progressRef.current.max)) *
         100;
       setProgress(percentage);
-      console.log(percentage);
+      // console.log(percentage);
     }
   };
 
@@ -90,7 +90,15 @@ const BottomPlayBar = () => {
   const autoNext = async () => {};
 
   useEffect(() => {
-    if (currentlyPlaying.id.youtubeId && playerRef.current) {
+    if (progress == 100) {
+      autoNext();
+    }
+  }, [progress]);
+
+  useEffect(() => {
+    if (!playerRef.current) return;
+
+    if (currentlyPlaying.id.youtubeId) {
       playerRef.current.pause();
       playerRef.current.src = `/api/youtube/stream?video_id=${currentlyPlaying.id.youtubeId}`;
       playerRef.current.load();
@@ -158,7 +166,10 @@ const BottomPlayBar = () => {
       {user.email ? (
         <div className="h-[70px] overflow-hidden px-3 grid grid-cols-[2fr_3fr_2fr] text-white row-start-3 col-span-3">
           <div className="hidden">
-            <audio ref={playerRef}>
+            <audio
+              ref={playerRef}
+              // src="http://localhost:4000/youtube/stream?video_id=2g5xkLqIElU"
+            >
               <source type="audio/mpeg" />
             </audio>
           </div>
