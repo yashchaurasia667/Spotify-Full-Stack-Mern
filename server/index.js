@@ -1,7 +1,12 @@
 import express from "express";
 import cookieParser from 'cookie-parser';
 import cors from "cors";
+
 import dotenv from "dotenv/config.js";
+import https from "https";
+import fs from "fs";
+import path, { dirname } from "path";
+import { fileURLToPath } from "url";
 
 import db from "./db.js"
 
@@ -16,6 +21,7 @@ const app = express();
 app.disable("x-powered-by");
 
 const PORT = process.env.PORT || 8000;
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 app.use(express.json())
 app.use(cors({ credentials: true, origin: "http://localhost:3000" }))
@@ -33,4 +39,9 @@ app.get('/ping', (req, res) => {
 });
 
 
-app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
+const sslServer = https.createServer({
+  key: fs.readFileSync(path.join(__dirname, "cert", "key.pem")),
+  cert: fs.readFileSync(path.join(__dirname, "cert", "cert.pem")),
+}, app);
+sslServer.listen(PORT, () => console.log(`SSL Server running on port ${PORT}`));
+// app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
