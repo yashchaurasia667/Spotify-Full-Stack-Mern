@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
-const mongoUrl = "mongodb://localhost:27017/Spotify"
-// const mongoUrl = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@spotify.brmz2.mongodb.net`;
+// const mongoUrl = "mongodb://localhost:27017/Spotify"
+const mongoUrl = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@spotify.brmz2.mongodb.net`;
 
 mongoose.connect(mongoUrl);
 
