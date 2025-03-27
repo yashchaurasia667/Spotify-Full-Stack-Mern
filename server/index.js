@@ -24,7 +24,7 @@ const PORT = process.env.PORT || 8000;
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 app.use(express.json())
-app.use(cors({ credentials: true, origin: "http://localhost:3000" }))
+app.use(cors({ credentials: true, origin: ["http://localhost:3000", "https://spotify-fullstack-mern.netlify.app"]}))
 app.use(cookieParser())
 app.use('/uploads', express.static('./uploads'))
 
