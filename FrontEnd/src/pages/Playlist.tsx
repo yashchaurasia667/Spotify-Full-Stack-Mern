@@ -35,6 +35,7 @@ const Playlist = () => {
           setNotfound(true);
         }
         setPlaylist(details);
+        console.log(details);
 
         averageImageColor(
           details.cover == "playlist_default.png"

@@ -13,7 +13,6 @@ import MainContext from "../context/mainContext/MainContext";
 import QueueSection from "../components/queueBar/QueueSection";
 
 const MainLayout = () => {
-  // document.querySelector("#favicon")!.href = "spotifyGreen.svg";
   const favicon = document.querySelector("#favicon") as HTMLLinkElement;
   if (favicon) favicon.href = "spotifyGreen.svg";
 
@@ -141,6 +140,7 @@ const MainLayout = () => {
     }
 
     if (user.refresh_token) {
+      document.cookie = `access_token=${user.access_token}; path=/`;
       fetch("/api/spotify/checktokenvalidity", {
         credentials: "include",
       }).then((res) => {

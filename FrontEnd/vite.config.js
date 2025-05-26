@@ -7,13 +7,13 @@ export default defineConfig({
   server: {
     port: 3000,
     proxy: {
-      "/api": "https://spotify-full-stack-mern.onrender.com"
-      // "/api": {
-      //   // target: "http://localhost:4000/",
-      //   target: "https://spotify-full-stack-mern.onrender.com",
-      //   changeOrigin: true,
-      //   rewrite: (path) => path.replace(/^\/api/, ""),
-      // },
+      // "/api": "https://spotify-full-stack-mern.onrender.com"
+      "/api": {
+        target: "http://localhost:4000/",
+        // target: "https://spotify-full-stack-mern.onrender.com",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ""),
+      },
     },
   },
 });

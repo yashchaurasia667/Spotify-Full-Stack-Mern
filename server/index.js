@@ -20,7 +20,7 @@ import YoutubeRouter from "./routes/YoutubeRouter.js"
 const app = express();
 app.disable("x-powered-by");
 
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 4000;
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 app.use(express.json())
@@ -43,5 +43,5 @@ const sslServer = https.createServer({
   key: fs.readFileSync(path.join(__dirname, "cert", "key.pem")),
   cert: fs.readFileSync(path.join(__dirname, "cert", "cert.pem")),
 }, app);
-sslServer.listen(PORT, () => console.log(`SSL Server running on port ${PORT}`));
-// app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
+// sslServer.listen(PORT, () => console.log(`SSL Server running on port ${PORT}`));
+app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
